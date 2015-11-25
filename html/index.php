@@ -12,7 +12,7 @@
 //démmarrer une session php
 @session_start();
 
-require_once("../scr/functions.php");
+require_once("../src/functions.php");
 
 
 
