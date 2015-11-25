@@ -1,7 +1,7 @@
 <?php
 #- BEGIN LICENSE BLOCK ---------------------------------------
 #
-# This file is part of tinaderp.
+# This file is part of botsArena.
 #
 # Copyright (C) Gnieark et contributeurs
 # Licensed under the GPL version 3.0 license.
@@ -51,7 +51,9 @@ if (isset($_POST['xd_check']))
 	<title></title>
 </head>
 <body>
+    
   <header>
+    <h1><?php if(isset($arenas['current'])){ echo $arenas['current']['title'];}else{echo "Bots Arena";} ?></h1>
   </header>
   <section>
   </section>
