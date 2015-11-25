@@ -1,4 +1,3 @@
-root@mail2:~# cat /var/www/mail2.ch-boispetit.fr-https/moteur/inc/prepend.php 
 <?php
 #- BEGIN LICENSE BLOCK ---------------------------------------
 #
