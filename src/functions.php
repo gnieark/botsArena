@@ -20,7 +20,7 @@ function get_language_array(){
 
   $langsAvailable=array('fr','en');
   $language="";
-  if( $_GET['lang'] ){
+  if( isset($_GET['lang']) ){
    
     $lang = $_GET['lang'];
     setcookie( 'lang', $language, time() + 60*60*24*30 );
