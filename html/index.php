@@ -17,7 +17,7 @@ require_once("../src/functions.php");
 
 
 $arenas=get_arenas_list();
-
+$lang=get_language_array();
 //form submitting
 if (isset($_POST['xd_check']))
 {
@@ -51,7 +51,13 @@ if (isset($_POST['xd_check']))
 <body>
     
   <header>
-    <h1><?php if(isset($arenas['current'])){ echo $arenas['current']['title'];}else{echo "Bots Arena";} ?></h1>
+  	<nav id="languages"><a href="/fr">fr</a>&nbsp;<a href="/en">en</a></nav>
+    <h1><?php 
+    		if(isset($arenas['current'])){ 
+    				echo $arenas['current']['title'];
+    		}else{
+    			echo $lang['SITE_NAME'];
+    		} ?></h1>
   </header>
   <section>
   </section>
