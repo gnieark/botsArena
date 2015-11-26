@@ -16,7 +16,7 @@ require_once("../src/functions.php");
 
 
 
-$arenas=arenas_get_list();
+$arenas=get_arenas_list();
 
 //form submitting
 if (isset($_POST['xd_check']))
@@ -34,8 +34,6 @@ if (isset($_POST['xd_check']))
 	}
 
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
