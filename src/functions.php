@@ -1,14 +1,6 @@
 <?php
 function  get_arenas_list(){
     include (__DIR__."/arenas_lists.php");
-    if(isset($_GET['arena'])){
-        foreach ($arenas as $arena){
-            if($arena['id'] == $_GET['arena']){
-                $arenas['current'] = $arena;
-                break;
-            }
-        }
-    }
     return $arenas;
 }
 function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'){

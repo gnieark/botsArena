@@ -18,9 +18,28 @@ require_once("../src/functions.php");
 
 $arenas=get_arenas_list();
 $lang=get_language_array();
+
+
+if(isset($_GET['arena'])){
+    //check if arena is list
+    $currentArena = false;
+    foreach($arenas as $arena){
+        if($arena['id'] == $GET['arena']){
+            $currentArena = $GET['arena'];
+            break;
+        }
+    }
+    if(!$currentArena){
+        error("Wrong parameter");
+        die;
+    }
+}else{
+    $currentArena = "";
+}
+
+
 //form submitting
-if (isset($_POST['xd_check']))
-{
+if (isset($_POST['xd_check'])){
 	//vérifier le numero de formulaire
 	if (($_SESSION['xd_check']!=$_POST['xd_check']) AND ($_POST['xd_check'] !="")){
 		erreur ('Something wrong has appen');
@@ -51,7 +70,18 @@ if (isset($_POST['xd_check']))
 <body>
     
   <header>
-  	<nav id="languages"><a href="/fr">fr</a>&nbsp;<a href="/en">en</a></nav>
+  	<nav id="languages"><a href="-fr">fr</a>&nbsp;<a href="-en">en</a></nav>
+  	<nav id="menus"><a href="/"><?php echo $lang['HOME']; ?></a>
+  	<?php
+            foreach($arenas as $arena){
+                if( $arena['id'] == $currentArena){
+                    $class="selected";
+                }else{
+                    $class="";
+                }
+                echo '<a href="'.$arena['url'].'" class="'.$class.'">'.$arena['title'].'</a>';
+            }
+  	?>
     <h1><?php 
     		if(isset($arenas['current'])){ 
     				echo $arenas['current']['title'];
