@@ -7,7 +7,7 @@ $arenas=array(
     ),
     array(
         'id' => "Battleship",
-        'url' => "/battleship",
+        'url' => "/Battleship",
         'title' => "bataille Navale"
     )
     
