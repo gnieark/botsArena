@@ -26,6 +26,7 @@ if(isset($_GET['arena'])){
     foreach($arenas as $arena){
         if($arena['id'] == $_GET['arena']){
             $currentArena = $_GET['arena'];
+            $currentArenaArr=$arena;
             break;
         }
     }
@@ -87,7 +88,7 @@ if (isset($_POST['xd_check'])){
 		  echo $lang['SITE_NAME'];
     				
     		}else{
-		  echo $arenas['current']['title'];
+		  echo $currentArenaArr['title'];
     		} ?></h1>
   </header>
   <section>
