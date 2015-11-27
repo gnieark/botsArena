@@ -92,7 +92,7 @@ if (isset($_POST['xd_check'])){
   </header>
   <section>
     <?php
-      switch($arena){
+      switch($currentArena){
 	case "":
 	  echo "<h2>Accueil</h2>";
 	  break;
