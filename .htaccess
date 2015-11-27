@@ -6,10 +6,9 @@ php_flag html_errors on
 #urlrewritting
 RewriteEngine On
 RewriteBase /
-RewriteRule ^v/([A-Za-z0-9]*)-([a-Z]{2})$  index.php?arena=$1&lang=$2 [L]
-RewriteRule ^v/([A-Za-z0-9]*)$  index.php?arena=$1 [L]
-RewriteRule ^v/-([a-Z]{2})$  index.php?lang=$1 [L]
+RewriteRule ^/([a-zA-Z]*)-([a-z]{2})$  index\.php?arena=$1&lang=$2 [L]
+RewriteRule ^/([a-zA-Z]*)$  index\.php?arena=$1 [L]
+RewriteRule ^/-([a-z]{2})$  index.php?lang=$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([A-Za-z0-9]*)$  index.php?page=$1 [L]
 RewriteRule ^index.php$  index.php/ [L]
