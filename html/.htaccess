@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^([a-zA-Z]{1,})-([a-z]{2})$  index\.php?arena=$1&lang=$2 [L]
+RewriteRule ^([a-zA-Z]{1,})$  index\.php?arena=$1 [L]
+RewriteRule ^-([a-z]{2})$  index\.php?lang=$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^index.php$  index.php/ [L]

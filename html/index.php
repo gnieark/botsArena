@@ -18,19 +18,39 @@ require_once("../src/functions.php");
 
 $arenas=get_arenas_list();
 $lang=get_language_array();
+
+
+if(isset($_GET['arena'])){
+    //check if arena is list
+    $currentArena = false;
+    foreach($arenas as $arena){
+        if($arena['id'] == $_GET['arena']){
+            $currentArena = $_GET['arena'];
+            $currentArenaArr=$arena;
+            break;
+        }
+    }
+    if(!$currentArena){
+        error(404,"Wrong parameter");
+        die;
+    }
+}else{
+    $currentArena = "";
+}
+
+
 //form submitting
-if (isset($_POST['xd_check']))
-{
+if (isset($_POST['xd_check'])){
 	//vérifier le numero de formulaire
 	if (($_SESSION['xd_check']!=$_POST['xd_check']) AND ($_POST['xd_check'] !="")){
 		erreur ('Something wrong has appen');
 		die;
 	}
 	//call the good act.php
-	if((isset($arenas['current'])) && (file_exists("src/arenas/act.php"))){
-	  require_once("src/arenas/act.php");
+	if(($currentArena <> "") && (file_exists("../src/arenas/".$currentArena."/act.php"))){
+	  require_once("../src/arenas/".$currentArena."/act.php");
 	}else{
-	  require_once("src/default/act.php");
+	  require_once("../src/arenas/".$currentArena."/act.php");
 	}
 
 }
@@ -51,15 +71,37 @@ if (isset($_POST['xd_check']))
 <body>
     
   <header>
-  	<nav id="languages"><a href="/fr">fr</a>&nbsp;<a href="/en">en</a></nav>
+  	<nav id="languages"><a href="-fr">fr</a>&nbsp;<a href="-en">en</a></nav>
+  	<nav id="menus"><a href="/"><?php echo $lang['HOME']; ?></a>
+  	<?php
+            foreach($arenas as $arena){
+                if( $arena['id'] == $currentArena){
+                    $class="selected";
+                }else{
+                    $class="";
+                }
+                echo '<a href="'.$arena['url'].'" class="'.$class.'">'.$arena['title'].'</a>';
+            }
+  	?>
     <h1><?php 
-    		if(isset($arenas['current'])){ 
-    				echo $arenas['current']['title'];
+    		if($currentArena == ""){
+		  echo $lang['SITE_NAME'];
+    				
     		}else{
-    			echo $lang['SITE_NAME'];
+		  echo $currentArenaArr['title'];
     		} ?></h1>
   </header>
   <section>
+    <?php
+      switch($currentArena){
+	case "":
+	  echo "<h2>Accueil</h2>";
+	  break;
+	default:
+	  include ("../src/arenas/".$currentArena."/public.php");
+	  break;
+      }
+    ?>
   </section>
   <footer>
   </footer>
