@@ -83,7 +83,7 @@ if (isset($_POST['xd_check'])){
             }
   	?>
     <h1><?php 
-    		if($currentArena=="")){
+    		if($currentArena == ""){
 		  echo $lang['SITE_NAME'];
     				
     		}else{
