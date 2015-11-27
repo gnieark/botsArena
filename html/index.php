@@ -46,10 +46,10 @@ if (isset($_POST['xd_check'])){
 		die;
 	}
 	//call the good act.php
-	if((isset($arenas['current'])) && (file_exists("src/arenas/act.php"))){
-	  require_once("src/arenas/act.php");
+	if($currentArena <> "") && (file_exists("../src/arenas/".$currentArena."/act.php"))){
+	  require_once("../src/arenas/".$currentArena."/act.php");
 	}else{
-	  require_once("src/default/act.php");
+	  require_once("../src/arenas/".$currentArena."/act.php");
 	}
 
 }
@@ -83,13 +83,24 @@ if (isset($_POST['xd_check'])){
             }
   	?>
     <h1><?php 
-    		if(isset($arenas['current'])){ 
-    				echo $arenas['current']['title'];
+    		if($currentArena=="")){
+		  echo $lang['SITE_NAME'];
+    				
     		}else{
-    			echo $lang['SITE_NAME'];
+		  echo $arenas['current']['title'];
     		} ?></h1>
   </header>
   <section>
+    <?php
+      switch($arena){
+	case "":
+	  echo "<h2>Accueil</h2>";
+	  break;
+	default:
+	  include ("../src/arenas/".$currentArena."/public.php");
+	  break;
+      }
+    ?>
   </section>
   <footer>
   </footer>
