@@ -24,13 +24,13 @@ if(isset($_GET['arena'])){
     //check if arena is list
     $currentArena = false;
     foreach($arenas as $arena){
-        if($arena['id'] == $GET['arena']){
-            $currentArena = $GET['arena'];
+        if($arena['id'] == $_GET['arena']){
+            $currentArena = $_GET['arena'];
             break;
         }
     }
     if(!$currentArena){
-        error("Wrong parameter");
+        error(404,"Wrong parameter");
         die;
     }
 }else{

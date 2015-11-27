@@ -80,3 +80,16 @@ function get_language_array(){
   include (__DIR__."/../lang/".$language.".php");
   return $lang;
 }
+function error($code,$message){
+    switch($error){
+        case 404:
+            header("HTTP/1.0 404 Not Found");
+            echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Page Not found</title></head><body><p>'.$message.'</p></body></html>';
+            die;
+        default:
+        
+            die;
+            break;
+    }
+    
+}
