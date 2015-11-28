@@ -1,7 +1,7 @@
 <?php
 $mysqlParams=array(
   'host' => 'localhost',
-  'user' => '',
+  'user' => 'sdkjfhdskjfh',
   'pass' => '',
   'database'=>''
 );
