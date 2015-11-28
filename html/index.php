@@ -93,8 +93,7 @@ if($currentArena == ""){
                 }
                 echo '<a href="'.$arena['url'].'" class="'.$class.'">'.$arena['title'].'</a>';
             }
-  	?>
-   
+  	?></nav>
   </header>
   <section>
     <?php
