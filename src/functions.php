@@ -90,7 +90,7 @@ function error($code,$message){
 	    die;
 	  case 500:
 	    header ("HTTP/1.0 500 Internal Server Error");
-	    echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Bad request</title></head><body><p>'.$message.'</p></body></html>';
+	    echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Internal Server Error</title></head><body><p>'.$message.'</p></body></html>';
 	    die;
         default:
 
