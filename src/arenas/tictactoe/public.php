@@ -1,1 +1,5 @@
-<h2> tic tac toe </h2>
+<?php
+require_once(__DIR__."/functions.php");
+
+$bots=getBotsArray();
+print_r($bots);

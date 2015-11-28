@@ -1,0 +1,3 @@
+stupidAI http://morpionmaster.tinad.fr/stupidIa.php
+moul http://tictactoe.m.42.am/
+Gnieark http://morpionmaster.tinad.fr/gnieark.php
