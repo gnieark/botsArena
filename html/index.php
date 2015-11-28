@@ -35,12 +35,11 @@ if(isset($_GET['arena'])){
     $currentArena = "";
 }
 
-
 //form submitting
 if (isset($_POST['xd_check'])){
 	//vérifier le numero de formulaire
 	if (($_SESSION['xd_check']!=$_POST['xd_check']) AND ($_POST['xd_check'] !="")){
-		erreur ('Something wrong has appen');
+		error (400, 'Something wrong has appen');
 		die;
 	}
 	//call the good act.php
@@ -77,7 +76,7 @@ if($currentArena == ""){
 	if(isset($currentArenaArr['jsFile'])){
 	  echo '<script type="text/javascript"><!--'."\n";
 	  echo file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['jsFile']);
-	  echo '--></script>';
+	  echo "\n--></script>";
 	}
      ?>
 </head>
