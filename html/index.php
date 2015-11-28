@@ -45,10 +45,7 @@ if (isset($_POST['xd_check'])){
 	//call the good act.php
 	if(($currentArena <> "") && (file_exists("../src/arenas/".$currentArena."/act.php"))){
 	  require_once("../src/arenas/".$currentArena."/act.php");
-	}else{
-	  require_once("../src/arenas/".$currentArena."/act.php");
 	}
-
 }
 //title
 if($currentArena == ""){
