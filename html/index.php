@@ -77,6 +77,15 @@ if($currentArena == ""){
       <style type="text/css">
 	@import url(/style.css);
       </style>
+     <?php
+      //script js de l'arene
+	if(isset($currentArenaArr['jsFile'])){
+	  echo '<script type="text/javascript"><!--';
+	  echo file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['jsFile']);
+	  echo '--></script>';
+	}
+     ?>
+     
 </head>
 <body>
     
