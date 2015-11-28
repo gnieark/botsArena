@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/functions.php");
 
-$bots=getBotsArray();
+$bots=get_Bots_Array();
 $postParams=get_Post_Params();
 if(!$postParams){
   $bot1="";
