@@ -103,7 +103,7 @@ if($currentArena == ""){
     <?php
       switch($currentArena){
 	case "":
-	  echo "<h2>Accueil</h2>";
+	  include ("../src/home.php");
 	  break;
 	default:
 	  include ("../src/arenas/".$currentArena."/public.php");
