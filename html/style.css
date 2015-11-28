@@ -29,5 +29,17 @@ header h1{
   
 }
 #menus{
-  width:100%;
+ margin-left: 50px;
+ width:100%;
+ display: table;
+}
+#menus a{
+	color: #fff;
+	display: table-cell;
+	text-decoration: none;
+	text-align: center;
+}
+.selected{
+	color:#000000;
+	background-color:#fff;
 }
