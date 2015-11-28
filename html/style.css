@@ -1,0 +1,50 @@
+body{
+  width:100%;
+  font-size:100%; 
+  top: 0px;
+  line-height:140%;
+  word-wrap:break-word;
+  text-rendering:optimizelegibility;
+  margin:0 auto;
+  font-family : "lucida grande", "gill sans", arial, sans-serif;
+}
+header{
+  background-color:#A60800; 
+  width: 100%;
+  overflow: hidden;
+  height: auto;
+}
+header h1{
+  display: block; 
+  font-size:300%; 
+  color:#FFF;float: left; 
+  width: 45%;
+  margin-left: 5%;}
+
+ header nav{
+   display: block; 
+   width: 45%;
+   color:#FFF; 
+   float: right;
+  
+}
+#menus{
+ margin-left: 50px;
+ width:100%;
+ display: table;
+}
+#menus a{
+	color: #fff;
+	display: table-cell;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 15px 15px 0px 0px;
+}
+#menus a.selected{
+	color:#202020; 
+	background-color:#fff;
+}
+#languages{
+	float: right;
+	text-align: right;
+}
