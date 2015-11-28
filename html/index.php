@@ -54,6 +54,14 @@ if (isset($_POST['xd_check'])){
 	}
 
 }
+//title
+if($currentArena == ""){
+  $siteTitle = $lang['SITE_NAME'];
+		
+}else{
+  $siteTitle=$currentArenaArr['title'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -62,15 +70,18 @@ if (isset($_POST['xd_check'])){
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="ROBOTS" content="INDEX, FOLLOW" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="author" content="Gnieark" />
-	
-	<title></title>
+    <meta name="ROBOTS" content="INDEX, FOLLOW" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Gnieark" />
+    <title><?php echo $siteTitle; ?></title>
+      <style type="text/css">
+	@import url(/style.css);
+      </style>
 </head>
 <body>
     
   <header>
+	<h1><?php echo $siteTitle; ?></h1>
   	<nav id="languages"><a href="-fr">fr</a>&nbsp;<a href="-en">en</a></nav>
   	<nav id="menus"><a href="/"><?php echo $lang['HOME']; ?></a>
   	<?php
@@ -83,13 +94,7 @@ if (isset($_POST['xd_check'])){
                 echo '<a href="'.$arena['url'].'" class="'.$class.'">'.$arena['title'].'</a>';
             }
   	?>
-    <h1><?php 
-    		if($currentArena == ""){
-		  echo $lang['SITE_NAME'];
-    				
-    		}else{
-		  echo $currentArenaArr['title'];
-    		} ?></h1>
+   
   </header>
   <section>
     <?php

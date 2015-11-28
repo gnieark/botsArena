@@ -1,0 +1,10 @@
+body{width:100%;font-size:100%; top: 0px;line-height:140%;word-wrap:break-word;text-rendering:optimizelegibility;margin:0 auto;font-family : "lucida grande", "gill sans", arial, sans-serif;}
+header{background-color:#A60800; width: 100%; overflow: hidden;height: auto;}
+header h1{display: block; font-size:300%; color:#FFF;float: left; width: 45%;font-family: 'Special Elite', cursive;margin-left: 5%;}
+header nav{display: block; width: 45%;color:#FFF; float: left;}
+
+nav{padding-top: 10px;padding-bottom:10px;background-color:#015C65;height: auto; overflow: hidden;width: 90%; border:1px solid rgb(204, 204, 204); margin: 0 auto;text-align: center;}
+nav ul li a{color:#fff;}
+nav ul li a:hover{background-color:#FFD273;}
+nav ul li{display : inline;padding : 0 0.5em;}
+nav ul{list-style-type : none; margin: 0 auto; }
