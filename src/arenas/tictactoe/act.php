@@ -6,7 +6,7 @@ switch ($_POST['act']){
   case "fight":
     $bots=get_Bots_Array();
     //clean $_POST vars
-    $postParams=get_Post_Params();
+    $postParams=get_Post_Params(count($bots));
     if(!$postParams){
       error(400,"wrong parameters send");
       die;
