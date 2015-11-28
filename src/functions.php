@@ -99,3 +99,65 @@ function error($code,$message){
     }
     
 }
+function conn_bdd(){
+    require (__DIR__."/config.php");  
+    $mysqlParams=array(
+        'host' => 'localhost',
+        'user' => '',
+        'pass' => '',
+        'database'=>''
+    );
+
+    if (!$linkMysql=mysqli_connect($mysqlParams['host'], $mysqlParams['user'], $mysqlParams['pass'])) {                                                                                                         
+        error(500,'database connexion failed');                                                                                                                                                  
+        die;                                                                                                                                                                                           
+    }                                                                                                                                                                                                      
+    mysqli_select_db($linkMysql,$mysqlParams['mysql_database']);
+    mysqli_set_charset($linkMysql, 'utf8');  
+    return $linkMysql; //does PHP can do that?
+
+}
+function save_battle($game,$bot1,$bot2,$resultat){
+    //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
+
+
+    $lnMysql=conn_bdd();
+    //chercher les id de bot 1 et bot2
+    $rs=mysqli_query($lnMysql,"SELECT name,id FROM bots 
+                                WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
+                                OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");
+    
+    while($r=mysqli_fetch_row($rs)){
+        $bots[$r[0]]=$r[1];
+    }
+    
+    if((!isset($bots[$bot1])) OR (!isset($bots[$bot2]))){
+        error (500,"database corrupt");
+        die;
+    }
+   
+    switch($resultat){
+        case 0:
+            $field="nulCount";
+            break;
+        case 1:
+            $field="player1_winsCount";
+            break;
+        case 2:
+            $field="player2_winsCount";
+            break;
+        default:
+             error (500,"something impossible has happened");
+             break;
+    }
+    
+    mysqli_query($lnMysql,
+        "INSERT INTO arena_history(game,player1_id,player2_id,".$field.") VALUES
+        ('"..mysqli_real_escape_string($lnMysql,$game)."',
+        '".$bots[$bot1]."',
+        '".$bots[$bot2]."',
+        '1')
+        ON DUPLICATE KEY UPDATE ".$field." = ".$field." + 1;");
+        
+    mysqli_close($lnMysql);
+}
