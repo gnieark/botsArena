@@ -69,6 +69,12 @@ if($currentArena == ""){
 	@import url(/style.css);
       </style>
      <?php
+      //arena specific css script (if needed)
+      if(isset($currentArenaArr['cssFile'])){
+	  echo '<style type="text/css"><!--'."\n";
+	  echo file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile']);
+	  echo "\n--></style>";
+	}     
       //arena specific script js (if needed)
 	if(isset($currentArenaArr['jsFile'])){
 	  echo '<script type="text/javascript"><!--'."\n";
