@@ -48,3 +48,9 @@ header h1{
 	float: right;
 	text-align: right;
 }
+section{
+	border-bottom: 1px solid rgb(204, 204, 204); 
+	margin: 0 auto;
+	overflow: hidden;
+	width: 90%;
+}
