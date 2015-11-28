@@ -1,5 +1,5 @@
 <?php
-function get_Post_Params(){
+function get_Post_Params($botsCount){
       $keysBots=array('bot1','bot2');
       foreach($keysBots as $botKey){
 	if(!isset($_POST[$botKey])){
@@ -8,7 +8,7 @@ function get_Post_Params(){
 	if(!is_numeric(($_POST[$botKey]))){
 
 	}
-	if(($_POST[$botKey] < 0) OR ($_POST[$botKey] > count($bots))){
+	if(($_POST[$botKey] < 0) OR ($_POST[$botKey] > $botsCount)){
 	  error(400,"wrong parameters");
 	  die;
 	}
