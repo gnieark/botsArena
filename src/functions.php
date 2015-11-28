@@ -153,7 +153,7 @@ function save_battle($game,$bot1,$bot2,$resultat){
     
     mysqli_query($lnMysql,
         "INSERT INTO arena_history(game,player1_id,player2_id,".$field.") VALUES
-        ('"..mysqli_real_escape_string($lnMysql,$game)."',
+        ('".mysqli_real_escape_string($lnMysql,$game)."',
         '".$bots[$bot1]."',
         '".$bots[$bot2]."',
         '1')
