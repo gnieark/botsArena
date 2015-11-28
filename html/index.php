@@ -92,7 +92,7 @@ if($currentArena == ""){
   <header>
 	<h1><?php echo $siteTitle; ?></h1>
   	<nav id="languages"><a href="-fr">fr</a>&nbsp;<a href="-en">en</a></nav>
-  	<nav id="menus"><a href="/"<?php if($currentArena == "") echo 'class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
+  	<nav id="menus"><a href="/"<?php if($currentArena == "") echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
   	<?php
             foreach($arenas as $arena){
                 if( $arena['id'] == $currentArena){
