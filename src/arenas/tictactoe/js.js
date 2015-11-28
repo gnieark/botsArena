@@ -20,7 +20,7 @@ function tictactoe(bot1,bot2,xd_check){
 	document.getElementById('fightResult').innerHTML = xhr.responseText;				
       }
     }};
-    xhr.open("POST", 'index.php',  true);
+    xhr.open("POST", '/tictactoe',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
 }
