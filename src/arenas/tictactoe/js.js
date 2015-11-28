@@ -22,18 +22,5 @@ function tictactoe(bot1,bot2,xd_check){
     }};
     xhr.open("POST", 'index.php',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + ,xd_check);
-  }
-
-function refreshBots(){
-  var xhr = Ajx(); 
-  xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-      if(xhr.status  == 200) {
-	window.location.reload();		
-      }
-    }};
-    xhr.open("POST", 'index.php',  true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=reDownloadBotsList');
-  }
-  
+    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
+}
