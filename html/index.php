@@ -13,7 +13,7 @@
 @session_start();
 
 require_once("../src/functions.php");
-
+$lnMysql=conn_bdd();
 $arenas=get_arenas_list();
 $lang=get_language_array();
 

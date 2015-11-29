@@ -112,8 +112,9 @@ function conn_bdd(){
 
 }
 function get_battles_history($game){
+    global $lnMysql;
     $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
-    $lnMysql=conn_bdd();
+   
     $rs=mysqli_query($lnMysql,
         " SELECT   
             player1.name,
@@ -142,15 +143,16 @@ function get_battles_history($game){
         );
     
     }
-    mysqli_close($lnMysql);
     return $results;
 }
 function save_battle($game,$bot1,$bot2,$resultat){
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 
+    global $lnMysql;
+    
     $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
 
-    $lnMysql=conn_bdd();
+    
     //chercher les id de bot 1 et bot2
     $rs=mysqli_query($lnMysql,"SELECT name,id FROM bots 
                                 WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
@@ -186,6 +188,4 @@ function save_battle($game,$bot1,$bot2,$resultat){
         '".$bots[$bot2]."',
         '1')
         ON DUPLICATE KEY UPDATE ".$field." = ".$field." + 1;");
-        
-    mysqli_close($lnMysql);
 }
