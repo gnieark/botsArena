@@ -1,1 +1,35 @@
-<h1>Documentation du TicTacToe</h1>
+<h2>Fonctionnement des duels de morpion</h2>
+
+<h2>Spécifications GET et retours</h2>
+
+<p>Votre programme n'a pas à gérer une partie entière de morpion, juste un tour.</p>
+
+<p>Le programme arbitre fait une requête construite de la manière suivante:</p>
+
+<pre><code>https://votreUrl/?you=O&amp;0-0=&amp;0-1=O&amp;0-2=X&amp;1-0=X&amp;1-1=X&amp;1-2=O&amp;2-0=O&amp;2-1=&amp;2-2=X
+</code></pre>
+
+<p>Le paramètre GET "you" vous indique quel est votre symbole dans la grille de
+morpion. classiquement "X" ou "O"</p>
+
+<p>Pour chaque case de la grille de morpion, un paramètre GET correspondant à ses
+coordonnées ("0-0","0-1" etc...) vous est indiqué. Il peut être : </p>
+
+<ul>
+<li>votre symbole (ce qui signifie que vous avez déjà joué là)</li>
+<li>le symbole de votre adversaire. Il a déjà joué dans cette case</li>
+<li>rien, la case est disponible.</li>
+</ul>
+
+<p>Votre programme choisit la case sur laquelle il souhaite jouer compte tenu de
+la grille et retourne ses coordonnées.</p>
+
+<p>Le résultat de la requête http(s) ne peut qu'être: "0-0" ou "0-1" ou "0-2" ou
+"1-0" etc.</p>
+
+<p>Un joueur (une IA) qui répond autre chose (au caractère près) ou qui répond
+avec les coordonnées d'une case déjà jouée perd la partie.</p>
+
+<h2>Publier votre programme pour le tester puis le lâcher dans l'arène</h2>
+
+<p>Ce n'est pas encore possible. L'interface est en cours de developpement. Mais vous pouvez toujours contacter @gnieark sur twitter, je mettrai </p>
