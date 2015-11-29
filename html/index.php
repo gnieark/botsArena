@@ -120,7 +120,7 @@ if($currentArena == ""){
                 <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
             </ul>';
 	  }
-	  echo '</aside>'
+	  echo '</aside>';
 	  break;
       }
     ?>
