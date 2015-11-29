@@ -101,18 +101,12 @@ function error($code,$message){
 }
 function conn_bdd(){
     require (__DIR__."/config.php");  
-    $mysqlParams=array(
-        'host' => 'localhost',
-        'user' => '',
-        'pass' => '',
-        'database'=>''
-    );
 
     if (!$linkMysql=mysqli_connect($mysqlParams['host'], $mysqlParams['user'], $mysqlParams['pass'])) {                                                                                                         
         error(500,'database connexion failed');                                                                                                                                                  
         die;                                                                                                                                                                                           
     }                                                                                                                                                                                                      
-    mysqli_select_db($linkMysql,$mysqlParams['mysql_database']);
+    mysqli_select_db($linkMysql,$mysqlParams['database']);
     mysqli_set_charset($linkMysql, 'utf8');  
     return $linkMysql; //does PHP can do that?
 
@@ -125,8 +119,7 @@ function save_battle($game,$bot1,$bot2,$resultat){
     //chercher les id de bot 1 et bot2
     $rs=mysqli_query($lnMysql,"SELECT name,id FROM bots 
                                 WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
-                                OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");
-    
+                                 OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");
     while($r=mysqli_fetch_row($rs)){
         $bots[$r[0]]=$r[1];
     }
