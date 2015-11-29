@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `arena_history` (
-  `game` int(11) NOT NULL,
+  `game` varchar(8) NOT NULL,
   `player1_id` int(11) NOT NULL,
   `player2_id` int(11) NOT NULL,
   `player1_winsCount` int(11) NOT NULL,
