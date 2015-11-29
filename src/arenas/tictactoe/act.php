@@ -66,6 +66,7 @@ switch ($_POST['act']){
 		OR  (($map['0-2']==$map['1-1'])&&($map['1-1']==$map['2-0'])&&($map['2-0']!==""))
 	    ){
 		echo "<p>".$playerName." ".$playerCHAR." a gagné.</p>";
+		save_battle('tictactoe',$bot1,$bot2,$playerPlayingNow);
 		$end=true;
 		break;
 	    }
@@ -79,6 +80,7 @@ switch ($_POST['act']){
 	    }
 	    if($full){
 		echo "<p>Match nul</p>";
+		save_battle('tictactoe',$bot1,$bot2,0);
 		$end=true;
 		break;
 	    }
