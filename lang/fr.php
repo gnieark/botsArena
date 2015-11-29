@@ -1,5 +1,6 @@
 <?php
 $lang=array(
+    'lang'	=> 'fr',
     'SITE_NAME' => 'Arène à bots',
     'SITE_DESCRIPTION'  => 
       '<p>Bienvenue sur cette arène à bots.<br/>

@@ -1,5 +1,6 @@
 <?php
 $lang=array(
+    'lang'	=> 'en',
     'SITE_NAME' => 'bots\'arena',
     'SITE_DESCRIPTION'  => 'blah blah blah but english',
     'HOME'  => 'Home page',
