@@ -111,6 +111,39 @@ function conn_bdd(){
     return $linkMysql; //does PHP can do that?
 
 }
+function get_battles_history($game){
+    $lnMysql=conn_bdd();
+    $rs=mysqli_query($lnMysql,
+        " SELECT   
+            player1.name,
+            player2.name,
+            arena_history.player1_winsCount,
+            arena_history.player2_winsCount,
+            arena_history.nulCount
+           FROM
+            bots as player1,
+            bots as player2,
+            arena_history
+           WHERE
+            player1.id=arena_history.player1_id
+            AND player2.id=arena_history.player2_id
+            AND arena_history.game='".mysqli_real_escape_string($lnMysql,$game)."';"    
+    );
+    
+    $results=array();
+    while($r=mysqli_fetch_row($rs)){
+        $results[]= array(
+            'bot1'  => $r[0],
+            'bot2'  => $r[1],
+            'player1Wins'   => $r[2],
+            'player2Wins'   => $r[3],
+            'draws'          => $r[4]
+        );
+    
+    }
+    mysqli_close($lnMysql);
+    return $results;
+}
 function save_battle($game,$bot1,$bot2,$resultat){
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 

@@ -108,6 +108,19 @@ if($currentArena == ""){
 	  break;
 	default:
 	  include ("../src/arenas/".$currentArena."/public.php");
+	  
+	  //battle history for this arena
+	  $hist=get_battles_history($currentArena);
+	  echo '<aside id="history">';
+	  foreach($hist as $sc){
+            echo '<h2>'.$sc['bot1'].' VS '.$sc['bot2'].'</h2>
+            <ul>
+                <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
+                <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
+                <li>'$lang['DRAW'].":".$sc['draws'].'</li>
+            </ul>';
+	  }
+	  echo '</aside>'
 	  break;
       }
     ?>
