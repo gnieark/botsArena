@@ -107,8 +107,6 @@ if($currentArena == ""){
 	  include ("../src/home.php");
 	  break;
 	default:
-	  include ("../src/arenas/".$currentArena."/public.php");
-	  
 	  //battle history for this arena
 	  $hist=get_battles_history($currentArena);
 	  echo '<aside id="history"><h2>Scores</h2>';
@@ -121,6 +119,7 @@ if($currentArena == ""){
             </ul>';
 	  }
 	  echo '</aside>';
+            include ("../src/arenas/".$currentArena."/public.php");
 	  break;
       }
     ?>

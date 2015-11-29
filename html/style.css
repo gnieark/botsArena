@@ -55,11 +55,11 @@ section{
 	width: 90%;
 }
 article{
-	float: left;
+	float: right;
 	width:70%;
 }
 aside{
-	float:right;
+	float:left;
 	width: 28%;
 }
 
