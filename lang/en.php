@@ -8,5 +8,6 @@ $lang=array(
     'DRAW'  => 'drawn match',
     'MAKE_DUEL' => 'Organise a duel',
     'FIGHT'     => 'Fight!',
-    'DEV_DOC_SPECS_LINKS'   =>'Program your own bot, and send it on this arena.  Read tle technicals specifications' 
+    'DEV-YOUR-OWN-BOT' => 'Program your own bot, and send it on this arena..',
+    'DOC_SPECS_LINKS'   =>'Read the technicals specifications'  
 );
