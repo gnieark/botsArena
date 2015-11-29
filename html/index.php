@@ -128,7 +128,10 @@ if($currentArena == ""){
 	  default:
 	    //battle history for this arena
 	    $hist=get_battles_history($currentArena);
-	    echo '<aside id="history"><h2>Scores</h2>';
+	    echo '<aside id="history">
+	    <h2>infos:</h2>
+	    <a href="/'.$currentArena.'/doc">'.$lang['DEV_DOC_SPECS_LINKS'].'</a>
+	    <h2>Scores</h2>';
 	    foreach($hist as $sc){
 	      echo '<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
 	      <ul>

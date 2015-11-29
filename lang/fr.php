@@ -10,6 +10,7 @@ $lang=array(
     'VICTORIES' => 'victoires',
     'DRAW'  => 'matchs nuls',
     'MAKE_DUEL' => 'Provoquer un duel',
-    'FIGHT'     => 'Baston!'
+    'FIGHT'     => 'Baston!',
+    'DEV_DOC_SPECS_LINKS'   =>'Devellopez votre bot et envoyez le dans cette arène. Voici les spécifications techniques'  
 
 );
