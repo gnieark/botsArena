@@ -117,7 +117,7 @@ if($currentArena == ""){
             <ul>
                 <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
                 <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
-                <li>'$lang['DRAW'].":".$sc['draws'].'</li>
+                <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
             </ul>';
 	  }
 	  echo '</aside>'
