@@ -7,6 +7,7 @@ $lang=array(
       Ce site permet de faire s\'affronter les bots des différents développeurs.</p>',
     'HOME'  => 'accueil',
     'VICTORIES' => 'victoires',
-    'DRAW'  => 'matchs nuls'
+    'DRAW'  => 'matchs nuls',
+    'MAKE_DUEL' => 'Provoquer un duel'
 
 );

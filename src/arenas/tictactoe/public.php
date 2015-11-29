@@ -13,7 +13,7 @@ if(!$postParams){
 
 ?>
     <article>
-    <h2>Lancer un combat</h2>
+    <h2><?php echo $lang['MAKE_DUEL'];?></h2>
 		<p>
 			<select name="bot1" id="bot1">
 			  <?php
