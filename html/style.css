@@ -54,3 +54,12 @@ section{
 	overflow: hidden;
 	width: 90%;
 }
+article{
+	float: right;
+	width:70%;
+}
+aside{
+	float:left;
+	width: 28%;
+}
+

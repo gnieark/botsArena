@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS `arena_history` (
   `player1_id` int(11) NOT NULL,
   `player2_id` int(11) NOT NULL,
   `player1_winsCount` int(11) NOT NULL,
-  `player2_winsCount` int(11) NOT NULL
+  `player2_winsCount` int(11) NOT NULL,
+  `nulCount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ALTER TABLE `arena_history`
   ADD PRIMARY KEY (`game`,`player1_id`,`player2_id`);
