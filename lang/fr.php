@@ -1,5 +1,6 @@
 <?php
 $lang=array(
+    'lang'	=> 'fr',
     'SITE_NAME' => 'Arène à bots',
     'SITE_DESCRIPTION'  => 
       '<p>Bienvenue sur cette arène à bots.<br/>
@@ -8,6 +9,8 @@ $lang=array(
     'HOME'  => 'accueil',
     'VICTORIES' => 'victoires',
     'DRAW'  => 'matchs nuls',
-    'MAKE_DUEL' => 'Provoquer un duel'
+    'MAKE_DUEL' => 'Provoquer un duel',
+    'FIGHT'     => 'Baston!',
+    'DEV_DOC_SPECS_LINKS'   =>'Developpez votre bot et envoyez le dans cette arène. Voici les spécifications techniques'  
 
 );

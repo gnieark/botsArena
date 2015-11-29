@@ -102,26 +102,51 @@ if($currentArena == ""){
   </header>
   <section>
     <?php
-      switch($currentArena){
-	case "":
-	  include ("../src/home.php");
-	  break;
-	default:
-	  //battle history for this arena
-	  $hist=get_battles_history($currentArena);
-	  echo '<aside id="history"><h2>Scores</h2>';
-	  foreach($hist as $sc){
-            echo '<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
-            <ul>
-                <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
-                <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
-                <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
-            </ul>';
+      if(isset($_GET['doc'])){
+	//on affiche une page de doc.
+	$pageExists=false;
+	foreach($arenas as $arena){
+	  if($arena['id'] == $_GET['doc']){
+	    if(file_exists("../src/arenas/".$arena['id']."/doc-".$lang['lang'].".html")){
+	      $pageExists=true;
+	      echo file_get_contents("../src/arenas/".$arena['id']."/doc-".$lang['lang'].".html");
+	      break;
+	    }
 	  }
-	  echo '</aside>';
-            include ("../src/arenas/".$currentArena."/public.php");
-	  break;
+	}
+	if(!$pageExists){
+	  error(404,"doc is missing");
+	  die;
+	}
+	
+      }else{
+	//on affiche une arene ou page d'accueil
+	switch($currentArena){
+	  case "":
+	    include ("../src/home.php");
+	    break;
+	  default:
+	    //battle history for this arena
+	    $hist=get_battles_history($currentArena);
+	    echo '<aside id="history">
+	    <h2>infos:</h2>
+	    <a href="/'.$currentArena.'/doc">'.$lang['DEV_DOC_SPECS_LINKS'].'</a>
+	    <h2>Scores</h2>';
+	    foreach($hist as $sc){
+	      echo '<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
+	      <ul>
+		  <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
+		  <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
+		  <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
+	      </ul>';
+	    }
+	    echo '</aside>';
+	      include ("../src/arenas/".$currentArena."/public.php");
+	    break;
+	}
       }
+      
+      
     ?>
   </section>
   <footer>
