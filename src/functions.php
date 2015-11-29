@@ -112,6 +112,7 @@ function conn_bdd(){
 
 }
 function get_battles_history($game){
+    $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
     $lnMysql=conn_bdd();
     $rs=mysqli_query($lnMysql,
         " SELECT   
@@ -147,6 +148,7 @@ function get_battles_history($game){
 function save_battle($game,$bot1,$bot2,$resultat){
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 
+    $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
 
     $lnMysql=conn_bdd();
     //chercher les id de bot 1 et bot2
