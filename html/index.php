@@ -131,7 +131,7 @@ if($currentArena == ""){
 	    
 	    echo '<aside id="history">
 	    <h2>infos:</h2>
-	    <p>'.$lang['DEV-YOUR-OWN-BOT'].' <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS].'</a>
+	    <p>'.$lang['DEV-YOUR-OWN-BOT'].' <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a>
 	    <h2>Scores</h2>';
 	    foreach($hist as $sc){
 	      echo '<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
