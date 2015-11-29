@@ -8,6 +8,7 @@ $lang=array(
     'HOME'  => 'accueil',
     'VICTORIES' => 'victoires',
     'DRAW'  => 'matchs nuls',
-    'MAKE_DUEL' => 'Provoquer un duel'
+    'MAKE_DUEL' => 'Provoquer un duel',
+    'FIGHT'     => 'Baston!'
 
 );

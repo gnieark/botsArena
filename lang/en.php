@@ -5,5 +5,6 @@ $lang=array(
     'HOME'  => 'Home page',
     'VICTORIES' => 'victories',
     'DRAW'  => 'drawn match',
-    'MAKE_DUEL' => 'Organise a duel'
+    'MAKE_DUEL' => 'Organise a duel',
+    'FIGHT'     => 'Fight!'
 );
