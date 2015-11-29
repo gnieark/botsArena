@@ -11,6 +11,6 @@ $lang=array(
     'DRAW'  => 'matchs nuls',
     'MAKE_DUEL' => 'Provoquer un duel',
     'FIGHT'     => 'Baston!',
-    'DEV_DOC_SPECS_LINKS'   =>'Devellopez votre bot et envoyez le dans cette arène. Voici les spécifications techniques'  
+    'DEV_DOC_SPECS_LINKS'   =>'Developpez votre bot et envoyez le dans cette arène. Voici les spécifications techniques'  
 
 );
