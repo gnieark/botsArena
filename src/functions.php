@@ -3,7 +3,7 @@ function  get_arenas_list(){
     include (__DIR__."/arenas_lists.php");
     return $arenas;
 }
-function(get_Bots_Array($arena,$activeOnly=true){
+function get_Bots_Array($arena,$activeOnly=true){
   global $lnMysql;
   //$bots[]=array("name" => $name, "url" =>$url);
   
