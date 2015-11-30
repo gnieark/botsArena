@@ -64,4 +64,4 @@ aside{
 }
 form p {width: 100%;} 
 form p label{float:left; width: 40% text-align: right;}
-form p input{float:right;width:59%;}
+form p input, form p select{float:right;width:59%;}
