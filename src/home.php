@@ -5,6 +5,7 @@ echo $lang['SITE_DESCRIPTION'];?>
 <article id="addBot">
     <h2>Ajouter votre bot</h2>
     <form method="POST" action="/">
+	<?php echo xd_check_input(0); ?>
         <p><label for="botName">Nom de votre Bot: </label><input id="botName" type="text" name="botName" placeholder="votre pseudo par exemple"/></p>
         <p><label for="botGame">Jeu du bot: </label>
 	  <select id="botGame" name="botGame">
