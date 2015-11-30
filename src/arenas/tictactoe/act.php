@@ -4,7 +4,7 @@ require_once(__DIR__."/functions.php");
 switch ($_POST['act']){
 
   case "fight":
-    $bots=get_Bots_Array();
+    $bots=get_Bots_Array('tictactoe');
     //clean $_POST vars
     $postParams=get_Post_Params(count($bots));
     if(!$postParams){
