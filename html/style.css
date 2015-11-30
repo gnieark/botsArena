@@ -62,4 +62,6 @@ aside{
 	float:left;
 	width: 28%;
 }
-
+form p {width: 100%;} 
+form p label{float:left; width: 40% text-align: right;}
+form p input{float:right;width:59%;}
