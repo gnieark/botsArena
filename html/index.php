@@ -128,7 +128,7 @@ if($currentArena == ""){
 	  default:
 	    //battle history for this arena
 	    $hist=get_battles_history($currentArena);
-	    
+	    echo json_encode(get_battles_history);
 	    echo '<aside id="history">
 	    <h2>infos:</h2>
 	    <p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
