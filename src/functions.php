@@ -22,7 +22,7 @@ function get_Bots_Array($arena,$activeOnly=true){
       'name'=> $r[1],
       'url' => $r[2],
       'description' => $r[3]
-    )
+    );
    }
    return $bots;
 }
