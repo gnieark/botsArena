@@ -15,7 +15,7 @@ echo $lang['SITE_DESCRIPTION'];?>
 	  ?>
 	  </select></p>
         <p><label for="botURL">URL du bot:</label><input type="text" name="botURL" id="botURL" phaceholder="http://"/></p>
-        <p>Description:<textarea></textarea></p>
+        <p><label>Description:</label><textarea></textarea></p>
         <p><label for="email">Votre e-mail (sera utilisé pour valider l'inscription du bot)</label><input type="text" name="email" id="email"/></p>
         <p><input type="submit" value="Enregistrer mon bot"/></p>       
     </form>
