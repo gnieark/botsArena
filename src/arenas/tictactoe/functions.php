@@ -16,6 +16,7 @@ function get_Post_Params($botsCount){
       return array('bot1' => $_POST['bot1'],'bot2' => $_POST['bot2']);
 }
 
+/*
 function get_Bots_Array(){
   //Recupérer la liste des Bots
   $bots=array();
@@ -29,6 +30,7 @@ function get_Bots_Array(){
   }
   return $bots;
 }
+*/
 function get_IA_Response($youChar,$iaBaseUrl,$grille){
   /*transforme la grille en parametres http GET
   * et fait la requete vers $iaBaseUrl

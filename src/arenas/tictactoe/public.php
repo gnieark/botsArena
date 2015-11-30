@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/functions.php");
 
-$bots=get_Bots_Array();
+$bots=get_Bots_Array('tictactoe');
 $postParams=get_Post_Params(count($bots));
 if(!$postParams){
   $bot1="";

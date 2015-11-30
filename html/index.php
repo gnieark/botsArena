@@ -13,7 +13,7 @@
 @session_start();
 
 require_once("../src/functions.php");
-
+$lnMysql=conn_bdd();
 $arenas=get_arenas_list();
 $lang=get_language_array();
 
@@ -45,6 +45,8 @@ if (isset($_POST['xd_check'])){
 	//call the good act.php
 	if(($currentArena <> "") && (file_exists("../src/arenas/".$currentArena."/act.php"))){
 		require_once("../src/arenas/".$currentArena."/act.php");
+	}else{
+		require_once("../src/act.php");
 	}
 }
 //title
@@ -88,7 +90,7 @@ if($currentArena == ""){
 	<h1><?php echo $siteTitle; ?></h1>
 	
   	<nav id="languages"><a href="<?php echo $currentArena; ?>-fr">fr</a>&nbsp;<a href="<?php echo $currentArena; ?>-en">en</a></nav>
-  	<nav id="menus"><a href="/"<?php if($currentArena == "") echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
+  	<nav id="menus"><a href="/"<?php if(($currentArena == "") && (!isset($_GET['doc']))) echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
   	<?php
             foreach($arenas as $arena){
                 if( $arena['id'] == $currentArena){
@@ -128,7 +130,6 @@ if($currentArena == ""){
 	  default:
 	    //battle history for this arena
 	    $hist=get_battles_history($currentArena);
-	    
 	    echo '<aside id="history">
 	    <h2>infos:</h2>
 	    <p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>

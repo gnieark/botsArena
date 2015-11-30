@@ -3,6 +3,29 @@ function  get_arenas_list(){
     include (__DIR__."/arenas_lists.php");
     return $arenas;
 }
+function get_Bots_Array($arena,$activeOnly=true){
+  global $lnMysql;
+  //$bots[]=array("name" => $name, "url" =>$url);
+  
+  if($activeOnly){
+    $addClause=" AND active='1'";
+  }else{
+    $addClause="";
+  }
+  
+  $rs=mysqli_query($lnMysql,
+    "SELECT id,name,url,description FROM bots WHERE game='".mysqli_real_escape_string($lnMysql,$arena)."'".$addClause);
+   $bots=array();
+   while($r=mysqli_fetch_row($rs)){
+    $bots[]=array(
+      'id' => $r[0],
+      'name'=> $r[1],
+      'url' => $r[2],
+      'description' => $r[3]
+    );
+   }
+   return $bots;
+}
 function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'){
 
     $chars_length = (strlen($chars) - 1);
@@ -14,6 +37,7 @@ function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl
     }
     return $string;
 }
+
 function xd_check_input($id=1){
         /*
         *On génére un hash aléatoire qui sera 
@@ -112,8 +136,9 @@ function conn_bdd(){
 
 }
 function get_battles_history($game){
+    global $lnMysql;
     $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
-    $lnMysql=conn_bdd();
+   
     $rs=mysqli_query($lnMysql,
         " SELECT   
             player1.name,
@@ -142,15 +167,16 @@ function get_battles_history($game){
         );
     
     }
-    mysqli_close($lnMysql);
     return $results;
 }
 function save_battle($game,$bot1,$bot2,$resultat){
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 
+    global $lnMysql;
+    
     $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
 
-    $lnMysql=conn_bdd();
+    
     //chercher les id de bot 1 et bot2
     $rs=mysqli_query($lnMysql,"SELECT name,id FROM bots 
                                 WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
@@ -186,6 +212,4 @@ function save_battle($game,$bot1,$bot2,$resultat){
         '".$bots[$bot2]."',
         '1')
         ON DUPLICATE KEY UPDATE ".$field." = ".$field." + 1;");
-        
-    mysqli_close($lnMysql);
 }

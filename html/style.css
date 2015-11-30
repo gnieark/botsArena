@@ -63,3 +63,12 @@ aside{
 	width: 28%;
 }
 
+form textarea, form input, form select {width:40%;}
+form input[type=checkbox], fieldset input[type=radio] {  width:15px; }
+form label {
+  float:left;
+  width:40%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  }
