@@ -7,8 +7,8 @@ switch($_POST['act']){
     $alerts="";
     
     //botGame -> doit exister
-    if(!in_array($_POST['$arenas'],$arenas)){
-      erreur(404,"wrong post parameter");
+    if(!in_array($_POST['botGame'],$arenas)){
+      error(404,"wrong post parameter");
     }
     
     //botname -> il ne doit pas y avoir un autre bot du même nom sur le même jeu
