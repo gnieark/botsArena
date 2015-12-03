@@ -11,7 +11,7 @@ switch($_POST['act']){
       erreur(404,"wrong post parameter");
     }
     
-    //botname -> il ne doit pas y avoir una autre bot 
+    //botname -> il ne doit pas y avoir un autre bot du même nom sur le même jeu
     $rs=mysqli_query($lnMysql,
 	"SELECT 1 
 	 FROM bots 
@@ -38,9 +38,17 @@ switch($_POST['act']){
       $alerts.="L'email n'est pas valide\n";
     }
     
-    
-    
     //BotDescription=> a voir
+    
+    if($alerts <>""){
+    
+    }else{
+      //enregistrer le bot et envoyer un email pour la validation
+      
+    
+    
+    }
+    
   
     echo "TODO";
     break;
