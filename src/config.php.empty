@@ -5,3 +5,12 @@ $mysqlParams=array(
   'pass' => '',
   'database'=>''
 );
+$smtpParams=array(
+    //exemple for gmail
+    'auth'      => true,
+    'secure'    => 'tls', 
+    'host'      => 'smtp.gmail.com',
+    'port'      => 587,
+    'username'  => "email@gmail.com",
+    'pass'      => ""
+);
