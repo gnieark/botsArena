@@ -58,7 +58,7 @@ switch($_POST['act']){
             '".$secret."'"
         );
         
-        include (__DIR__."/config.php");
+        include_once (__DIR__."/config.php");
         require_once (__DIR__."/class.phpmailer.php");
         
         
