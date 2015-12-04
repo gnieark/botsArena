@@ -34,18 +34,9 @@ switch($_POST['act']){
     }
     
     //email => doit être valide
-    //only oner @
-    if(
-	(substr_count('@',$_POST['email']) <> 1) 
-     || (substr_count('.@',$_POST['email']) > 0)
-     || (substr_count('@.',$_POST['email']) > 0)
-     || (substr_count('..',$_POST['email']) > 0)
-     || (substr_count('.',$_POST['email']) == 0)
-     ){
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $alerts.="L'email n'est pas valide\n";
     }
-    
-
     
     if($alerts <>""){
       echo $alerts;
