@@ -10,6 +10,7 @@ switch($_POST['act']){
     if(!in_array($_POST['botGame'],$arenas)){
     //pour le Debug
     print_r($_POST);
+    print_r($arenas);
       error(404,"wrong post parameter");
     }
     
