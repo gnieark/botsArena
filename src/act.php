@@ -47,18 +47,18 @@ switch($_POST['act']){
       
       $rs=mysqli_query($lnMysql,
         "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
-        (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botname']))."',
+        (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
             '".mysqli_real_escape_string($lnMysql,
-                preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
+                preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=#\@:~])*)#i','<a href="$1://$2">$1://$2</a>'
                   ,nl2br(htmlentities($_POST['botDescription'])))
             )."',
             'NOW(),
             '".$secret."'"
         );
         
-        require_once (__DIR__."/config.php");
+        include (__DIR__."/config.php");
         require_once (__DIR__."/class.phpmailer.php");
         
         
