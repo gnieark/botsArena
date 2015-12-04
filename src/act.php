@@ -8,6 +8,8 @@ switch($_POST['act']){
     
     //botGame -> doit exister
     if(!in_array($_POST['botGame'],$arenas)){
+    //pour le Debug
+    print_r($_POST);
       error(404,"wrong post parameter");
     }
     
