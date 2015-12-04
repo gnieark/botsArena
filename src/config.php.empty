@@ -1,5 +1,5 @@
 <?php
-define("BASEURL", "http://botsarena.tinad.fr/");
+$siteParam=array("BASEURL" => "http://botsarena.tinad.fr/");
 $mysqlParams=array(
   'host' => 'localhost',
   'user' => '',
