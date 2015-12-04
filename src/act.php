@@ -73,6 +73,7 @@ switch($_POST['act']){
 	$mail->Password = $smtpParams['pass'];
 	$mail->setFrom($smtpParams['username'], 'First Last');
 	$mail->Subject = 'BotsArena';
+	$mail->addAddress($_POST['email']);
 	$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.$siteParam['BASEURL'].'validateBot/'.$secret.'">'.$siteParam['BASEURL'].'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
 	$mail->AltBody = $lang['E_MAIL_ADD_BOT_INTRO']."\n".$siteParam['BASEURL'].'validateBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
 	if (!$mail->send()) {
@@ -80,12 +81,10 @@ switch($_POST['act']){
 	} else {
 	    echo "Message sent!";
 	}
-        
-        
+   
         
     }
     
-  
     echo "TODO";
     break;
    default:
