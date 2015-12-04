@@ -63,6 +63,7 @@ switch($_POST['act']){
         
         $mail = new PHPMailer;
 	$mail->isSMTP();
+	$mail->IsHTML(true);
 	$mail->SMTPDebug = 2;
 	$mail->Debugoutput = 'html';
 	$mail->Host = $smtpParams['host'];
