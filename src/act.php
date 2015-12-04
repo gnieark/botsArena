@@ -34,7 +34,7 @@ switch($_POST['act']){
     }
     
     //email => doit être valide
-    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $alerts.="L'email n'est pas valide\n";
     }
     
