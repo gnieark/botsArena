@@ -1,7 +1,17 @@
 <?php
+$siteParam=array("BASEURL" => "http://botsarena.tinad.fr/");
 $mysqlParams=array(
   'host' => 'localhost',
   'user' => '',
   'pass' => '',
   'database'=>''
+);
+$smtpParams=array(
+    //exemple for gmail
+    'auth'      => true,
+    'secure'    => 'tls', 
+    'host'      => 'smtp.gmail.com',
+    'port'      => 587,
+    'username'  => "email@gmail.com",
+    'pass'      => ""
 );

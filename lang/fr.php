@@ -12,5 +12,9 @@ $lang=array(
     'MAKE_DUEL' => 'Provoquer un duel',
     'FIGHT'     => 'Baston!',
     'DEV-YOUR-OWN-BOT' => 'Developpez votre bot et envoyez le dans cette arène.',
-    'DOC_SPECS_LINKS'   =>'Voici les spécifications techniques'  
+    'DOC_SPECS_LINKS'   =>'Voici les spécifications techniques',
+    'E_MAIL_ADD_BOT_INTRO'	=>  'Un grand merci pour la participation. Juste un click sur le lien suivant pour valider l\ajout du bot',
+    'E_MAIL_ADD_BOT_INTRO_HTML'	=>  '<p>Un grand merci pour la participation.</p><p>Juste un click sur le lien suivant pour valider l\ajout du bot</p>',
+    'E_MAIL_ADD_BOT_SIGNATURE'	=>  'Gnieark',
+    'E_MAIL_ADD_BOT_SIGNATURE_HTML'	=>  '<p><i>Gnieark.</i></p>',
 );
