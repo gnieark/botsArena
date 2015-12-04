@@ -53,7 +53,7 @@ switch($_POST['act']){
     
     
     if($alerts <>""){
-    
+      echo $alerts;
     }else{
       //enregistrer le bot et envoyer un email pour la validation
       
