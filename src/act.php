@@ -38,7 +38,7 @@ switch($_POST['act']){
       $alerts.="L'email n'est pas valide\n";
     }
     
-    //BotDescription=> a voir
+
     
     
 
@@ -65,7 +65,32 @@ switch($_POST['act']){
             '".$secret."'"
         );
         
+        require_once (__DIR__."/config.php");
         require_once (__DIR__."/class.phpmailer.php");
+        
+        
+        
+        $mail = new PHPMailer;
+	$mail->isSMTP();
+	$mail->SMTPDebug = 2;
+	$mail->Debugoutput = 'html';
+	$mail->Host = $smtpParams['host'];
+	$mail->Port = $smtpParams['port'];
+	$mail->SMTPSecure = $smtpParams['secure'];
+	$mail->SMTPAuth = true;
+	$mail->Username = $smtpParams['username'];
+	$mail->Password = $smtpParams['pass'];
+	$mail->setFrom($smtpParams['username'], 'First Last');
+	$mail->Subject = 'BotsArena';
+	$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.BASEURL.'validateBot/'.$secret.'">'.BASEURL.'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
+	$mail->AltBody = $lang['E_MAIL_ADD_BOT_INTRO']."\n".BASEURL.'validateBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
+	if (!$mail->send()) {
+	    echo "Mailer Error: " . $mail->ErrorInfo;
+	} else {
+	    echo "Message sent!";
+	}
+        
+        
         
     }
     
