@@ -61,8 +61,6 @@ switch($_POST['act']){
         include (__DIR__."/config.php");
         require_once (__DIR__."/class.phpmailer.php");
         
-        
-        
         $mail = new PHPMailer;
 	$mail->isSMTP();
 	$mail->SMTPDebug = 2;
