@@ -63,7 +63,7 @@ switch($_POST['act']){
         
         $mail = new PHPMailer;
 	$mail->isSMTP();
-	$mail->IsHTML(true);
+	//$mail->IsHTML(true);
 	$mail->SMTPDebug = 2;
 	$mail->Debugoutput = 'html';
 	$mail->Host = $smtpParams['host'];
@@ -75,8 +75,8 @@ switch($_POST['act']){
 	$mail->setFrom($smtpParams['username'], 'First Last');
 	$mail->Subject = 'BotsArena';
 	$mail->addAddress($_POST['email']);
-	$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.$siteParam['BASEURL'].'validateBot/'.$secret.'">'.$siteParam['BASEURL'].'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
-	$mail->AltBody = $lang['E_MAIL_ADD_BOT_INTRO']."\n".$siteParam['BASEURL'].'validateBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
+	//$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.$siteParam['BASEURL'].'validateBot/'.$secret.'">'.$siteParam['BASEURL'].'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
+	$mail->Body = $lang['E_MAIL_ADD_BOT_INTRO']."\n".$siteParam['BASEURL'].'validateBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
 	if (!$mail->send()) {
 	    echo "Mailer Error: " . $mail->ErrorInfo;
 	} else {
