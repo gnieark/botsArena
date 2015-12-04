@@ -7,10 +7,14 @@ switch($_POST['act']){
     $alerts="";
     
     //botGame -> doit exister
-    if(!in_array($_POST['botGame'],$arenas)){
-    //pour le Debug
-    print_r($_POST);
-    print_r($arenas);
+    $arenaExists=false;
+    foreach($arenas as $arena){
+      if($_POST['botGame'] == $arena['id']){
+	$arenaExists=true;
+	break;
+      }
+    }
+    if(!$arenaExists){
       error(404,"wrong post parameter");
     }
     
