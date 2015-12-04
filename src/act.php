@@ -40,17 +40,12 @@ switch($_POST['act']){
      || (substr_count('.@',$_POST['email']) > 0)
      || (substr_count('@.',$_POST['email']) > 0)
      || (substr_count('..',$_POST['email']) > 0)
-     || (substr_count('.',$_POST['email']) == 1)
+     || (substr_count('.',$_POST['email']) == 0)
      ){
       $alerts.="L'email n'est pas valide\n";
     }
     
 
-    
-    
-
-    
-    
     
     if($alerts <>""){
       echo $alerts;
