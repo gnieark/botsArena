@@ -22,8 +22,8 @@ switch($_POST['act']){
     $rs=mysqli_query($lnMysql,
 	"SELECT 1 
 	 FROM bots 
-	 WHERE name='".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botname']))."'
-	 AND game='".mysqli_real_escape_string($lnMysql,$_POST['game'])."';");
+	 WHERE name='".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."'
+	 AND game='".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."';");
     if(mysqli_num_rows($rs) > 0){
       $alerts.="Un bot existant pour ce je porte le même nom\n";
     }
