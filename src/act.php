@@ -72,7 +72,7 @@ switch($_POST['act']){
 	$mail->SMTPAuth = true;
 	$mail->Username = $smtpParams['username'];
 	$mail->Password = $smtpParams['pass'];
-	$mail->setFrom($smtpParams['username'], 'First Last');
+	$mail->setFrom($smtpParams['username'], 'Bots Arena');
 	$mail->Subject = 'BotsArena';
 	$mail->addAddress($_POST['email']);
 	//$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.$siteParam['BASEURL'].'validateBot/'.$secret.'">'.$siteParam['BASEURL'].'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
