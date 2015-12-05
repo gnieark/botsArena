@@ -58,8 +58,8 @@ switch($_POST['act']){
             '".$secret."'"
         );
         
-        include (__DIR__."/config.php");
-        require_once (__DIR__."/class.phpmailer.php");
+        include __DIR__."/config.php";
+        require __DIR__.'/PHPMailer/PHPMailerAutoload.php';
         
         $mail = new PHPMailer;
 	$mail->isSMTP();
