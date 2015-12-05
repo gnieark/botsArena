@@ -52,7 +52,7 @@ switch($_POST['act']){
                 preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
                   ,nl2br(htmlentities($_POST['botDescription'])))
             )."',
-            '1',
+            '0',
             NOW(),
             '".$secret."')";
         // echo $sql;   
