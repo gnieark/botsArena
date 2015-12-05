@@ -44,9 +44,7 @@ switch($_POST['act']){
       //enregistrer le bot et envoyer un email pour la validation
       
       $secret=rand_str(8, '$-_.+!*\'(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'); 
-      
-      $rs=mysqli_query($lnMysql,
-        "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
+      $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
         (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
@@ -55,20 +53,10 @@ switch($_POST['act']){
                   ,nl2br(htmlentities($_POST['botDescription'])))
             )."',
             'NOW(),
-            '".$secret."'"
-        );
-        
-        echo         "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
-        (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
-            '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
-            '".mysqli_real_escape_string($lnMysql,
-                preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
-                  ,nl2br(htmlentities($_POST['botDescription'])))
-            )."',
-            'NOW(),
-            '".$secret."'";
-        
+            '".$secret."')";
+         echo $sql;   
+	$rs=mysqli_query($lnMysql,$sql);
+                
         include __DIR__."/config.php";
         require __DIR__.'/PHPMailer/PHPMailerAutoload.php';
         
