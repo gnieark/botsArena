@@ -118,7 +118,7 @@ if(isset($_GET['arena'])){
         $mainSectionScript="../src/addBot.php";
         $asideSectionContent=''; //to do
         $cssAdditionalScript="";
-        $jsAdditionalScript=""
+        $jsAdditionalScript="";
       break;
 
     default:
@@ -133,7 +133,7 @@ if(isset($_GET['arena'])){
         $mainSectionScript="../src/home.php";
         $asideSectionContent=''; //to do
         $cssAdditionalScript="";
-        $jsAdditionalScript=""
+        $jsAdditionalScript="";
 }
 
 
