@@ -43,7 +43,9 @@ switch($_POST['act']){
     }else{
       //enregistrer le bot et envoyer un email pour la validation
       
-      $secret=rand_str(8, '$-_.+!*(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'); 
+      $secret=rand_str(7, '$-_.+!*(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
+      //last char must be alphanum. Mail client should cut url if isn't.
+      $secret.=rand_str(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
         (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
@@ -76,7 +78,7 @@ switch($_POST['act']){
 	$mail->Subject = 'BotsArena';
 	$mail->addAddress($_POST['email']);
 	//$mail->msgHTML=$lang['E_MAIL_ADD_BOT_INTRO_HTML'].'<p><a href="'.$siteParam['BASEURL'].'validateBot/'.$secret.'">'.$siteParam['BASEURL'].'validateBot/'.$secret.'</a></p>'.$lang['E_MAIL_ADD_BOT_SIGNATURE_HTML'];
-	$mail->Body = $lang['E_MAIL_ADD_BOT_INTRO']."\n".$siteParam['BASEURL'].'validateBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
+	$mail->Body = $lang['E_MAIL_ADD_BOT_INTRO']."\n".$siteParam['BASEURL'].'p/addBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
 	if (!$mail->send()) {
 	    error(500,"Mailer Error: " . $mail->ErrorInfo);
 	} else {
@@ -84,7 +86,7 @@ switch($_POST['act']){
 	}     
     }
     
-    echo "TODO";
+    //echo "TODO";
     break;
    default:
     error(500,"erf");
