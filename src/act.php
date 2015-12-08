@@ -86,7 +86,7 @@ switch($_POST['act']){
 	}     
     }
     
-    echo "TODO";
+    //echo "TODO";
     break;
    default:
     error(500,"erf");
