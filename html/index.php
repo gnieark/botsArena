@@ -153,6 +153,10 @@ if (isset($_POST['xd_check'])){
     }
 }
 
+if(!isset($currentArena)){
+    $currentArena="";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -176,9 +180,7 @@ if (isset($_POST['xd_check'])){
       <nav id="languages"><a href="<?php echo $currentArena; ?>-fr">fr</a>&nbsp;<a href="<?php echo $currentArena; ?>-en">en</a></nav>
       <nav id="menus"><a href="/"<?php if(($currentArena == "") && (!isset($_GET['doc']))) echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
       <?php
-        if(!isset($currentArena)){
-            $currentArena="";
-        }
+
         foreach($arenas as $arena){
             if( $arena['id'] == $currentArena){
                 $class="selected";
