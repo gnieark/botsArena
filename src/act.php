@@ -43,7 +43,9 @@ switch($_POST['act']){
     }else{
       //enregistrer le bot et envoyer un email pour la validation
       
-      $secret=rand_str(8, '$-_.+!*(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'); 
+      $secret=rand_str(7, '$-_.+!*(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
+      //last char must be alphanum. Mail client should cut url if isn't.
+      $secret.=rand_str(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
         (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
