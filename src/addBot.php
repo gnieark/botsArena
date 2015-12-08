@@ -7,7 +7,7 @@ if(isset($_GET['params'])){
         if($r[1]=='1'){
             echo "<p>Ce bot a déjà été activé</p>";
         }else{
-            mysqli_query($lnMysql, "UPDATE bots SET active='0' WHERE id='".$r[0]."'");
+            mysqli_query($lnMysql, "UPDATE bots SET active='1' WHERE id='".$r[0]."'");
             echo "<p>Merci! Votre Bot vient d'être activé, RDV sur son arène pour le faire combattre.</p>";
         }
     }else{
