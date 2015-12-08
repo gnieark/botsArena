@@ -153,7 +153,6 @@ if (isset($_POST['xd_check'])){
     }
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -192,6 +191,7 @@ if (isset($_POST['xd_check'])){
     include $mainSectionScript; 
     if($asideSectionContent <> ""){
         echo "<aside>".$asideSectionContent."</aside>";
+    }
     ?>
   </section>
   <footer>
