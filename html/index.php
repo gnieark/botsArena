@@ -137,6 +137,9 @@ if(isset($_GET['arena'])){
 }
 
 
+if(!isset($currentArena)){
+    $currentArena="";
+}
 
 //form submitting
 if (isset($_POST['xd_check'])){
@@ -151,10 +154,6 @@ if (isset($_POST['xd_check'])){
     }else{
         require_once("../src/act.php");
     }
-}
-
-if(!isset($currentArena)){
-    $currentArena="";
 }
 
 ?>
