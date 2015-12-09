@@ -199,6 +199,7 @@ if (isset($_POST['xd_check'])){
     ?>
   </section>
   <footer>
+    <a href="/p/About">A propos</a><a href="/p/legals">Mentions légales</a>
   </footer>
 </body>
 </html>

@@ -28,12 +28,12 @@ header h1{
    float: right;
   
 }
-#menus{
+#menus, footer{
  margin-left: 50px;
  width:100%;
  display: table;
 }
-#menus a{
+#menus a, footer{
 	color: #fff;
 	display: table-cell;
 	text-decoration: none;
