@@ -33,7 +33,7 @@ header h1{
  width:100%;
  display: table;
 }
-#menus a, footer{
+#menus a, footer a{
 	color: #fff;
 	display: table-cell;
 	text-decoration: none;
