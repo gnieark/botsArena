@@ -86,6 +86,8 @@ section{
 	margin: 0 auto;
 	width: 90%;
         padding-bottom: 40px;
+        height: auto;
+        min-height: 100%;
 }
 article{
 	float: right;
