@@ -14,7 +14,7 @@ if((isset($_POST['xd_check'])) && ($_POST['act'] == "addBot")){
         
         echo'<form method="POST" action="/p/addBot">
         '.xd_check_input(0).'<input type="hidden" name="act" value="addBot"/>
-        <p><label for="botName">Nom de votre Bot: </label><input id="botName" type="text" name="botName" placeholder="votre pseudo par exemple" value="'.htmlentities($_POST['botname']).'"/></p>
+        <p><label for="botName">Nom de votre Bot: </label><input id="botName" type="text" name="botName" placeholder="votre pseudo par exemple" value="'.htmlentities($_POST['botName']).'"/></p>
         <p><label for="botGame">Jeu du bot: </label>
             <select id="botGame" name="botGame">';
             
