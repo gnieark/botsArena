@@ -14,7 +14,7 @@
     <p><label for="botURL">URL du bot:</label><input type="text" name="botURL" id="botURL" placeholder="http://"/></p>
     <p><label>Description:</label><textarea name="botDescription"></textarea></p>
     <p><label for="email">Votre e-mail (sera utilisé pour valider l'inscription du bot)</label><input type="text" name="email" id="email"/></p>
-    <p><label></label><input type="submit" value="Enregistrer mon bot"/></p>       
+    <p><label for="sub"></label><input id="sub" type="submit" value="Enregistrer mon bot"/></p>       
 </form>
 </article>
 
