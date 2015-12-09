@@ -1,3 +1,4 @@
+<article>
 <h2>Ajouter votre bot</h2>
 <form method="POST" action="/">
     <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="addBot"/>
@@ -15,4 +16,5 @@
     <p><label for="email">Votre e-mail (sera utilisé pour valider l'inscription du bot)</label><input type="text" name="email" id="email"/></p>
     <p><input type="submit" value="Enregistrer mon bot"/></p>       
 </form>
+</article>
 
