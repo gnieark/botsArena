@@ -91,11 +91,11 @@ article{
 aside{
 	float:left;
 	width: 28%;
+        border-right: 
 }
 
 form textarea, form input, form select {width:40%;}
 form input[type=checkbox], form input[type=radio] {  width:15px; }
-form input[type=submit]{width: 100%;}
 form label {
   float:left;
   width:40%;
