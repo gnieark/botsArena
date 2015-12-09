@@ -67,8 +67,8 @@ footer{
     font-size: 12px;
     line-height: 1.5em;
     text-align: center;
-    width: 100%;
-    position:fixed;
+    width: 98%;
+    position:relative;
     bottom: 0;
 }
 footer a {
