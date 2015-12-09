@@ -120,7 +120,7 @@ if(isset($_GET['arena'])){
         $cssAdditionalScript="";
         $jsAdditionalScript="";
       break;
-
+      
     default:
       error(404,"Not found");
       break;

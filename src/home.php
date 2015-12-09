@@ -3,7 +3,7 @@
 </article>
 <article>
 <h2>Ajouter votre bot</h2>
-<form method="POST" action="/">
+<form method="POST" action="/p/addBot">
     <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="addBot"/>
     <p><label for="botName">Nom de votre Bot: </label><input id="botName" type="text" name="botName" placeholder="votre pseudo par exemple"/></p>
     <p><label for="botGame">Jeu du bot: </label>
