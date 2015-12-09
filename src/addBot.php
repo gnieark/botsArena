@@ -23,6 +23,7 @@ if((isset($_POST['xd_check'])) && ($_POST['act'] == "addBot")){
                     echo '<option value="'.$arena['id'].'" selected="selected">'.$arena['id'].'</option>';
                 }else{
                     echo '<option value="'.$arena['id'].'">'.$arena['id'].'</option>';
+                }
             }  
             echo '
             </select></p>
