@@ -68,7 +68,7 @@ footer{
     line-height: 1.5em;
     text-align: center;
     width: 99%;
-
+    margin-top: -40px;
 
 }
 footer a {
@@ -85,6 +85,7 @@ footer a {
 section{
 	margin: 0 auto;
 	width: 90%;
+        padding-bottom: 40px;
 }
 article{
 	float: right;
