@@ -1,4 +1,7 @@
 <article>
+<?php echo $lang['SITE_DESCRIPTION'];?>
+</article>
+<article>
 <h2>Ajouter votre bot</h2>
 <form method="POST" action="/">
     <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="addBot"/>
