@@ -51,7 +51,6 @@ header h1{
 	background-color:#fff;
 }
 footer{
-    margin-top: -70px;
     height: 70px;
     display: block;
     color: #343638;
@@ -67,9 +66,7 @@ footer{
     font-size: 12px;
     line-height: 1.5em;
     text-align: center;
-    width: 99%;
-    margin-top: -40px;
-
+    width: 100%;
 }
 footer a {
     margin:0px 5px 0px 5px;
@@ -86,9 +83,6 @@ section{
 	margin: 0 auto;
 	width: 90%;
         padding-bottom: 40px;
-        overflow:auto;
-        height: auto; !important; /* real browsers */
-        min-height: 100%;
 }
 article{
 	float: right;
