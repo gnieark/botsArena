@@ -28,12 +28,12 @@ header h1{
    float: right;
   
 }
-#menus, footer{
+#menus{
  margin-left: 50px;
  width:100%;
  display: table;
 }
-#menus a, footer a{
+#menus a{
 	color: #fff;
 	display: table-cell;
 	text-decoration: none;
@@ -44,6 +44,18 @@ header h1{
 	color:#202020; 
 	background-color:#fff;
 }
+footer{
+margin-top: -70px;
+    height: 70px;
+        display: block;
+        background-color: #f5f5f5;
+    color: #343638;
+    font-size: 11pt;
+    line-height: 15pt;
+    margin: 0;
+    overflow-x: hidden;
+}
+
 #languages{
 	float: right;
 	text-align: right;
