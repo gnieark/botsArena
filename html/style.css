@@ -2,6 +2,7 @@ html {
    height: 100%;
 }
 body{
+    position:relative;
   width:100%;
   font-size:100%; 
   top: 0px;
@@ -65,7 +66,7 @@ footer{
     font-size: 12px;
     line-height: 1.5em;
     text-align: center;
-    position: relative;
+    position: absolute;
     bottom: 0;
 
 }
