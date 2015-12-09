@@ -10,6 +10,8 @@ body{
   text-rendering:optimizelegibility;
   margin:0 auto;
   font-family : "lucida grande", "gill sans", arial, sans-serif;
+  left:auto;
+top:auto;
   min-height:100%;
 }
 header{
