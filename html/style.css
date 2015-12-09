@@ -61,8 +61,7 @@ footer{
     font-size: 12px;
     line-height: 1.5em;
     text-align: center;
-     position: absolute;
-    bottom: 0;
+
 
 }
 footer a {
@@ -81,6 +80,7 @@ section{
 	margin: 0 auto;
 	overflow: hidden;
 	width: 90%;
+        min-height:100%;
 }
 article{
 	float: right;
