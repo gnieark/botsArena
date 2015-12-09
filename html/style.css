@@ -45,8 +45,6 @@ header h1{
 	background-color:#fff;
 }
 footer{
-    clear: both;
-    position: relative;
     margin-top: -70px;
     height: 70px;
     display: block;
@@ -63,8 +61,8 @@ footer{
     font-size: 12px;
     line-height: 1.5em;
     text-align: center;
-
-
+    position: relative;
+    clear: both;
 }
 footer a {
     margin:0px 5px 0px 5px;
@@ -78,7 +76,6 @@ footer a {
 	text-align: right;
 }
 section{
-        height: auto;
 	border-bottom: 1px solid rgb(204, 204, 204); 
 	margin: 0 auto;
 	overflow: hidden;
