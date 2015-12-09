@@ -25,21 +25,22 @@ switch($_POST['act']){
 	 WHERE name='".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."'
 	 AND game='".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."';");
     if(mysqli_num_rows($rs) > 0){
-      $alerts.="Un bot existant pour ce je porte le même nom\n";
+      $alerts.="Un bot existant pour ce jeu porte le même nom.\n";
     }
     
     //BotUrl (doit retourner un code 200)
     if(!preg_match("/^(http|https):\/\//", $_POST['botURL'])){
-      $alerts.="L'URL n'est pas valide\n";
+      $alerts.="L'URL n'est pas valide.\n";
     }
     
     //email => doit être valide
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-      $alerts.="L'email n'est pas valide\n";
+      $alerts.="L'email n'est pas valide.\n";
     }
     
     if($alerts <>""){
-      echo $alerts;
+      //echo $alerts;
+      //do nothing now
     }else{
       //enregistrer le bot et envoyer un email pour la validation
       
