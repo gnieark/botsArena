@@ -22,7 +22,7 @@ function generate_numeric_select($start,$end,$selected,$name,$id){
         $out.=' name="'.$name.'"';
     }
     if($id !== ""){
-        $out.=' id="'.$id'"';
+        $out.=' id="'.$id.'"';
     }
     $out.=">";
     
