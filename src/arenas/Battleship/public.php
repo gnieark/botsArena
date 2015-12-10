@@ -14,13 +14,8 @@ if(!$postParams){
 ?>
     <article>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
-        <p><label for="widthheight">Taille de la grille</label>
-            <em id="widthheight">largeur:
-                <?php echo generate_numeric_select(1,100,10,'gridWidth',''); ?>
-                &nbsp;Hauteur:
-                <?php echo generate_numeric_select(1,100,10,'gridHeight',''); ?>
-            </em>
-        </p>
+        <p><label for="width">Largeur de la grille</label><?php echo generate_numeric_select(1,100,10,'width','width'); ?></p>
+        <p><label for="height">Hauteur de la grille</label><?php echo generate_numeric_select(1,100,10,'height','height'); ?></p>
         <p><label for="ship1">Nombre de navires de 1 case:</label><?php echo generate_numeric_select(0,10,0,'ship1','ship1'); ?></p>
         <p><label for="ship2">Nombre de navires de 2 cases:</label><?php echo generate_numeric_select(0,10,1,'ship2','ship2'); ?></p>
         <p><label for="ship3">Nombre de navires de 3 cases:</label><?php echo generate_numeric_select(0,10,2,'ship3','ship3'); ?></p>
