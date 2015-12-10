@@ -26,7 +26,7 @@ function generate_numeric_select($start,$end,$selected,$name,$id){
     }
     $out.=">";
     
-    if($select == -1){
+    if($selected == -1){
         for($i=$start; $i <= $end; $i++ ){
             $out.='<option value="'.$i.'">'.$i.'</option>';
         }
