@@ -41,5 +41,5 @@ if(!$postParams){
 			</select>
 		</p>
 	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tictactoe(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
-    </article>
-    <article id="fightResult"></article>
+    <div id="fightResult"></div>
+</article>
