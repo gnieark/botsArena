@@ -120,7 +120,7 @@ if(isset($_GET['arena'])){
         $cssAdditionalScript="";
         $jsAdditionalScript="";
       break;
-
+      
     default:
       error(404,"Not found");
       break;
@@ -131,7 +131,7 @@ if(isset($_GET['arena'])){
         $siteTitle="Bots Arena";
         $siteDescription="bots arena main page. Program your own artificiel intelligence and let it play here";
         $mainSectionScript="../src/home.php";
-        $asideSectionContent=''; //to do
+        $asideSectionContent='';
         $cssAdditionalScript="";
         $jsAdditionalScript="";
 }
@@ -199,6 +199,7 @@ if (isset($_POST['xd_check'])){
     ?>
   </section>
   <footer>
+    <a href="/p/About">A propos</a><a href="/p/legals">Mentions légales</a>
   </footer>
 </body>
 </html>
