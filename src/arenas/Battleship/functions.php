@@ -19,7 +19,7 @@ function get_Post_Params($botsCount){
 function generate_numeric_select($start,$end,$selected,$name,$id){
     $out="<select";
     if($name !== ""){
-        $out.=' name="'.$name'"';
+        $out.=' name="'.$name.'"';
     }
     if($id !== ""){
         $out.=' id="'.$id'"';
