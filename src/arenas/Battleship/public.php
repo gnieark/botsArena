@@ -1,5 +1,5 @@
 <?php
-//require_once(__DIR__."/functions.php");
+require_once(__DIR__."/functions.php");
 
 $bots=get_Bots_Array('"Battleship');
 $postParams=get_Post_Params(count($bots));
