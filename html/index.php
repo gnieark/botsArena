@@ -44,7 +44,7 @@ if(isset($_GET['arena'])){
     $hist=get_battles_history($currentArena);
     
     
-    $siteTitle=$currentArenaArr['title']." - bots Arena";
+    $siteTitle=$currentArenaArr['title'];
     $siteDescription=$currentArenaArr['metaDescription'];
     $mainSectionScript="../src/arenas/".$currentArena."/public.php";
     $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
@@ -85,7 +85,7 @@ if(isset($_GET['arena'])){
         error(404,"Wrong parameter");
         die;
     }
-    $siteTitle="Specifications ".$currentArenaArr['title']." - bots Arena";
+    $siteTitle="Specifications ".$currentArenaArr['title'];
     $siteDescription="documentation, faites votre propre bot pour ".$currentArenaArr['metaDescription'];
     $mainSectionScript="../src/arenas/".$currentArenaArr['id']."/doc-".$lang['lang'].".html";
     $asideSectionContent=''; //to do
@@ -104,7 +104,7 @@ if(isset($_GET['arena'])){
         $jsAdditionalScript="";
       break;
     case "About":
-        $siteTitle="About - bots Arena";
+        $siteTitle="About";
         $siteDescription="bots arena about page";
         $mainSectionScript="../src/about.html";
         $asideSectionContent=''; //to do or not to do
@@ -112,7 +112,7 @@ if(isset($_GET['arena'])){
         $jsAdditionalScript="";
       break;
     case "addBot":
-        $siteTitle="Valider l'ajout d'une IA - bots Arena";
+        $siteTitle="Valider l'ajout d'une IA";
         $siteDescription="bots arena about page";
         $permitIndex=false;
         $mainSectionScript="../src/addBot.php";
