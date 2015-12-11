@@ -37,9 +37,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
    tdTitre1.innerHTML = bot1IdName[1];
    tdTitre2.innerHTML = bot2IdName[1];
    trTitre1.appendChild(tdTitre1);
-   tableAdv.appendChild(trTitre1);
    trTitre2.appendChild(tdTitre2);
-   tableMe.appendChild(trTitre2);
    
    var trAdv=createElem("tr");
    var trMe=createElem("tr");
