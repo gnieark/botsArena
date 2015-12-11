@@ -66,6 +66,18 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
     }};
     xhr.open("POST", '/Battleship',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=initGame&bot1=' + bot1 + '&bot2=' + bot2 + '&gridWidth=' + gridWidth + '&gridHeight=' + gridHeight + '&nbShip1=' + nbShip1 + '&nbShip1=' + nbShip2 + '&nbShip3=' + nbShip3 + '&nbShip4=' + nbShip4 + '&nbShip5=' + nbShip5 '&nbShip6=' + nbShip6 + '&xd_check=' + xd_check);
+    xhr.send(
+        'act=initGame&bot1=' + bot1 
+        + '&bot2=' + bot2 
+        + '&gridWidth=' + gridWidth 
+        + '&gridHeight=' + gridHeight 
+        + '&nbShip1=' + nbShip1 
+        + '&nbShip1=' + nbShip2 
+        + '&nbShip3=' + nbShip3 
+        + '&nbShip4=' + nbShip4 
+        + '&nbShip5=' + nbShip5
+        + '&nbShip6=' + nbShip6 
+        + '&xd_check=' + xd_check
+    );
     
 }
