@@ -24,15 +24,15 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
     
   document.getElementById('fightResult').innerHTML = '';
   //dessiner les deux grilles
-  tableAdv=createElem("table",{"id":"tblAdv","className":"battleshipGrid");
-  tableMe=createElem("table",{"id":"tblAdv","className":"battleshipGrid");
+  tableAdv=createElem("table",{"id":"tblAdv","className":"battleshipGrid"});
+  tableMe=createElem("table",{"id":"tblAdv","className":"battleshipGrid"});
   
   for (i=0; i < gridHeight ; i++){
    trAdv=createElem("tr");
    trMe=createElem("tr");
    for (j=0; j < gridwidth ; i++){
-     tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"className": "empty");
-     tdMe=createElem("td",{"id":"me" + i +"-" + j,"className": "empty");
+     tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"className": "empty"});
+     tdMe=createElem("td",{"id":"me" + i +"-" + j,"className": "empty"});
      trAdv.appendChild(tdAdv);
      trMe.appendChild(tdMe);
    }
