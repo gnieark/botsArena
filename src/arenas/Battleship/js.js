@@ -20,22 +20,32 @@ function createElem(type,attributes)
     return elem;
 }
 
-function battleship(botsArray,bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
-    
+function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
+   var  bot1IdName = bot1.split("-");
+   var  bot2IdName = bot2.split("-");
   document.getElementById('fightResult').innerHTML = '';
   //dessiner les deux grilles
-  tableAdv=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
-  tableMe=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
+  var tableAdv=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
+  var tableMe=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
   
-  for (i=0; i < gridHeight ; i++){
+  for (var i=0; i < gridHeight ; i++){
    //ligne de titre
-    
+   var trTitre1=createElem("tr");
+   var trTitre2=createElem("tr");
+   var tdTitre1=createElem("td",{"collspan":gridWidth});
+   var tdTitre2=createElem("td",{"collspan":gridWidth});
+   tdTitre1.innerHTML = bot1IdName[1];
+   tdTitre2.innerHTML = bot2IdName[1];
+   trTitre1.appendChild(tdTitre1);
+   tableAdv.appendChild(trTitre1);
+   trTitre2.appendChild(tdTitre2);
+   tableMe.appendChild(trTitre2);
    
-   trAdv=createElem("tr");
-   trMe=createElem("tr");
-   for (j=0; j < gridWidth ; j++){
-     tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"class": "empty"});
-     tdMe=createElem("td",{"id":"me" + i +"-" + j,"class": "empty"});
+   var trAdv=createElem("tr");
+   var trMe=createElem("tr");
+   for (var j=0; j < gridWidth ; j++){
+     var tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"class": "empty"});
+     var tdMe=createElem("td",{"id":"me" + i +"-" + j,"class": "empty"});
      trAdv.appendChild(tdAdv);
      trMe.appendChild(tdMe);
    }
