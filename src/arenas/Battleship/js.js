@@ -27,18 +27,19 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   //dessiner les deux grilles
   var tableAdv=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
   var tableMe=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
+    //ligne de titre 
+    var trTitre1=createElem("tr");
+    var trTitre2=createElem("tr");
+    var tdTitre1=createElem("td",{"collspan":gridWidth});
+    var tdTitre2=createElem("td",{"collspan":gridWidth});
+    tdTitre1.innerHTML = bot1IdName[1];
+    tdTitre2.innerHTML = bot2IdName[1];
+    trTitre1.appendChild(tdTitre1);
+    tableAdv.appendChild(trTitre1);
+    trTitre2.appendChild(tdTitre2);
+    tableMe.appendChild(trTitre2);
   
   for (var i=0; i < gridHeight ; i++){
-   //ligne de titre
-   var trTitre1=createElem("tr");
-   var trTitre2=createElem("tr");
-   var tdTitre1=createElem("td",{"collspan":gridWidth});
-   var tdTitre2=createElem("td",{"collspan":gridWidth});
-   tdTitre1.innerHTML = bot1IdName[1];
-   tdTitre2.innerHTML = bot2IdName[1];
-   trTitre1.appendChild(tdTitre1);
-   trTitre2.appendChild(tdTitre2);
-   
    var trAdv=createElem("tr");
    var trMe=createElem("tr");
    for (var j=0; j < gridWidth ; j++){
