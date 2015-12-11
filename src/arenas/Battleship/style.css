@@ -1,3 +1,5 @@
 article p {width: 100%;}
 article p label {float:left; text-align:right;	width:60%}
 article p select {}
+.battleshipGrid tr{}
+.battleshipGrid tr td{width: 10 px; height:10 px; border: 1px dashed green;}
