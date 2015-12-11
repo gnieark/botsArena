@@ -43,7 +43,7 @@ if(!$postParams){
                         $selected='selected="selected"';
                         else
                         $selected='';
-                        echo '<option value="'.$i."-"$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
+                        echo '<option value="'.$i."-".$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
                     }
                     ?>
                 </select></em>
