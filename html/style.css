@@ -1,18 +1,12 @@
-html {
-  height: 100%;
-}
 body{
   width:100%;
   font-size:100%; 
-  top: 0px;
   line-height:140%;
   word-wrap:break-word;
   text-rendering:optimizelegibility;
   margin:0 auto;
   font-family : "lucida grande", "gill sans", arial, sans-serif;
   left:auto;
-top:auto;
-  min-height:100%;
 }
 header{
   background-color:#A60800; 
@@ -24,10 +18,9 @@ header h1{
   display: block; 
   font-size:300%; 
   color:#FFF;float: left; 
-  width: 45%;
   margin-left: 5%;}
 
- header nav{
+header nav{
    display: block; 
    width: 45%;
    color:#FFF; 
@@ -82,7 +75,6 @@ footer a {
 section{
 	margin: 0 auto;
 	width: 90%;
-        padding-bottom: 40px;
 }
 article{
 	float: right;
@@ -91,7 +83,7 @@ article{
 aside{
 	float:left;
 	width: 28%;
-        border-right: 
+        border-right: 1px dashed green;
 }
 
 form textarea, form input, form select {width:40%;}
