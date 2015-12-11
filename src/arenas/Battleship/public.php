@@ -27,11 +27,11 @@ if(!$postParams){
                     <?php
                     for($i=0;$i<count($bots);$i++){
                         if($i==$bot1)
-                        $selected='selected="selected"';
+                            $selected='selected="selected"';
                         else
-                        $selected='';
+                            $selected='';
                         
-                        echo '<option value="'.$i.'" '.$selected.'>'.$bots[$i]['name'].'</option>';
+                        echo '<option value="'.$i."-".$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
                     }
                     ?>
                 </select>
@@ -40,9 +40,10 @@ if(!$postParams){
                     <?php
                     for($i=0;$i<count($bots);$i++){
                         if($i==$bot2)
-                        $selected='selected="selected"';
+                            $selected='selected="selected"';
                         else
-                        $selected='';
+                            $selected='';
+                            
                         echo '<option value="'.$i."-".$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
                     }
                     ?>
