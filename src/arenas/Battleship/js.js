@@ -30,7 +30,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   for (i=0; i < gridHeight ; i++){
    trAdv=createElem("tr");
    trMe=createElem("tr");
-   for (j=0; j < gridwidth ; i++){
+   for (j=0; j < gridWidth ; i++){
      tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"className": "empty"});
      tdMe=createElem("td",{"id":"me" + i +"-" + j,"className": "empty"});
      trAdv.appendChild(tdAdv);
