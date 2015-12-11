@@ -14,15 +14,15 @@ if(!$postParams){
 ?>
     <article>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
-        <p><label for="width">Largeur de la grille</label><?php echo generate_numeric_select(1,100,10,'width','width'); ?></p>
-        <p><label for="height">Hauteur de la grille</label><?php echo generate_numeric_select(1,100,10,'height','height'); ?></p>
+        <p><label for="width">Largeur de la grille:</label><?php echo generate_numeric_select(1,100,10,'width','width'); ?></p>
+        <p><label for="height">Hauteur de la grille:</label><?php echo generate_numeric_select(1,100,10,'height','height'); ?></p>
         <p><label for="ship1">Nombre de navires de 1 case:</label><?php echo generate_numeric_select(0,10,0,'ship1','ship1'); ?></p>
         <p><label for="ship2">Nombre de navires de 2 cases:</label><?php echo generate_numeric_select(0,10,1,'ship2','ship2'); ?></p>
         <p><label for="ship3">Nombre de navires de 3 cases:</label><?php echo generate_numeric_select(0,10,2,'ship3','ship3'); ?></p>
         <p><label for="ship4">Nombre de navires de 4 cases:</label><?php echo generate_numeric_select(0,10,1,'ship4','ship4'); ?></p>
         <p><label for="ship5">Nombre de navires de 5 cases:</label><?php echo generate_numeric_select(0,10,1,'ship5','ship5'); ?></p>
         <p><label for="ship6">Nombre de navires de 6 cases:</label><?php echo generate_numeric_select(0,10,0,'ship6','ship6'); ?></p>
-        <p><label></label>
+        <p><label>!</label><em>
                 <select name="bot1" id="bot1">
                     <?php
                     for($i=0;$i<count($bots);$i++){
@@ -46,8 +46,8 @@ if(!$postParams){
                         echo '<option value="'.$i.'" '.$selected.'>'.$bots[$i]['name'].'</option>';
                     }
                     ?>
-                </select>
+                </select></em>
         </p>
-	<p><label></label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
+	<p><label>!</label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
     <div id="fightResult"></div>
 </article>
