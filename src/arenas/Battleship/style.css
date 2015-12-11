@@ -2,6 +2,6 @@ article p {width: 100%;}
 article p label {float:left; text-align:right;	width:60%}
 article p select {}
 td{min-width: 10px; height: 10px;}
-.battleshipGrid{float: left;}
+.battleshipGrid{float: left; border-collapse:collapse;}
 .battleshipGrid tr{}
 .battleshipGrid tr td{border: 1px dashed green;}
