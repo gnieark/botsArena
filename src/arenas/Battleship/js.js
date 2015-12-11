@@ -20,7 +20,7 @@ function createElem(type,attributes)
     return elem;
 }
 
-function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
+function battleship(botsArray,bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
     
   document.getElementById('fightResult').innerHTML = '';
   //dessiner les deux grilles
@@ -28,6 +28,9 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   tableMe=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
   
   for (i=0; i < gridHeight ; i++){
+   //ligne de titre
+    
+   
    trAdv=createElem("tr");
    trMe=createElem("tr");
    for (j=0; j < gridWidth ; j++){
