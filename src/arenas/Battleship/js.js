@@ -53,17 +53,19 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   }
   document.getElementById('fightResult').appendChild(tableAdv);
   document.getElementById('fightResult').appendChild(tableMe);
+  var divLogs=createElem("div",{"id":"logs"});
+  document.getElementById('fightResult').appendChild(divLogs);
   
- /* 
+ 
   
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
-	document.getElementById('fightResult').innerHTML = xhr.responseText;				
+	//document.getElementById('fightResult').innerHTML = xhr.responseText;				
       }
     }};
     xhr.open("POST", '/Battleship',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
-    */
+    xhr.send('act=initGame&bot1=' + bot1 + '&bot2=' + bot2 + '&gridWidth=' + gridWidth + '&gridHeight=' + gridHeight + '&nbShip1=' + nbShip1 + '&nbShip1=' + nbShip2 + '&nbShip3=' + nbShip3 + '&nbShip4=' + nbShip4 + '&nbShip5=' + nbShip5 '&nbShip6=' + nbShip6 + '&xd_check=' + xd_check);
+    
 }
