@@ -30,8 +30,8 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
     //ligne de titre 
     var trTitre1=createElem("tr");
     var trTitre2=createElem("tr");
-    var tdTitre1=createElem("td",{"collspan":gridWidth});
-    var tdTitre2=createElem("td",{"collspan":gridWidth});
+    var tdTitre1=createElem("td",{"colspan":gridWidth});
+    var tdTitre2=createElem("td",{"colspan":gridWidth});
     tdTitre1.innerHTML = bot1IdName[1];
     tdTitre2.innerHTML = bot2IdName[1];
     trTitre1.appendChild(tdTitre1);
