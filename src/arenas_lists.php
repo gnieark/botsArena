@@ -12,7 +12,9 @@ $arenas=array(
         'id' => "Battleship",
         'url' => "/Battleship",
         'title' => "bataille Navale",
-        'metaDescription'   => 'Affrontements de bots à la battaille navale'
+        'metaDescription'   => 'Affrontements de bots à la battaille navale',
+        'jsFile'=> "js.js",
+        'cssFile'=> "style.css"
     )
     
 );
