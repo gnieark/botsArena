@@ -22,7 +22,7 @@ if(!$postParams){
         <p><label for="ship4">Nombre de navires de 4 cases:</label><?php echo generate_numeric_select(0,10,1,'ship4','ship4'); ?></p>
         <p><label for="ship5">Nombre de navires de 5 cases:</label><?php echo generate_numeric_select(0,10,1,'ship5','ship5'); ?></p>
         <p><label for="ship6">Nombre de navires de 6 cases:</label><?php echo generate_numeric_select(0,10,0,'ship6','ship6'); ?></p>
-        <p>
+        <p><label></label>
                 <select name="bot1" id="bot1">
                     <?php
                     for($i=0;$i<count($bots);$i++){
@@ -48,6 +48,6 @@ if(!$postParams){
                     ?>
                 </select>
         </p>
-	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
+	<p><label></label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
     <div id="fightResult"></div>
 </article>
