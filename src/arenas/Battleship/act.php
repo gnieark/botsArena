@@ -74,10 +74,10 @@ switch ($_POST['act']){
             'width'     => $postValues['gridWidth'],
             'height'    => $postValues['height'],
             'ship1'     => $postValues['ship1'],
-            'ship2'     => $postValues['ship2']
-            'ship3'     => $postValues['ship3']
-            'ship4'     => $postValues['ship4']
-            'ship5'     => $postValues['ship5']
+            'ship2'     => $postValues['ship2'],
+            'ship3'     => $postValues['ship3'],
+            'ship4'     => $postValues['ship4'],
+            'ship5'     => $postValues['ship5'],
             'ship6'     => $postValues['ship6']
             
 	);
