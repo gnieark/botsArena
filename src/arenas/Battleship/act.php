@@ -25,8 +25,8 @@ switch ($_POST['act']){
 	}
 	if (
 		  (!is_numeric($value))
-	      OR  ($value < $p[1])
-	      OR  ($value > $p[2])
+	      OR  ($value <= $p[1])
+	      OR  ($value >= $p[2])
 	    )
 	{
 	      error(500,'wrong parameters');
