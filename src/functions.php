@@ -218,7 +218,7 @@ function get_unique_id(){
   $fp = fopen(__DIR__.'/countBattles.txt', 'c+');
   flock($fp, LOCK_EX);
 
-  $count = (int)fread($fp, filesize('count.txt'));
+  $count = (int)fread($fp, filesize(__DIR__.'/count.txt'));
   ftruncate($fp, 0);
   fseek($fp, 0);
   fwrite($fp, $count + 1);
