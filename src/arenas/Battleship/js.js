@@ -68,8 +68,8 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
     xhr.open("POST", '/Battleship',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(
-        'act=initGame&bot1=' + bot1 
-        + '&bot2=' + bot2 
+        'act=initGame&bot1=' + bot1IdName[0] 
+        + '&bot2=' + bot2IdName[0]
         + '&gridWidth=' + gridWidth 
         + '&gridHeight=' + gridHeight 
         + '&nbShip1=' + nbShip1 
