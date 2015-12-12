@@ -39,8 +39,9 @@ switch ($_POST['act']){
       $bot1Exists = false;
       $bot2Exists = false;
       foreach($bots as $bot){
+          echo $bot['id']."|".$_POST['bot1']."\n";
 	if($bot['id'] == $_POST['bot1']){
-            echo $bot['id']."|".$_POST['bot1']."\n";
+          
 	  $bot1 = $bot;
 	  $bot1Exists =true;
 	}
