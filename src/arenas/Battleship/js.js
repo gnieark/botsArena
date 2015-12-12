@@ -73,7 +73,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         + '&gridWidth=' + gridWidth 
         + '&gridHeight=' + gridHeight 
         + '&nbShip1=' + nbShip1 
-        + '&nbShip1=' + nbShip2 
+        + '&nbShip2=' + nbShip2 
         + '&nbShip3=' + nbShip3 
         + '&nbShip4=' + nbShip4 
         + '&nbShip5=' + nbShip5
