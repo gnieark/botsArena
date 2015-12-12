@@ -25,7 +25,7 @@ switch ($_POST['act']){
 	}
 	if (
 		  (!is_numeric($value))
-	      OR  ( <= $p[1])
+	      OR  ($value <= $p[1])
 	      OR  ($value >= $p[2])
 	    )
 	{
