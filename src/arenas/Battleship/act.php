@@ -18,7 +18,7 @@ switch ($_POST['act']){
   
       foreach($postParamsWanted as $p){
 	if(!isset($_POST[$p[0]])){
-	  error (500,'missing parameter');
+	  error (500,'missing parameter 1');
 	  die;
 	}else{
 	  $value=$_POST[$p[0]];
@@ -39,7 +39,6 @@ switch ($_POST['act']){
       $bot1Exists = false;
       $bot2Exists = false;
       foreach($bots as $bot){
-          echo $bot['id']."|".$_POST['bot1']."\n";
 	if($bot['id'] == $_POST['bot1']){
           
 	  $bot1 = $bot;
@@ -54,7 +53,7 @@ switch ($_POST['act']){
 	} 
       }
       if ((!$bot1Exists) OR (!$bot2Exists)){
-	error (500,"missing parameter");
+	error (500,"missing parameter 2");
       }
       
       //vars checked, lets init the initGame 
