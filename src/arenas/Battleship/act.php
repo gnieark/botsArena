@@ -83,7 +83,7 @@ switch ($_POST['act']){
 	);
 	
 	$anwserPlayer1 = get_IA_Response($bot1['url'],$bot1ParamsToSend);
-    
+        echo $anwserPlayer1; die;
     
         break;
     default:
