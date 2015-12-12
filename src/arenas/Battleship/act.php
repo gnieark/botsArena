@@ -3,6 +3,7 @@ $bots=get_Bots_Array('Battleship');
 
 switch ($_POST['act']){
     case "initGame":
+    print_r($_POST);
       //verifier parametres POST       
 	$postParamsWanted=array(
 	      // key,min,max
