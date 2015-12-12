@@ -31,7 +31,7 @@ if(!$postParams){
                         else
                             $selected='';
                         
-                        echo '<option value="'.$i."-".$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
+                        echo '<option value="'.$bots[$i]['id']."-".htmlentities($bots[$i]['name']).'" '.$selected.'>'.htmlentities($bots[$i]['name']).'</option>';
                     }
                     ?>
                 </select>
@@ -44,7 +44,7 @@ if(!$postParams){
                         else
                             $selected='';
                             
-                        echo '<option value="'.$i."-".$bots[$i]['name'].'" '.$selected.'>'.$bots[$i]['name'].'</option>';
+                        echo '<option value="'.$bots[$i]['id']."-".htmlentities($bots[$i]['name']).'" '.$selected.'>'.htmlentities($bots[$i]['name']).'</option>';
                     }
                     ?>
                 </select></em>

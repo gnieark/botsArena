@@ -61,18 +61,19 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
-	//document.getElementById('fightResult').innerHTML = xhr.responseText;				
+        //debug
+	document.getElementById('logs').innerHTML = xhr.responseText;				
       }
     }};
     xhr.open("POST", '/Battleship',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(
-        'act=initGame&bot1=' + bot1 
-        + '&bot2=' + bot2 
+        'act=initGame&bot1=' + bot1IdName[0] 
+        + '&bot2=' + bot2IdName[0]
         + '&gridWidth=' + gridWidth 
         + '&gridHeight=' + gridHeight 
         + '&nbShip1=' + nbShip1 
-        + '&nbShip1=' + nbShip2 
+        + '&nbShip2=' + nbShip2 
         + '&nbShip3=' + nbShip3 
         + '&nbShip4=' + nbShip4 
         + '&nbShip5=' + nbShip5
