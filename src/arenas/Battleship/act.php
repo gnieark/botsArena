@@ -25,11 +25,11 @@ switch ($_POST['act']){
 	}
 	if (
 		  (!is_numeric($value))
-	      OR  ($value <= $p[1])
+	      OR  ( <= $p[1])
 	      OR  ($value >= $p[2])
 	    )
 	{
-	      error(500,'wrong parameters');
+	      error(500,'wrong parameters'.$p[0]);
 	      die;
 	}
 	$postValues[$p[0]]=$value;
