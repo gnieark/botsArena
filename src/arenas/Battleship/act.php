@@ -54,7 +54,7 @@ switch ($_POST['act']){
 	} 
       }
       if ((!$bot1Exists) OR (!$bot2Exists)){
-	error (500,"missing parameter";
+	error (500,"missing parameter");
       }
       
       //vars checked, lets init the initGame 
