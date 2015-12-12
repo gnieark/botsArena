@@ -31,7 +31,7 @@ switch ($_POST['act']){
 	      OR  ($value > $p[2])
 	    )
 	{
-	      error(500,'wrong parameters');
+	      error(500,'wrong parameters 1');
 	      die;
 	}
 	$postValues[$p[0]]=$value;
