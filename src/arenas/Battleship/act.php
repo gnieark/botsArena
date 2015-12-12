@@ -72,12 +72,12 @@ switch ($_POST['act']){
             'opponent'  => $bot2['name'],
             'width'     => $postValues['gridWidth'],
             'height'    => $postValues['height'],
-            'ship1'     => $postValues['ship1'],
-            'ship2'     => $postValues['ship2'],
-            'ship3'     => $postValues['ship3'],
-            'ship4'     => $postValues['ship4'],
-            'ship5'     => $postValues['ship5'],
-            'ship6'     => $postValues['ship6']
+            'ship1'     => $postValues['nbShip1'],
+            'ship2'     => $postValues['nbShip2'],
+            'ship3'     => $postValues['nbShip3'],
+            'ship4'     => $postValues['nbShip4'],
+            'ship5'     => $postValues['nbShip5'],
+            'ship6'     => $postValues['nbShip6']
             
 	);
 	
