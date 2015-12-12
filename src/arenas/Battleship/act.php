@@ -29,7 +29,7 @@ switch ($_POST['act']){
 	      OR  ($value > $p[2])
 	    )
 	{
-	      error(500,'wrong parameters 1');
+	      error(500,'wrong parameters');
 	      die;
 	}
 	$postValues[$p[0]]=$value;
@@ -40,6 +40,7 @@ switch ($_POST['act']){
       $bot2Exists = false;
       foreach($bots as $bot){
 	if($bot['id'] == $_POST['bot1']){
+            echo $bot['id']."|".$_POST['bot1']."\n";
 	  $bot1 = $bot;
 	  $bot1Exists =true;
 	}
