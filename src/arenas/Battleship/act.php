@@ -72,7 +72,7 @@ switch ($_POST['act']){
             'match_id'  => $_SESSION['matchId']."-1",
             'opponent'  => $bot2['name'],
             'width'     => $postValues['gridWidth'],
-            'height'    => $postValues['height'],
+            'height'    => $postValues['gridHeight'],
             'ship1'     => $postValues['nbShip1'],
             'ship2'     => $postValues['nbShip2'],
             'ship3'     => $postValues['nbShip3'],
