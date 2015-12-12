@@ -8,12 +8,12 @@ switch ($_POST['act']){
 	      // key,min,max
 	  array('gridWidth',1,100),
 	  array('gridHeight',1,100),
-	  array('nbShip1',1,10),
-	  array('nbShip2',1,10),
-	  array('nbShip3',1,10),
-	  array('nbShip4',1,10),
-	  array('nbShip5',1,10),
-	  array('nbShip6',1,10)
+	  array('nbShip1',0,10),
+	  array('nbShip2',0,10),
+	  array('nbShip3',0,10),
+	  array('nbShip4',0,10),
+	  array('nbShip5',0,10),
+	  array('nbShip6',0,10)
 	);
   
       foreach($postParamsWanted as $p){
@@ -29,7 +29,7 @@ switch ($_POST['act']){
 	      OR  ($value >= $p[2])
 	    )
 	{
-	      error(500,'wrong parameters'.$p[0]);
+	      error(500,'wrong parameters '.$p[0]);
 	      die;
 	}
 	$postValues[$p[0]]=$value;
