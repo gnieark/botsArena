@@ -8,12 +8,12 @@ switch ($_POST['act']){
 	      // key,min,max
 	  array('gridWidth',1,100),
 	  array('gridHeight',1,100),
-	  array('ship1',1,10),
-	  array('ship2',1,10),
-	  array('ship3',1,10),
-	  array('ship4',1,10),
-	  array('ship5',1,10),
-	  array('ship6',1,10)
+	  array('nbShip1',1,10),
+	  array('nbShip2',1,10),
+	  array('nbShip3',1,10),
+	  array('nbShip4',1,10),
+	  array('nbShip5',1,10),
+	  array('nbShip6',1,10)
 	);
   
       foreach($postParamsWanted as $p){
