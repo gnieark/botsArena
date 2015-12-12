@@ -60,6 +60,29 @@ switch ($_POST['act']){
       //vars checked, lets init the initGame 
 	
 	$_SESSION['matchId']=get_unique_id();
+	
+	
+	
+	// get_IA_Response($iaUrl,$postParams)
+	//array à envoyer au bot 1
+	
+	$bot1ParamsToSend=array(
+            'game'      => 'Battleship',
+            'act'       => 'init',
+            'match_id'  => $_SESSION['matchId']."-1",
+            'opponent'  => $bot2['name'],
+            'width'     => $postValues['gridWidth'],
+            'height'    => $postValues['height'],
+            'ship1'     => $postValues['ship1'],
+            'ship2'     => $postValues['ship2']
+            'ship3'     => $postValues['ship3']
+            'ship4'     => $postValues['ship4']
+            'ship5'     => $postValues['ship5']
+            'ship6'     => $postValues['ship6']
+            
+	);
+	
+	$anwserPlayer1 = get_IA_Response($bot1['url'],$bot1ParamsToSend);
     
     
         break;
