@@ -1,6 +1,6 @@
 <?php
 $bots=get_Bots_Array('Battleship');
-
+print_r($bots);
 switch ($_POST['act']){
     case "initGame":
       //verifier parametres POST       
