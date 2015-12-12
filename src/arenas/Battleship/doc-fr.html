@@ -1,7 +1,22 @@
-<h2>Initialisation de la partie</h2>
-<p>Pour démarrer la partie, l'arène va envoyer une requette http(s) à votre programme contenant les paramètres POST suivants:</p>
-<ul>
-    <li></li>
-    <li></li>
-    <li></li>
+<p>La bataille navale se joue en trois phases:</p>
+<ul><li>Placement des bateaux sur les maps</li>
+<li>Echange de tirs</li>
+<li>Fin de partie</li>
 </ul>
+<p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
+<h2>Paramètres communs à toutes les phases de jeu</h2>
+<h3>"game"</h3>
+<p>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</p>
+<h3>"match_id"</h3>
+<p>String. répond à l'expression réguilière suivante: ^[0-9]+-(1|2)$</p>
+<p>Le premier numéro (avant le tiret) identifie le match. L'arène ne vous rappelera pas à chaque tour les cases que vous avez déjà tiré. A vous de les sauvegarder en attendant le tour suivant. D'autant que votre bot peut être amenée à disputer plusieurs matchs (avec des match_id différents). Le numéro après le tiret vous indique si vous etes je bot 1 ou le bot 2 dans l'ordre de jeu. ça vous servira notemment à gérer les cas où votre bot assure les deux joueurs.</p>
+<h3>"act"</h3>
+<p> Peut prendre trois valeurs:</p>
+<ul>
+    <li>"init" c'est l'objet de ce châpitre de la doc. On démarre la partie, vous devez placer vos bateaux</li>
+    <li>"play" Vous prenez subissez un tir, et envoyez aussi un tir</li>
+    <li>"end" La partie est finie</li>
+</ul>
+
+<h2>Initialisation de la partie</h2>
+

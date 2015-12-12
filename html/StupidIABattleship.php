@@ -1,2 +1,11 @@
 <?php
-print_r($_POST);
+switch($_POST['act']){
+    case "init":
+
+    
+    
+        break;
+    default: 
+        break;
+    
+}

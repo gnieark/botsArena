@@ -68,8 +68,8 @@ switch ($_POST['act']){
 	
 	$bot1ParamsToSend=array(
             'game'      => 'Battleship',
-            'act'       => 'init',
             'match_id'  => $_SESSION['matchId']."-1",
+            'act'       => 'init',
             'opponent'  => $bot2['name'],
             'width'     => $postValues['gridWidth'],
             'height'    => $postValues['gridHeight'],
