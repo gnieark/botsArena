@@ -99,8 +99,8 @@ switch ($_POST['act']){
 	  }
 	  
 	  //init grid
-	  for($y = 0; $y < $height; $y++){
-	    for($x = 0; $x < $width; $x++){
+	  for($y = 0; $y < $postValues['gridHeight']; $y++){
+	    for($x = 0; $x < $postValues['gridWidth']; $x++){
 		    $grid[$player][$y][$x]=0;
 	    }
 	  }

@@ -54,9 +54,12 @@ function get_IA_Response($iaUrl,$postParams){
     return htmlentities($output);
 }
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
-  if (($x1 <> $x2) && ($y1 <> $y2)){
-    return false;
+  if ((($x1 <> $x2) && ($y1 <> $y2))
+    OR (!isset($map[$y1][$x1]))
+    OR (!isset($map[$y2][$x2]))){
+      return false;
   }
+  
 
   if($x1 == $x2){
     //horizontal ship
