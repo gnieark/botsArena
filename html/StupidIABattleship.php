@@ -54,7 +54,7 @@ switch($_POST['act']){
             }
             $$key=$_POST[$key];
         }
-        if(!preg_match('^[0-9]+-(1|2)$',$match_id)){
+        if(!preg_match('/^[0-9]+-(1|2)$/',$match_id)){
 	  echo "parametre incorrect"; die;
         }
         
