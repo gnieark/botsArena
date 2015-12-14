@@ -70,7 +70,8 @@ switch($_POST['act']){
         //pour toutes les tailles de bateau
         for($shipWidth = 6; $shipWidth >= 0; $shipWidth--){
 	  //nombre de bateau à placer de cette taille
-	  $shipCount=$('ship'.$shipWidth); // #trollface
+	  $dynVar='ship'.$shipWidth;
+	  $shipCount=$$dynVar; // #trollface
 	  for( $sh = 0; $sh < $shipCount; $sh++){
              $directions=array();
              while( count($directions) == 0){
