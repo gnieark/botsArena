@@ -1,5 +1,37 @@
 <?php
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
+  if (($x1 <> $x2) && ($y1 <> $y2)){
+    return false;
+  }
+
+  if($x1 == $x2){
+    //horizontal ship
+    if($y1 <= $y2 ){
+      $start=$y1;
+      $end=$y2;
+    }else{
+      $start=$y2;
+      $end=$y1;
+    }
+    for($i = $start; $i <= $end; $i++){
+      $map[$i][$x1]=1;
+    }
+    return $map; 
+  }
+  if($y1 == $y2){
+    //vertical ship
+    if( $x1 <= $x2){
+      $start=$x1;
+      $end=$x2;
+    }else{
+      $start=$x2;
+      $end=$x1;
+    }
+    for( $i = $start; $i <= $end; $i++){
+      $map[$y1][$i]=1;
+    }
+    return $map;
+  }
 
 }
 switch($_POST['act']){
@@ -80,7 +112,7 @@ switch($_POST['act']){
                 }else{
                     $right=true;
                     for($i=$xtest; $i < $xtest + $shipWidth, $i++){
-                        if($map[$ytest][$y] == 1){
+                        if($map[$ytest][$i] == 1){
                             $right= false;
                             break;
                         }
@@ -93,7 +125,7 @@ switch($_POST['act']){
                 }else{
                     $left=true;
                     for($i = $xtest; $i > $xtest - $shipWidth; $i--){
-                        if($map[$ytest][$y] == 1){
+                        if($map[$ytest][$i] == 1){
                             $left= false;
                             break;
                         }                    
@@ -119,14 +151,20 @@ switch($_POST['act']){
             shuffle($directions);
             switch($directions[0]){
                 case 'top':
-                    $shipsCoords[]=$xtest.",".$ytest."-".$ytest.",".$ytest - $shipWidth;
-                
+                    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest - $shipWidth);
+		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest - $shipWidth,$map);
                     break;
                 case 'bottom':
+		    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest + $shipWidth);
+		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest + $shipWidth,$map);
                     break;
                 case 'left':
+		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest - $shipWidth).",".$ytest;
+		    $map= place_ship_on_map($xtest,$ytest,$xtest - $shipWidth ,$ytest,$map);
                     break;
                 case 'right':
+		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest + $shipWidth).",".$ytest;
+		    $map= place_ship_on_map($xtest,$ytest,$xtest + $shipWidth ,$ytest,$map);
                     break;
             
             }
@@ -134,7 +172,7 @@ switch($_POST['act']){
 	  }
         }
         
-        
+        print_r($shipsCoords);
         break;
     default: 
         break;
