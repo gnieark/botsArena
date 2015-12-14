@@ -83,7 +83,7 @@ switch($_POST['act']){
                 
                 //Y a t'il la place pour le bateau vers le haut?
                 if($ytest < $shipWidth){
-                $top=false; 
+		  $top=false; 
                 }else{
                     $top=true;
                     for($i = $ytest; $i > $ytest - $shipWidth; $i--){
@@ -109,7 +109,7 @@ switch($_POST['act']){
                 
                 //droite
                 if($xtest + $shipWidth > $width){
-                    $rigth=false;
+                    $right=false;
                 }else{
                     $right=true;
                     for($i = $xtest; $i < $xtest + $shipWidth; $i++){
@@ -173,7 +173,7 @@ switch($_POST['act']){
 	  }
         }
         
-        print_r($shipsCoords);
+        echo json_encode($shipsCoords);
         break;
     default: 
         break;
