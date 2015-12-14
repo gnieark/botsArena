@@ -98,8 +98,14 @@ switch ($_POST['act']){
 	    }
 	  }
 	  
-
-	  //vérifier si'il y a le bon nombre de bateaux
+	  //init grid
+	  for($y = 0; $y < $height){
+	    for($x = 0; $x < $width){
+		    $grid[$player][$y][$x]=0;
+	    }
+	  }
+	  
+	  //vérifier si'il y a le bon nombre de bateaux et les placer
 	  $nbBoatsIwant=array(0,$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],
 				$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6']);
 	  foreach($boatsPlayer as $boat){
@@ -107,11 +113,20 @@ switch ($_POST['act']){
 	      list($xStart,$yStart)=explode(",",$startCoord);
 	      list($xEnd,$yEnd)=explode(",",$endCoord);
 	      if($xStart == $xEnd){
-		$long=abs($yStart - $yEnd);
+		$long=abs($yStart - $yEnd);		
 	      }else{
 		$long=abs($xStart - $xEnd);
 	      }
 	      $nbBoatsIwant[$long]-=1;
+	      $grid[$player]=place_ship_on_map($xStart,$yStart,$xEnd,$yEnd,$grid[$player]);
+	      if(!$grid[$player]){
+		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd";
+		if($player==1){
+		  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
+		}else{
+		  save_battle('Battleship',$bot1['name'],$bot2['name'],1);
+		}	
+	      }
 	  }
 	  foreach($nbBoatsIwant as $nb){
 	    if($nb <> 0){
@@ -122,9 +137,11 @@ switch ($_POST['act']){
 		save_battle('Battleship',$bot1['name'],$bot2['name'],1);
 	      }	      
 	    }
-	  }
+	  } 
 	}
 	
+	$_SESSION['grids']=$grid;
+	echo json_encode($grid); die;
 	
         die;
     
