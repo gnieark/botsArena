@@ -87,7 +87,10 @@ switch ($_POST['act']){
 	  echo $bot1['name']." a fait une réponse non conforme, il perd.".$anwserPlayer1;
 	  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	}
-        echo $anwserPlayer1; die;
+	//vérifier si'il y a le bon nombre de bateaux
+	print_r($boatsPlayer1);
+	
+        //echo $anwserPlayer1; die;
     
         break;
     default:
