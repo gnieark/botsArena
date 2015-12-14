@@ -83,7 +83,7 @@ switch ($_POST['act']){
 	);
 	$anwserPlayer1=get_IA_Response($bot1['url'],$bot1ParamsToSend);
 	if(!$boatsPlayer1 = json_decode($anwserPlayer1)){
-	  echo $bot1['name']." a fait une réponse non conforme, il perd.";
+	  echo $bot1['name']." a fait une réponse non conforme, il perd.".$anwserPlayer1;
 	  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	}
         echo $anwserPlayer1; die;
