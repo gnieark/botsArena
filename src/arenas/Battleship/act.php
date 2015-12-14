@@ -87,10 +87,31 @@ switch ($_POST['act']){
 	  echo $bot1['name']." a fait une réponse non conforme, il perd.".$anwserPlayer1;
 	  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	}
-	//vérifier si'il y a le bon nombre de bateaux
-	print_r($boatsPlayer1);
 	
-        //echo $anwserPlayer1; die;
+
+	//vérifier si'il y a le bon nombre de bateaux
+	$nbBoatsIwant=array(0,$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],
+			      $postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6']);
+	foreach($boatsPlayer1 as $boat){
+	    list($startCoord,$endCoord) = explode("-",$boat);
+	    list($xStart,$yStart)=explode(",",$startCoord);
+	    list($xEnd,$yEnd)=explode(",",$endCoord);
+	    if($xStart == $xEnd){
+	      $long=abs($yStart - $yEnd);
+	    }else{
+	      $long=abs($xStart - $xEnd);
+	    }
+	    $nbBoatsIwant[$long]-=1;
+	}
+	foreach($nbBoatsIwant as $nb){
+	  if($nb <> 0){
+	    echo $bot1['name']." n'a pas placé correctement ses bateaux. Il perd";
+	    save_battle('Battleship',$bot1['name'],$bot2['name'],2);
+	  }
+	}
+	
+	
+        die;
     
         break;
     default:
