@@ -112,7 +112,7 @@ switch($_POST['act']){
                     $rigth=false;
                 }else{
                     $right=true;
-                    for($i=$xtest; $i < $xtest + $shipWidth, $i++){
+                    for($i = $xtest; $i < $xtest + $shipWidth; $i++){
                         if($map[$ytest][$i] == 1){
                             $right= false;
                             break;
