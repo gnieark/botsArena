@@ -62,6 +62,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
         //debug
+	//alert(xhr.responseText);
 	document.getElementById('logs').innerHTML = xhr.responseText;				
       }
     }};

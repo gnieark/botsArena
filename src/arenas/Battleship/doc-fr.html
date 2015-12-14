@@ -1,7 +1,43 @@
-<h2>Initialisation de la partie</h2>
-<p>Pour démarrer la partie, l'arène va envoyer une requette http(s) à votre programme contenant les paramètres POST suivants:</p>
-<ul>
-    <li></li>
-    <li></li>
-    <li></li>
+<p>La bataille navale se joue en trois phases:</p>
+<ul><li>Placement des bateaux sur les maps</li>
+<li>Echange de tirs</li>
+<li>Fin de partie</li>
 </ul>
+<p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
+<h2>Paramètres communs à toutes les phases de jeu</h2>
+<h3>"game"</h3>
+<p>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</p>
+<h3>"match_id"</h3>
+<p>String. répond à l'expression réguilière suivante: ^[0-9]+-(1|2)$</p>
+<p>Le premier nombre (digits avant le tiret) identifie le match. L'arène ne vous rappelera pas à chaque tour les cases que vous avez déjà ciblé. A vous de les sauvegarder en attendant le tour suivant. D'autant que votre bot peut être amené à disputer plusieurs matchs simultanément (avec des match_id différents). Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu. Ca vous servira notemment à gérer les cas où votre bot joue les deux joueurs.</p>
+<h3>"act"</h3>
+<p> Peut prendre trois valeurs:</p>
+<ul>
+    <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
+    <li>"play" Vous prenez subissez un tir, et envoyez aussi un tir</li>
+    <li>"end" La partie est finie</li>
+</ul>
+
+<h2>Initialisation de la partie</h2>
+<h3>Infos reçues par votre bot</h3>
+<p>Votre bot recevra les paramètres communs à toutes les phases de jeu (avec act => init) et les suivants:</p>
+<h4>"opponent"</h4>
+<p>String identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</p>
+
+<h4>"width"</h4>
+<p>integer, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</p>
+<h4>"height"</h4>
+<p>integer,  compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</p>
+<h4>"ship1"</h4>
+<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</p>
+<h4>"ship2"</h4>
+<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</p>
+<h4>"ship3"</h4>
+<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</p>
+<h4>...</h4>
+<p>...</p>
+<h4>"ship6"</h4>
+<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</p>
+<h3>Ce que doit retourner votre bot</h3>
+Il doit retourner la position des navires.
+
