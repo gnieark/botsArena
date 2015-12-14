@@ -96,6 +96,7 @@ switch ($_POST['act']){
 	    }else{
 	      save_battle('Battleship',$bot1['name'],$bot2['name'],1);
 	    }
+	    die;
 	  }
 	  
 	  //init grid
@@ -125,7 +126,8 @@ switch ($_POST['act']){
 		  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 		}else{
 		  save_battle('Battleship',$bot1['name'],$bot2['name'],1);
-		}	
+		}
+		die;
 	      }
 	  }
 	  foreach($nbBoatsIwant as $nb){
@@ -135,7 +137,8 @@ switch ($_POST['act']){
 		save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	      }else{
 		save_battle('Battleship',$bot1['name'],$bot2['name'],1);
-	      }	      
+	      }
+	      die;
 	    }
 	  } 
 	}
