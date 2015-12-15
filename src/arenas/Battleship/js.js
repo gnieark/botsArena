@@ -25,8 +25,8 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
    var  bot2IdName = bot2.split("-");
   document.getElementById('fightResult').innerHTML = '';
   //dessiner les deux grilles
-  var tableAdv=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
-  var tableMe=createElem("table",{"id":"tblAdv","class":"battleshipGrid"});
+  var tableAdv=createElem("table",{"id":"tbl1","class":"battleshipGrid"});
+  var tableMe=createElem("table",{"id":"tbl2","class":"battleshipGrid"});
     //ligne de titre 
     var trTitre1=createElem("tr");
     var trTitre2=createElem("tr");
@@ -43,8 +43,8 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
    var trAdv=createElem("tr");
    var trMe=createElem("tr");
    for (var j=0; j < gridWidth ; j++){
-     var tdAdv=createElem("td",{"id":"adv" + i +"-" + j,"class": "empty"});
-     var tdMe=createElem("td",{"id":"me" + i +"-" + j,"class": "empty"});
+     var tdAdv=createElem("td",{"id":"bot1-" + i +"-" + j,"class": "empty"});
+     var tdMe=createElem("td",{"id":"bot2-" + i +"-" + j,"class": "empty"});
      trAdv.appendChild(tdAdv);
      trMe.appendChild(tdMe);
    }
@@ -63,7 +63,23 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
       if(xhr.status  == 200) {
         //debug
 	//alert(xhr.responseText);
-	document.getElementById('logs').innerHTML = xhr.responseText;				
+	try{
+	  var grids = JSON.parse(xhr.responseText);
+	    for( var player=1; player <= 2 ; player ++){
+	      for (var y=0; y < grids[player].length ; y++){
+                  for (var x=0; x < grids[player][y].length ; x++){
+                    if (grids[player][y][x] == 1){
+                     document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
+                    }
+                  }
+              }
+	    }
+	  
+	}
+	catch(e){
+	 document.getElementById('logs').innerHTML = xhr.responseText;
+	  
+	}				
       }
     }};
     xhr.open("POST", '/Battleship',  true);
