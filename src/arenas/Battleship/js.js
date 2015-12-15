@@ -67,7 +67,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
 				var grids = JSON.parse(xhr.responseText);
 					for( var player=1; player <= 2 ; player ++){
 						var p=createElem("p");
-						p.innerHTML='Reponse joueurs:'xhr.responseText;
+						p.innerHTML='Reponse joueurs:' + xhr.responseText;
 						document.getElementById('logs').appendChild(p);
 
 						for (var y=0; y < grids[player].length ; y++){
