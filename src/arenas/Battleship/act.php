@@ -114,9 +114,9 @@ switch ($_POST['act']){
 	      list($xStart,$yStart)=explode(",",$startCoord);
 	      list($xEnd,$yEnd)=explode(",",$endCoord);
 	      if($xStart == $xEnd){
-		$long=abs($yStart - $yEnd);		
+		$long=abs($yStart - $yEnd +1);		
 	      }else{
-		$long=abs($xStart - $xEnd);
+		$long=abs($xStart - $xEnd +1);
 	      }
 	      $nbBoatsIwant[$long]-=1;
 	      $grid[$player]=place_ship_on_map($xStart,$yStart,$xEnd,$yEnd,$grid[$player]);

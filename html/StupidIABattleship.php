@@ -68,25 +68,24 @@ switch($_POST['act']){
         $shipsCoords=array();
         
         //pour toutes les tailles de bateau
-        for($shipWidth = 6; $shipWidth > 0; $shipWidth--){
+        for($shipWidth = 6; $shipWidth > 0; $shipWidth--){pl
 	  //nombre de bateau à placer de cette taille
 	  $dynVar='ship'.$shipWidth;
 	  $shipCount=$$dynVar; // #trollface
-	  for( $sh = 0; $sh < $shipCount; $sh++){
+	  for( $sh = 0; $sh < $shipCount; $sh++){ //loop for all boats witch size is $shipWidth
              $directions=array();
              while( count($directions) == 0){
-             
                 do{
                     $xtest=rand(0,$width -1);
                     $ytest=rand(0,$height -1);
                 }while($map[$ytest][$xtest] == 1);
                 
                 //Y a t'il la place pour le bateau vers le haut?
-                if($ytest < $shipWidth){
+                if($ytest < $shipWidth -1){
 		  $top=false; 
                 }else{
                     $top=true;
-                    for($i = $ytest; $i > $ytest - $shipWidth; $i--){
+                    for($i = $ytest; $i > $ytest - $shipWidth + 1; $i--){
                         if($map[$i][$xtest] == 1){
                             $top=false;
                             break;
@@ -95,11 +94,11 @@ switch($_POST['act']){
                 }
                 
                 //vers le bas
-                if($ytest + $shipWidth > $height){
+                if($ytest + $shipWidth -1 > $height){
                     $bottom=false;
                 }else{
                     $bottom=true;
-                    for($y=$ytest; $i < $ytest + $shipWidth; $i++){
+                    for($y=$ytest; $i < $ytest + $shipWidth -1; $i++){
                         if($map[$i][$xtest] == 1){
                             $bottom=false;
                             break;
@@ -108,11 +107,11 @@ switch($_POST['act']){
                 }
                 
                 //droite
-                if($xtest + $shipWidth > $width){
+                if($xtest + $shipWidth -1 > $width){
                     $right=false;
                 }else{
                     $right=true;
-                    for($i = $xtest; $i < $xtest + $shipWidth; $i++){
+                    for($i = $xtest; $i < $xtest + $shipWidth -1; $i++){
                         if($map[$ytest][$i] == 1){
                             $right= false;
                             break;
@@ -121,11 +120,11 @@ switch($_POST['act']){
                 }
                 
                 //gauche
-                if($xtest < $shipWidth){
+                if($xtest < $shipWidth +1){
                     $left=false;
                 }else{
                     $left=true;
-                    for($i = $xtest; $i > $xtest - $shipWidth; $i--){
+                    for($i = $xtest; $i > $xtest - $shipWidth + 1; $i--){
                         if($map[$ytest][$i] == 1){
                             $left= false;
                             break;
@@ -152,20 +151,20 @@ switch($_POST['act']){
             shuffle($directions);
             switch($directions[0]){
                 case 'top':
-                    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest - $shipWidth);
-		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest - $shipWidth,$map);
+                    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest - $shipWidth + 1);
+		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest - $shipWidth + 1,$map);
                     break;
                 case 'bottom':
-		    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest + $shipWidth);
-		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest + $shipWidth,$map);
+		    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest + $shipWidth - 1);
+		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest + $shipWidth -1 ,$map);
                     break;
                 case 'left':
-		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest - $shipWidth).",".$ytest;
-		    $map= place_ship_on_map($xtest,$ytest,$xtest - $shipWidth ,$ytest,$map);
+		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest - $shipWidth + 1).",".$ytest;
+		    $map= place_ship_on_map($xtest,$ytest,$xtest - $shipWidth + 1 ,$ytest,$map);
                     break;
                 case 'right':
-		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest + $shipWidth).",".$ytest;
-		    $map= place_ship_on_map($xtest,$ytest,$xtest + $shipWidth ,$ytest,$map);
+		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest + $shipWidth - 1 ).",".$ytest;
+		    $map= place_ship_on_map($xtest,$ytest,$xtest + $shipWidth -1 ,$ytest,$map);
                     break;
             
             }
