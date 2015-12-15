@@ -121,7 +121,7 @@ switch ($_POST['act']){
 	      $nbBoatsIwant[$long]-=1;
 	      $grid[$player]=place_ship_on_map($xStart,$yStart,$xEnd,$yEnd,$grid[$player]);
 	      if(!$grid[$player]){
-		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd";
+		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd<pre>'.$anwserPlayer.'</pre>";
 		if($player==1){
 		  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 		}else{
