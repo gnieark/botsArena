@@ -81,56 +81,49 @@ switch($_POST['act']){
                 }while($map[$ytest][$xtest] == 1);
                 
                 //Y a t'il la place pour le bateau vers le haut?
-                if($ytest < $shipWidth -1){
-		  $top=false; 
-                }else{
-                    $top=true;
-                    for($i = $ytest; $i >= $ytest - $shipWidth + 1; $i--){
-                        if($map[$i][$xtest] == 1){
-                            $top=false;
-                            break;
-                        }
+
+                //haut
+                $top=true;
+                for($i = $ytest; $i >= $ytest - $shipWidth + 1; $i--){
+                    if ((!isset($map[$i][$xtest])
+                    OR ($map[$i][$xtest] == 1)){
+                        $top=false;
+                        break;
                     }
                 }
                 
                 //vers le bas
-                if($ytest + $shipWidth -1 > $height){
-                    $bottom=false;
-                }else{
-                    $bottom=true;
-                    for($y=$ytest; $i < $ytest + $shipWidth -1; $i++){
-                        if($map[$i][$xtest] == 1){
-                            $bottom=false;
-                            break;
-                        }
+                $bottom=true;
+                for($y=$ytest; $i < $ytest + $shipWidth -1; $i++){
+                    if ((!isset($map[$i][$xtest])
+                    OR ($map[$i][$xtest] == 1)){
+                        $bottom=false;
+                        break;
                     }
                 }
                 
                 //droite
-                if($xtest + $shipWidth -1 > $width){
-                    $right=false;
-                }else{
-                    $right=true;
-                    for($i = $xtest; $i < $xtest + $shipWidth -1; $i++){
-                        if($map[$ytest][$i] == 1){
-                            $right= false;
-                            break;
-                        }
+                $right=true;
+                for($i = $xtest; $i < $xtest + $shipWidth -1; $i++){
+                    if((!isset($map[$ytest][$i]))
+                    OR($map[$ytest][$i] == 1)){
+                        $right= false;
+                        break;
                     }
                 }
                 
+                
                 //gauche
-                if($xtest < $shipWidth +1){
-                    $left=false;
-                }else{
-                    $left=true;
-                    for($i = $xtest; $i >= $xtest - $shipWidth + 1; $i--){
-                        if($map[$ytest][$i] == 1){
-                            $left= false;
-                            break;
-                        }                    
-                    }
+
+                $left=true;
+                for($i = $xtest; $i >= $xtest - $shipWidth + 1; $i--){
+                    if((!isset($map[$ytest][$i]))
+                    OR($map[$ytest][$i] == 1)){
+                        $left= false;
+                        break;
+                    }                    
                 }
+                
                 
                 
                 $directions=array();
