@@ -90,7 +90,7 @@ switch ($_POST['act']){
 	  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend);
 	  $boatsPlayer = json_decode( html_entity_decode($anwserPlayer));
 	  if(!$boatsPlayer){
-	    echo $currentBot['name']." a fait une réponse non conforme, il perd.";
+	    echo $currentBot['name']." a fait une réponse non conforme, il perd.".$anwserPlayer;
 	    if($player==1){
 	      save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	    }else{
