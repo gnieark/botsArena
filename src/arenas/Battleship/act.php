@@ -109,6 +109,7 @@ switch ($_POST['act']){
 	  //vérifier si'il y a le bon nombre de bateaux et les placer
 	  $nbBoatsIwant=array(0,$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],
 				$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6']);
+            print_r($nbBoatsIwant);
 	  foreach($boatsPlayer as $boat){
 	      list($startCoord,$endCoord) = explode("-",$boat);
 	      list($xStart,$yStart)=explode(",",$startCoord);
