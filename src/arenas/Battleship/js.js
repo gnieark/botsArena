@@ -64,12 +64,15 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         //debug
 	//alert(xhr.responseText);
 	try{
-	  var boats = JSON.parse(this.responseText);
+	  var grids = JSON.parse(this.responseText);
 	    for( var player=1; player <= 2 ; player ++){
-	      
-	      
-	  
-	  
+	      for (var y=0; y < grids[player].count ; y++){
+                  for (var x=0; x < grids[player][y].count ; x++){
+                    if (grids[player][y][x] == "1"){
+                     document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
+                    }
+                  }
+              }
 	    }
 	  
 	}
