@@ -132,7 +132,7 @@ switch ($_POST['act']){
 	  }
 	  foreach($nbBoatsIwant as $nb){
 	    if($nb <> 0){
-	      echo $currentBot['name']." n'a pas placé correctement ses bateaux. Il perd";
+	      echo $currentBot['name']." n'a pas placé correctement ses bateaux. Il perd. sa réponse: <pre>'.$anwserPlayer.'</pre>";
 	      if($player==1){
 		save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	      }else{
