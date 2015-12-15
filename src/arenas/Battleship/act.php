@@ -109,7 +109,7 @@ switch ($_POST['act']){
 	  //vérifier si'il y a le bon nombre de bateaux et les placer
 	  $nbBoatsIwant=array(0,$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],
 				$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6']);
-            print_r($nbBoatsIwant);
+  
 	  foreach($boatsPlayer as $boat){
 	      list($startCoord,$endCoord) = explode("-",$boat);
 	      list($xStart,$yStart)=explode(",",$startCoord);
@@ -122,7 +122,7 @@ switch ($_POST['act']){
 	      $nbBoatsIwant[$long]-=1;
 	      $grid[$player]=place_ship_on_map($xStart,$yStart,$xEnd,$yEnd,$grid[$player]);
 	      if(!$grid[$player]){
-		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd<pre>".$anwserPlayer."</pre>";
+		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd<pre>".$anwserPlayer." ".$xStart.$yStart.$xEnd.$yEnd."</pre>";
 		if($player==1){
 		  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 		}else{
