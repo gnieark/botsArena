@@ -65,10 +65,12 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
 	//alert(xhr.responseText);
 	try{
 	  var boats = JSON.parse(this.responseText);
-	  //for 
+	    for( var player=1; player <= 2 ; player ++){
+	      
+	      
 	  
 	  
-	  
+	    }
 	  
 	}
 	catch(e){
