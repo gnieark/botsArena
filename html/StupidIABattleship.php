@@ -94,7 +94,7 @@ switch($_POST['act']){
                 
                 //vers le bas
                 $bottom=true;
-                for($y=$ytest; $i < $ytest + $shipWidth -1; $i++){
+                for($i=$ytest; $i < $ytest + $shipWidth -1; $i++){
                     if ((!isset($map[$i][$xtest]))
                     OR ($map[$i][$xtest] == 1)){
                         $bottom=false;
