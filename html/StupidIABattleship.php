@@ -1,8 +1,11 @@
 <?php
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
-  if (($x1 <> $x2) && ($y1 <> $y2)){
-    return false;
+  if ((($x1 <> $x2) && ($y1 <> $y2))
+    OR (!isset($map[$y1][$x1]))
+    OR (!isset($map[$y2][$x2]))){
+      return false;
   }
+  
 
   if($x1 == $x2){
     //horizontal ship
@@ -14,7 +17,11 @@ function place_ship_on_map($x1,$y1,$x2,$y2,$map){
       $end=$y1;
     }
     for($i = $start; $i <= $end; $i++){
-      $map[$i][$x1]=1;
+      if($map[$i][$x1]==0){
+	$map[$i][$x1]=1;
+      }else{
+	return false;
+      }	
     }
     return $map; 
   }
@@ -28,11 +35,14 @@ function place_ship_on_map($x1,$y1,$x2,$y2,$map){
       $end=$x1;
     }
     for( $i = $start; $i <= $end; $i++){
-      $map[$y1][$i]=1;
+      if( $map[$y1][$i] == 0){
+	$map[$y1][$i]=1;
+      }else{
+	return false;
+      }
     }
     return $map;
   }
-
 }
 switch($_POST['act']){
     case "init":
@@ -57,7 +67,7 @@ switch($_POST['act']){
         if(!preg_match('/^[0-9]+-(1|2)$/',$match_id)){
 	  echo "parametre incorrect"; die;
         }
-        
+        $map=array();
         //construire une grille
         for($i=0; $i < $width; $i++){
 	  for($j=0; $j < $height; $j++){
@@ -162,7 +172,7 @@ switch($_POST['act']){
 
 	  }
         }
-        
+        print_r($map);
         echo json_encode($shipsCoords);
         break;
     default: 
