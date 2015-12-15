@@ -61,7 +61,7 @@ switch($_POST['act']){
         //construire une grille
         for($i=0; $i < $width; $i++){
 	  for($j=0; $j < $height; $j++){
-	    $map[$i][$j]=0;
+	    $map[$j][$i]=0;
 	  }
         }  
         
@@ -94,7 +94,7 @@ switch($_POST['act']){
                 
                 //vers le bas
                 $bottom=true;
-                for($i=$ytest; $i < $ytest + $shipWidth -1; $i++){
+                for($i = $ytest; $i < $ytest + $shipWidth -1; $i++){
                     if ((!isset($map[$i][$xtest]))
                     OR ($map[$i][$xtest] == 1)){
                         $bottom=false;
@@ -112,9 +112,7 @@ switch($_POST['act']){
                     }
                 }
                 
-                
                 //gauche
-
                 $left=true;
                 for($i = $xtest; $i >= $xtest - $shipWidth + 1; $i--){
                     if((!isset($map[$ytest][$i]))
