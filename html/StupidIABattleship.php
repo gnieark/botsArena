@@ -1,4 +1,5 @@
 <?php
+/*
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
   if ((($x1 <> $x2) && ($y1 <> $y2))
     OR (!isset($map[$y1][$x1]))
