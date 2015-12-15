@@ -68,7 +68,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
 	    for( var player=1; player <= 2 ; player ++){
 	      for (var y=0; y < grids[player].count ; y++){
                   for (var x=0; x < grids[player][y].count ; x++){
-                    if (grids[player][y][x] == "1"){
+                    if (grids[player][y][x] == 1){
                      document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
                     }
                   }
