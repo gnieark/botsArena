@@ -85,7 +85,7 @@ switch($_POST['act']){
 		  $top=false; 
                 }else{
                     $top=true;
-                    for($i = $ytest; $i > $ytest - $shipWidth + 1; $i--){
+                    for($i = $ytest; $i >= $ytest - $shipWidth + 1; $i--){
                         if($map[$i][$xtest] == 1){
                             $top=false;
                             break;
@@ -124,7 +124,7 @@ switch($_POST['act']){
                     $left=false;
                 }else{
                     $left=true;
-                    for($i = $xtest; $i > $xtest - $shipWidth + 1; $i--){
+                    for($i = $xtest; $i >= $xtest - $shipWidth + 1; $i--){
                         if($map[$ytest][$i] == 1){
                             $left= false;
                             break;
