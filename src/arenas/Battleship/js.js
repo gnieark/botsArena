@@ -63,12 +63,11 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
       if(xhr.status  == 200) {
         //debug
 	//alert(xhr.responseText);
-	//try{
+	try{
 	  var grids = JSON.parse(xhr.responseText);
 	    for( var player=1; player <= 2 ; player ++){
 	      for (var y=0; y < grids[player].length ; y++){
                   for (var x=0; x < grids[player][y].length ; x++){
-                    alert (grids[player][y][x] + y + x);
                     if (grids[player][y][x] == 1){
                      document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
                     }
@@ -76,11 +75,11 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
               }
 	    }
 	  
-	//}
-	//catch(e){
-	 // document.getElementById('logs').innerHTML = xhr.responseText;
+	}
+	catch(e){
+	 document.getElementById('logs').innerHTML = xhr.responseText;
 	  
-	//}				
+	}				
       }
     }};
     xhr.open("POST", '/Battleship',  true);
