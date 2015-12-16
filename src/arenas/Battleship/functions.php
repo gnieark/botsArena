@@ -17,8 +17,9 @@ function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSi
   if( (!isset($longestShip))
        OR(($longestShip > $gridWidth) && ($longestShip > $gridHeight))
   ){
-    return false:
+    return false;
   }
+  return true;
 }
 function get_Post_Params($ccbotsCount){
       $keysBots=array('bot1','bot2');
