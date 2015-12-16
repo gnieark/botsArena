@@ -53,6 +53,12 @@ function get_IA_Response($iaUrl,$postParams){
     curl_close($ch);   
     return htmlentities($output);
 }
+function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSize1,$nbShipsSize2,$nbShipsSize3,$nbShipsSize4,$nbShipsSize5,$nbShipsSize6){
+  //return false or true
+
+
+}
+
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
   if ((($x1 <> $x2) && ($y1 <> $y2))
     OR (!isset($map[$y1][$x1]))
