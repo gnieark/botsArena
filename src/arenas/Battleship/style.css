@@ -3,6 +3,7 @@ article p label {float:left; text-align:right;	width:60%}
 article p select {}
 td{min-width: 15px; height: 15px;}
 .battleshipGrid{float: left; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+.nofloat{float: none;}
 .battleshipGrid tr{}
 .battleshipGrid tr td{border: 1px dashed green;}
 .battleshipGrid tr th{text-align: center;}
