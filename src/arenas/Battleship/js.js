@@ -22,7 +22,7 @@ function createElem(type,attributes)
 
 function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
   
-  var shipsArea= nbShip1 + 2 * nbShip2 + 3 * nbShip3 + 4 * nbShip4 + 5 * nbShip5 + 6 * nbShip6;
+  var shipsArea= nbShip1 + (2 * nbShip2) + (3 * nbShip3) + (4 * nbShip4) + (5 * nbShip5) + (6 * nbShip6);
   if(shipsArea > parseInt(gridWidth * gridHeight / 2) ){
       alert("Map is too small. Sum of ships areas must be under 50% of the map." + shipsArea + " " + parseInt(gridWidth * gridHeight / 2));
       return;
