@@ -3,8 +3,7 @@ function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSi
   //return false or true
   //not a perfect solution
   $shipsArea=$nbShipsSize1 + (2 * $nbShipsSize2) + (3 * $nbShipsSize3) + (4 * $nbShipsSize4) + (5 * $nbShipsSize5) + (6 * $nbShipsSize6);
-  if( $shipsArea < intval($gridHeight * $gridWidth / 2)){
-    echo $shipsArea." ". intval($gridHeight * $gridWidth / 2);
+  if( $shipsArea > intval($gridHeight * $gridWidth / 2)){
     return false;
   }
   //longest ship
