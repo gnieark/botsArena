@@ -93,10 +93,6 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         }
         
         for( var player=1; player <= 2 ; player ++){
-            var p=createElem("p");
-            p.innerHTML='Reponse joueurs:' + xhr.responseText;
-            document.getElementById('logs').appendChild(p);
-
             for (var y=0; y < grids[player].length ; y++){
                     for (var x=0; x < grids[player][y].length ; x++){
                         if (grids[player][y][x] == 1){
@@ -105,6 +101,9 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
                     }
             }
         }
+        var p=createElem("p");
+        p.innerHTML='players placed theirs ships';
+        document.getElementById('logs').appendChild(p);
         
     }
 				
