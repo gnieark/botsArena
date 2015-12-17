@@ -24,10 +24,10 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   
   var shipsArea= parseInt(nbShip1) + 2 * parseInt(nbShip2) + 3 * parseInt(nbShip3) + 4 * parseInt(nbShip4) + 5 * parseInt(nbShip5) + 6 * parseInt(nbShip6);
   if(shipsArea > parseInt(gridWidth * gridHeight / 2) ){
-      alert("Map is too small. Sum of ships areas must be under 50% of the map." + shipsArea + " " + parseInt(gridWidth * gridHeight / 2));
+      alert("Map is too small. Sum of ships areas must be under 50% of the map." + shipsArea + " ");
       return;
   }
-  var ships= [0,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6];
+  var ships= [0,parseInt(nbShip1),parseInt(nbShip2),parseInt(nbShip3),parseInt(nbShip4),parseInt(nbShip5),parseInt(nbShip6)];
   var longestShip=0;
   for(var i = 6; i > 0; i--){
     if(ships[i] > 0){
