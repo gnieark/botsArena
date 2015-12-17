@@ -90,6 +90,9 @@ if(isset($_GET['arena'])){
     $mainSectionScript="../src/arenas/".$currentArenaArr['id']."/doc-".$lang['lang'].".html";
     $asideSectionContent=''; //to do
     $cssAdditionalScript="";
+    if(isset($currentArenaArr['cssFile'])){
+      $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
+    }
     $jsAdditionalScript="";
     
 }elseif(isset($_GET['page'])){

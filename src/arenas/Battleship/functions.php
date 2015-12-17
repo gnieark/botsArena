@@ -1,5 +1,27 @@
 <?php
-function get_Post_Params($botsCount){
+function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSize1,$nbShipsSize2,$nbShipsSize3,$nbShipsSize4,$nbShipsSize5,$nbShipsSize6){
+  //return false or true
+  //not a perfect solution
+  $shipsArea=$nbShipsSize1 + 2 * $nbShipsSize2 + 3 * $nbShipsSize3 + 4 * $nbShipsSize4 + 5 * $nbShipsSize5 + 6 * $nbShipsSize6;
+  if( $shipsArea < $gridHeight * $gridwidth / 2){
+    return false;
+  }
+  //longest ship
+  for($i=6; $i > 0; $i--){
+    $var='nbShipsSize'.$i;
+    if($$var > 0){
+        $longestShip=$$var;
+        break;
+    }
+  }
+  if( (!isset($longestShip))
+       OR(($longestShip > $gridWidth) && ($longestShip > $gridHeight))
+  ){
+    return false;
+  }
+  return true;
+}
+function get_Post_Params($ccbotsCount){
       $keysBots=array('bot1','bot2');
       foreach($keysBots as $botKey){
 	if(!isset($_POST[$botKey])){
@@ -53,6 +75,8 @@ function get_IA_Response($iaUrl,$postParams){
     curl_close($ch);   
     return htmlentities($output);
 }
+
+
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
   if ((($x1 <> $x2) && ($y1 <> $y2))
     OR (!isset($map[$y1][$x1]))
