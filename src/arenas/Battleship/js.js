@@ -39,7 +39,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
     ||((longestShip > gridWidth) && (longestShip > gridHeight))
   ){
       alert ("Map is too small. Grow it or reduce ships");
-      break;
+      return;
   }
    
   
