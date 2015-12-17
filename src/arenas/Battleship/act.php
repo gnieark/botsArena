@@ -57,7 +57,7 @@ switch ($_POST['act']){
 	error (500,"missing parameter 2");
       }
       
-      if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],$postValues['nbShip4'],$postValues['nbShip5'],$postvalues['nbShip6'])){
+      if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6'])){
 	error (404,"grid is too little for these sips");
       }
       
