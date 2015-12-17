@@ -82,30 +82,32 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
 
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-	  if(xhr.status  == 200) {
-		  //debug
-		  //alert(xhr.responseText);
-		  try{
-			  var grids = JSON.parse(xhr.responseText);
-				  for( var player=1; player <= 2 ; player ++){
-					  var p=createElem("p");
-					  p.innerHTML='Reponse joueurs:' + xhr.responseText;
-					  document.getElementById('logs').appendChild(p);
+    if(xhr.status  == 200) {
+        //debug
+        //alert(xhr.responseText);
+        try{
+            var grids = JSON.parse(xhr.responseText);
+        catch(e){
+            document.getElementById('logs').innerHTML = xhr.responseText;
+            return;
+        }
+        
+        for( var player=1; player <= 2 ; player ++){
+            var p=createElem("p");
+            p.innerHTML='Reponse joueurs:' + xhr.responseText;
+            document.getElementById('logs').appendChild(p);
 
-					  for (var y=0; y < grids[player].length ; y++){
-						  for (var x=0; x < grids[player][y].length ; x++){
-						  if (grids[player][y][x] == 1){
-							  document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
-						  }
-					  }
-				  }
-			  }
-
-		  }
-		  catch(e){
-		  document.getElementById('logs').innerHTML = xhr.responseText;
-
-	  }				
+            for (var y=0; y < grids[player].length ; y++){
+                    for (var x=0; x < grids[player][y].length ; x++){
+                        if (grids[player][y][x] == 1){
+                            document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
+                        }
+                    }
+            }
+        }
+        
+    }
+				
   }
   }};
   xhr.open("POST", '/Battleship',  true);
