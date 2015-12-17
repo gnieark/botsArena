@@ -57,6 +57,10 @@ switch ($_POST['act']){
 	error (500,"missing parameter 2");
       }
       
+      if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$posValues['nbship2'],$postValues['nbship3'],$postValues['nbship4'],$postValues['nbship5'],$postvalues['nbship6'])){
+	error (404,"grid is too little for these sips");
+      }
+      
       //vars checked, lets init the initGame 
 	
 	$_SESSION['matchId']=get_unique_id();

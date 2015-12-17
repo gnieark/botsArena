@@ -21,85 +21,107 @@ function createElem(type,attributes)
 }
 
 function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
-	var  bot1IdName = bot1.split("-");
-	var  bot2IdName = bot2.split("-");
-	document.getElementById('fightResult').innerHTML = '';
-	//dessiner les deux grilles
-	var tableAdv=createElem("table",{"id":"tbl1","class":"battleshipGrid"});
-	var tableMe=createElem("table",{"id":"tbl2","class":"battleshipGrid"});
-	//ligne de titre 
-	var trTitre1=createElem("tr");
-	var trTitre2=createElem("tr");
-	var tdTitre1=createElem("th",{"colspan":gridWidth});
-	var tdTitre2=createElem("th",{"colspan":gridWidth});
-	tdTitre1.innerHTML = bot1IdName[1];
-	tdTitre2.innerHTML = bot2IdName[1];
-	trTitre1.appendChild(tdTitre1);
-	tableAdv.appendChild(trTitre1);
-	trTitre2.appendChild(tdTitre2);
-	tableMe.appendChild(trTitre2);
+  
+  var shipsArea=nbShip1 + 2 * nbShip2 + 3 * nbShip3 + 4 * nbShip4 + 5 * nbShip5 + 6 * nbShip6;
+  if(shipsArea > gridWidth * gridHeight / 2 ){
+      alert("Map is too small. Sum of ships areas must be under 50% of the map.");
+      return;
+  }
+  var ships= [0,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6];
+  var longestShip=0;
+  for(var i = 6; i > 0; i--){
+    if(ships[i] > 0){
+     longestShip=ships[i];
+     break;
+    }
+  }
+  if((longestShip==0)
+    ||((longestShip > gridWidth) && (longestShip > gridHeight))
+  ){
+      alert ("Map is too small. Grow it or reduce ships");
+      break;
+  }
+   
+  
+  var  bot1IdName = bot1.split("-");
+  var  bot2IdName = bot2.split("-");
+  document.getElementById('fightResult').innerHTML = '';
+  //dessiner les deux grilles
+  var tableAdv=createElem("table",{"id":"tbl1","class":"battleshipGrid"});
+  var tableMe=createElem("table",{"id":"tbl2","class":"battleshipGrid"});
+  //ligne de titre 
+  var trTitre1=createElem("tr");
+  var trTitre2=createElem("tr");
+  var tdTitre1=createElem("th",{"colspan":gridWidth});
+  var tdTitre2=createElem("th",{"colspan":gridWidth});
+  tdTitre1.innerHTML = bot1IdName[1];
+  tdTitre2.innerHTML = bot2IdName[1];
+  trTitre1.appendChild(tdTitre1);
+  tableAdv.appendChild(trTitre1);
+  trTitre2.appendChild(tdTitre2);
+  tableMe.appendChild(trTitre2);
 
-	for (var i=0; i < gridHeight ; i++){
-		var trAdv=createElem("tr");
-		var trMe=createElem("tr");
-		for (var j=0; j < gridWidth ; j++){
-			var tdAdv=createElem("td",{"id":"bot1-" + i +"-" + j,"class": "empty"});
-			var tdMe=createElem("td",{"id":"bot2-" + i +"-" + j,"class": "empty"});
-			trAdv.appendChild(tdAdv);
-			trMe.appendChild(tdMe);
-		}
-		tableAdv.appendChild(trAdv);
-		tableMe.appendChild(trMe);
-	}
-	document.getElementById('fightResult').appendChild(tableAdv);
-	document.getElementById('fightResult').appendChild(tableMe);
-	var divLogs=createElem("div",{"id":"logs"});
-	document.getElementById('fightResult').appendChild(divLogs);
+  for (var i=0; i < gridHeight ; i++){
+	  var trAdv=createElem("tr");
+	  var trMe=createElem("tr");
+	  for (var j=0; j < gridWidth ; j++){
+		  var tdAdv=createElem("td",{"id":"bot1-" + i +"-" + j,"class": "empty"});
+		  var tdMe=createElem("td",{"id":"bot2-" + i +"-" + j,"class": "empty"});
+		  trAdv.appendChild(tdAdv);
+		  trMe.appendChild(tdMe);
+	  }
+	  tableAdv.appendChild(trAdv);
+	  tableMe.appendChild(trMe);
+  }
+  document.getElementById('fightResult').appendChild(tableAdv);
+  document.getElementById('fightResult').appendChild(tableMe);
+  var divLogs=createElem("div",{"id":"logs"});
+  document.getElementById('fightResult').appendChild(divLogs);
 
 
 
-	var xhr = Ajx(); 
-	xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-		if(xhr.status  == 200) {
-			//debug
-			//alert(xhr.responseText);
-			try{
-				var grids = JSON.parse(xhr.responseText);
-					for( var player=1; player <= 2 ; player ++){
-						var p=createElem("p");
-						p.innerHTML='Reponse joueurs:' + xhr.responseText;
-						document.getElementById('logs').appendChild(p);
+  var xhr = Ajx(); 
+  xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+	  if(xhr.status  == 200) {
+		  //debug
+		  //alert(xhr.responseText);
+		  try{
+			  var grids = JSON.parse(xhr.responseText);
+				  for( var player=1; player <= 2 ; player ++){
+					  var p=createElem("p");
+					  p.innerHTML='Reponse joueurs:' + xhr.responseText;
+					  document.getElementById('logs').appendChild(p);
 
-						for (var y=0; y < grids[player].length ; y++){
-							for (var x=0; x < grids[player][y].length ; x++){
-							if (grids[player][y][x] == 1){
-								document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
-							}
-						}
-					}
-				}
+					  for (var y=0; y < grids[player].length ; y++){
+						  for (var x=0; x < grids[player][y].length ; x++){
+						  if (grids[player][y][x] == 1){
+							  document.getElementById( 'bot' + player + '-' + y + '-' + x).className="shipOn";
+						  }
+					  }
+				  }
+			  }
 
-			}
-			catch(e){
-			document.getElementById('logs').innerHTML = xhr.responseText;
+		  }
+		  catch(e){
+		  document.getElementById('logs').innerHTML = xhr.responseText;
 
-		}				
-	}
-	}};
-	xhr.open("POST", '/Battleship',  true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send(
-	'act=initGame&bot1=' + bot1IdName[0] 
-	+ '&bot2=' + bot2IdName[0]
-	+ '&gridWidth=' + gridWidth 
-	+ '&gridHeight=' + gridHeight 
-	+ '&nbShip1=' + nbShip1 
-	+ '&nbShip2=' + nbShip2 
-	+ '&nbShip3=' + nbShip3 
-	+ '&nbShip4=' + nbShip4 
-	+ '&nbShip5=' + nbShip5
-	+ '&nbShip6=' + nbShip6 
-	+ '&xd_check=' + xd_check
-	);
+	  }				
+  }
+  }};
+  xhr.open("POST", '/Battleship',  true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(
+  'act=initGame&bot1=' + bot1IdName[0] 
+  + '&bot2=' + bot2IdName[0]
+  + '&gridWidth=' + gridWidth 
+  + '&gridHeight=' + gridHeight 
+  + '&nbShip1=' + nbShip1 
+  + '&nbShip2=' + nbShip2 
+  + '&nbShip3=' + nbShip3 
+  + '&nbShip4=' + nbShip4 
+  + '&nbShip5=' + nbShip5
+  + '&nbShip6=' + nbShip6 
+  + '&xd_check=' + xd_check
+  );
 
 }
