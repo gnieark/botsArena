@@ -97,7 +97,7 @@ switch($_POST['act']){
 	  die;
         }
         
-        
+        a:
         $map=array();
         //construire une grille
         for($i=0; $i < $width; $i++){
@@ -114,93 +114,95 @@ switch($_POST['act']){
 	  $dynVar='ship'.$shipWidth;
 	  $shipCount=$$dynVar; // #trollface
 	  for( $sh = 0; $sh < $shipCount; $sh++){ //loop for all boats witch size is $shipWidth
-             $directions=array();
-             while( count($directions) == 0){
-                do{
-                    $xtest=rand(0,$width -1);
-                    $ytest=rand(0,$height -1);
-                }while($map[$ytest][$xtest] == 1);
-                
-                //Y a t'il la place pour le bateau vers le haut?
-
-                //haut
-                $top=true;
-                for($i = $ytest; $i >= $ytest - $shipWidth + 1; $i--){
-                    if ((!isset($map[$i][$xtest]))
-                    OR ($map[$i][$xtest] == 1)){
-                        $top=false;
-                        break;
-                    }
-                }
-                
-                //vers le bas
-                $bottom=true;
-                for($i = $ytest; $i < $ytest + $shipWidth -1; $i++){
-                    if ((!isset($map[$i][$xtest]))
-                    OR ($map[$i][$xtest] == 1)){
-                        $bottom=false;
-                        break;
-                    }
-                }
-                
-                //droite
-                $right=true;
-                for($i = $xtest; $i < $xtest + $shipWidth -1; $i++){
-                    if((!isset($map[$ytest][$i]))
-                    OR($map[$ytest][$i] == 1)){
-                        $right= false;
-                        break;
-                    }
-                }
-                
-                //gauche
-                $left=true;
-                for($i = $xtest; $i >= $xtest - $shipWidth + 1; $i--){
-                    if((!isset($map[$ytest][$i]))
-                    OR($map[$ytest][$i] == 1)){
-                        $left= false;
-                        break;
-                    }                    
-                }
-                  
-                $directions=array();
-                if($top){
-                    $directions[]='top';
-                }
-                if($bottom){
-                    $directions[]='bottom';
-                }
-                if($left){
-                    $directions[]='left';
-                }
-                if($right){
-                    $directions[]='right';
-                }
-            }
-            
-            shuffle($directions);
-            switch($directions[0]){
+	    //find free cases
+	    $freeCases=array();
+	    for($y=0; $y < $height; $y++){
+	      for($x=0; $x < $width; $x++){
+		if($map[$y][$x] == 0){
+		  $directions=array();
+		  //test top
+		  $top=true;
+		  for($i = $y; $i > $y - $shipWidth; $i--){
+		    if((!isset($map[$i][$x])) OR ($map[$i][$x]==1)){
+		      $top=false;
+		      $break;
+		    }
+		  }
+		  if($top){
+		    $directions[]='top';
+		  }
+		  //test Bottom
+		  $bottom=true;
+		  for($i = $y; $i < $y + $shipWidth; $i++){
+		    if(((!isset($map[$i][$x])) OR $map[$i][$x]==1)){
+		      $bottom=false;
+		      $break;
+		    }
+		  }
+		  if($bottom){
+		    $directions[]='bottom';
+		  }
+		  //test left
+		  $left=true;
+		  for($i = $x; $i > $x - $shipWidth; $i--){
+		    if((!isset($map[$y][$i])) OR ($map[$y][$i]==1)){
+		      $left=false;
+		      $break;
+		    }
+		  }
+		  if($left){
+		    $directions[]='left';
+		  }
+		  //test right
+		  $right=true;
+		  for($i = $x; $i < $x + $shipWidth; $i++){
+		    if((!isset($map[$y][$i])) OR ($map[$y][$i]==1)){
+		      $right=false;
+		      $break;
+		    }
+		  }
+		  if($right){
+		    $directions[]='right';
+		  }
+		  
+		  if(count($directions)>0){
+		   $freeCases[]=array($x,$y,$directions);
+		  }
+		
+		}
+	      }
+	    }
+	    
+	    if(count($freeCases) == 0){
+	      //can't place the ship
+	      goto a; //#facepalm
+	    }
+	    shuffle($freeCases); //choose start case for this ship
+	    shuffle($freeCases[0][2]); //choose random direction
+	    $x=$freeCases[0][0];
+	    $y=$freeCases[0][1];
+	    switch($freeCases[0][2][0]){
                 case 'top':
-                    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest - $shipWidth + 1);
-		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest - $shipWidth + 1,$map);
+                    $shipsCoords[]=$x.",".$y."-".$x.",".($y - $shipWidth + 1);
+		    $map= place_ship_on_map($x,$y,$x,$y - $shipWidth + 1,$map);
                     break;
                 case 'bottom':
-		    $shipsCoords[]=$xtest.",".$ytest."-".$xtest.",".($ytest + $shipWidth - 1);
-		    $map= place_ship_on_map($xtest,$ytest,$xtest,$ytest + $shipWidth -1 ,$map);
+		    $shipsCoords[]=$x.",".$y."-".$x.",".($y + $shipWidth - 1);
+		    $map= place_ship_on_map($x,$y,$x,$y + $shipWidth -1 ,$map);
                     break;
                 case 'left':
-		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest - $shipWidth + 1).",".$ytest;
-		    $map= place_ship_on_map($xtest,$ytest,$xtest - $shipWidth + 1 ,$ytest,$map);
+		    $shipsCoords[]=$x.",".$y."-".($x - $shipWidth + 1).",".$y;
+		    $map= place_ship_on_map($x,$y,$x - $shipWidth + 1 ,$y,$map);
                     break;
                 case 'right':
-		    $shipsCoords[]=$xtest.",".$ytest."-".($xtest + $shipWidth - 1 ).",".$ytest;
-		    $map= place_ship_on_map($xtest,$ytest,$xtest + $shipWidth -1 ,$ytest,$map);
+		    $shipsCoords[]=$x.",".$y."-".($x + $shipWidth - 1 ).",".$y;
+		    $map= place_ship_on_map($x,$y,$x + $shipWidth -1 ,$y,$map);
                     break;
             
             }
-
 	  }
         }
+        
         //print_r($map);
         echo json_encode($shipsCoords);
         break;
