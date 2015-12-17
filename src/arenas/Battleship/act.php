@@ -58,7 +58,7 @@ switch ($_POST['act']){
       }
       
       if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6'])){
-	error (404,"grid is too little for these sips");
+	error (404,"grid is too little for these ships");
       }
       
       //vars checked, lets init the initGame 
