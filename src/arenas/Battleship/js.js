@@ -87,7 +87,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         //alert(xhr.responseText);
         try{
             var grids = JSON.parse(xhr.responseText);
-        catch(e){
+        }catch(e){
             document.getElementById('logs').innerHTML = xhr.responseText;
             return;
         }
@@ -108,7 +108,6 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         
     }
 				
-  }
   }};
   xhr.open("POST", '/Battleship',  true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
