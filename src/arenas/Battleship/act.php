@@ -57,8 +57,8 @@ switch ($_POST['act']){
 	error (500,"missing parameter 2");
       }
       
-      if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$posValues['nbship2'],$postValues['nbship3'],$postValues['nbship4'],$postValues['nbship5'],$postvalues['nbship6'])){
-	error (404,"grid is too little for these sips");
+      if(!is_it_possible_to_place_ships_on_grid($postValues['gridWidth'],$postValues['gridHeight'],$postValues['nbShip1'],$postValues['nbShip2'],$postValues['nbShip3'],$postValues['nbShip4'],$postValues['nbShip5'],$postValues['nbShip6'])){
+	error (404,"grid is too little for these ships");
       }
       
       //vars checked, lets init the initGame 
@@ -119,14 +119,14 @@ switch ($_POST['act']){
 	      list($xStart,$yStart)=explode(",",$startCoord);
 	      list($xEnd,$yEnd)=explode(",",$endCoord);
 	      if($xStart == $xEnd){
-		$long=abs($yStart - $yEnd +1);		
+		$long=abs($yStart - $yEnd) +1;		
 	      }else{
-		$long=abs($xStart - $xEnd +1);
+		$long=abs($xStart - $xEnd) +1;
 	      }
 	      $nbBoatsIwant[$long]-=1;
 	      $grid[$player]=place_ship_on_map($xStart,$yStart,$xEnd,$yEnd,$grid[$player]);
 	      if(!$grid[$player]){
-		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd<pre>".$anwserPlayer." ".$xStart.$yStart.$xEnd.$yEnd."</pre>";
+		echo $currentBot['name']." n'a pas placé correctement ses bateaux. Certains se chevauchent. Il perd.";
 		if($player==1){
 		  save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 		}else{
@@ -137,7 +137,7 @@ switch ($_POST['act']){
 	  }
 	  foreach($nbBoatsIwant as $nb){
 	    if($nb <> 0){
-	      echo $currentBot['name']." n'a pas placé correctement ses bateaux. Il perd. sa réponse: <pre>".$anwserPlayer."</pre>";
+	      echo $currentBot['name']." n'a pas placé le bon nombre de bateaux. Il perd.";
 	      if($player==1){
 		save_battle('Battleship',$bot1['name'],$bot2['name'],2);
 	      }else{
@@ -148,7 +148,7 @@ switch ($_POST['act']){
 	  } 
 	}
 	
-	$_SESSION['grids']=$grid;
+	//$_SESSION['grids']=$grid;
 	echo json_encode($grid); die;
 	
         die;
