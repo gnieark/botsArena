@@ -256,7 +256,7 @@ switch ($_POST['act']){
 	 
 	 //do this shot hit a boat
 	 $result='';
-	 foreach($_SESSION['ships'][$opponent] as $ennemyBoat{
+	 foreach($_SESSION['ships'][$opponent] as $ennemyBoat){
 	  if(in_array($x.",".$y, $ennemyBoat)){
 	    $result='hit';
 	    break;
