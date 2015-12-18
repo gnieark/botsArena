@@ -218,7 +218,7 @@ switch ($_POST['act']){
 
       	$botParamsToSend=array(
 	      'game'      => 'Battleship',
-	      'match_id'  => $_SESSION['matchId']."-".$currentPlayer;
+	      'match_id'  => $_SESSION['matchId']."-".$currentPlayer,
 	      'act'       => 'fight',
 	      'opponent'  => $opponentName,
 	      'width'     => $_SESSION['width'],
@@ -228,9 +228,9 @@ switch ($_POST['act']){
 	      'ship3'     => $postValues['nbShip3'],
 	      'ship4'     => $postValues['nbShip4'],
 	      'ship5'     => $postValues['nbShip5'],
-	      'ship6'     => $postValues['nbShip6']
+	      'ship6'     => $postValues['nbShip6'],
 	      'your_hits'	=> json_encode($_SESSION['hits'][$player]),
-	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent]),
+	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent])
       
 	  );
 	  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
