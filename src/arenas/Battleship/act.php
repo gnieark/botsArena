@@ -229,7 +229,7 @@ switch ($_POST['act']){
 	      'ship4'     => $_SESSION['ship4'],
 	      'ship5'     => $_SESSION['ship5'],
 	      'ship6'     => $_SESSION['ship6'],
-	      'your_hits'	=> json_encode($_SESSION['hits'][$player]),
+	      'your_hits'	=> json_encode($_SESSION['hits'][$currentPlayer]),
 	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent])
       
 	  );
