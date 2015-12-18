@@ -26,7 +26,7 @@ function fight(xd_check){
                     var p=createElem("p");
                     p.innerHTML=xhr.responseText;
                     document.getElementById('logs').appendChild(p);
-                    fight(xd_check);
+                    //fight(xd_check);
             
         }
 				
