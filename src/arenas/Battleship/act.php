@@ -240,7 +240,7 @@ switch ($_POST['act']){
 	      'target' => '',
 	      'log' => $currentBot['name']." a fait une réponse non conforme, il perd"
 	      ));
-	     save_battle('Battleship',$bot1['name'],$bot2['name'],$opponent);
+	     save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
 	     die;
 	  }
 	  list($x,$y)=explode(",",$anwserPlayer);
