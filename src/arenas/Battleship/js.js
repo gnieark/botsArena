@@ -36,7 +36,10 @@ function fight(xd_check){
 	  var p=createElem("p");
 	  p.innerHTML=strike['log'];
 	  document.getElementById('logs').appendChild(p);
-	  //fight(xd_check);
+	  
+	  if( strike['continue'] == 1){
+	    fight(xd_check);
+	  }
             
         }
 				

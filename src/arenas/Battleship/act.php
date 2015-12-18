@@ -268,10 +268,16 @@ switch ($_POST['act']){
 	  'target' => $x.",".$y,
 	  'result' => $result
 	  );
+	  if(count( $_SESSION['strikes'][$currentPlayer]) < 10){
+	    $continue=1;
+	  }else{
+	    $continue=0;
+	  }
 	  echo json_encode(array(
 	      'opponent'=> $opponent,
 	      'target' => $x.",".$y,
-	      'log' => $currentBot['name']."tire en ".$x.",".$y." ".$result
+	      'log' => $currentBot['name']."tire en ".$x.",".$y." ".$result,
+	      'continue' => $continue
 	  ));
 	 
         die;
