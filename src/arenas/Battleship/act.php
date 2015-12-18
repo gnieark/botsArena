@@ -238,7 +238,7 @@ switch ($_POST['act']){
 	  if(!preg_match('/^[0-9]+,[0-9]$/',$anwserPlayer)){
 	    echo json_encode(array(
 	      'target' => '',
-	      'log' => $currentBot['name']." a fait une réponse non conforme, il perd.|".nl2br($anwserPlayer)."|";
+	      'log' => $currentBot['name']." a fait une réponse non conforme, il perd.|".nl2br($anwserPlayer)."|"
 	      ));
 	     save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
 	     die;
