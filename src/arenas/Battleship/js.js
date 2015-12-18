@@ -26,7 +26,7 @@ function fight(xd_check){
 	  try{
 	      var strike = JSON.parse(xhr.responseText);
 	  }catch(e){
-	      document.getElementById('logs').innerHTML = 'erreur' +xhr.responseText;
+	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
 	      return;
 	  }
 	  if( strike['target'] !== ''){
