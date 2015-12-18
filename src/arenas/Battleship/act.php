@@ -213,7 +213,7 @@ switch ($_POST['act']){
             $currentPlayer=2;
             $currentBot=$_SESSION['bot2'];
             $opponentName=$_SESSION['bot1']['name'];
-            $opponent=2;
+            $opponent=1;
         }
 
       	$botParamsToSend=array(
