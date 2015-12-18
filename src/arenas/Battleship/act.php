@@ -206,7 +206,7 @@ switch ($_POST['act']){
             //player 1 has to fight
             $currentPlayer=1;
             $currentBot=$_SESSION['bot1'];
-            $opennent=2;
+            $openent=2;
             $opponentName=$_SESSION['bot2']['name'];
         }else{
             //it's player2
