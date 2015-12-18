@@ -206,6 +206,10 @@ switch($_POST['act']){
         //print_r($map);
         echo json_encode($shipsCoords);
         break;
+    case "fight":
+      print_r($_POST);
+      die;
+      break;
     default: 
         break;
     

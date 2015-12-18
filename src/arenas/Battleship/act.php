@@ -181,9 +181,14 @@ switch ($_POST['act']){
 	    }
 	  } 
 	}
-	
-	$_SESSION['shots'][1]=array();
-	$_SESSION['shots'][2]=array();
+	$_SESSION['ship1']=$postValues['nbShip1'];
+	$_SESSION['ship2']=$postValues['nbShip2'];
+	$_SESSION['ship3']=$postValues['nbShip3'];
+	$_SESSION['ship4']=$postValues['nbShip4'];
+	$_SESSION['ship5']=$postValues['nbShip5'];
+	$_SESSION['ship6']=$postValues['nbShip6'];
+	$_SESSION['hits'][1]=array();
+	$_SESSION['hits'][2]=array();
 	$_SESSION['width']=$postValues['gridWidth'];
 	$_SESSION['height']=$postValues['gridHeight'];
 	echo json_encode($grid); die;
@@ -197,16 +202,39 @@ switch ($_POST['act']){
      print_r($_SESSION);
     Array ( [xd_check] => VSlWXLQVbYL2sCBwqetQdorR9 [bot1] => Array ( [id] => 10 [name] => stupidIA [url] => http://botsArena.tinad.fr/StupidIABattleship.php [description] => ) [bot2] => Array ( [id] => 10 [name] => stupidIA [url] => http://botsArena.tinad.fr/StupidIABattleship.php [description] => ) [matchId] => 702 [ships] => Array ( [1] => Array ( [0] => Array ( [0] => 3,0 [1] => 3,1 [2] => 3,2 [3] => 3,3 [4] => 3,4 ) [1] => Array ( [0] => 1,5 [1] => 2,5 [2] => 3,5 [3] => 4,5 ) [2] => Array ( [0] => 7,5 [1] => 8,5 [2] => 9,5 ) [3] => Array ( [0] => 0,0 [1] => 1,0 [2] => 2,0 ) [4] => Array ( [0] => 4,4 [1] => 5,4 ) [5] => Array ( [0] => 5,3 [1] => 6,3 [2] => 7,3 [3] => 8,3 [4] => 9,3 ) [6] => Array ( [0] => 2,7 [1] => 3,7 [2] => 4,7 [3] => 5,7 ) [7] => Array ( [0] => 1,9 [1] => 2,9 [2] => 3,9 ) [8] => Array ( [0] => 7,4 [1] => 8,4 [2] => 9,4 ) [9] => Array ( [0] => 0,2 [1] => 0,3 ) [10] => Array ( [0] => 3,9 [1] => 4,9 [2] => 5,9 [3] => 6,9 [4] => 7,9 ) [11] => Array ( [0] => 2,2 [1] => 2,3 [2] => 2,4 [3] => 2,5 ) [12] => Array ( [0] => 0,8 [1] => 1,8 [2] => 2,8 ) [13] => Array ( [0] => 7,7 [1] => 8,7 [2] => 9,7 ) [14] => Array ( [0] => 8,3 [1] => 9,3 ) [15] => Array ( [0] => 4,5 [1] => 5,5 [2] => 6,5 [3] => 7,5 [4] => 8,5 ) [16] => Array ( [0] => 3,2 [1] => 4,2 [2] => 5,2 [3] => 6,2 ) [17] => Array ( [0] => 0,7 [1] => 1,7 [2] => 2,7 ) [18] => Array ( [0] => 6,1 [1] => 7,1 [2] => 8,1 ) [19] => Array ( [0] => 2,3 [1] => 3,3 ) ) [2] => Array ( [0] => Array ( [0] => 0,9 [1] => 1,9 [2] => 2,9 [3] => 3,9 [4] => 4,9 ) [1] => Array ( [0] => 1,4 [1] => 1,5 [2] => 1,6 [3] => 1,7 ) [2] => Array ( [0] => 3,0 [1] => 4,0 [2] => 5,0 ) [3] => Array ( [0] => 0,0 [1] => 1,0 [2] => 2,0 ) [4] => Array ( [0] => 5,2 [1] => 6,2 ) [5] => Array ( [0] => 2,0 [1] => 3,0 [2] => 4,0 [3] => 5,0 [4] => 6,0 ) [6] => Array ( [0] => 2,1 [1] => 3,1 [2] => 4,1 [3] => 5,1 ) [7] => Array ( [0] => 7,3 [1] => 8,3 [2] => 9,3 ) [8] => Array ( [0] => 0,2 [1] => 1,2 [2] => 2,2 ) [9] => Array ( [0] => 5,3 [1] => 5,4 ) [10] => Array ( [0] => 5,3 [1] => 6,3 [2] => 7,3 [3] => 8,3 [4] => 9,3 ) [11] => Array ( [0] => 0,2 [1] => 0,3 [2] => 0,4 [3] => 0,5 ) [12] => Array ( [0] => 7,2 [1] => 8,2 [2] => 9,2 ) [13] => Array ( [0] => 0,1 [1] => 1,1 [2] => 2,1 ) [14] => Array ( [0] => 7,7 [1] => 7,8 ) [15] => Array ( [0] => 4,1 [1] => 4,2 [2] => 4,3 [3] => 4,4 [4] => 4,5 ) [16] => Array ( [0] => 3,9 [1] => 4,9 [2] => 5,9 [3] => 6,9 ) [17] => Array ( [0] => 7,3 [1] => 8,3 [2] => 9,3 ) [18] => Array ( [0] => 6,8 [1] => 7,8 [2] => 8,8 ) [19] => Array ( [0] => 0,5 [1] => 0,6 ) ) ) [shots] => Array ( [1] => Array ( ) [2] => Array ( ) ) [width] => 10 [height] => 10 )
     */
-        if(count($_SESSION['shots'][1]) == count($_SESSION['shots'][1])){
+        if(count($_SESSION['shots'][1]) == count($_SESSION['shots'][2])){
             //player 1 has to fight
             $currentPlayer=1;
-            
+            $currentBot=$_SESSION['bot1'];
+            $opennent=2;
+            $opponentName=$_SESSION['bot2']['name'];
         }else{
             //it's player2
             $currentPlayer=2;
+            $currentBot=$_SESSION['bot2'];
+            $opponentName=$_SESSION['bot1']['name'];
+            $opponent=2;
         }
-       
-       
+
+      	$botParamsToSend=array(
+	      'game'      => 'Battleship',
+	      'match_id'  => $_SESSION['matchId']."-".$currentPlayer;
+	      'act'       => 'fight',
+	      'opponent'  => $opponentName,
+	      'width'     => $_SESSION['width'],
+	      'height'    => $_SESSION['height'],
+	      'ship1'     => $postValues['nbShip1'],
+	      'ship2'     => $postValues['nbShip2'],
+	      'ship3'     => $postValues['nbShip3'],
+	      'ship4'     => $postValues['nbShip4'],
+	      'ship5'     => $postValues['nbShip5'],
+	      'ship6'     => $postValues['nbShip6']
+	      'your_hits'	=> json_encode($_SESSION['hits'][$player]),
+	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent]),
+      
+	  );
+	  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
+	  echo $anwserPlayer;
        
        
         die;
