@@ -29,7 +29,7 @@ function fight(xd_check){
 	      document.getElementById('logs').innerHTML = 'erreur' +xhr.responseText;
 	      return;
 	  }
-	  if( strike['target'] <> ''){
+	  if( strike['target'] !== ''){
 	    var coords = strike['target'].split(",");
 	    document.getElementById( 'bot' + strike['opponent'] + '-' + coords[1] + '-' +  coords[0]).innerHTML = "X";
 	  }
