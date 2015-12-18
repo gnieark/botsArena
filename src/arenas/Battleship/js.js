@@ -23,10 +23,19 @@ function fight(xd_check){
     var xhr = Ajx(); 
         xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
         if(xhr.status  == 200) {
-                    var p=createElem("p");
-                    p.innerHTML=xhr.responseText;
-                    document.getElementById('logs').appendChild(p);
-                    //fight(xd_check);
+	  try{
+	      var strike = JSON.parse(xhr.responseText);
+	  }catch(e){
+	      document.getElementById('logs').innerHTML = 'erreur' +xhr.responseText;
+	      return;
+	  }
+	  var coords = strike['target'].split(",");
+	  document.getElementById( 'bot' + strike['opponent'] + '-' + coords[1] + '-' +  coords[0]).innerHTML = "X";
+	  
+	  var p=createElem("p");
+	  p.innerHTML=strike['log'];
+	  document.getElementById('logs').appendChild(p);
+	  //fight(xd_check);
             
         }
 				

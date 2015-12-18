@@ -187,8 +187,8 @@ switch ($_POST['act']){
 	$_SESSION['ship4']=$postValues['nbShip4'];
 	$_SESSION['ship5']=$postValues['nbShip5'];
 	$_SESSION['ship6']=$postValues['nbShip6'];
-	$_SESSION['hits'][1]=array();
-	$_SESSION['hits'][2]=array();
+	$_SESSION['strikes'][1]=array();
+	$_SESSION['strikes'][2]=array();
 	$_SESSION['width']=$postValues['gridWidth'];
 	$_SESSION['height']=$postValues['gridHeight'];
 	echo json_encode($grid); die;
@@ -229,14 +229,51 @@ switch ($_POST['act']){
 	      'ship4'     => $_SESSION['ship4'],
 	      'ship5'     => $_SESSION['ship5'],
 	      'ship6'     => $_SESSION['ship6'],
-	      'your_hits'	=> json_encode($_SESSION['hits'][$currentPlayer]),
-	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent])
+	      'your_strikes'	=> json_encode($_SESSION['strikes'][$currentPlayer]),
+	      'his_strikes'	=> json_encode($_SESSION['strikes'][$opponent])
       
 	  );
 	  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
-	  echo $anwserPlayer;
-       
-       
+	  
+	  if(!preg_match('/^[0-9]+,[0-9]$/',$anwserPlayer){
+	    echo json_encode(array(
+	      'target' => '',
+	      'log' => $currentBot['name']." a fait une réponse non conforme, il perd"
+	      ));
+	     save_battle('Battleship',$bot1['name'],$bot2['name'],$opponent);
+	     die;
+	  }
+	  list($x,$y)=explode(",",$anwserPlayer);
+	  
+	  //check if shot is under map's limits
+	  if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
+	    echo json_encode(array(
+	      'target' => '',
+	      'log' => $currentBot['name']." a fait un tir en dehors des limites de la carte. C'est interdit par les conventions de Genève. Il perd"
+	      ));
+	     save_battle('Battleship',$bot1['name'],$bot2['name'],$opponent);    
+	  }
+	 
+	 //do this shot hit a boat
+	 $result='';
+	 foreach($_SESSION['ships'][$opponent] as $ennemyBoat{
+	  if(in_array($x.",".$y, $ennemyBoat)){
+	    $result='hit';
+	    break;
+	  }
+	 }
+	 
+	 //save the shot
+	 $_SESSION['strikes'][$currentPlayer][]=array(
+	  'target' => $x.",".$y,
+	  'result' => $result
+	  );
+	  echo json_encode(array(
+	      'opponent'=> $opponent,
+	      'target' => $x.",".$y,
+	      'log' => $currentBot['name']."tire en ".$x.",".$y." ".$result
+	  ));
+	 
         die;
         break;
     default:
