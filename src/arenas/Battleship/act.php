@@ -223,12 +223,12 @@ switch ($_POST['act']){
 	      'opponent'  => $opponentName,
 	      'width'     => $_SESSION['width'],
 	      'height'    => $_SESSION['height'],
-	      'ship1'     => $postValues['nbShip1'],
-	      'ship2'     => $postValues['nbShip2'],
-	      'ship3'     => $postValues['nbShip3'],
-	      'ship4'     => $postValues['nbShip4'],
-	      'ship5'     => $postValues['nbShip5'],
-	      'ship6'     => $postValues['nbShip6'],
+	      'ship1'     => $_SESSION['ship1'],
+	      'ship2'     => $_SESSION['ship2'],
+	      'ship3'     => $_SESSION['ship3'],
+	      'ship4'     => $_SESSION['ship4'],
+	      'ship5'     => $_SESSION['ship5'],
+	      'ship6'     => $_SESSION['ship6'],
 	      'your_hits'	=> json_encode($_SESSION['hits'][$player]),
 	      'his_hits'	=> json_encode($_SESSION['hits'][$opponent])
       
