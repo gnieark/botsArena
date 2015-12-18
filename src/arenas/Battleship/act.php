@@ -277,7 +277,7 @@ switch ($_POST['act']){
 	  echo json_encode(array(
 	      'opponent'=> $opponent,
 	      'target' => $x.",".$y,
-	      'log' => $currentBot['name']."tire en ".$x.",".$y." ".$result,
+	      'log' => $currentBot['name']." tire en ".$x.",".$y." ".$result,
 	      'continue' => $continue
 	  ));
 	 
