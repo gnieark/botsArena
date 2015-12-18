@@ -187,7 +187,9 @@ switch ($_POST['act']){
     
         break;
     case "fight";
+    
         print_r($_SESSION);
+        die;
         break;
     default:
         break;
