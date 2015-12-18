@@ -43,10 +43,12 @@ switch ($_POST['act']){
 	if($bot['id'] == $_POST['bot1']){
           
 	  $bot1 = $bot;
+	  $_SESSION['bot1']=$bot;
 	  $bot1Exists =true;
 	}
 	if($bot['id'] == $_POST['bot2']){
 	  $bot2 = $bot;
+	  $_SESSION['bot2']=$bot;
 	  $bot2Exists =true;
 	}
 	if ($bot1Exists && $bot2Exists){
@@ -134,6 +136,33 @@ switch ($_POST['act']){
 		}
 		die;
 	      }
+	      //remember each cases of each boats
+	      $boatListOfCases=array();
+	      if($xStart == $xEnd){
+                if($yStart <= $yEnd ){
+                    $start=$yStart;
+                    $end=$yEnd;
+                }else{
+                    $start=$yEnd;
+                    $end=$yStart;
+                }
+                for($i = $start; $i <= $end; $i++){
+                    $boatListOfCases[]=$xStart.",".$i;
+                }
+	      }else{
+                if($xStart <= $xEnd ){
+                    $start=$xStart;
+                    $end=$xEnd;
+                }else{
+                    $start=$xEnd;
+                    $end=$xStart;
+                }
+                for($i = $start; $i <= $end; $i++){
+                    $boatListOfCases[]=$i.",".$yStart;
+                }
+	      
+	      }
+	      $_SESSION['ships'][$player][]=$boatListOfCases;
 	  }
 	  foreach($nbBoatsIwant as $nb){
 	    if($nb <> 0){
@@ -148,11 +177,17 @@ switch ($_POST['act']){
 	  } 
 	}
 	
-	//$_SESSION['grids']=$grid;
+	$_SESSION['shots'][1]=array();
+	$_SESSION['shots'][2]=array();
+	$_SESSION['width']=$postValues['gridWidth'];
+	$_SESSION['height']=$postValues['gridHeight'];
 	echo json_encode($grid); die;
 	
         die;
     
+        break;
+    case "fight";
+        print_r($_SESSION);
         break;
     default:
         break;

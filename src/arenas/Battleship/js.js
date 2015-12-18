@@ -19,6 +19,23 @@ function createElem(type,attributes)
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+function fight(xd_check){
+    var xhr = Ajx(); 
+        xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+        if(xhr.status  == 200) {
+                    var p=createElem("p");
+                    p.innerHTML=xhr.responseText;
+                    document.getElementById('logs').appendChild(p);
+                    fight(xd_check);
+            
+        }
+				
+    }};
+    xhr.open("POST", '/Battleship',  true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send('act=fight&xd_check=' + xd_check);
+
+}
 
 function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
   
@@ -104,7 +121,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         var p=createElem("p");
         p.innerHTML='players placed theirs ships';
         document.getElementById('logs').appendChild(p);
-        
+        fight(xd_check);
     }
 				
   }};
