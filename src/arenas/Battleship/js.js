@@ -19,6 +19,36 @@ function createElem(type,attributes)
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+function fight(xd_check){
+    var xhr = Ajx(); 
+        xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+        if(xhr.status  == 200) {
+	  try{
+	      var strike = JSON.parse(xhr.responseText);
+	  }catch(e){
+	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
+	      return;
+	  }
+	  if( strike['target'] !== ''){
+	    var coords = strike['target'].split(",");
+	    document.getElementById( 'bot' + strike['opponent'] + '-' + coords[1] + '-' +  coords[0]).innerHTML = "X";
+	  }
+	  var p=createElem("p");
+	  p.innerHTML=strike['log'];
+	  document.getElementById('logs').appendChild(p);
+	  
+	  if( strike['continue'] == 1){
+	    fight(xd_check);
+	  }
+            
+        }
+				
+    }};
+    xhr.open("POST", '/Battleship',  true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send('act=fight&xd_check=' + xd_check);
+
+}
 
 function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
   
@@ -104,7 +134,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         var p=createElem("p");
         p.innerHTML='players placed theirs ships';
         document.getElementById('logs').appendChild(p);
-        
+        fight(xd_check);
     }
 				
   }};
