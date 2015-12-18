@@ -209,7 +209,8 @@ switch($_POST['act']){
     case "fight":
       if((is_int($_POST['width'])) && (is_int($_POST['height']))){
 	echo rand(0,$_POST['width']).",".$_POST['height'];
-	die;
+      }else{
+	echo "boaf".$_POST['width']."-".$_POST['height'];
       }
       
       
