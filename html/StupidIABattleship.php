@@ -207,7 +207,12 @@ switch($_POST['act']){
         echo json_encode($shipsCoords);
         break;
     case "fight":
-      print_r($_POST);
+      if((is_int($_POST['width'])) && (is_int($_POST['height']))){
+	echo rand(0,$_POST['width']).",".$_POST['height'];
+	die;
+      }
+      
+      
       die;
       break;
     default: 
