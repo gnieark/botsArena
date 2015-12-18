@@ -251,7 +251,7 @@ switch ($_POST['act']){
 	      'target' => '',
 	      'log' => $currentBot['name']." a fait un tir en dehors des limites de la carte. C'est interdit par les conventions de Genève. Il perd"
 	      ));
-	     save_battle('Battleship',$bot1['name'],$bot2['name'],$opponent);    
+	     save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);    
 	  }
 	 
 	 //do this shot hit a boat
