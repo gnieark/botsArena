@@ -69,6 +69,7 @@ function place_ship_on_map($x1,$y1,$x2,$y2,$map){
 
 switch($_POST['act']){
     case "init":
+      file_put_contents(__DIR__."/log.txt",print_r($_POST,true));
 	$wantedVars=array(
             'match_id'  => false, //false-> string ; true -> integer
             'opponent'  => false,
