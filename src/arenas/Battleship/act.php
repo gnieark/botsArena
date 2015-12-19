@@ -255,11 +255,42 @@ switch ($_POST['act']){
 	     die;
 	  }
 	 
-	 //do this shot hit a boat
+	 //put previous strikes in a simple array;
+	 $previousStrikes=array();
+	 foreach( $_SESSION['strikes'][$currentPlayer] as $strikes){
+	  $previousStrikes[]=$strikes['target'];
+	 }
+	 	 
+	 //do this strike hit a boat?
+	 $continue=1;
 	 $result='';
-	 foreach($_SESSION['ships'][$opponent] as $ennemyBoat){
+	 
+	 for( $shipIndex = 0; $shipIndex < count( $_SESSION['ships'][$opponent]); $shipIndex ++){
+	  $ennemyBoat = $_SESSION['ships'][$opponent][$shipIndex];
+	 
 	  if(in_array($x.",".$y, $ennemyBoat)){
 	    $result='hit';
+	    //sunk?
+	      $sunk=true;
+	      foreach($ennemyBoat as  $boatCase){
+		if((!in_array($boatCase,$previousStrikes)) && ($boatCase <> $x.",".$y)) {
+		  $sunk=false;
+		  break;
+		}
+	      }
+	      if($sunk){
+	        $result="hit and sunk";
+	        //remove the ship
+	        unset($_SESSION['ships'][$opponent][$shipIndex]);
+		var_dump($_SESSION['ships'][$opponent]);
+		//win the game?
+		if(count($_SESSION['ships'][$opponent]) == 0){
+		  $result="hit sunk and win";
+		  $continue=0;
+		  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$currentPlayer);
+		}
+	      }
+	    
 	    break;
 	  }
 	 }
@@ -269,11 +300,6 @@ switch ($_POST['act']){
 	  'target' => $x.",".$y,
 	  'result' => $result
 	  );
-	  if(count( $_SESSION['strikes'][$currentPlayer]) < 10){
-	    $continue=1;
-	  }else{
-	    $continue=0;
-	  }
 	  echo json_encode(array(
 	      'opponent'=> $opponent,
 	      'target' => $x.",".$y,
