@@ -5,7 +5,7 @@
 <p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
 <h2>Descriptif des paramètres envoyés par l'arène</h2>
 <table class="tabledoc"><tr><th>Paramètre</th><th>Description</th></tr>
-  <tr><td>game</td><td>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
+  <tr><td>game</td><td>chaîne de caractères, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
   <tr><td>match_id</td><td>String. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
 Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
 Ça vous servira si votre IA fait des statistiques sur les matchs.</td></tr>
@@ -23,7 +23,7 @@ Le premier nombre (digits avant le tiret) identifie le match. Le numéro après 
 <tr><td>ship3</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
 <tr><td>...</td><td>...</td></tr>
 <tr><td>ship6</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
-<tr><td>your_strikes</td><td><p>string représentant un array au format JSON.<br/>
+<tr><td>your_strikes</td><td><p>chaîne de caractères représentant un array au format JSON.<br/>
 Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight). Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
 Lors du premier tour de jeu, il représente un array vide<br/>
 <i>[ ]</i><br/>
