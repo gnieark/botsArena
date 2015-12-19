@@ -26,7 +26,12 @@ Le premier nombre (digits avant le tiret) identifie le match. Le numéro après 
 <tr><td>your_strikes</td><td>string représentant un array au format JSON.<br/>
 Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight). Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
 Lors du premier tour de jeu, il représente un array vide<br/>
-<i>[]</i><br/>
+<i>[ ]</i><br/>
+Lors du deuxième tour de jeu, il contient le tir précédent et son résultat:<br/>
+<i>[{"target":"2,0","result":"hit"}]</i><br/>
+Lors du troisième tour de jeu, les deux tirs précédents<br/>
+<i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":""}]</i>
+
 
 </td></tr>
 <tr><td>his_strikes</td><td>idem</td></tr>
