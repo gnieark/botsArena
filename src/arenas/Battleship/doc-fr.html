@@ -4,7 +4,7 @@
 </ul>
 <p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
 <h2>Descriptif des paramètres envoyés par l'arène</h2>
-<table><tr><th>Paramètre</th><th>Description</th></tr>
+<table class="battleshipGrid nofloat"><tr><th>Paramètre</th><th>Description</th></tr>
   <tr><td>game</td><td>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
   <tr><td>match_id</td><td>String. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
 Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
