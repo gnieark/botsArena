@@ -7,5 +7,6 @@ td{min-width: 15px; height: 15px;}
 .battleshipGrid tr{}
 .battleshipGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;}
 .battleshipGrid tr th{text-align: center;}
+.tabledoc{border-collapse:collapse;}
 .tabledoc tr td{border: 1px dashed green;}
 .shipOn{background-color: black; color: #fff;}
