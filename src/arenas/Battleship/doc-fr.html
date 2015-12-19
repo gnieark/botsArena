@@ -37,6 +37,26 @@
 <p>...</p>
 <h4>"ship6"</h4>
 <p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</p>
+
+<h4>Exemple</h4>
+<p>Lors de l'initialisation d'une partie StupidIA VS StupidsIA, l'arène a envoyé au bot les parametres POST suivants:</p>
+<pre>game=Battleship&amp;match_id=828-1&amp;act=init&amp;opponent=stupidIA&amp;width=10&amp;height=10&amp;ship1=0&amp;ship2=1&amp;ship3=2&amp;ship4=1&amp;ship5=1&amp;ship6=0</pre>
+
+<pre>
+[game] => Battleship
+[match_id] => 828-1
+[act] => init
+[opponent] => stupidIA
+[width] => 10
+[height] => 10
+[ship1] => 0
+[ship2] => 1
+[ship3] => 2
+[ship4] => 1
+[ship5] => 1
+[ship6] => 0
+</pre>
+
 <h3>Ce que doit retourner votre bot</h3>
 <p>Il doit retourner la position des navires.</p>
 <p>Vous retournez un tableau JSON ayant autant d'enregistrements que de navires.
@@ -47,6 +67,8 @@ Chaque navire est défini par les coordonnées de ses extrémités.</p>
   <li>Les deux points définissant les extrémités d'un navire sont séparés par un tiret &quot;-&quot;.</li>
 </ul>
 <h4>Exemple:</h4>
+
+
 
 <table class="battleshipGrid nofloat" id="tbl1">
 <tr><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
