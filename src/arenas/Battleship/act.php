@@ -282,6 +282,7 @@ switch ($_POST['act']){
 	        $result="hit and sunk";
 	        //remove the ship
 	        unset($_SESSION['ships'][$opponent][$shipIndex]);
+	        $_SESSION['ships'][$opponent] = array_values($_SESSION['ships'][$opponent]);
 		//var_dump($_SESSION['ships'][$opponent]);
 		//win the game?
 		if(count($_SESSION['ships'][$opponent]) == 0){
