@@ -1,10 +1,9 @@
-<p>La bataille navale se joue en trois phases:</p>
+<p>La bataille navale se joue en deux phases:</p>
 <ul><li>Placement des bateaux sur les maps</li>
 <li>Echange de tirs</li>
-<li>Fin de partie</li>
 </ul>
 <p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
-<h2>Paramètres communs à toutes les phases de jeu</h2>
+<h2>Descriptif des paramètres envoyés par l'arène</h2>
 <h3>"game"</h3>
 <p>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</p>
 <h3>"match_id"</h3>
@@ -17,9 +16,6 @@
     <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
     <li>"fight" Vous envoyez un tir</li>
 </ul>
-
-<h2>Initialisation de la partie</h2>
-<h3>Infos reçues par votre bot</h3>
 <p>Votre bot recevra les paramètres communs à toutes les phases de jeu (avec act => init) et les suivants:</p>
 <h4>"opponent"</h4>
 <p>String identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</p>
