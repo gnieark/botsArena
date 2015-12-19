@@ -23,7 +23,12 @@ Le premier nombre (digits avant le tiret) identifie le match. Le numéro après 
 <tr><td>ship3</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
 <tr><td>...</td><td>...</td></tr>
 <tr><td>ship6</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
-<tr><td>your_strikes</td><td>string représentant un array au format JSON</td></tr>
+<tr><td>your_strikes</td><td>string représentant un array au format JSON.<br/>
+Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight). Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
+Lors du premier tour de jeu, il représente un array vide<br/>
+<i>[]</i><br/>
+
+</td></tr>
 <tr><td>his_strikes</td><td>idem</td></tr>
 
 </table>
