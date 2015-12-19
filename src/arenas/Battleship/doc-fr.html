@@ -4,36 +4,26 @@
 </ul>
 <p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
 <h2>Descriptif des paramètres envoyés par l'arène</h2>
-<h3>"game"</h3>
-<p>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</p>
-<h3>"match_id"</h3>
-<p>String. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$</p>
-<p>Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
-Ça vous servira si votre IA fait des statistiques sur les matchs.</p>
-<h3>"act"</h3>
-<p> Peut prendre deux valeurs:</p>
-<ul>
-    <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
-    <li>"fight" Vous envoyez un tir</li>
-</ul>
-<p>Votre bot recevra les paramètres communs à toutes les phases de jeu (avec act => init) et les suivants:</p>
-<h4>"opponent"</h4>
-<p>String identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</p>
-<h4>"width"</h4>
-<p>integer, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</p>
-<h4>"height"</h4>
-<p>integer,  compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</p>
-<h4>"ship1"</h4>
-<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</p>
-<h4>"ship2"</h4>
-<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</p>
-<h4>"ship3"</h4>
-<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</p>
-<h4>...</h4>
-<p>...</p>
-<h4>"ship6"</h4>
-<p>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</p>
+<table><tr><th>Paramètre</th><th>Description</th></tr>
+  <tr><td>game</td><td>string, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
+  <tr><td>match_id</td><td>String. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
+Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
+Ça vous servira si votre IA fait des statistiques sur les matchs.</td></tr>
+  <tr><td>act</td><td> Peut prendre deux valeurs:<br/>
+    <ul>
+      <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
+      <li>"fight" Vous envoyez un tir</li>
+  </ul></td></tr>
 
+<tr><td>opponent</td><td>String identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
+<tr><td>width</td><td>integer, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
+<tr><td>height"</td><td>integer,  compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</td></tr>
+<tr><td>ship1</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</td></tr>
+<tr><td>ship2</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</td></tr>
+<tr><td>ship3</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
+<tr><td>...</td><td>...</td></tr>
+<tr><td>ship6</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
+</table>
 <h4>Exemple</h4>
 <p>Lors de l'initialisation d'une partie StupidIA VS StupidsIA, l'arène a envoyé au bot les parametres POST suivants:</p>
 <pre>game=Battleship&amp;match_id=828-1&amp;act=init&amp;opponent=stupidIA&amp;width=10&amp;height=10&amp;ship1=0&amp;ship2=1&amp;ship3=2&amp;ship4=1&amp;ship5=1&amp;ship6=0</pre>
