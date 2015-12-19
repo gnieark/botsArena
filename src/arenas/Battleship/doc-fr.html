@@ -15,22 +15,30 @@ Le premier nombre (digits avant le tiret) identifie le match. Le numéro après 
       <li>"fight" Vous envoyez un tir</li>
   </ul></td></tr>
 
-<tr><td>opponent</td><td>String identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
-<tr><td>width</td><td>integer, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
-<tr><td>height</td><td>integer,  compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</td></tr>
-<tr><td>ship1</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</td></tr>
-<tr><td>ship2</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</td></tr>
-<tr><td>ship3</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
+<tr><td>opponent</td><td>Chaîne de caractères identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
+<tr><td>width</td><td>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
+<tr><td>height</td><td>Entier,  compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</td></tr>
+<tr><td>ship1</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</td></tr>
+<tr><td>ship2</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</td></tr>
+<tr><td>ship3</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
 <tr><td>...</td><td>...</td></tr>
-<tr><td>ship6</td><td>integer,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
+<tr><td>ship6</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
 <tr><td>your_strikes</td><td>string représentant un array au format JSON.<br/>
 Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight). Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
 Lors du premier tour de jeu, il représente un array vide<br/>
 <i>[ ]</i><br/>
 Lors du deuxième tour de jeu, il contient le tir précédent et son résultat:<br/>
-<i>[{"target":"2,0","result":"hit"}]</i><br/>
+<i>[{"target":"2,0","result":""}]</i><br/>
 Lors du troisième tour de jeu, les deux tirs précédents<br/>
-<i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":""}]</i>
+<i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</i><br/>
+Chaque tir est un sous array pour lesquels:
+<ul></li>L'index target indique les coordonées du tir x,y</li>
+<li>result peut être:
+  <ul><li>Vide "" signifie que le tir n'a rien touché</li>
+  <li>"hit" Un navire ennemi a été touché</li>
+  <li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
+  </ul>
+</ul>
 
 
 </td></tr>
