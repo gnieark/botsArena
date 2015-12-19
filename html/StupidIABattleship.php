@@ -208,7 +208,7 @@ switch($_POST['act']){
         break;
     case "fight":
       //for debog arena
-      file_put_contents(__DIR__."log.txt",var_export($_POST));
+      file_put_contents(__DIR__."log.txt",print_r($_POST,true));
     
     
 //      if((is_int(settype($_POST['width'],"integer"))) && (is_int(settype($_POST['height'],"integer")))){
