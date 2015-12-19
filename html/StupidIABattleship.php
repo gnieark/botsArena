@@ -207,6 +207,10 @@ switch($_POST['act']){
         echo json_encode($shipsCoords);
         break;
     case "fight":
+      //for debog arena
+      file_put_contents(__DIR__."log.txt",print_r($_POST));
+    
+    
 //      if((is_int(settype($_POST['width'],"integer"))) && (is_int(settype($_POST['height'],"integer")))){
 	echo rand(0,$_POST['width'] -1).",".rand(0,$_POST['height'] -1);
 //      }else{
