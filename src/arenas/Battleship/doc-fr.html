@@ -96,3 +96,57 @@ Chaque navire est défini par les coordonnées de ses extrémités.</p>
 <tr><td>9</td><td class="empty" id="bot1-9-0"></td><td class="empty" id="bot1-9-1"></td><td class="empty" id="bot1-9-2"></td><td class="empty" id="bot1-9-3"></td><td class="empty" id="bot1-9-4"></td><td class="empty" id="bot1-9-5"></td><td class="empty" id="bot1-9-6"></td><td class="empty" id="bot1-9-7"></td><td class="empty" id="bot1-9-8"></td><td class="empty" id="bot1-9-9"></td></tr>
 </table>
 
+<h3>Lors du combat</h3>
+<p> Voici quelques exemples des parametres envoyés par l'arène.</p>
+<h4>Premier tour de jeu (your_strikes et his_strikes sont vides)</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-1
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => []
+    [his_strikes] => []
+)
+</pre>
+<h4>Deuxième tour de jeu</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-1
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => [{"target":"4,6","result":""}]
+    [his_strikes] => [{"target":"7,8","result":""}]
+</pre>
+<h4>Troisième tour de jeu</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-2
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => [{"target":"7,8","result":""}]
+    [his_strikes] => [{"target":"4,6","result":""},{"target":"3,9","result":"hit"}]
+</pre>
