@@ -205,6 +205,7 @@ switch($_POST['act']){
         
         //print_r($map);
         echo json_encode($shipsCoords);
+        file_put_contents(__DIR__."/log.txt",json_encode($shipsCoords),FILE_APPEND);
         break;
     case "fight":
       //for debog arena

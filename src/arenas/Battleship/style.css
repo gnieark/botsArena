@@ -10,11 +10,3 @@ td{min-width: 15px; height: 15px;}
 .tabledoc{border-collapse:collapse;}
 .tabledoc tr td,.tabledoc tr th{border: 1px solid green; padding-left: 5px;}
 .shipOn{background-color: black; color: #fff;}
-pre{
-  font-style: normal;
-  font-size: 16px;
-  margin-left: 32px;
-  font-family: Consolas, "Times New Roman", Verdana;
-  border-left: 4px solid #CCC;
-  padding-left: 8px;
-}
