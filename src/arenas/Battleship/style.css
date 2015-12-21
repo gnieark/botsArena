@@ -2,7 +2,9 @@ article p {width: 100%;}
 article p label {float:left; text-align:right;	width:60%}
 article p select {}
 td{min-width: 15px; height: 15px;}
-.battleshipGrid{float: left; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+#fightResult{display:table;}
+#logs{display:table-cell;padding-left:10px; height: 300px; overflow-y: scroll;}
+.battleshipGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
 .nofloat{float: none;}
 .battleshipGrid tr{}
 .battleshipGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;}
