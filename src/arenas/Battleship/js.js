@@ -36,7 +36,7 @@ function fight(xd_check){
 	  var p=createElem("p");
 	  p.innerHTML=strike['log'];
 	  document.getElementById('logs').appendChild(p);
-	  
+	  document.getElementById("logs").scrollTop=document.getElementById("logs").scrollHeight;
 	  if( strike['continue'] == 1){
 	    fight(xd_check);
 	  }
