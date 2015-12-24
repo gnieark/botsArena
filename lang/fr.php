@@ -26,5 +26,5 @@ $lang=array(
     'BOT_URL'			=> 'L\'adresse URL de votre bot',
     'BOT_DESCRIPTION'		=> 'Description:',
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>'Votre adresse e-mail (servira pour la validation de votre BOT)',
-    'SAVE_BOT'			=> 'Enregistrer"
+    'SAVE_BOT'			=> 'Enregistrer'
 );
