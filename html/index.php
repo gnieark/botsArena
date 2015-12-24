@@ -134,7 +134,7 @@ if(isset($_GET['arena'])){
         $siteTitle="Bots Arena";
         $siteDescription="bots arena main page. Program your own artificiel intelligence and let it play here";
         $mainSectionScript="../src/home.php";
-        $asideSectionContent='';
+        $asideSectionContent='<img src="/principe.gif" alt=""/>';
         $cssAdditionalScript="";
         $jsAdditionalScript="";
 }
@@ -178,7 +178,6 @@ if (isset($_POST['xd_check'])){
 <body>
   <header>
     <h1><?php echo $siteTitle; ?></h1>
-
       <nav id="languages"><a href="<?php echo $currentArena; ?>-fr">fr</a>&nbsp;<a href="<?php echo $currentArena; ?>-en">en</a></nav>
       <nav id="menus"><a href="/"<?php if(($currentArena == "") && (!isset($_GET['doc']))) echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
       <?php
