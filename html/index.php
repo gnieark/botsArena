@@ -134,7 +134,7 @@ if(isset($_GET['arena'])){
         $siteTitle="Bots Arena";
         $siteDescription="bots arena main page. Program your own artificiel intelligence and let it play here";
         $mainSectionScript="../src/home.php";
-        $asideSectionContent='<img src="/principe.gif" alt=""/>';
+        $asideSectionContent='<h2>Principe:</h2><p><img src="/principe.gif" alt=""/></p>';
         $cssAdditionalScript="";
         $jsAdditionalScript="";
 }
