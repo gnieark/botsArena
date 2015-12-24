@@ -11,5 +11,8 @@ $lang=array(
     'MAKE_DUEL' => 'Organise a duel',
     'FIGHT'     => 'Fight!',
     'DEV-YOUR-OWN-BOT' => 'Program your own bot, and send it on this arena..',
-    'DOC_SPECS_LINKS'   =>'Read the technicals specifications'  
+    'DOC_SPECS_LINKS'   =>'Read the technicals specifications',
+    'ABOUT'	=> 'About',
+    'LEGALS'	=> 'legal terms',
+    'ADD_YOUR_BOT' => 'Add your bot'
 );
