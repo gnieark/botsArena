@@ -83,8 +83,6 @@ function place_ship_on_map($x1,$y1,$x2,$y2,$map){
     OR (!isset($map[$y2][$x2]))){
       return false;
   }
-  
-
   if($x1 == $x2){
     //horizontal ship
     if($y1 <= $y2 ){

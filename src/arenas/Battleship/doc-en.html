@@ -1,21 +1,23 @@
-<p>La bataille navale se joue en deux phases:</p>
-<ul><li>Placement des bateaux sur les maps</li>
-<li>Echange de tirs</li>
+<p>Battleship is played in two steps:</p>Ces derniers doivent répondre selon les spécifications ci dessous
+<ul><li>Place ships on the map</li>
+<li>strikes</li>
 </ul>
-<p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
-<h2>Descriptif des paramètres envoyés par l'arène</h2>
-<table class="tabledoc"><tr><th>Paramètre</th><th>Description</th></tr>
-  <tr><td>game</td><td>chaîne de caractères, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
-  <tr><td>match_id</td><td>chaîne de caractères. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
-Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
-Ça vous servira si votre IA fait des statistiques sur les matchs.</td></tr>
-  <tr><td>act</td><td> Peut prendre deux valeurs:<br/>
+<p>At each turn of the game, Arena makes http(s) queries to your bots. This queries contains POST parameters. Your bots have to answer as it is specified here.</p>
+<h2>Parameters' description sent by arena.</h2>
+<table class="tabledoc"><tr><th>POST parameter</th><th>Description</th></tr>
+  <tr><td>game</td><td> string, always "Battleship". Is needed if your bot URL is used for several games.</td></tr>
+  <tr><td>match_id</td><td>string, matches this regex: ^[0-9]+-(1|2)$<br/>
+First number (digits before hyphen) logs the match. Number after hyphen logs the bot.If you are the first player it's "1", otherwhise "2".<br/>
+It could be usefull if you want to make statistics</td></tr>
+  <tr><td>act</td><td> Can have two values:<br/>
     <ul>
-      <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
-      <li>"fight" Vous envoyez un tir</li>
+      <li>"init" We start the game, you have to place your ships.</li>
+      <li>"fight" Shoot.</li>
   </ul></td></tr>
 
-<tr><td>opponent</td><td>Chaîne de caractères identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
+<tr><td>opponent</td><td>
+Your opponent's authentification string 
+Chaîne de caractères identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
 <tr><td>width</td><td>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
 <tr><td>height</td><td>Entier, compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</td></tr>
 <tr><td>ship1</td><td>Entier, compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</td></tr>

@@ -134,7 +134,7 @@ if(isset($_GET['arena'])){
         $siteTitle="Bots Arena";
         $siteDescription="bots arena main page. Program your own artificiel intelligence and let it play here";
         $mainSectionScript="../src/home.php";
-        $asideSectionContent='';
+        $asideSectionContent='<h2>Principe:</h2><p><img src="/principe.gif" alt=""/></p>';
         $cssAdditionalScript="";
         $jsAdditionalScript="";
 }
@@ -161,7 +161,7 @@ if (isset($_POST['xd_check'])){
 
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo $lang['lang']; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -178,7 +178,6 @@ if (isset($_POST['xd_check'])){
 <body>
   <header>
     <h1><?php echo $siteTitle; ?></h1>
-
       <nav id="languages"><a href="<?php echo $currentArena; ?>-fr">fr</a>&nbsp;<a href="<?php echo $currentArena; ?>-en">en</a></nav>
       <nav id="menus"><a href="/"<?php if(($currentArena == "") && (!isset($_GET['doc']))) echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
       <?php
@@ -202,7 +201,7 @@ if (isset($_POST['xd_check'])){
     ?>
   </section>
   <footer>
-    <a href="/p/About">A propos</a><a href="/p/legals">Mentions légales</a>
+    <a href="/p/About"><?php echo $lang['ABOUT']; ?></a><a href="/p/legals"><?php echo $lang['LEGALS']; ?></a>
   </footer>
 </body>
 </html>

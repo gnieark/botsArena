@@ -21,8 +21,6 @@ function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSi
   }
   return true;
 }
-
-
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
   if ((($x1 <> $x2) && ($y1 <> $y2))
     OR (!isset($map[$y1][$x1]))
@@ -68,8 +66,10 @@ function place_ship_on_map($x1,$y1,$x2,$y2,$map){
     return $map;
   }
 }
+
 switch($_POST['act']){
     case "init":
+      file_put_contents(__DIR__."/log.txt",print_r($_POST,true));
 	$wantedVars=array(
             'match_id'  => false, //false-> string ; true -> integer
             'opponent'  => false,
@@ -205,10 +205,11 @@ switch($_POST['act']){
         
         //print_r($map);
         echo json_encode($shipsCoords);
+        file_put_contents(__DIR__."/log.txt",json_encode($shipsCoords),FILE_APPEND);
         break;
     case "fight":
       //for debog arena
-      file_put_contents(__DIR__."/log.txt",print_r($_POST,true));
+      file_put_contents(__DIR__."/log.txt",print_r($_POST,true),FILE_APPEND);
     
     
 //      if((is_int(settype($_POST['width'],"integer"))) && (is_int(settype($_POST['height'],"integer")))){
