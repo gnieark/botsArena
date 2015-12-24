@@ -1,7 +1,5 @@
 <article>
 <?php echo $lang['SITE_DESCRIPTION'];?>
-</article>
-<article>
 <h2><?php echo $lang['ADD_YOUR_BOT'];?></h2>
 <form method="POST" action="/p/addBot">
     <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="addBot"/>
