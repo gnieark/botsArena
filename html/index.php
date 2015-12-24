@@ -161,7 +161,7 @@ if (isset($_POST['xd_check'])){
 
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo $lang['lang']; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
