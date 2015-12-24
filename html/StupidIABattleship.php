@@ -202,21 +202,15 @@ switch($_POST['act']){
             }
 	  }
         }
-        
-        //print_r($map);
+
         echo json_encode($shipsCoords);
         file_put_contents(__DIR__."/log.txt",json_encode($shipsCoords),FILE_APPEND);
         break;
     case "fight":
       //for debog arena
       file_put_contents(__DIR__."/log.txt",print_r($_POST,true),FILE_APPEND);
-    
-    
-//      if((is_int(settype($_POST['width'],"integer"))) && (is_int(settype($_POST['height'],"integer")))){
+
 	echo rand(0,$_POST['width'] -1).",".rand(0,$_POST['height'] -1);
-//      }else{
-//	echo "boaf".$_POST['width']."-".$_POST['height'];
-//      }
       
       
       die;
