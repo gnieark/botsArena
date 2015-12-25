@@ -12,7 +12,7 @@ To do:
 - Fixes
 
 # Contribute
-Make pull requests. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk
+You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk
 
 # install it
 I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.fr/), and make your own bots to play challenges. It will be more funny having lot of bots in one arena than lot of arenas.
