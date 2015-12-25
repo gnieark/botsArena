@@ -1,7 +1,7 @@
 CREATE TABLE `arena_history` (
-=======
+
 CREATE TABLE IF NOT EXISTS `arena_history` (
->>>>>>> origin/master
+
   `game` varchar(8) NOT NULL,
   `player1_id` int(11) NOT NULL,
   `player2_id` int(11) NOT NULL,
