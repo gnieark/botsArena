@@ -23,6 +23,7 @@ I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.
 
 # License
 Bot's Arena , Website for Artificials intelligences duels.
+
 Copyright (C) 2015-2016 [Gnieark](https://blog-du-grouik.tinad.fr/)
 
 This program is free software: you can redistribute it and/or modify
