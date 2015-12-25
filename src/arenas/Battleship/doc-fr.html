@@ -1,0 +1,157 @@
+<p>La bataille navale se joue en deux phases:</p>
+<ul><li>Placement des bateaux sur les maps</li>
+<li>Echange de tirs</li>
+</ul>
+<p>A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots. Ces derniers doivent répondre selon les spécifications ci dessous.</p>
+<h2>Descriptif des paramètres envoyés par l'arène</h2>
+<table class="tabledoc"><tr><th>Paramètre</th><th>Description</th></tr>
+  <tr><td>game</td><td>chaîne de caractères, sera toujours "Battleship" Peut servir si votre url sert à plusieurs jeux</td></tr>
+  <tr><td>match_id</td><td>chaîne de caractères. répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
+Le premier nombre (digits avant le tiret) identifie le match. Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
+Ça vous servira si votre IA fait des statistiques sur les matchs.</td></tr>
+  <tr><td>act</td><td> Peut prendre deux valeurs:<br/>
+    <ul>
+      <li>"init" On démarre la partie, vous devez placer vos bateaux</li>
+      <li>"fight" Vous envoyez un tir</li>
+  </ul></td></tr>
+
+<tr><td>opponent</td><td>Chaîne de caractères identifiant votre adversaire. Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.</td></tr>
+<tr><td>width</td><td>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
+<tr><td>height</td><td>Entier, compris entre 1 et 100, bornes incluses, Vous indique la hauteur de la map.</td></tr>
+<tr><td>ship1</td><td>Entier, compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 1 case à placer.</td></tr>
+<tr><td>ship2</td><td>Entier, compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 2 cases à placer.</td></tr>
+<tr><td>ship3</td><td>Entier, compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 3 cases à placer.</td></tr>
+<tr><td>...</td><td>...</td></tr>
+<tr><td>ship6</td><td>Entier,  compris entre 0 et 10, bornes incluses, Vous indique le nombre de bateaux de longeur 6 cases à placer.</td></tr>
+<tr><td>your_strikes</td>
+  <td>
+  <p>chaîne de caractères représentant un array au format JSON.<br/>
+  Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight). Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
+  Lors du premier tour de jeu, il représente un array vide</p>
+  <p><i>[ ]</i></p>
+  <p>Lors du deuxième tour de jeu, il contient le tir précédent et son résultat:</p>
+  <p><i>[{"target":"2,0","result":""}]</i></p>
+  <p>Lors du troisième tour de jeu, les deux tirs précédents</p>
+  <p><i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</i></p>
+  <p>Chaque tir est un sous array pour lesquels:</p>
+  <ul><li>L'index target indique les coordonées du tir x,y</li>
+  <li>result peut être
+      <ul>
+	<li>Vide "" signifie que le tir n'a rien touché</li>
+	<li>"hit" Un navire ennemi a été touché</li>
+	<li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
+	</ul>
+  </li>
+  </ul>
+</td></tr>
+<tr><td>his_strikes</td><td>idem sauf qu'il s'agit du tir de l'adversaire.</td></tr>
+</table>
+<h2>Ce que doit retourner votre bot</h2>
+<h3>Lors de l'initialisation de la partie</h3>
+<p>Lors de l'initialisation d'une partie StupidIA VS StupidsIA, l'arène a envoyé au bot les parametres POST suivants:</p>
+<pre>game=Battleship&amp;match_id=828-1&amp;act=init&amp;opponent=stupidIA&amp;width=10&amp;height=10&amp;ship1=0&amp;ship2=1&amp;ship3=2&amp;ship4=1&amp;ship5=1&amp;ship6=0</pre>
+<p>Soit, sous forme plus lisible:</p>
+<pre>
+[game] => Battleship
+[match_id] => 828-1
+[act] => init
+[opponent] => stupidIA
+[width] => 10
+[height] => 10
+[ship1] => 0
+[ship2] => 1
+[ship3] => 2
+[ship4] => 1
+[ship5] => 1
+[ship6] => 0
+</pre>
+
+<p>La page http que doit générer votre bot contient la position des navires.</p>
+<p>Vous retournez une chaine de caractères codant tableau JSON ayant autant d'enregistrements que de navires.
+Chaque navire est défini par les coordonnées de ses extrémités.</p>
+<ul>
+  <li>La grille commence au point 0,0.</li>
+  <li>Les entiers; ordonnée et abscisses définissant un point sont séparés d'une virgule &quot;,&quot;.</li>
+  <li>Les deux points définissant les extrémités d'un navire sont séparés par un tiret &quot;-&quot;.</li>
+</ul>
+<h4>Exemple de placement de 5 bateaux tailles respectives 5, 4, 3, 3, 2 cases:</h4>
+<pre>
+["3,3-3,7","2,1-2,4","0,1-0,3","7,3-7,1","8,8-7,8"]
+</pre>
+
+<p>Bien évidemment si vos bateaux se chevauchent, ou si leur nombre et leur longueur ne correspond pas à la demande de l'arène, vous perdez la partie</p>
+<p>L'ordre des bateaux n'a pas d'importance. De la même manière, pour un bateau l'ordre de ses points n'importe pas non plus.</p>
+<p>Vu sur la grille, l'exemple précédent donnerait:</p>
+<table class="battleshipGrid nofloat" id="tbl1">
+<tr><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+<tr><td>0</td><td class="empty" id="bot1-0-0"></td><td class="shipOn" id="bot1-0-1"></td><td class="shipOn" id="bot1-0-2"></td><td class="shipOn" id="bot1-0-3"></td><td class="empty" id="bot1-0-4"></td><td class="empty" id="bot1-0-5"></td><td class="empty" id="bot1-0-6"></td><td class="empty" id="bot1-0-7"></td><td class="empty" id="bot1-0-8"></td><td class="empty" id="bot1-0-9"></td></tr>
+<tr><td>1</td><td class="empty" id="bot1-1-0"></td><td class="empty" id="bot1-1-1"></td><td class="empty" id="bot1-1-2"></td><td class="empty" id="bot1-1-3"></td><td class="empty" id="bot1-1-4"></td><td class="empty" id="bot1-1-5"></td><td class="empty" id="bot1-1-6"></td><td class="empty" id="bot1-1-7"></td><td class="empty" id="bot1-1-8"></td><td class="empty" id="bot1-1-9"></td></tr>
+<tr><td>2</td><td class="empty" id="bot1-2-0"></td><td class="shipOn" id="bot1-2-1"></td><td class="shipOn" id="bot1-2-2"></td><td class="shipOn" id="bot1-2-3"></td><td class="shipOn" id="bot1-2-4"></td><td class="empty" id="bot1-2-5"></td><td class="empty" id="bot1-2-6"></td><td class="empty" id="bot1-2-7"></td><td class="empty" id="bot1-2-8"></td><td class="empty" id="bot1-2-9"></td></tr>
+<tr><td>3</td><td class="empty" id="bot1-3-0"></td><td class="empty" id="bot1-3-1"></td><td class="empty" id="bot1-3-2"></td><td class="shipOn" id="bot1-3-3"></td><td class="shipOn" id="bot1-3-4"></td><td class="shipOn" id="bot1-3-5"></td><td class="shipOn" id="bot1-3-6"></td><td class="shipOn" id="bot1-3-7"></td><td class="empty" id="bot1-3-8"></td><td class="empty" id="bot1-3-9"></td></tr>
+<tr><td>4</td><td class="empty" id="bot1-4-0"></td><td class="empty" id="bot1-4-1"></td><td class="empty" id="bot1-4-2"></td><td class="empty" id="bot1-4-3"></td><td class="empty" id="bot1-4-4"></td><td class="empty" id="bot1-4-5"></td><td class="empty" id="bot1-4-6"></td><td class="empty" id="bot1-4-7"></td><td class="empty" id="bot1-4-8"></td><td class="empty" id="bot1-4-9"></td></tr>
+<tr><td>5</td><td class="empty" id="bot1-5-0"></td><td class="empty" id="bot1-5-1"></td><td class="empty" id="bot1-5-2"></td><td class="empty" id="bot1-5-3"></td><td class="empty" id="bot1-5-4"></td><td class="empty" id="bot1-5-5"></td><td class="empty" id="bot1-5-6"></td><td class="empty" id="bot1-5-7"></td><td class="empty" id="bot1-5-8"></td><td class="empty" id="bot1-5-9"></td></tr>
+<tr><td>6</td><td class="empty" id="bot1-6-0"></td><td class="empty" id="bot1-6-1"></td><td class="empty" id="bot1-6-2"></td><td class="empty" id="bot1-6-3"></td><td class="empty" id="bot1-6-4"></td><td class="empty" id="bot1-6-5"></td><td class="empty" id="bot1-6-6"></td><td class="empty" id="bot1-6-7"></td><td class="empty" id="bot1-6-8"></td><td class="empty" id="bot1-6-9"></td></tr>
+<tr><td>7</td><td class="empty" id="bot1-7-0"></td><td class="shipOn" id="bot1-7-1"></td><td class="shipOn" id="bot1-7-2"></td><td class="shipOn" id="bot1-7-3"></td><td class="empty" id="bot1-7-4"></td><td class="empty" id="bot1-7-5"></td><td class="empty" id="bot1-7-6"></td><td class="empty" id="bot1-7-7"></td><td class="shipOn" id="bot1-7-8"></td><td class="empty" id="bot1-7-9"></td></tr>
+<tr><td>8</td><td class="empty" id="bot1-8-0"></td><td class="empty" id="bot1-8-1"></td><td class="empty" id="bot1-8-2"></td><td class="empty" id="bot1-8-3"></td><td class="empty" id="bot1-8-4"></td><td class="empty" id="bot1-8-5"></td><td class="empty" id="bot1-8-6"></td><td class="empty" id="bot1-8-7"></td><td class="shipOn" id="bot1-8-8"></td><td class="empty" id="bot1-8-9"></td></tr>
+<tr><td>9</td><td class="empty" id="bot1-9-0"></td><td class="empty" id="bot1-9-1"></td><td class="empty" id="bot1-9-2"></td><td class="empty" id="bot1-9-3"></td><td class="empty" id="bot1-9-4"></td><td class="empty" id="bot1-9-5"></td><td class="empty" id="bot1-9-6"></td><td class="empty" id="bot1-9-7"></td><td class="empty" id="bot1-9-8"></td><td class="empty" id="bot1-9-9"></td></tr>
+</table>
+
+<h3>Lors du combat</h3>
+<p> Voici quelques exemples des parametres envoyés par l'arène.</p>
+<h4>Premier tour de jeu (your_strikes et his_strikes sont vides)</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-1
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => []
+    [his_strikes] => []
+)
+</pre>
+<h4>Deuxième tour de jeu</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-1
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => [{"target":"4,6","result":""}]
+    [his_strikes] => [{"target":"7,8","result":""}]
+</pre>
+<h4>Troisième tour de jeu</h4>
+<pre>
+    [game] => Battleship
+    [match_id] => 834-1
+    [act] => fight
+    [opponent] => stupidIA
+    [width] => 10
+    [height] => 10
+    [ship1] => 0
+    [ship2] => 1
+    [ship3] => 2
+    [ship4] => 1
+    [ship5] => 1
+    [ship6] => 0
+    [your_strikes] => [{"target":"4,6","result":""},{"target":"3,9","result":"hit"}]
+    [his_strikes] => [{"target":"7,8","result":""},{"target":"7,8","result":""}]
+</pre>
+<h4>Vous devez tout simplement retourner l'adresse de la case sur laquelle vous souhaitez x,y</h4>
+<pre>
+6,9
+</pre>
+<p>Pour tirer aux coordonnées x=6 y=9</p>

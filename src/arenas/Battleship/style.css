@@ -1,0 +1,14 @@
+article p {width: 100%;}
+article p label {float:left; text-align:right;	width:60%}
+article p select {}
+td{min-width: 15px; height: 15px;}
+#fightResult{display:table;}
+#logs{display:block;padding-left:10px; height: 200px; overflow-y: scroll;}
+.battleshipGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+.nofloat{float: none;}
+.battleshipGrid tr{}
+.battleshipGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;}
+.battleshipGrid tr th{text-align: center;}
+.tabledoc{border-collapse:collapse;}
+.tabledoc tr td,.tabledoc tr th{border: 1px solid green; padding-left: 5px;}
+.shipOn{background-color: black; color: #fff;}
