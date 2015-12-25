@@ -134,7 +134,7 @@ if(isset($_GET['arena'])){
         $siteTitle="Bots Arena";
         $siteDescription="bots arena main page. Program your own artificiel intelligence and let it play here";
         $mainSectionScript="../src/home.php";
-        $asideSectionContent='<h2>Principe:</h2><p><img src="/principe.gif" alt=""/></p>';
+        $asideSectionContent='<h2>Principe:</h2><p class="center"><img src="/principe.gif" alt=""/></p>';
         $cssAdditionalScript="";
         $jsAdditionalScript="";
 }
@@ -194,11 +194,11 @@ if (isset($_POST['xd_check'])){
   </header>
   <section>
     <?php 
-    include $mainSectionScript; 
     if($asideSectionContent <> ""){
         echo "<aside>".$asideSectionContent."</aside>";
     }
-    ?>
+     include $mainSectionScript;
+	?>
   </section>
   <footer>
     <a href="/p/About"><?php echo $lang['ABOUT']; ?></a><a href="/p/legals"><?php echo $lang['LEGALS']; ?></a>
