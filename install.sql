@@ -1,4 +1,10 @@
 CREATE TABLE `arena_history` (
+<<<<<<< HEAD
+=======
+
+CREATE TABLE IF NOT EXISTS `arena_history` (
+
+>>>>>>> f4f3a1f5e4b489cb7ef2bf70fc80467382f82585
   `game` varchar(8) NOT NULL,
   `player1_id` int(11) NOT NULL,
   `player2_id` int(11) NOT NULL,
