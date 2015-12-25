@@ -85,7 +85,8 @@ aside{
 	width: 28%;
         border-right: 1px dashed green;
 }
-
+.center{text-align: center;}
+aside p img{ width: 100%; max-width:342px;} 
 form textarea, form input, form select {width:40%;}
 form input[type=checkbox], form input[type=radio] {  width:15px; }
 form label {
@@ -102,4 +103,8 @@ pre{
   font-family: Consolas, "Times New Roman", Verdana;
   border-left: 4px solid #CCC;
   padding-left: 8px;
+}
+@media screen and (max-width: 800px){
+	aside, article{display: block; width: 100%; border-right:none;}
+
 }
