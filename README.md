@@ -10,12 +10,14 @@ To do:
 - English translation
 - Develop others arenas (thinking about Connect Four, tron, and maybe one day chess)
 - Fixes
+- Show bot's description
+- Page for bot's owners (manage description url etc...)
 
 # Contribute
 You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk
 
 # install it
-I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.fr/), and make your own bots to play challenges. It will be more funny having lot of bots in one arena than lot of arenas.
+I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.fr/), and you to make your own bots to play challenges. It would be more funny having lot of bots in one arena rather than lot of arenas.
 
 * Mysql structure is in the .sql
 * Apache/tomcat document root starts at ./html
