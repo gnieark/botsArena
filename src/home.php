@@ -18,4 +18,3 @@
     <p><label for="sub"></label><input id="sub" type="submit" value="<?php echo $lang['SAVE_BOT']; ?>"/></p>       
 </form>
 </article>
-

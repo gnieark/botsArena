@@ -50,7 +50,7 @@ if(isset($_GET['arena'])){
     $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
     <h2>Scores</h2>';
     foreach($hist as $sc){
-        $asideSectionContent.='<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
+        $asideSectionContent.='<h3><a href="/p/aboutBot/'.htmlentities($sc['bot1']).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.htmlentities($sc['bot2']).'">'.$sc['bot2'].'</a></h3>
             <ul>
             <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
             <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
@@ -123,7 +123,45 @@ if(isset($_GET['arena'])){
         $cssAdditionalScript="";
         $jsAdditionalScript="";
       break;
-      
+    case "aboutBot":
+        if(!isset($_GET['params'])){
+            error(404,"Page does not exists");
+            die;
+        }
+        $rs=mysqli_query($lnMysql,
+            "SELECT id,game,url,description,date_inscription 
+            FROM bots 
+            WHERE name='".mysqli_real_escape_string($lnMysql,$_GET['params'])."' 
+            AND active='1'"); 
+        if(!$r=mysqli_fetch_row($rs)){
+            error(404,"Page doesn't exist");
+            die;
+        }
+        $theBot=array(
+            'id'                => $r[0],
+            'game'              => $r[1],
+            'url'               => $r[2],
+            'description'       => $r[3],
+            'date_inscription'  => $r[4]
+        );
+        
+        $siteTitle=htmlentities($_GET['params']);
+        $siteDescription=htmlentities($_GET['params'])." bot details";
+        $mainSectionScript="../src/aboutBot.php";
+        $hist=get_battles_history($r[0]);
+        $asideSectionContent='<h2>Scores</h2>'; 
+        foreach($hist as $sc){
+            $asideSectionContent.='<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
+            <ul>
+            <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
+            <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
+            <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
+            </ul>';
+        }
+        $cssAdditionalScript="";
+        $jsAdditionalScript=""; 
+ 
+        break;
     default:
       error(404,"Not found");
       break;
