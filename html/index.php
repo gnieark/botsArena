@@ -43,7 +43,6 @@ if(isset($_GET['arena'])){
     }
     $hist=get_battles_history($currentArena);
     
-    
     $siteTitle=$currentArenaArr['title'];
     $siteDescription=$currentArenaArr['metaDescription'];
     $mainSectionScript="../src/arenas/".$currentArena."/public.php";
