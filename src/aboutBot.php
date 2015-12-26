@@ -1,14 +1,5 @@
 <article>
 <?php
-/*
-        $theBot=array(
-            'id'                => $r[0],
-            'game'              => $r[1],
-            'url'               => $r[2],
-            'description'       => $r[3],
-            'date_inscription'  => $r[4]
-        );
-*/
-echo $theBot['description'];
+echo '<h2>A props de '.htmlentities($_GET['param']).'</h2><p>Inscrit le '$theBot['date_inscription'].'</p><p>'.$theBot['description'].'</p>';
 ?>
 </article>
