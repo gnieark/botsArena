@@ -201,7 +201,7 @@ if (isset($_POST['xd_check'])){
 	?>
   </section>
   <footer>
-    <a href="/p/About"><?php echo $lang['ABOUT']; ?></a><a href="/p/legals"><?php echo $lang['LEGALS']; ?></a>
+    <a href="/p/About"><?php echo $lang['ABOUT']; ?></a><a href="https://github.com/gnieark/botsArena">Bots'Arena source code</a><a href="/p/legals"><?php echo $lang['LEGALS']; ?></a>
   </footer>
 </body>
 </html>

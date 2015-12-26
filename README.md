@@ -6,6 +6,8 @@ It's a website for programming AI challenges. Everyone can read a game's specifi
 ![image](https://raw.githubusercontent.com/gnieark/botsArena/master/html/principe.gif)
 
 # Still in dev
+- The stable website (Using github API, Vhost is synchronized to branch master) is [https://botsarena.tinad.fr/](https://botsarena.tinad.fr/)
+- Dev [http://botsarena-dev.tinad.fr/](http://botsarena-dev.tinad.fr/) (synchronized on this repo 's dev branch), can show messages like "parse error","Internal server error" etc...
 To do:
 - English translation
 - Develop others arenas (thinking about Connect Four, tron, and maybe one day chess)
@@ -14,7 +16,7 @@ To do:
 - Page for bot's owners (manage description url etc...)
 
 # Contribute
-You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk
+You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk.
 
 # install it
 I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.fr/), and you to make your own bots to play challenges. It would be more funny having lot of bots in one arena rather than lot of arenas.
