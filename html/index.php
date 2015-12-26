@@ -147,7 +147,7 @@ if(isset($_GET['arena'])){
         $siteTitle=htmlentities($_GET['params']);
         $siteDescription=htmlentities($_GET['params'])." bot details";
         $mainSectionScript="../src/aboutBot.php";
-        $hist=get_battles_history($r[0]);
+        $hist=get_battles_history($r[1]);
         $asideSectionContent='<h2>Scores</h2>'; 
         foreach($hist as $sc){
             $asideSectionContent.='<h3>'.$sc['bot1'].' VS '.$sc['bot2'].'</h3>
