@@ -10,6 +10,8 @@ To do:
 - English translation
 - Develop others arenas (thinking about Connect Four, tron, and maybe one day chess)
 - Fixes
+- Show bot's description
+- Page for bot's owners (manage description url etc...)
 
 # Contribute
 You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk
