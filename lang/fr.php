@@ -3,7 +3,7 @@ $lang=array(
     'lang'			=> 'fr',
     'SITE_NAME' 		=> 'Arène à bots',
     'SITE_DESCRIPTION'  	=> 
-				  '<p>Bienvenue sur cette arène à bots.<br/><b>Ce site est en cours de développement. Il fonctionne, mais beaucoup de détails restent à régler, dont la traduction anglais</b><br/>Ce vhost est une image de la branche dev du <a href="https://github.com/gnieark/botsArena/tree/dev">dépot github </a></p>
+				  '<p>Bienvenue sur cette arène à bots.<br/><b>Ce site est en cours de développement. Il fonctionne, mais beaucoup de détails restent à régler, dont la traduction anglais</b></p>
 				  <p>Plusieurs jeux sont proposés ici. Vous ne devez pas y jouer, mais dévolopper le "bot" qui jouera en votre nom. 
 				  Ce site permet de faire s\'affronter les bots des différents développeurs.</p>',
     'HOME'  			=> 'accueil',
