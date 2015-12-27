@@ -6,6 +6,12 @@ if(isset($_POST['xd_check'])){
  $botURL=$_POST['botURL'];
  $botDescription=$_POST['botDescription'];
  $email=$_POST['email'];
+ 
+ 
+ 
+ 
+ 
+ 
 }else{
  $botName=$theBot['name'];
  $botGame=$theBot['game'];
@@ -17,7 +23,7 @@ if(isset($_POST['xd_check'])){
 ?>
 <h2>EditBot</h2>
 <form method="POST" action="/p/editBot">
-    <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="addBot"/>
+    <?php echo xd_check_input(0); ?><input type="hidden" name="act" value="editBot"/><input type="hidden" name="botId" value="<?php echo $theBot['id']; ?>"/>
     <p><label for="botName"><?php echo $lang['BOT_NAME']; ?></label><input id="botName" type="text" name="botName" value="<?php echo htmlentities($botName); ?>" placeholder="<?php echo $lang['YOUR_ALIAS_FOR_EXEMPLE'];?>"/></p>
     <p><label for="botGame"><?php echo $lang['BOT_GAME']; ?></label>
         <select id="botGame" name="botGame">

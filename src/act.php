@@ -7,15 +7,9 @@ switch($_POST['act']){
     $alerts="";
     
     //botGame -> doit exister
-    $arenaExists=false;
-    foreach($arenas as $arena){
-      if($_POST['botGame'] == $arena['id']){
-	$arenaExists=true;
-	break;
-      }
-    }
-    if(!$arenaExists){
+    if(!does_arena_exist($_POST['botGame'],$arenas)){
       error(404,"wrong post parameter");
+      die;
     }
     
     //botname -> il ne doit pas y avoir un autre bot du même nom sur le même jeu
@@ -28,7 +22,7 @@ switch($_POST['act']){
       $alerts.="Un bot existant pour ce jeu porte le même nom.\n";
     }
     
-    //BotUrl (doit retourner un code 200)
+    //BotUrl
     if(!preg_match("/^(http|https):\/\//", $_POST['botURL'])){
       $alerts.="L'URL n'est pas valide.\n";
     }
@@ -39,7 +33,6 @@ switch($_POST['act']){
     }
     
     if($alerts <>""){
-      //echo $alerts;
       //do nothing now
     }else{
       //enregistrer le bot et envoyer un email pour la validation
@@ -47,18 +40,20 @@ switch($_POST['act']){
       $secret=rand_str(7, '$-_.+!*(),ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       //last char must be alphanum. Mail client should cut url if isn't.
       $secret.=rand_str(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
-      $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret) VALUES
-        (   '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
-            '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
-            '".mysqli_real_escape_string($lnMysql,
-                preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
-                  ,nl2br(htmlentities($_POST['botDescription'])))
-            )."',
-            '0',
-            NOW(),
-            '".$secret."')";
-        // echo $sql;   
+      
+      $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret,author_email) VALUES(
+		'".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
+		'".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
+		'".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
+		'".mysqli_real_escape_string($lnMysql,
+		    preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
+		    ,nl2br(htmlentities($_POST['botDescription'])))
+		    )."',
+		'0',
+		NOW(),
+		'".$secret."',
+		'".mysqli_real_escape_string($lnMysql,$_POST['email'])."'";  
+		
 	$rs=mysqli_query($lnMysql,$sql);
                 
         include __DIR__."/config.php";
@@ -87,8 +82,52 @@ switch($_POST['act']){
 	}     
     }
     
-    //echo "TODO";
+
     break;
+    
+  case "editBot":
+    if(!does_arena_exist($_POST['botGame'],$arenas)){
+      error(404,"wrong post parameter");
+      die;
+    }
+    $err="";
+    
+    //check author e-mail
+    $rs=mysqli_query($lnMysql,
+    "SELECT 1 FROM bots 
+      WHERE author_email='".mysqli_real_escape_string($lnMysql,$_POST['email'])."'
+      AND id='".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
+    );
+    if(!$r=mysqli_fetch_row($rs)){
+      $err.= "L'adresse e-mail ne correspond pas à celle enregitrée\n";  
+    }
+    //check name
+    $rs=mysqli_query($lnMysql,
+      "SELECT 1 FROM bots 
+      WHERE name='".mysqli_real_escape_string($lnMysql,html_entities($_POST['botName']))."'
+      AND game='".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."'
+      AND id <> '".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
+    );
+      
+    if($r=mysql_fetch_row($rs)){
+      $err.="Un bot du même nom existe déjà";
+    }
+    //BotUrl
+    if(!preg_match("/^(http|https):\/\//", $_POST['botURL'])){
+      $alerts.="L'URL n'est pas valide.\n";
+    }
+  //******************* TO DO *******************************
+    
+    
+    if($err <> ""){
+    
+    }else{
+    
+    }
+
+    
+    break;
+    
    default:
     error(500,"erf");
     break;
