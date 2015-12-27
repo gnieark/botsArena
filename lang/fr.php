@@ -24,7 +24,7 @@ $lang=array(
     'YOUR_ALIAS_FOR_EXEMPLE'	=> 'Votre pseudonyme par exemple',
     'BOT_GAME'			=> 'Le jeu de votre bot',
     'BOT_URL'			=> 'L\'adresse URL de votre bot',
-    'BOT_DESCRIPTION'		=> 'Description:',
+    'BOT_DESCRIPTION'		=> 'Description (le code html ne sera pas interprété, les URL seront transformées en lien):',
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>'Votre adresse e-mail (servira pour la validation de votre BOT)',
     'SAVE_BOT'			=> 'Enregistrer'
 );
