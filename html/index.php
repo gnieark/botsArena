@@ -161,6 +161,15 @@ if(isset($_GET['arena'])){
         $jsAdditionalScript=""; 
  
         break;
+    case "editBot":
+        $siteTitle="Modifier un bot";
+        $siteDescription="bots arena ";
+        $permitIndex=false;
+        $mainSectionScript="../src/editBot.php";
+        $asideSectionContent=''; //to do
+        $cssAdditionalScript="";
+        $jsAdditionalScript="";
+      break;
     default:
       error(404,"Not found");
       break;
