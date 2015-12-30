@@ -147,7 +147,7 @@ switch($_POST['act']){
         $mail = new PHPMailer;
 	$mail->isSMTP();
 	//$mail->IsHTML(true);
-	$mail->SMTPDebug = 2;
+	//$mail->SMTPDebug = 2;
 	$mail->Debugoutput = 'html';
 	$mail->Host = $smtpParams['host'];
 	$mail->Port = $smtpParams['port'];
@@ -162,13 +162,13 @@ switch($_POST['act']){
 	if (!$mail->send()) {
 	    error(500,"Mailer Error: " . $mail->ErrorInfo);
 	} else {
-	    echo "Message sent!";
+	    //echo "Message sent!";
 	}     
 
 	  
     
     }else{
-      echo "plop".$err."plop"; die;
+     //echo "plop".$err."plop"; die;
     }
 
     
