@@ -1,8 +1,8 @@
 <?php
 
 //Del unvalidated bots
-mysqli_query($lnMysql "DELETE FROM bots WHERE active='0' AND TIMESTAMPDIFF(DAY, NOW(), date_inscription) > 2");
-mysqli_query($lnMysql "DELETE FROM bot_modifs WHERE TIMESTAMPDIFF(DAY, NOW(), date_modification) > 2");
+mysqli_query($lnMysql, "DELETE FROM bots WHERE active='0' AND TIMESTAMPDIFF(DAY, NOW(), date_inscription) > 2");
+mysqli_query($lnMysql, "DELETE FROM bot_modifs WHERE TIMESTAMPDIFF(DAY, NOW(), date_modification) > 2");
 
 switch($_POST['act']){
   case "addBot":
