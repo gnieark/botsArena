@@ -121,9 +121,7 @@ switch($_POST['act']){
       $alerts.="L'URL n'est pas valide.\n";
     }
     if($err == ""){
-      echo "plop".$err."plop"; die;
-    }else{
-    
+ 
       //save bot on temp table
       $secret=rand_str(8, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       mysqli_query($lnMysql,
@@ -169,6 +167,8 @@ switch($_POST['act']){
 
 	  
     
+    }else{
+      echo "plop".$err."plop"; die;
     }
 
     
