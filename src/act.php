@@ -94,6 +94,7 @@ switch($_POST['act']){
       error(404,"wrong post parameter");
       die;
     }
+    	  print_r($_POST);
     $err="";
     
     //check author e-mail
@@ -164,7 +165,7 @@ switch($_POST['act']){
 	} else {
 	    //echo "Message sent!";
 	}     
-	  
+
 	  
     
     }else{
