@@ -108,7 +108,7 @@ switch($_POST['act']){
     //check name
     $rs=mysqli_query($lnMysql,
       "SELECT 1 FROM bots 
-      WHERE name='".mysqli_real_escape_string($lnMysql,html_entities($_POST['botName']))."'
+      WHERE name='".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."'
       AND game='".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."'
       AND id <> '".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
     );
