@@ -1,5 +1,9 @@
 <?php
 
+//Del unvalidated bots
+mysqli_query($lnMysql "DELETE FROM bots WHERE active='0' AND TIMESTAMPDIFF(DAY, NOW(), date_inscription) > 2");
+mysqli_query($lnMysql "DELETE FROM bot_modifs WHERE TIMESTAMPDIFF(DAY, NOW(), date_modification) > 2");
+
 switch($_POST['act']){
   case "addBot":
     //verifier les variables "botName""botGame""botURL""email""botDescription"
@@ -99,7 +103,7 @@ switch($_POST['act']){
       AND id='".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
     );
     if(!$r=mysqli_fetch_row($rs)){
-      $err.= "L'adresse e-mail ne correspond pas à celle enregitrée\n";  
+      $err.= "L'adresse e-mail ne correspond pas à celle enregistrée\n";  
     }
     //check name
     $rs=mysqli_query($lnMysql,
@@ -116,10 +120,52 @@ switch($_POST['act']){
     if(!preg_match("/^(http|https):\/\//", $_POST['botURL'])){
       $alerts.="L'URL n'est pas valide.\n";
     }
-  //******************* TO DO *******************************
-    
-    
     if($err <> ""){
+    
+      //save bot on temp table
+      $secret=rand_str(8, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
+      mysqli_query($lnMysql,
+       " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
+	  '".mysqli_real_escape_string($lnMysql,html_entities($_POST['botName']))."',
+	  '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
+	  '".mysqli_real_escape_string($lnMysql,$_POST['botURL'])."',
+	  '".mysqli_real_escape_string($lnMysql,
+	    preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
+	    ,nl2br(htmlentities($_POST['botDescription'])))
+	   )."',
+	   
+	  NOW(),
+	  '".$secret."',
+	  '".mysqli_real_escape_string($lnMysql,$_POST['email'])."'"
+	);
+	
+	//send e-mail
+	
+	include __DIR__."/config.php";
+        require __DIR__.'/PHPMailer/PHPMailerAutoload.php';
+        
+        $mail = new PHPMailer;
+	$mail->isSMTP();
+	//$mail->IsHTML(true);
+	//$mail->SMTPDebug = 2;
+	$mail->Debugoutput = 'html';
+	$mail->Host = $smtpParams['host'];
+	$mail->Port = $smtpParams['port'];
+	$mail->SMTPSecure = $smtpParams['secure'];
+	$mail->SMTPAuth = true;
+	$mail->Username = $smtpParams['username'];
+	$mail->Password = $smtpParams['pass'];
+	$mail->setFrom($smtpParams['username'], 'Bots Arena');
+	$mail->Subject = 'BotsArena';
+	$mail->addAddress($_POST['email']);
+	$mail->Body = $lang['E_MAIL_EDIT_BOT']."\n".$siteParam['BASEURL'].'p/editBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
+	if (!$mail->send()) {
+	    error(500,"Mailer Error: " . $mail->ErrorInfo);
+	} else {
+	    //echo "Message sent!";
+	}     
+	  
+	  
     
     }else{
     

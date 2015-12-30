@@ -45,5 +45,6 @@ $lang = array(
     'BOT_URL'                       =>  'The URL of your bot',
     'BOT_DESCRIPTION'               =>  'Description (html code will not be interpreted, URL will be converted into link):',
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>  'Your email address (will serve to validate your bot)',
-    'SAVE_BOT'                      =>  'Save'
+    'SAVE_BOT'                      =>  'Save',
+    'E_MAIL_EDIT_BOT'	   	    =>  "Hello Dude! \n Please Folow the next URL in order to validate your bot update."
 );
