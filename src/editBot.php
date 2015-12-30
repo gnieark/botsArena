@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST['xd_check'])){
- $botName=$_POST['botname'];
+ $botName=$_POST['botName'];
  $botGame=$_POST['botGame'];
  $botURL=$_POST['botURL'];
  $botDescription=$_POST['botDescription'];
