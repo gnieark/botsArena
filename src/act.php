@@ -120,7 +120,9 @@ switch($_POST['act']){
     if(!preg_match("/^(http|https):\/\//", $_POST['botURL'])){
       $alerts.="L'URL n'est pas valide.\n";
     }
-    if($err <> ""){
+    if($err == ""){
+      echo "plop"; die;
+    }else{
     
       //save bot on temp table
       $secret=rand_str(8, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
@@ -167,9 +169,6 @@ switch($_POST['act']){
 
 	  
     
-    }else{
-      echo $err;
-      die;
     }
 
     
