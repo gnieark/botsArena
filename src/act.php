@@ -126,7 +126,7 @@ switch($_POST['act']){
       $secret=rand_str(8, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       mysqli_query($lnMysql,
        " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
-	  '".mysqli_real_escape_string($lnMysql,html_entities($_POST['botName']))."',
+	  '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
 	  '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
 	  '".mysqli_real_escape_string($lnMysql,$_POST['botURL'])."',
 	  '".mysqli_real_escape_string($lnMysql,
