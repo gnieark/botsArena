@@ -113,7 +113,7 @@ switch($_POST['act']){
       AND id <> '".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
     );
       
-    if($r=mysql_fetch_row($rs)){
+    if($r=mysqli_fetch_row($rs)){
       $err.="Un bot du même nom existe déjà";
     }
     //BotUrl
