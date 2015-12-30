@@ -121,7 +121,7 @@ switch($_POST['act']){
       $alerts.="L'URL n'est pas valide.\n";
     }
     if($err == ""){
-      echo "plop"; die;
+      echo "plop".$err."plop"; die;
     }else{
     
       //save bot on temp table
