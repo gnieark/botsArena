@@ -40,6 +40,6 @@ if(isset($_POST['xd_check'])){
         </select></p>
     <p><label for="botURL"><?php echo $lang['BOT_URL']; ?></label><input type="text" name="botURL" id="botURL" value="<?php echo htmlentities($botURL);?>" placeholder="http://"/></p>
     <p><label><?php echo $lang['BOT_DESCRIPTION']; ?></label><textarea name="botDescription"><?php echo htmlentities($botDescription);?></textarea></p>
-    <p><label for="email"><?php echo $lang['YOUR_EMAIL_FOR_BOT_VALIDATION']; ?></label><input type="text" name="email" value="<?php echo htmlentities($email);?>" id="email"/></p>
+    <p><label for="email"><?php echo $lang['YOUR_EMAIL_FOR_BOT_EDIT']; ?></label><input type="text" name="email" value="<?php echo htmlentities($email);?>" id="email"/></p>
     <p><label for="sub"></label><input id="sub" type="submit" value="<?php echo $lang['SAVE_BOT']; ?>"/></p>       
 </form>
