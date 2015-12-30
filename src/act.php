@@ -169,6 +169,7 @@ switch($_POST['act']){
     
     }else{
       echo $err;
+      die;
     }
 
     
