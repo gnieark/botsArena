@@ -94,7 +94,6 @@ switch($_POST['act']){
       error(404,"wrong post parameter");
       die;
     }
-    	  print_r($_POST);
     $err="";
     
     //check author e-mail
@@ -163,7 +162,7 @@ switch($_POST['act']){
 	if (!$mail->send()) {
 	    error(500,"Mailer Error: " . $mail->ErrorInfo);
 	} else {
-	    //echo "Message sent!";
+	    echo "Message sent!";
 	}     
 
 	  
