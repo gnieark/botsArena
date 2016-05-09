@@ -15,14 +15,6 @@ $arenas=array(
         'metaDescription'   => 'Affrontements de bots à la battaille navale',
         'jsFile'=> "js.js",
         'cssFile'=> "style.css"
-    ),
-        array(
-        'id' => "connectFour",
-        'url' => "/connectFour",
-        'title' => "Puissance 4",
-        'metaDescription'   => 'Affrontements de bots puissance 4',
-        'jsFile'=> "js.js",
-        'cssFile'=> "style.css"
     )
     
 );
