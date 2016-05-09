@@ -162,6 +162,27 @@ if(isset($_GET['arena'])){
  
         break;
     case "editBot":
+            if(!isset($_GET['params'])){
+            error(404,"Page does not exists");
+            die;
+        }
+        $rs=mysqli_query($lnMysql,
+            "SELECT id,name,game,url,description,date_inscription 
+            FROM bots 
+            WHERE id='".mysqli_real_escape_string($lnMysql,$_GET['params'])."' 
+            AND active='1'"); 
+        if(!$r=mysqli_fetch_row($rs)){
+            error(404,"Page doesn't exist");
+            die;
+        }
+        $theBot=array(
+            'id'                => $r[0],
+            'name'		=> $r[1],
+            'game'              => $r[2],
+            'url'               => $r[3],
+            'description'       => $r[4],
+            'date_inscription'  => $r[5]
+        );
         $siteTitle="Modifier un bot";
         $siteDescription="bots arena ";
         $permitIndex=false;

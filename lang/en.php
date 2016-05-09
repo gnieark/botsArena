@@ -6,8 +6,7 @@ $lang = array(
     'SITE_NAME'                     =>  'Bots\' Arena',
     'SITE_DESCRIPTION'              =>  '<p>
                                             Welcome on the Bots\' Arena.<br/>
-                                            <b>This website is still in developpement. It doesn\'t work yet.</b><br/>
-                                            This vhost is a mirror of dev branch <a href="https://github.com/gnieark/botsArena/tree/dev">this github repo</a>
+                                            <b>This website is still in developpement.</b>
                                         </p>
                                         <p>
                                             Many games will be proposed here. You wont play to, but you will developp the bot who will play for you.<br/>
@@ -46,5 +45,7 @@ $lang = array(
     'BOT_URL'                       =>  'The URL of your bot',
     'BOT_DESCRIPTION'               =>  'Description (html code will not be interpreted, URL will be converted into link):',
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>  'Your email address (will serve to validate your bot)',
-    'SAVE_BOT'                      =>  'Save'
+    'SAVE_BOT'                      =>  'Save',
+    'E_MAIL_EDIT_BOT'	   	    =>  "Hello Dude! \n Please Folow the next URL in order to validate your bot update.",
+    'YOUR_EMAIL_FOR_BOT_EDIT'	    =>  'E-mail used for add this bot:'
 );
