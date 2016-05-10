@@ -15,7 +15,7 @@ switch ($_POST['act']){
     );
     
     
-    echo json_encode($_SESSION['map']);
+    echo "plop".json_encode($_SESSION['map']);
   case "fight":
   
       die;
