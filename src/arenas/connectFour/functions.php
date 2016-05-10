@@ -1,4 +1,5 @@
 <?php
+
 function get_Post_Params($botsCount){
       $keysBots=array('bot1','bot2');
       foreach($keysBots as $botKey){
