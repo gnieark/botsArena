@@ -3,7 +3,7 @@ require_once(__DIR__."/functions.php");
 
 $bots=get_Bots_Array('connectFou');
 $postParams=get_Post_Params(count($bots));
-print_r($bots); die;
+
 if(!$postParams){
   $bot1="";
   $bot2="";
