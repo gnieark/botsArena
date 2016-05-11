@@ -14,5 +14,5 @@ for($i=0;$i<7;$i++){
   }
 }
 shuffle($colAvailable);
-echo $i;
+echo $colAvailable[0];
 die;
