@@ -9,7 +9,7 @@ print_r($grid);
 $colAvailable=array();
 
 for($i=0;$i<7;$i++){
-  if($colAvailable[5][$i] == ""){
+  if($colAvailable[4][$i] == ""){
     $colAvailable[]=$i;
   }
 }
