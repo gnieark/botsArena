@@ -74,7 +74,7 @@ switch ($_POST['act']){
 	'game'       => 'conectFour',
 	 'match_id'  => $_SESSION['matchId']. $_SESSION['currentPlayer'],
 	 //'opponent'  => $opponentName,
-	 'you'	     => $you
+	 'you'	     => $you,
 	 'grid'		=> json_encode( $_SESSION['map'])
 	    
       );
