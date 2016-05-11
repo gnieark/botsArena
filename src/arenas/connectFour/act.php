@@ -86,6 +86,9 @@ switch ($_POST['act']){
       );
       //send query
       $anwserPlayer=get_IA_Response($botUrl,$postDatas);
+      $anwserToJS=array(
+	
+      )
       echo "player ".$_SESSION['currentPlayer']." répond ".$anwserPlayer;
       
   
