@@ -56,7 +56,7 @@ switch ($_POST['act']){
       }
   
       //What player has to play?
-      if(!isset($_SESSION['currentPlayer']){
+      if(!isset($_SESSION['currentPlayer'])){
 	$_SESSION['currentPlayer']=1;
 	$you="X";
       }else{
