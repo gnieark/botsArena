@@ -59,12 +59,18 @@ switch ($_POST['act']){
       if(!isset($_SESSION['currentPlayer'])){
 	$_SESSION['currentPlayer']=1;
 	$you="X";
+	$opponentName=$_SESSION['bot2']['name'];
+	$botUrl=$_SESSION['bot1']['url'];
       }else{
 	if($_SESSION['currentPlayer']==1){
 	  $_SESSION['currentPlayer']=2;
 	  $you="O";
+	  $opponentName=$_SESSION['bot1']['name'];
+	  $botUrl=$_SESSION['bot2']['url'];
 	}else{
 	  $_SESSION['currentPlayer']=1;
+	  $opponentName=$_SESSION['bot2']['name'];
+	  $botUrl=$_SESSION['bot1']['url'];
 	  $you="X";
 	}
       }
@@ -73,14 +79,14 @@ switch ($_POST['act']){
       $postDatas=array(
 	'game'       => 'connectFour',
 	 'match_id'  => $_SESSION['matchId']."-".$_SESSION['currentPlayer'],
-	 //'opponent'  => $opponentName,
+	 'opponent'  => $opponentName,
 	 'you'	     => $you,
 	 'grid'		=> json_encode( $_SESSION['map'])
 	    
       );
-      //debug
-      print_r($postDatas);
-      print_r($_SESSION['bot1']);
+      //send query
+      $anwserPlayer=get_IA_Response($botUrl,$postDatas);
+      echo "player ".$_SESSION['currentPlayer']." répond ".$anwserPlayer;
       
   
   
