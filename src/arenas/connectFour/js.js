@@ -18,6 +18,9 @@ function connectFour(bot1,bot2,xd_check){
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
 	document.getElementById('fightResult').innerHTML = xhr.responseText;				
+      }else{
+	  alert ('error ' + xhr.status);
+	  break;
       }
     }};
     xhr.open("POST", '/connectFour',  true);
