@@ -71,8 +71,8 @@ switch ($_POST['act']){
   
       //make post datas to send
       $postDatas=array(
-	'game'       => 'conectFour',
-	 'match_id'  => $_SESSION['matchId']. $_SESSION['currentPlayer'],
+	'game'       => 'connectFour',
+	 'match_id'  => $_SESSION['matchId']."-".$_SESSION['currentPlayer'],
 	 //'opponent'  => $opponentName,
 	 'you'	     => $you,
 	 'grid'		=> json_encode( $_SESSION['map'])
