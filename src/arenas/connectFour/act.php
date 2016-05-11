@@ -46,13 +46,13 @@ switch ($_POST['act']){
       
       //get a match id
       $_SESSION['matchId']=get_unique_id();
-      $_SESSION['game']="conectFou";
+      $_SESSION['game']="connectFou";
          
     //echo "plop".json_encode($_SESSION['map']);
   case "fight":
   
       if($_SESSION['game'] <> "connectFou"){
-	erreur(500,"game non found");    
+	error(500,"game non found");    
       }
   
       //What player has to play?
