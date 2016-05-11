@@ -3,7 +3,7 @@
 require_once(__DIR__."/functions.php");
 switch ($_POST['act']){
 
-  case "newfight":
+  case "newFight":
     //initialiser la map
     $_SESSION['map']=array(
       array("","","","","","",""),
