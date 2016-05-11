@@ -9,16 +9,16 @@ $bots=get_Bots_Array('connectFou');
 		<p>
 			<select name="bot1" id="bot1">
 			  <?php
-			    for($i=0;$i<count($bots);$i++){
-			      echo '<option value="'.$i.'">'.$bots[$i]['name'].'</option>';
+			    foreach($bots as $bot){
+			      echo '<option value="'.$bot['id'].'">'.$bot['name'].'</option>';
 			    }
 			  ?>
 			</select>
 			&nbsp;VS&nbsp;
 			<select name="bot2" id="bot2">
 			  <?php
-			    for($i=0;$i<count($bots);$i++){
-			      echo '<option value="'.$i.'">'.$bots[$i]['name'].'</option>';
+			    foreach($bots as $bot){
+			      echo '<option value="'.$bot['id'].'">'.$bot['name'].'</option>';
 			    }
 			  ?>
 			</select>
