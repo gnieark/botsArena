@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/functions.php");
 
-$bots=get_Bots_Array('connectFour');
+$bots=get_Bots_Array('connectFou');
 $postParams=get_Post_Params(count($bots));
 if(!$postParams){
   $bot1="";
