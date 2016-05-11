@@ -20,7 +20,7 @@ function connectFour(bot1,bot2,xd_check){
 	document.getElementById('fightResult').innerHTML = xhr.responseText;				
       }else{
 	  alert ('error ' + xhr.status);
-	  break;
+	  return;
       }
     }};
     xhr.open("POST", '/connectFour',  true);
