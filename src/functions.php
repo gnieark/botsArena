@@ -227,6 +227,7 @@ function get_unique_id(){
   fclose($fp);
   return $count;
 }
+
 function does_arena_exist($string,$arenasArr){
     foreach($arenasArr as $arena){
       if($string == $arena['id']){
