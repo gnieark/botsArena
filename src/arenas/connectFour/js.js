@@ -18,7 +18,7 @@ function connectFour(bot1,bot2,xd_check){
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
           
-        var reponse = eval(xhr.responseText;);  
+        var reponse = eval(xhr.responseText);  
         alert (reponse['continue']);  
 					
       }else{
