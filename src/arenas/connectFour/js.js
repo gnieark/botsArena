@@ -25,7 +25,7 @@ function connectFour(bot1,bot2,xd_check){
   var table=createElem('table',{'className':'tabledoc'});
   for (var i=0; i<6; i++){
     var tr=createElem('tr');
-    for (var j=0;j<7: j++){
+    for (var j=0;j<7; j++){
         var td=createElem('td',{'id': 'td' + i + '-' + j});
         tr.appendChild (td);
     }
