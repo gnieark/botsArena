@@ -3,4 +3,4 @@
 
 .battleGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
 .battleGrid tr{}
-.battleGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;min-width:10px; min-height:10px;}
+.battleGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;min-width:20px; height:20px;}
