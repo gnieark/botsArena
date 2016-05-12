@@ -17,10 +17,7 @@ function connectFour(bot1,bot2,xd_check){
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
-          
-        var reponse = eval(xhr.responseText);  
-        alert (reponse['continue']);  
-					
+	document.getElementById('fightResult').innerHTML = xhr.responseText;				
       }else{
 	  alert ('error ' + xhr.status);
 	  return;
