@@ -93,7 +93,7 @@ switch ($_POST['act']){
       //vérifier la validité de la réponse
 
       
-      if(isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == ""){
+      if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
 	//reponse conforme
 	
 	for($y = 0; $_SESSION['map'][$y][$anwserPlayer] <> ""; $y++){
