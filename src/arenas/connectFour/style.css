@@ -1,2 +1,7 @@
 .tabledoc{border-collapse:collapse;}
 .tabledoc tr td,.tabledoc tr th{border: 1px solid green; padding-left: 5px;}
+
+.battleGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+.nofloat{float: none;}
+.battleGrid tr{}
+.battleGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;}
