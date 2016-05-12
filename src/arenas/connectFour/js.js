@@ -43,7 +43,7 @@ function connectFour(bot1,bot2,xd_check){
 	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
 	      return;
 	  }  
-        alert (reponse['continue']);
+        //alert (reponse['continue']);
         
         
         
