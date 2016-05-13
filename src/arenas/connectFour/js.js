@@ -23,7 +23,7 @@ function connectFour(bot1,bot2,xd_check){
   //create grid
   
   var table=createElem('table',{'class':'battleGrid'});
-  for (var i=0; i<6; i++){
+  for (var i=6; i > -1; i--){
     var tr=createElem('tr');
     for (var j=0;j<7; j++){
         var td=createElem('td',{'id': 'td' + j + '-' + i});
