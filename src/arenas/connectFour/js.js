@@ -26,7 +26,7 @@ function connectFour(bot1,bot2,xd_check){
   for (var i=0; i<6; i++){
     var tr=createElem('tr');
     for (var j=0;j<7; j++){
-        var td=createElem('td',{'id': 'td' + i + '-' + j});
+        var td=createElem('td',{'id': 'td' + j + '-' + i});
         tr.appendChild (td);
     }
     
@@ -43,9 +43,11 @@ function connectFour(bot1,bot2,xd_check){
 	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
 	      return;
 	  }  
-        //alert (reponse['continue']);
         
-        
+        //fill the grid
+        if( reponse['strikeX'] > -1){
+	    document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML=reponse['strikeSymbol'];
+	}
         
         
       }else{

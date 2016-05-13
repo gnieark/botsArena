@@ -99,6 +99,8 @@ switch ($_POST['act']){
 	for($y = 0; $_SESSION['map'][$y][$anwserPlayer] <> ""; $y++){
 	}
 	 $_SESSION['map'][$y][$anwserPlayer]=$you;
+	 $strikeX=$anwserPlayer;
+	 $strikeY=$y;
 	
 	//does he win?
 	for($i=0;$i < 7;$i++){
@@ -145,24 +147,28 @@ switch ($_POST['act']){
 	if($wins){
 	  $anwserToJS=array(
 	  'continue'	=> 0,
-	  'grid' 	=> $_SESSION['map'],
+	  'strikeX' 	=> $strikeX,
+	  'strikeY'	=> $strikeY,
+	  'strikeSymbol'=> $you,
 	  'log'	=> $you." ".$currentBotName." a gagné" 
 	  );
 	}else{
 	  $anwserToJS=array(
 	  'continue'	=> 1,
-	  'grid' 	=> $_SESSION['map'],
+	  'strikeX' 	=> $strikeX,
+	  'strikeY'	=> $strikeY,
+	  'strikeSymbol'=> $you,
 	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer
 	  );
-	
-	
+
 	}
       
       }else{
 	//reponse non conforme
 	$anwserToJS=array(
 	  'continue' =>0,
-	  'grid' => $_SESSION['map'],
+	  'strikeX' 	=> -1,
+	  'strikeY'	=> -1,
 	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd"
 	);
       }
