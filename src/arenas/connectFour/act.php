@@ -133,7 +133,7 @@ switch ($_POST['act']){
 	      if((!$wins) && ($i > 3) && ($j < 3)){
 		$wins=true;
 		  for($x = $i-1, $y = $j+1; $x > $i - 4 ; $x++, $y++){
-		    if($_SESSION['map'][$j][$x] <> $you){
+		    if($_SESSION['map'][$y][$x] <> $you){
 		    $wins=false;
 		    break;
 		  }
