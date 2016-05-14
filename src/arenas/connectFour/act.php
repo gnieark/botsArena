@@ -103,59 +103,95 @@ switch ($_POST['act']){
 	 $strikeY=$y;
 	
 	//does he win?
-	for($i=0;$i < 7;$i++){
-	  for($j=0;$j < 6;$j++){
-	    if($_SESSION['map'][$j][$i]== $you){
-	    
-	      $wins=false;
-	      //tester si 4 pions allignés vers la droite
-	      if($i<4){
-		$wins=true;
-		for($x = $i+1; $x < $i+4; $x++){
-		  if($_SESSION['map'][$j][$x] <> $you){
-		    $wins=false;
-		    break;
-		  }
-		}
-	      }
-	      
-	      //tester si 4 pions allignés diagonale vers la droite
-	      if((!$wins) && ($i < 4) && ($j < 3)){
-		$wins=true;
-		for($x = $i+1, $y = $j+1; $x < $i+4 ; $x++, $y++){
-		    if($_SESSION['map'][$j][$x] <> $you){
-		    $wins=false;
-		    break;
-		  }
-		}
-	      }
-	      //tester si 4 pions allignés diagonale vers la gauche
-	      if((!$wins) && ($i > 2) && ($j < 3)){
-		$wins=true;
-		  for($x = $i-1, $y = $j+1; $x > $i - 3 ; $x++, $y++){
-		    if($_SESSION['map'][$y][$x] <> $you){
-		    $wins=false;
-		    break;
-		  }
-		}
-	      
-	      }
-	      
-	      //tester si 4 pions allignés vers le haut
-	      if((!$wins) && ($j<3)){
-                $wins = true;
-                for($y = $j+1; $y < $j + 4; $y++){
-                    if($_SESSION['map'][$y][$i] <> $you){
-                        $wins=false;
-                        break;
-                    }
-                }
-	      }
-	      
-	    }
-	  }
+	$wins=false;
+	
+	//diagonale  \
+	$count=1;
+	$x=$strikeX;
+	$y=$strikeY;
+        while(($x > 0) && ($y < 5) && ($_SESSION['map'][$y + 1][$x - 1] == $you)){
+            $x--;
+            $y++;
+            $count++;
+        }
+        
+        $x=$strikeX;
+	$y=$strikeY;
+	while(($x < 6) && ($y > 0) && ($_SESSION['map'][$y - 1][$x + 1] == $you)){
+            $x++;
+            $y--;
+            $count++;
 	}
 	
+	if($count>3){
+            $wins=true;
+	}
+	
+	//diagonale /
+        if(!$wins){
+            $count=1;
+            $x=$strikeX;
+            $y=$strikeY;	
+            
+            while(($x < 6) && ($y < 5) && ($_SESSION['map'][$y + 1][$x + 1 ] == $you)){
+                $x++;
+                $y++;
+                $count++;
+            }
+            $x=$strikeX;
+            $y=$strikeY;
+            while(($x > 0) && ($y > 0) && ($_SESSION['map'][$y - 1][$x - 1 ] == $you)){
+                $x--;
+                $y--;
+                $count++;
+            }
+            if($count>3){
+                $wins=true;
+            }
+	}
+	
+	
+	//horizontale
+	if(!$wins){
+            $count=1;
+            $x=$strikeX;
+            $y=$strikeY;
+            while(($x < 6) && ($_SESSION['map'][$y][$x + 1 ] == $you)){
+                $x++;
+                $count++;
+            }
+            
+            $x=$strikeX;
+            while(($x >0) && ($_SESSION['map'][$y][$x - 1 ] == $you)){
+                $count++;
+                $x--;
+            }
+            if($count>3){
+                $wins=true;
+            }
+	}
+	
+        //verticale
+	if(!$wins){
+            $count=1;
+            $x=$strikeX;
+            $y=$strikeY;
+            while(($y < 5) && ($_SESSION['map'][$y + 1 ][$x] == $you)){
+                $y++;
+                $count++;
+            }
+            
+            $y=$strikeY;
+            while(($y >0) && ($_SESSION['map'][$y - 1][$x] == $you)){
+                $count++;
+                $y--;
+            }
+            if($count>3){
+                $wins=true;
+            }
+	}
+	
+
 	if($wins){
 	  $anwserToJS=array(
 	  'continue'	=> 0,
