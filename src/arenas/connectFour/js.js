@@ -33,7 +33,7 @@ function connectFour(bot1,bot2,xd_check, newGame){
   for (var i=6; i > -1; i--){
     var tr=createElem('tr');
     for (var j=0;j<7; j++){
-        var td=createElem('td',{'id': 'td' + j + '-' + i});
+        var td=createElem('td',{'id': 'td' + j + '_' + i});
         tr.appendChild (td);
     }
     
@@ -57,8 +57,7 @@ function connectFour(bot1,bot2,xd_check, newGame){
 
         if( reponse['strikeX'] > -1){
             //alert(reponse['strikeSymbol']);
-            alert ('td' + reponse['strikeX'] + '-' + reponse['strikeY'] + ' ' + document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).typeof);
-	   document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
+	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check, false);
