@@ -144,7 +144,7 @@ switch ($_POST['act']){
 	      //tester si 4 pions allignés vers le haut
 	      if((!$wins) && ($j<3)){
                 $wins = true;
-                for($y = $j+1; $y < $j + 4; $j++){
+                for($y = $j+1; $y < $j + 4; $y++){
                     if($_SESSION['map'][$y][$i] <> $you){
                         $wins=false;
                         break;
