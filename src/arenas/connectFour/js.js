@@ -53,7 +53,8 @@ function connectFour(bot1,bot2,xd_check, newGame){
 
         if( reponse['strikeX'] > -1){
             //alert ('td' + reponse['strikeX'] + '-' + reponse['strikeY']);
-	    document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML=reponse['strikeSymbol'];
+	    //document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML=reponse['strikeSymbol'];
+            document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML='PROUT';
 	}
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check, false);
