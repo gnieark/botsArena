@@ -18,7 +18,10 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function connectFour(bot1,bot2,xd_check, newGame=true){
+function connectFour(bot1,bot2,xd_check, newGame){
+    if (newGame === undefined){
+     newGame = true;   
+    }
   document.getElementById('fightResult').innerHTML = '';
   //create grid
   
