@@ -130,7 +130,7 @@ switch ($_POST['act']){
 		}
 	      }
 	      //tester si 4 pions allignés diagonale vers la gauche
-	      if((!$wins) && ($i > 3) && ($j < 3)){
+	      if((!$wins) && ($i > 2) && ($j < 2)){
 		$wins=true;
 		  for($x = $i-1, $y = $j+1; $x > $i - 4 ; $x++, $y++){
 		    if($_SESSION['map'][$y][$x] <> $you){
