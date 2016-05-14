@@ -68,5 +68,5 @@ function connectFour(bot1,bot2,xd_check, newGame){
     }else{
         var act=fight;
     }
-    xhr.send('act=newFight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
+    xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
 }
