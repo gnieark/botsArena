@@ -64,9 +64,9 @@ function connectFour(bot1,bot2,xd_check, newGame){
     xhr.open("POST", '/connectFour',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     if(newGame){
-        var act=newFight;
+        var act='newFight';
     }else{
-        var act=fight;
+        var act='fight';
     }
     xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
 }
