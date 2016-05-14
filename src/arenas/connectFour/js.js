@@ -23,24 +23,25 @@ function connectFour(bot1,bot2,xd_check, newGame){
      newGame = true;   
     }
     
-    //empty
-    while (document.getElementById('fightResult').firstChild) {
-        document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
+    if (newGame){
+        //empty
+        while (document.getElementById('fightResult').firstChild) {
+            document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         }
-  //create grid
-  
-  var table=createElem('table',{'class':'battleGrid'});
-  for (var i=6; i > -1; i--){
-    var tr=createElem('tr');
-    for (var j=0;j<7; j++){
-        var td=createElem('td',{'id': 'td' + j + '_' + i});
-        tr.appendChild (td);
+        //create grid
+        
+        var table=createElem('table',{'class':'battleGrid'});
+        for (var i=6; i > -1; i--){
+            var tr=createElem('tr');
+            for (var j=0;j<7; j++){
+                var td=createElem('td',{'id': 'td' + j + '_' + i});
+                tr.appendChild (td);
+            }
+            
+            table.appendChild(tr);
+        }
+        document.getElementById('fightResult').appendChild(table);
     }
-    
-    table.appendChild(tr);
-  }
-  document.getElementById('fightResult').appendChild(table);
-  
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
