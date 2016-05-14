@@ -41,7 +41,7 @@ function connectFour(bot1,bot2,xd_check, newGame){
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
           //for debug
-          alert (xhr.responseText);
+          document.getElementById('logs').innerHTML += xhr.responseText + '<br/>';
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
