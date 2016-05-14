@@ -42,7 +42,6 @@ function connectFour(bot1,bot2,xd_check, newGame){
       if(xhr.status  == 200) {
           //for debug
           alert (xhr.responseText);
-          return;
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
