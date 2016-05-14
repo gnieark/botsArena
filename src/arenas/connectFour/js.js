@@ -52,7 +52,7 @@ function connectFour(bot1,bot2,xd_check, newGame){
         //fill the grid
 
         if( reponse['strikeX'] > -1){
-            alert ('polp');
+            alert ('td' + reponse['strikeX'] + '-' + reponse['strikeY']);
 	    document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML=reponse['strikeSymbol'];
 	}
 	if(reponse['continue'] == 1){
