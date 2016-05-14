@@ -22,7 +22,11 @@ function connectFour(bot1,bot2,xd_check, newGame){
     if (newGame === undefined){
      newGame = true;   
     }
-  document.getElementById('fightResult').innerHTML = '';
+    
+    //empty
+    while (document.getElementById('fightResult').firstChild) {
+        document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
+        }
   //create grid
   
   var table=createElem('table',{'class':'battleGrid'});
