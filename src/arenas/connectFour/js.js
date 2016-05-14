@@ -18,7 +18,7 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function connectFour(bot1,bot2,xd_check){
+function connectFour(bot1,bot2,xd_check, newGame=true){
   document.getElementById('fightResult').innerHTML = '';
   //create grid
   
@@ -48,6 +48,9 @@ function connectFour(bot1,bot2,xd_check){
         if( reponse['strikeX'] > -1){
 	    document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML=reponse['strikeSymbol'];
 	}
+	if(reponse['continue'] == 1){
+            connectFour(bot1,bot2,xd_check, false);
+        }
         
         
       }else{
@@ -57,5 +60,10 @@ function connectFour(bot1,bot2,xd_check){
     }};
     xhr.open("POST", '/connectFour',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    if(newGame){
+        var act=newFight;
+    }else{
+        var act=fight;
+    }
     xhr.send('act=newFight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
 }
