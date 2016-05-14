@@ -56,7 +56,8 @@ function connectFour(bot1,bot2,xd_check, newGame){
         //fill the grid
 
         if( reponse['strikeX'] > -1){
-            alert(reponse['strikeSymbol']);
+            //alert(reponse['strikeSymbol']);
+            alert (document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).typeOf);
 	   document.getElementById('td' + reponse['strikeX'] + '-' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
 	if(reponse['continue'] == 1){
