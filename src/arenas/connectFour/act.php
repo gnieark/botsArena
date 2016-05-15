@@ -201,9 +201,9 @@ switch ($_POST['act']){
 	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné" 
 	  );
 	  if($_SESSION['currentPlayer']==1){
-            save_battle('connectFou',$bot1['name'],$bot2['name'],1);
+            save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
           }else{
-            save_battle('connectFou',$bot1['name'],$bot2['name'],2);
+            save_battle('connectFou',$_SESSION['bot1'],$_SESSION['bot2']['name'],2);
           }
 	  
 	}else{
@@ -226,9 +226,9 @@ switch ($_POST['act']){
 	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd"
 	);
         if($_SESSION['currentPlayer']==1){
-            save_battle('connectFou',$bot1['name'],$bot2['name'],2);
+            save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],2);
           }else{
-            save_battle('connectFou',$bot1['name'],$bot2['name'],1);
+            save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
           }
       }
       
