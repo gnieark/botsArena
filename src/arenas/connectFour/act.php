@@ -198,7 +198,7 @@ switch ($_POST['act']){
 	  'strikeX' 	=> $strikeX,
 	  'strikeY'	=> $strikeY,
 	  'strikeSymbol'=> $you,
-	  'log'	=> $you." ".$currentBotName." a gagné" 
+	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer"et a gagné" 
 	  );
 	}else{
 	  $anwserToJS=array(

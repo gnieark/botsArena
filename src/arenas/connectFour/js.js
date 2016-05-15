@@ -29,7 +29,6 @@ function connectFour(bot1,bot2,xd_check, newGame){
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         }
         //create grid
-        
         var table=createElem('table',{'class':'battleGrid'});
         for (var i=6; i > -1; i--){
             var tr=createElem('tr');
@@ -42,28 +41,27 @@ function connectFour(bot1,bot2,xd_check, newGame){
         }
         document.getElementById('fightResult').appendChild(table);
     }
+  //send request  
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-      if(xhr.status  == 200) {
-          //for debug
-          document.getElementById('logs').innerHTML += xhr.responseText + '<br/>';
+      if(xhr.status  == 200) { 
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
 	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
 	      return;
-	  }  
-        
+        }
+        //log
+         document.getElementById('logs').innerHTML += reponse['log'] + '<br/>';
         //fill the grid
-
         if( reponse['strikeX'] > -1){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
+	
+	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check, false);
         }
-        
-        
       }else{
 	  alert ('error ' + xhr.status);
 	  return;
