@@ -1,0 +1,46 @@
+<h2>Fonctionnement des duels de puisance 4</h2>
+<h3>La grille</h3>
+  <ul>
+    <li>largeur: 7 cases</li>
+    <li>hauteur: 6 cases</li>
+   </ul>
+</p>
+
+<h3>Requ&ecirc;te générée par l'arène (ce site) vers votre bot</h3>
+L'arène fait une requ&ecirc;te http(s) avec les parametres POST suivants vers votre site:
+
+<table class="tabledoc">
+  <tr><th>paramètre</th><th>valeur</th></tr>
+  <tr>
+    <td>game</td>
+    <td>
+	Chaîne de caractères, sera toujours "connectFour".<br/>
+	Peut servir si votre url sert à plusieurs jeux.
+    </td>
+  </tr>
+  <tr>
+    <td>match_id</td>
+    <td>
+	Chaîne de caractères. Répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
+	Le premier nombre (digits avant le tiret) identifie le match.<br/>
+	Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
+	Ça vous servira si votre IA fait des statistiques sur les matchs.
+    </td>
+  </tr>
+  <tr><td>you</td><td>vous indique quel est votre symbole dans la grille</td></tr>
+  <tr><td>grid</td><td>tableau à deux dimmensions au format JSON vous indiquant l'état de la grille<br/>
+  Exemple:<br/>
+  <pre>
+  [["","","","X","0","",""],
+   ["","","","X","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""]]
+  </pre>
+  
+  </td></tr>
+</table>
+
+<h3>Réponse de votre bot</h3>
+<p>Il indique la colonne dans laquelle vous souhaitez jouer 0 à 7</p>
