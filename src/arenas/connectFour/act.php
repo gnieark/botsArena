@@ -200,6 +200,12 @@ switch ($_POST['act']){
 	  'strikeSymbol'=> $you,
 	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné" 
 	  );
+	  if($_SESSION['currentPlayer']==1){
+            save_battle('connectFou',$bot1['name'],$bot2['name'],1);
+          }else{
+            save_battle('connectFou',$bot1['name'],$bot2['name'],2);
+          }
+	  
 	}else{
 	  $anwserToJS=array(
 	  'continue'	=> 1,
@@ -219,6 +225,11 @@ switch ($_POST['act']){
 	  'strikeY'	=> -1,
 	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd"
 	);
+        if($_SESSION['currentPlayer']==1){
+            save_battle('connectFou',$bot1['name'],$bot2['name'],2);
+          }else{
+            save_battle('connectFou',$bot1['name'],$bot2['name'],1);
+          }
       }
       
       echo json_encode($anwserToJS);
