@@ -203,7 +203,7 @@ switch ($_POST['act']){
 	  if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
           }else{
-            save_battle('connectFou',$_SESSION['bot1'],$_SESSION['bot2']['name'],2);
+            save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],2);
           }
 	  
 	}else{
