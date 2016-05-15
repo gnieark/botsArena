@@ -40,6 +40,8 @@ function connectFour(bot1,bot2,xd_check, newGame){
             table.appendChild(tr);
         }
         document.getElementById('fightResult').appendChild(table);
+        var divLogs=createElem("div",{"id":"logs"});
+        document.getElementById('fightResult').appendChild(divLogs);
     }
   //send request  
   var xhr = Ajx(); 
