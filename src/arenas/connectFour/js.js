@@ -60,6 +60,17 @@ function connectFour(bot1,bot2,xd_check, newGame){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
 	
+	if(reponse['cellsWin'] === undefined){
+	  
+	}else{
+	    var cellsWin = JSON.parse(reponse['cellsWin']);
+	    for(var i in cellsWin){
+	      document.getElementById('td' + cellsWin[i][0] + '_' + cellsWin[i][1]).setAttribute('class','winCase');
+	    }
+	    
+	}
+	
+	
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check, false);

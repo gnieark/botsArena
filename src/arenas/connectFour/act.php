@@ -91,8 +91,6 @@ switch ($_POST['act']){
       $anwserPlayer=get_IA_Response($botUrl,$postDatas);
       
       //vérifier la validité de la réponse
-
-      
       if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
 	//reponse conforme
 	
@@ -109,10 +107,13 @@ switch ($_POST['act']){
 	$count=1;
 	$x=$strikeX;
 	$y=$strikeY;
+	$cellsWin=array();
+	$cellsWin[]=array($x,$y);
         while(($x > 0) && ($y < 5) && ($_SESSION['map'][$y + 1][$x - 1] == $you)){
             $x--;
             $y++;
             $count++;
+            $cellsWin[]=array($x - 1,$y + 1);
         }
         
         $x=$strikeX;
@@ -121,6 +122,7 @@ switch ($_POST['act']){
             $x++;
             $y--;
             $count++;
+            $cellsWin[]=array($x + 1,$y - 1);
 	}
 	
 	if($count>3){
@@ -129,14 +131,17 @@ switch ($_POST['act']){
 	
 	//diagonale /
         if(!$wins){
+	    
             $count=1;
             $x=$strikeX;
             $y=$strikeY;	
-            
+            $cellsWin =array();
+	    $cellsWin[]=array($x ,$y);
             while(($x < 6) && ($y < 5) && ($_SESSION['map'][$y + 1][$x + 1 ] == $you)){
                 $x++;
                 $y++;
                 $count++;
+                $cellsWin[]=array($x + 1 ,$y -1);
             }
             $x=$strikeX;
             $y=$strikeY;
@@ -144,6 +149,7 @@ switch ($_POST['act']){
                 $x--;
                 $y--;
                 $count++;
+                $cellsWin[]=array($x + 1 ,$y -1);
             }
             if($count>3){
                 $wins=true;
@@ -156,15 +162,19 @@ switch ($_POST['act']){
             $count=1;
             $x=$strikeX;
             $y=$strikeY;
+            $cellsWin =array();
+	    $cellsWin[]=array($x ,$y);
             while(($x < 6) && ($_SESSION['map'][$y][$x + 1 ] == $you)){
                 $x++;
                 $count++;
+                $cellsWin[]=array($x +1 ,$y);
             }
             
             $x=$strikeX;
             while(($x >0) && ($_SESSION['map'][$y][$x - 1 ] == $you)){
                 $count++;
                 $x--;
+                $cellsWin[]=array($x -1,$y);
             }
             if($count>3){
                 $wins=true;
@@ -176,15 +186,21 @@ switch ($_POST['act']){
             $count=1;
             $x=$strikeX;
             $y=$strikeY;
+            
+            $cellsWin =array();
+	    $cellsWin[]=array($x ,$y);
+            
             while(($y < 5) && ($_SESSION['map'][$y + 1 ][$x] == $you)){
                 $y++;
                 $count++;
+                $cellsWin[]=array($x ,$y + 1);
             }
             
             $y=$strikeY;
             while(($y >0) && ($_SESSION['map'][$y - 1][$x] == $you)){
                 $count++;
                 $y--;
+                $cellsWin[]=array($x ,$y -1);
             }
             if($count>3){
                 $wins=true;
@@ -198,7 +214,8 @@ switch ($_POST['act']){
 	  'strikeX' 	=> $strikeX,
 	  'strikeY'	=> $strikeY,
 	  'strikeSymbol'=> $you,
-	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné" 
+	  'log'		=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné",
+	  'cellsWin'	=> json_encode($cellsWin);
 	  );
 	  if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
