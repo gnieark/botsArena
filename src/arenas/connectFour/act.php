@@ -215,7 +215,7 @@ switch ($_POST['act']){
 	  'strikeY'	=> $strikeY,
 	  'strikeSymbol'=> $you,
 	  'log'		=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné",
-	  'cellsWin'	=> json_encode($cellsWin);
+	  'cellsWin'	=> json_encode($cellsWin)
 	  );
 	  if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
