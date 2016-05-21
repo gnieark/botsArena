@@ -1,0 +1,48 @@
+<h2>Functioning of duels for battle four</h2>
+<p>Your program does not have to manage a whole part of noughts and crosses, just one lap</p>
+<h3>Connect four's wire rack</h3>
+  <ul>
+    <li>weight: 7 cases</li>
+    <li>height: 6 cases</li>
+   </ul>
+</p>
+
+<h3>Request Arena -> your bot</h3>
+<p>The arbitrator program (the arena) build a request with POST parameters as follow :</p>
+
+<table class="tabledoc">
+  <tr><th>name</th><th>value</th></tr>
+  <tr>
+    <td>game</td>
+    <td>
+	String, always "connectFour".<br/>
+	Can be usefull if you use the same URL for play to others games.
+    </td>
+  </tr>
+  <tr>
+    <td>match_id</td>
+    <td>
+String. Match the following regular expression : ^[0-9]+-(1|2)$<br/>
+The first number (digits before the hyphen) identified the game.<br/>
+The number after the hyphen indicates whether you are the first or second bot in the order to play.<br/>
+It will serve you if your AI makes statistics on games.
+    </td>
+  </tr>
+  <tr><td>you</td><td>your symbol in the grid</td></tr>
+  <tr><td>grid</td><td>String, representing an array in JSON format. this is the wire.<br/>
+            the first seven values are the bottom horizontal line.<br/>
+  Exemple:<br/>
+  <pre>
+  [["","","","X","0","",""],
+   ["","","","X","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""]]
+  </pre>
+  
+  </td></tr>
+</table>
+
+<h3>what return your bot</h3>
+<p>only one char: 0,1,2,3,4,5 or 6 that indicates the column you want to play</p>
