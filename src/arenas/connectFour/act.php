@@ -113,7 +113,7 @@ switch ($_POST['act']){
             $x--;
             $y++;
             $count++;
-            $cellsWin[]=array($x - 1,$y + 1);
+            $cellsWin[]=array($x,$y);
         }
         
         $x=$strikeX;
@@ -122,7 +122,7 @@ switch ($_POST['act']){
             $x++;
             $y--;
             $count++;
-            $cellsWin[]=array($x + 1,$y - 1);
+            $cellsWin[]=array($x,$y);
 	}
 	
 	if($count>3){
@@ -141,7 +141,7 @@ switch ($_POST['act']){
                 $x++;
                 $y++;
                 $count++;
-                $cellsWin[]=array($x + 1 ,$y -1);
+                $cellsWin[]=array($x,$y);
             }
             $x=$strikeX;
             $y=$strikeY;
@@ -149,7 +149,7 @@ switch ($_POST['act']){
                 $x--;
                 $y--;
                 $count++;
-                $cellsWin[]=array($x + 1 ,$y -1);
+                $cellsWin[]=array($x,$y);
             }
             if($count>3){
                 $wins=true;
@@ -167,14 +167,14 @@ switch ($_POST['act']){
             while(($x < 6) && ($_SESSION['map'][$y][$x + 1 ] == $you)){
                 $x++;
                 $count++;
-                $cellsWin[]=array($x +1 ,$y);
+                $cellsWin[]=array($x,$y);
+                
             }
-            
             $x=$strikeX;
             while(($x >0) && ($_SESSION['map'][$y][$x - 1 ] == $you)){
                 $count++;
                 $x--;
-                $cellsWin[]=array($x -1,$y);
+                $cellsWin[]=array($x,$y);
             }
             if($count>3){
                 $wins=true;
@@ -193,14 +193,14 @@ switch ($_POST['act']){
             while(($y < 5) && ($_SESSION['map'][$y + 1 ][$x] == $you)){
                 $y++;
                 $count++;
-                $cellsWin[]=array($x ,$y + 1);
+                 $cellsWin[]=array($x,$y);
             }
             
             $y=$strikeY;
             while(($y >0) && ($_SESSION['map'][$y - 1][$x] == $you)){
                 $count++;
                 $y--;
-                $cellsWin[]=array($x ,$y -1);
+                $cellsWin[]=array($x,$y);
             }
             if($count>3){
                 $wins=true;
