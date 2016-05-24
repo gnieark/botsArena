@@ -7,118 +7,88 @@
     <meta name="author" content="Gnieark" />
     <title>Test ton bot</title>
       <style type="text/css">
-body{
-  width:100%;
-  font-size:100%; 
-  line-height:140%;
-  word-wrap:break-word;
-  text-rendering:optimizelegibility;
-  margin:0 auto;
-  font-family : "lucida grande", "gill sans", arial, sans-serif;
-  left:auto;
-}
-header{
-  background-color:#A60800; 
-  width: 100%;
-  overflow: hidden;
-  height: auto;
-}
-header h1{
-  display: block; 
-  font-size:300%; 
-  color:#FFF;float: left; 
-  margin-left: 5%;}
-
-header nav{
-   display: block; 
-   width: 45%;
-   color:#FFF; 
-   float: right;
-  
-}
-#menus{
- margin-left: 50px;
- width:100%;
- display: table;
-}
-#menus a{
-	color: #fff;
-	display: table-cell;
-	text-decoration: none;
-	text-align: center;
-	border-radius: 15px 15px 0px 0px;
-}
-#menus a.selected{
-	color:#202020; 
-	background-color:#fff;
-}
-footer{
-    height: 70px;
-    display: block;
-    color: #343638;
-    font-size: 11pt;
-    line-height: 15pt;
-    margin: 0;
-    padding-top: 15pt;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    background-image: -webkit-linear-gradient(top, #f5f5f5,#e9e9e9);
-    border-top: 1px solid #bebebe;
-    color: #999;
-    font-size: 12px;
-    line-height: 1.5em;
-    text-align: center;
-    width: 100%;
-}
-footer a {
-    margin:0px 15px 0px 15px;
-    color: #666;
-    text-decoration: none;
-    font-weight: normal;
-}
-
-#languages{
-	float: right;
-	text-align: right;
-}
-section{
-	margin: 0 auto;
-	width: 90%;
-}
-article{
-	float: right;
-	width:70%;
-}
-aside{
-	float:left;
-	width: 28%;
-        border-right: 1px dashed green;
-}
+body{width:100%; font-size:100%; line-height:140%; word-wrap:break-word; text-rendering:optimizelegibility;
+  margin:0 auto; font-family : "lucida grande", "gill sans", arial, sans-serif; left:auto;}
+header{ background-color:#A60800; width: 100%; overflow: hidden; height: auto;}
+header h1{display: block; font-size:300%; color:#FFF;float: left; margin-left: 5%;}
+header nav{display: block; width: 45%; color:#FFF; float: right;}
+#menus{ margin-left: 50px; width:100%; display: table;}
+#menus a{color: #fff; display: table-cell; text-decoration: none;text-align: center;border-radius: 15px 15px 0px 0px;}
+#menus a.selected{color:#202020; background-color:#fff;}
+footer{height: 70px; display: block; color: #343638; font-size: 11pt; line-height: 15pt; margin: 0; padding-top: 15pt;
+    overflow-x: hidden;    box-sizing: border-box; background-image: -webkit-linear-gradient(top, #f5f5f5,#e9e9e9);
+    border-top: 1px solid #bebebe; color: #999; font-size: 12px; line-height: 1.5em; text-align: center;width: 100%;}
+footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weight: normal;}
+#languages{float: right; text-align: right;}
+section{margin: 0 auto; width: 90%;}
+article{float: right; width:70%;}
+aside{float:left; width: 28%; border-right: 1px dashed green;}
+aside table {width: 90%;}
+aside table tr td{width: 33%;}
+aside table tr td input{width: 100%;}
 .center{text-align: center;}
 aside p img{ width: 100%; max-width:342px;} 
 form textarea, form input, form select {width:40%;}
 form input[type=checkbox], form input[type=radio] {  width:15px; }
-form label {
-  float:left;
-  width:40%;
-  margin-right:0.5em;
-  padding-top:0.2em;
-  text-align:right;
-  }
-pre{
-  font-style: normal;
-  font-size: 16px;
-  margin-left: 32px;
-  font-family: Consolas, "Times New Roman", Verdana;
-  border-left: 4px solid #CCC;
-  padding-left: 8px;
+form label {float:left; width:40%; margin-right:0.5em;
+  padding-top:0.2em; text-align:right;}
+pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas, "Times New Roman", Verdana;
+  border-left: 4px solid #CCC; padding-left: 8px;}
+  .battleGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+.battleGrid tr{}
+.battleGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;min-width:20px; height:20px;}
+.winCase{background-color:red;}
+</style>
+
+<script>
+function createElem(type,attributes){
+    var elem=document.createElement(type);
+    for (var i in attributes)
+    {elem.setAttribute(i,attributes[i]);}
+    return elem;
 }
 
+function changePlayerType(player,newValue){
+  if(newValue == "bot"){
+    document.getElementById('url' + player).disabled="";
+  }else{
+     document.getElementById('url' + player).disabled="disabled";
+  }
+}
 
-      </style>
-      <script>
-     
-      </script>
+function play(grid,player){
+  
+
+}
+function startGame(){
+  //empty div
+  document.getElementById("fightResult").innerHTML="";
+  //create grid
+  var table=createElem('table',{'class':'battleGrid'});
+  for (var i=6; i > -1; i--){
+      var tr=createElem('tr');
+      for (var j=0;j<7; j++){
+	  var td=createElem('td',{'id': 'td' + j + '_' + i});
+	  tr.appendChild (td);
+      }
+      
+      table.appendChild(tr);
+  }
+  document.getElementById('fightResult').appendChild(table);
+  var divLogs=createElem("div",{"id":"logs"});
+  document.getElementById('fightResult').appendChild(divLogs);
+  
+ var grid=[["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""]];
+   
+  play(grid,1);
+  
+}
+</script>
 </head>
 <body>
 <header>
@@ -127,23 +97,35 @@ pre{
   <section>
     <aside>
     <h2>Configure the test</h2>
-    <p> Player 1&nbsp;
-      <select name="player1Type">
-	<option value="bot">bot</option>
-	<option value="human">human</option>
-      </select>
-      <input type="text" name="player1URL" placeholder="url du bot http://localhost"/>
-    </p>
-    <p> Player 2&nbsp;
-          <select name="player2Type">
-          <option value="human">human</option>
-	<option value="bot">bot</option>
-	
-      </select>
-      <input type="text" name="player2URL" placeholder="url du bot http://localhost"/>
-    </p>
+    <table>
+    <tr>
+	<td>Player 1</td>
+	<td><select name="player1Type" onchange="changePlayerType(1,this.value);">
+	      <option value="bot">bot</option>
+	      <option value="human">human</option>
+	    </select>
+	</td>
+	<td>
+	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost"/>
+	 </td>
+    </tr>
+    <tr>
+      <td>Player 2</td>
+      <td>
+	<select name="player2Type" onchange="changePlayerType(2,this.value);">
+	    <option value="human">human</option>
+	    <option value="bot">bot</option>
+	</select>
+      </td>
+      <td>
+	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled/>
+      </td>
+    </tr>
+    </table>
     <p><input type="button" onclick="startGame()" value="Fight"/></p>
     </aside>
+    <article id="fightResult">
+    </article>
   </section>
   <footer>
     <a href="/p/About">About</a><a href="https://github.com/gnieark/botsArena">Bots'Arena source code</a><a href="/p/legals">Mentions légales</a>
