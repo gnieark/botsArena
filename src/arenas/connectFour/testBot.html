@@ -41,6 +41,14 @@ pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas
 </style>
 
 <script>
+var grid=[["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""]];
+var currentPlayer=1;
+   
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -55,16 +63,49 @@ function changePlayerType(player,newValue){
      document.getElementById('url' + player).disabled="disabled";
   }
 }
-
-function play(grid,player){
+function playingAT(col){
+    if(currentPlayer == 1){
+        var symbol= "X";
+    }else{
+        var symbol="O";
+    }
+    var i=0;
+    for(i = 0; i < 6 , grid[i][col] !== ""; i++){
+    }
+    grid[i][col]=symbol;
+    document.getElementById('td' + col + '_' + i).innerHTML = symbol;
+    
+    
+    
+}
+function play(player){
+    currentPlayer=player;
+    
+  if(document.getElementById("player" + player + "Type").value == "bot"){
+    //call bot url
+    
   
+  }else{
+  
+    //wait for human response
+    // only create 7 buttons
+    var newTr=createElem('tr',{'id':'playerButtons'});
+    for(var i = 0; i < 7; i++){
+    
+        var newTd=createElem('td');
+        var button=createElem('input',{'type':'button','value': i, 'onclick': "playingAT('" + i + "');"});
+        newTd.appendChild(button);
+        newTr.appendChild(newTd);
+    }
+    document.getElementById('grid').appendChild(newTr);
+  }
 
 }
 function startGame(){
   //empty div
   document.getElementById("fightResult").innerHTML="";
   //create grid
-  var table=createElem('table',{'class':'battleGrid'});
+  var table=createElem('table',{'class':'battleGrid', 'id': 'grid'});
   for (var i=6; i > -1; i--){
       var tr=createElem('tr');
       for (var j=0;j<7; j++){
@@ -78,14 +119,14 @@ function startGame(){
   var divLogs=createElem("div",{"id":"logs"});
   document.getElementById('fightResult').appendChild(divLogs);
   
- var grid=[["","","","","","",""],
+ grid=[["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""]];
    
-  play(grid,1);
+  play(1);
   
 }
 </script>
@@ -100,7 +141,7 @@ function startGame(){
     <table>
     <tr>
 	<td>Player 1</td>
-	<td><select name="player1Type" onchange="changePlayerType(1,this.value);">
+	<td><select id="player1Type" name="player1Type" onchange="changePlayerType(1,this.value);">
 	      <option value="bot">bot</option>
 	      <option value="human">human</option>
 	    </select>
@@ -112,7 +153,7 @@ function startGame(){
     <tr>
       <td>Player 2</td>
       <td>
-	<select name="player2Type" onchange="changePlayerType(2,this.value);">
+	<select id="player2Type" name="player2Type" onchange="changePlayerType(2,this.value);">
 	    <option value="human">human</option>
 	    <option value="bot">bot</option>
 	</select>
