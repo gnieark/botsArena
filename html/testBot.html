@@ -133,11 +133,12 @@ function play(player){
 		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse' + response);
 	      }
 	    }else{
+		    
 		    alert (xhr.status);
 		    die;
 	    }
     }};
-    xhr.open("POST", document.getElementById('player' + player + 'URL'),  true);
+    xhr.open("POST", document.getElementById('player' + player + 'URL').value,  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send('game=connectFour&match_id=666-' + player + '&you=' + symbol + '&grid=' + JSON.stringify(grid) );
 
