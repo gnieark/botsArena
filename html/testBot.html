@@ -127,7 +127,7 @@ function play(player){
 	    if(xhr.status  == 200) {
 	      
 	      var response=xhr.responseText;
-	      var t = new RegExp('/[0-6]/');
+	      var t = new RegExp('^[0-6]$');
 	      if (t.test(response)){
 		  playingAT(response);
 	      }else{
