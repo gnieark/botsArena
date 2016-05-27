@@ -127,10 +127,10 @@ function play(player){
 	    if(xhr.status  == 200) {
 	      
 	      var response=xhr.responseText;
-	      if (response.match('/[0-6]/')){
+	      if (response.match('/^[0-6]$/')){
 		  playingAT(response);
 	      }else{
-		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse' + response);
+		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse ' + response);
 	      }
 	    }else{
 		    
