@@ -56,7 +56,11 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-
+function addLog(message){
+  var p=createElem('p');
+  p.innerHTML=message;
+  document.getElementById('logs').appendChild(p);
+}
 function changePlayerType(player,newValue){
   if(newValue == "bot"){
     document.getElementById('url' + player).disabled="";
@@ -81,7 +85,7 @@ function playingAT(col){
     }
     grid[i][col]=symbol;
     document.getElementById('td' + col + '_' + i).innerHTML = symbol;
-    
+    addLog('player ' + currentPlayer + ', symbol ' + symbol + 'played col ' + col); 
     //change player
     if(currentPlayer == 1){
         play(2);
