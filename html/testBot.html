@@ -50,28 +50,6 @@ var grid=[["","","","","","",""],
    ["","","","","","",""]];
 var currentPlayer=1;
 
-  
-function Ajx() {
-    var request = false;
-        try {
-            request = new ActiveXObject('Msxml2.XMLHTTP');
-        }
-        catch (err2) {
-            	try {
-               		request = new ActiveXObject('Microsoft.XMLHTTP');
-    	        }
-          	catch (err3) {
-			try {
-				request = new XMLHttpRequest();
-			}
-			catch (err1) {
-				request = false;
-			}
-           	}
-        }
-    return request;
-}
-
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -122,10 +100,9 @@ function play(player){
         var symbol="O";
     }
     
-    var xhr = Ajx(); 
+    var xhr = new XMLHttpRequest(); 
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
 	    if(xhr.status  == 200) {
-	      
 	      var response=xhr.responseText;
 	      var t = new RegExp('^[0-6]$');
 	      if (t.test(response)){
@@ -133,8 +110,7 @@ function play(player){
 	      }else{
 		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse: "' + response + '"' );
 	      }
-	    }else{
-		    
+	    }else{		    
 		    alert (xhr.status);
 		    die;
 	    }
