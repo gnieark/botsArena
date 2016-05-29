@@ -24,7 +24,7 @@ switch ($_POST['act']){
     
     //send init message to bots
     $game_id=get_unique_id();
-    for($player = 0; $player < 2; $player ++;){
+    for($player = 0; $player < 2; $player++){
                 $params[$player]=array(
                     'game-id'        =>  $game_id,
                     'action'         =>  'init',
