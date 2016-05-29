@@ -46,7 +46,10 @@ function connectFour(bot1,bot2,xd_check, newGame){
   //send request  
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-      if(xhr.status  == 200) { 
+      if(xhr.status  == 200) {
+        //for test
+          alert(xhr.responseText);
+          
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){

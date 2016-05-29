@@ -4,6 +4,9 @@
 * choose by random a free column
 */
 
+print_r($_POST);
+
+/*
 $grid=json_decode($_POST['grid']);
 
 $colAvailable=array();
@@ -16,3 +19,4 @@ for($i=0;$i<7;$i++){
 shuffle($colAvailable);
 echo $colAvailable[0];
 die;
+*/
