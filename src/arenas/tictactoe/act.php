@@ -72,7 +72,7 @@ switch ($_POST['act']){
         'player-index'  =>$playerIndex
       );
       
-      $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend));
+      $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend),TRUE);
       $playerResponse=$httpResponse['play'];
       
       //tester la validité de la réponse
