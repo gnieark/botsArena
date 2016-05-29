@@ -74,7 +74,7 @@ switch ($_POST['act']){
       
       $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend),TRUE);
       $playerResponse=$httpResponse['play'];
-      echo "******".$playerResponse."**********";
+      echo "<p>******".$playerResponse."**********</p>";
       //tester la validité de la réponse
       if((isset($map[$playerResponse])) && ($map[$playerResponse]=="")){
 	    //reponse conforme
