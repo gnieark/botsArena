@@ -22,7 +22,6 @@ function get_IA_Response($iaUrl,$postParams){
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       
     );
-    echo '<p>'.$data_string.'</p>';
     $output= curl_exec($ch);
     curl_close($ch); 
     

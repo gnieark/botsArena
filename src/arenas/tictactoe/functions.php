@@ -38,17 +38,7 @@ function get_IA_Response($iaUrl,$postParams){
     //send params JSON as body
 
     $data_string = json_encode($postParams);
-    /*
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $iaUrl);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postParams);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $output = curl_exec($ch);
-    curl_close($ch);   
-    
-    */
-    
+   
     $ch = curl_init($iaUrl);                                                                      
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
@@ -59,6 +49,6 @@ function get_IA_Response($iaUrl,$postParams){
     );
     $output= curl_exec($ch);
     curl_close($ch); 
-    
+      echo '<p>'.$data_string.'</p>';
     return htmlentities($output);
 }
