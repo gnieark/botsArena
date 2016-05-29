@@ -90,7 +90,7 @@ switch ($_POST['act']){
       //send query
       $anwserPlayer=get_IA_Response($botUrl,$postDatas);
       //for test ***************************
-      echo $anwserPlayer; die;
+      //echo $anwserPlayer; die;
       //vérifier la validité de la réponse
       if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
 	//reponse conforme
