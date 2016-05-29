@@ -73,6 +73,7 @@ switch ($_POST['act']){
       );
       
       $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend));
+      echo $httpResponse;
       $playerResponse=$httpResponse['play'];
       
       //tester la validité de la réponse
