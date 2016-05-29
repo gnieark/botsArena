@@ -23,7 +23,7 @@ switch ($_POST['act']){
     $end=false;
     
     //send init message to bots
-    $game_id=get_unique_id();
+    $game_id = "".get_unique_id();
     for($player = 0; $player < 2; $player++){
                 $params[$player]=array(
                     'game-id'        =>  $game_id,
@@ -73,7 +73,6 @@ switch ($_POST['act']){
       );
       
       $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend));
-      echo "****************".$httpResponse;
       $playerResponse=$httpResponse['play'];
       
       //tester la validité de la réponse
