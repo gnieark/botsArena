@@ -87,6 +87,48 @@ function playingAT(col){
     grid[i][col]=symbol;
     document.getElementById('td' + col + '_' + i).innerHTML = symbol;
     addLog('player ' + currentPlayer + ', symbol ' + symbol + ' played col ' + col); 
+    
+    //does he win?
+    var x=col;
+    var y=i;
+    var searchValue="";
+    for var k=0; k < 4; k++){
+      searchValue +=symbol;
+    }
+    
+    //horizontaly
+    var line="";
+    for (var k=0; k < 7; k++){
+      if(grid[y][k] == ""){
+	line += " ";
+      }else{
+	line += grid[y][k];
+      }
+    }
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+    
+    //verticaly
+    var line="";
+    for (var k=0; k < 6; k++){
+      if(grid[k][x] == ""){
+	line += " ";
+      }else{
+	line += grid[k][x];
+      }
+    }
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+    
+    //diagonals
+    //\
+    
+    for (var kx=x, var ky=y; kx < 7, ky 
+    
     //change player
     if(currentPlayer == 1){
         play(2);
