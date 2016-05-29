@@ -21,25 +21,60 @@ switch ($_POST['act']){
       '2-0' => '','2-1' => '','2-2' => '');
   
     $end=false;
+    
+    //send init message to bots
+    $game_id=get_unique_id();
+    for($player = 0; $player < 2; $player ++;){
+                $params[$player]=array(
+                    'game-id'        =>  $game_id,
+                    'action'         =>  'init',
+                    'game'           =>  'tictactoe',
+                    'players'        => 2,
+                    'board'          => '',
+                    'player-index'   => $player 
+                );
+    }
+    get_IA_Response($bots[$bot1]['url'],$params[0]); //don't care about result
+    get_IA_Response($bots[$bot2]['url'],$params[1]); //don't care about result
+      
+            //"game-id":"gameid","action":"init","game":"tictactoe","players":2,"board":null,"you":null,"player-index":0}
+        //[0000] body> {"name":"moul-tictactoe","play":null,"error":null}
+        
     $playerPlayingNow=1;
+    
     while($end==false){
       switch($playerPlayingNow){
 	  case  1:
 	      $playerURL=$bots[$bot1]['url'];
 	      $playerCHAR='X';
 	      $playerName=$bots[$bot1]['name'];
+	      $playerIndex=0;
 	      break;
 	  case 2:
 	      $playerURL=$bots[$bot2]['url'];
 	      $playerCHAR='O';
 	      $playerName=$bots[$bot2]['name'];
+	      $playerIndex=1;
 	      break;
 	      
 	  default:
 	      error(500,"oups");
 	      die;
       }
-      $playerResponse=get_IA_Response($playerCHAR,$playerURL,$map);
+      
+      $paramsToSend=array(
+        'game-id'    => $game_id,
+        'action'     =>  'play-turn',
+        'game'       => 'tictactoe',
+        'players'    => 2,
+        'board'      => $map,
+        'you'       =>  $playerCHAR,
+        'player-index'  =>$playerIndex
+      );
+      
+      $httpResponse=json_decode(get_IA_Response($playerURL,$paramsToSend));
+      $playerResponse=$httpResponse['play'];
+      
       //tester la validité de la réponse
       if((isset($map[$playerResponse])) && ($map[$playerResponse]=="")){
 	    //reponse conforme
