@@ -51,5 +51,5 @@ function get_IA_Response($iaUrl,$postParams){
     curl_close($ch); 
       echo '<p>'.$data_string.'</p>';
       echo '<p>'.$output.'</p>';
-    return htmlentities($output);
+    return json_decode($output,TRUE);
 }
