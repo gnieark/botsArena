@@ -1,42 +1,127 @@
 <h1>Fonctionnement des duels de morpion</h1>
 <p>
     Ne vous fiez pas au GIF animé de la page d'accueil du site.<br/>
-    Il est là pour illustrer le fonctionnement global de l'arène, mais il est faux : le tictactoe n'a besoin d'envoyer que 10 variables, de longueur maîtrisée, aux bots.<br/>
-    Le choix a donc été fait de les passer en paramètres GET et non POST comme indiqué sur l'animation.
+    Il est là pour illustrer le fonctionnement global de l'arène, mais il est faux.
 </p>
-<h2>Spécifications : variables GET et retour HTML</h2>
-<p>
-    Votre programme n'a pas à gérer une partie entière de morpion, juste un tour.
-</p>
-<p>
-    Le programme arbitre (cette arène) fait une requête construite de la manière suivante :
-</p>
+<h2>Spécifications : Communications entre l'arène et votre bot</h2>
+<p>Pour communiquer, l'arène (le serveur hébergeant botsarena) fait des requetes http(s) de type POST vers les bots. Le message est dans le corps de la requête au format JSON.</p>
+<p>Votre bot répond par un array au format JSON</p>
+<h2>contenu du JSON</h2> 
+  <h3>Message d'initialisation de votre partie</h3>
+  l'arène envoie le message suivant:
+  <pre>{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":0}</pre>
+  <p>Si on décompose le tableau pour l'expliquer:</p>
+  <ul>
+    <li><i>game-id</i> string identifiant la partie</li>
+    <li><i>action</i> string identifiant la phase, <i>init</i> tout de suite, sera  <i>play-turn</i> dans le châpitre suivant</li>
+    <li><i>game</i>String identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seulle URL pour plusieurs bots</li>
+    <li><i>players</i>Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion</li>
+    <li><i>board</i>Vide à cette étape, voir chapitre suivant</li>
+    <li><i>player-index</i>int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+  </ul>
+  <p>Votre bot doit répondre:</p>
+  
+  
+  
+  <h3>Message vous demandant de jouer (seulement) un tour</h3>
+
+
+<h2>Exemple de partie</h2>
 <pre>
-    https://votreUrl/?you=O&amp;0-0=&amp;0-1=O&amp;0-2=X&amp;1-0=X&amp;1-1=X&amp;1-2=O&amp;2-0=O&amp;2-1=&amp;2-2=X
+{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":0}
+
+{"name":"moul-tictactoe","play":null,"error":null}
+
+{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":1}
+
+{"name":"moul-tictactoe","play":null,"error":null}
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+
+{"name":"","play":"0-1","error":null}
+
+moul2 joue en 0-1 la nouvelle grille est
+X
+
+
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"X","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"O","player-index":1}
+
+{"name":"","play":"1-1","error":null}
+
+moul2 joue en 1-1 la nouvelle grille est
+X
+O
+
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"X","0-2":"","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+
+{"name":"","play":"0-0","error":null}
+
+moul2 joue en 0-0 la nouvelle grille est
+X X
+O
+
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"O","player-index":1}
+
+{"name":"","play":"0-2","error":null}
+
+moul2 joue en 0-2 la nouvelle grille est
+X X O
+O
+
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+
+{"name":"","play":"2-0","error":null}
+
+moul2 joue en 2-0 la nouvelle grille est
+X X O
+O
+X
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"","1-1":"O","1-2":"","2-0":"X","2-1":"","2-2":""},"you":"O","player-index":1}
+
+{"name":"","play":"1-0","error":null}
+
+moul2 joue en 1-0 la nouvelle grille est
+X X O
+O O
+X
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"","2-0":"X","2-1":"","2-2":""},"you":"X","player-index":0}
+
+{"name":"","play":"1-2","error":null}
+
+moul2 joue en 1-2 la nouvelle grille est
+X X O
+O O X
+X
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"X","2-0":"X","2-1":"","2-2":""},"you":"O","player-index":1}
+
+{"name":"","play":"2-1","error":null}
+
+moul2 joue en 2-1 la nouvelle grille est
+X X O
+O O X
+X O
+
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"X","2-0":"X","2-1":"O","2-2":""},"you":"X","player-index":0}
+
+{"name":"","play":"2-2","error":null}
+
+moul2 joue en 2-2 la nouvelle grille est
+X X O
+O O X
+X O X
+
+Match nul
 </pre>
-<p>
-    Le paramètre GET "you" vous indique quel est votre symbole dans la grille de morpion.<br/>
-    Classiquement : "X" ou "O"
-</p>
-<p>
-    Pour chaque case de la grille de morpion, un paramètre GET correspondant à ses coordonnées ("0-0", "0-1", etc ...) vous est indiqué.<br/>
-    Il peut être :
-</p>
-<ul>
-    <li>Votre symbole (ce qui signifie que vous avez déjà joué là)</li>
-    <li>Le symbole de votre adversaire. Il a déjà joué dans cette case</li>
-    <li>Rien, la case est disponible</li>
-</ul>
-<p>
-    Votre programme choisit la case sur laquelle il souhaite jouer compte tenu de la grille et retourne ses coordonnées.
-</p>
-<p>
-    Le résultat de la requête HTTP(s) ne peut qu'être : "0-0" ou "0-1" ou "0-2" ou "1-0" etc.
-</p>
-<p>
-    Un joueur (une IA) qui répond autre chose (au caractère près), ou qui répond avec les coordonnées d'une case déjà jouée, perd la partie.
-</p>
-<h2>Publier votre programme pour le tester puis le lâcher dans l'arène</h2>
-<p>
-    Le formulaire est sur la <a href="/">page d'accueil du site</a> !
-</p>
+
+<h2>Outils pour développer et tester votre bot</h2>
+
+<h2>Faire entrer votre bot dans cette arène</h2>
+
+
