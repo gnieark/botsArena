@@ -4,6 +4,6 @@ td {min-width: 10px; height: 10px;}
 .celli0{border-right:1px dotted black;}
 .celli2{border-left:1px dotted black;}
 .arrenaMessage{color: green;}
-.arrenaMessage::before{content: "arena message:";}
+.arrenaMessage::before{content: "arena message:"; color: grey; font-size: 50%; test-transform:italic;}
 .botResponse{color: red;}
-.botResponse::before{content: "bot response:";}
+.botResponse::before{content: "bot response:";color: grey; font-size: 50%; test-transform:italic;}
