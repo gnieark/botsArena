@@ -14,22 +14,38 @@
   <ul>
     <li><i>game-id</i> string identifiant la partie</li>
     <li><i>action</i> string identifiant la phase, <i>init</i> tout de suite, sera  <i>play-turn</i> dans le châpitre suivant</li>
-    <li><i>game</i>String identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seulle URL pour plusieurs bots</li>
+    <li><i>game</i>String identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seule URL pour plusieurs bots</li>
     <li><i>players</i>Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion</li>
     <li><i>board</i>Vide à cette étape, voir chapitre suivant</li>
     <li><i>player-index</i>int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
   </ul>
   <p>Votre bot doit répondre au format JSON:</p>
   <pre>
-  {"name":"botName","play":null,"error":null}
+  {"name":"botName"}
   </pre>
   <p>L'arène ne vérifie pas actuellement cette réponse, l'étape d'init a été insérée pour assurer la compatibilité avec <a href="https://github.com/moul/bolosseum">Bolosseum</a>.
-    Si votre bot repond une page blanche à cette étape, ça marchera dans le cadre de botsarena</p>
+    Si votre bot repond une page blanche à cette étape (action=init), ça marchera dans le cadre de botsarena.</p>
+  <ul>
+    <li><i>name</i> le nom de votre bot (actuellment non pris en compte par cette arène)</li>  
+  </ul>
   
   
+  <h3>Message vous demandant de jouer (seulement un tour)</h3>
+  <p>L'arène vous envoie par exemple le message suivant:</p>
+  <pre>
+  {"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+  </pre>
+   <ul>
+    <li><i>game-id</i> string identifiant la partie</li>
+    <li><i>action</i> string identifiant la phase, <i>play-turn</i> tout de suite, qui vous indique que vous devez jouer</li>
+    <li><i>game</i>String identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seulle URL pour plusieurs bots</li>
+    <li><i>players</i>Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion</li>
+    <li><i>board</i>La carte je donne le détail ci dessous</li>
+    <li><i>you</i>Votre caractère dans la grille</li>
+    <li><i>player-index</i>int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+  </ul>  
+  <h4>la map</h4>
   
-  <h3>Message vous demandant de jouer (seulement) un tour</h3>
-
 
 <h2>Exemple de partie</h2>
 <pre>
