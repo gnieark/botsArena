@@ -19,7 +19,12 @@
     <li><i>board</i>Vide à cette étape, voir chapitre suivant</li>
     <li><i>player-index</i>int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
   </ul>
-  <p>Votre bot doit répondre:</p>
+  <p>Votre bot doit répondre au format JSON:</p>
+  <pre>
+  {"name":"botName","play":null,"error":null}
+  </pre>
+  <p>L'arène ne vérifie pas actuellement cette réponse, l'étape d'init a été insérée pour assurer la compatibilité avec <a href="https://github.com/moul/bolosseum">Bolosseum</a>.
+    Si votre bot repond une page blanche à cette étape, ça marchera dans le cadre de botsarena</p>
   
   
   
