@@ -4,4 +4,6 @@ td {min-width: 10px; height: 10px;}
 .celli0{border-right:1px dotted black;}
 .celli2{border-left:1px dotted black;}
 .arrenaMessage{color: green;}
+.arrenaMessage::before{content: "arena message:";}
 .botResponse{color: red;}
+.botResponse::before{content: "bot response:";}
