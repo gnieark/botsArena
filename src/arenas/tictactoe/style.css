@@ -3,3 +3,5 @@ td {min-width: 10px; height: 10px;}
 .cellj2{border-top:1px dotted black;}
 .celli0{border-right:1px dotted black;}
 .celli2{border-left:1px dotted black;}
+.arrenaMessage{color: green;}
+.botResponse{color: red;}
