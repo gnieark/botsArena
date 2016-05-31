@@ -43,7 +43,7 @@ pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas
 </style>
 
 <script>
-var grid=['0-0':'','0-1':'','0-2':'','1-0':'','1-1':'','1-2':'','2-0':'','2-1':'','2-2':''];
+var grid={'0-0':'','0-1':'','0-2':'','1-0':'','1-1':'','1-2':'','2-0':'','2-1':'','2-2':''};
 var currentPlayer=0;
 
 function createElem(type,attributes){
@@ -170,7 +170,7 @@ function startGame(){
   var divLogs=createElem("div",{"id":"logs"});
   document.getElementById('fightResult').appendChild(divLogs); 
     
-  grid=['0-0':'','0-1':'','0-2':'','1-0':'','1-1':'','1-2':'','2-0':'','2-1':'','2-2':''];
+  grid={'0-0':'','0-1':'','0-2':'','1-0':'','1-1':'','1-2':'','2-0':'','2-1':'','2-2':''};
   
   play(1);
 }
