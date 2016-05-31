@@ -67,7 +67,7 @@ function changePlayerType(player,newValue){
 function playingAT(cellKey){
     //hide buttons
     var inputs = document.getElementById('grid').getElementsByTagName('input');
-    for (var index = 0; index < inputs.length; ++index) {
+    for (var index = 0; index < inputs.length; index++) {
       inputs[index].setAttribute("class":"hidden");
     }
     
