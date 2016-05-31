@@ -70,8 +70,6 @@ function playingAT(cellKey){
     for (var index = 0; index < inputs.length; index++) {
       inputs[index].setAttribute("class","hidden");
     }
-    
-    document.getElementById("playerButtons").setAttribute("class", "hidden");
      
     if(currentPlayer == 1){
       var symbol= "X";
@@ -79,14 +77,10 @@ function playingAT(cellKey){
       var symbol="O";
     }
     
-    //find the first line empty
-    var i=0;
-    for(i = 0; i < 6 , grid[i][col] !== ""; i++){
-      //nothing juste a counter
+    //test if cell is empty
+    if(grid[cellKey] !== ""){
+      addLog("Player " + currentPlayer + "tente de jouer sur " + cellKey +". Cette case est déjà prise, il perd");
     }
-    grid[i][col]=symbol;
-    document.getElementById('td' + col + '_' + i).innerHTML = symbol;
-    addLog('player ' + currentPlayer + ', symbol ' + symbol + ' played col ' + col); 
     
     //does he win?
 
