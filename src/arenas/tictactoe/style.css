@@ -3,3 +3,7 @@ td {min-width: 10px; height: 10px;}
 .cellj2{border-top:1px dotted black;}
 .celli0{border-right:1px dotted black;}
 .celli2{border-left:1px dotted black;}
+.arrenaMessage{color: green;}
+.arrenaMessage::before{content: "arena message:"; color: grey; font-size: 70%; test-transform:italic;}
+.botResponse{color: red;}
+.botResponse::before{content: "bot response:";color: grey; font-size: 70%; test-transform:italic;}

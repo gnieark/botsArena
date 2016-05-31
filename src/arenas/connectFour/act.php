@@ -84,12 +84,13 @@ switch ($_POST['act']){
 	 'match_id'  => $_SESSION['matchId']."-".$_SESSION['currentPlayer'],
 	 'opponent'  => $opponentName,
 	 'you'	     => $you,
-	 'grid'		=> json_encode( $_SESSION['map'])
+	 'grid'		=>  $_SESSION['map']
 	    
       );
       //send query
       $anwserPlayer=get_IA_Response($botUrl,$postDatas);
-      
+      //for test ***************************
+      //echo $anwserPlayer; die;
       //vérifier la validité de la réponse
       if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
 	//reponse conforme

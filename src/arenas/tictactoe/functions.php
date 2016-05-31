@@ -16,6 +16,9 @@ function get_Post_Params($botsCount){
       return array('bot1' => $_POST['bot1'],'bot2' => $_POST['bot2']);
 }
 
+
+
+
 /*
 function get_Bots_Array(){
   //Recupérer la liste des Bots
@@ -31,20 +34,20 @@ function get_Bots_Array(){
   return $bots;
 }
 */
-function get_IA_Response($youChar,$iaBaseUrl,$grille){
-  /*transforme la grille en parametres http GET
-  * et fait la requete vers $iaBaseUrl
-  * Retourne la réponse de l'IA
-  */
-    $paramsGrille="";
-    foreach($grille as $key => $case){
-        $paramsGrille.="&".$key."=".$case;
-    }
-    $url=$iaBaseUrl."?you=".$youChar.$paramsGrille;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $output = curl_exec($ch);
-    curl_close($ch);   
-    return htmlentities($output);
+function get_IA_Response($iaUrl,$postParams){
+    //send params JSON as body
+
+    $data_string = json_encode($postParams);
+   
+    $ch = curl_init($iaUrl);                                                                      
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+        'Content-Type: application/json',                                                                                
+        'Content-Length: ' . strlen($data_string))                                                                       
+    );
+    $output= curl_exec($ch);
+    curl_close($ch); 
+    return json_decode($output,TRUE);
 }

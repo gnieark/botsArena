@@ -1,5 +1,9 @@
 <?php
 function get_IA_Response($iaUrl,$postParams){
+    //send params JSON as body
+
+    $data_string = json_encode($postParams);
+    /*
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $iaUrl);
     curl_setopt($ch, CURLOPT_POST, true);
@@ -7,6 +11,20 @@ function get_IA_Response($iaUrl,$postParams){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $output = curl_exec($ch);
     curl_close($ch);   
+    
+    */
+    
+    $ch = curl_init($iaUrl);                                                                      
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+        'Content-Type: application/json',                                                                                
+        'Content-Length: ' . strlen($data_string))                                                                       
+    );
+    $output= curl_exec($ch);
+    curl_close($ch); 
+    
     return htmlentities($output);
 }
 function get_Post_Params($botsCount){

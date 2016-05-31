@@ -3,9 +3,9 @@
 * stupid IA for battle ship
 * choose by random a free column
 */
-
-$grid=json_decode($_POST['grid']);
-
+$in=file_get_contents('php://input');
+$params=json_decode($in, TRUE);
+$grid=$params['grid'];
 $colAvailable=array();
 
 for($i=0;$i<7;$i++){
