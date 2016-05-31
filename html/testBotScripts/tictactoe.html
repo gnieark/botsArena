@@ -45,6 +45,7 @@ pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas
 <script>
 var grid={"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""};
 var currentPlayer=0;
+var gameId=0;
 
 function createElem(type,attributes){
     var elem=document.createElement(type);
@@ -105,22 +106,35 @@ function play(player){
         var symbol="O";
     }
     
+    var arrToSend= [
+        "game-id"       : "" + gameId,
+        "action"        : "play-turn",
+        "game"          : "tictactoe",
+        "players"       : 2,
+        "board"         : grid,
+        "you"           : symbol,
+        "player-index"  : p-1
+    ];
+    var stringToSend = JSON.stringify(arrToSend);
+    
     var xhr = new XMLHttpRequest(); 
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-	    if(xhr.status  == 200) {
-	      var response=xhr.responseText;
-		   //to do test the reponse here
-	
-		  playingAT(response);
-	
-	    }else{		    
-		  alert (xhr.status);
-		  die;
-	    }
+        if(xhr.status  == 200) {
+            addLog('message send to bot ' + p ':' + stringToSend);
+            addLog('his awnser is: ' + xhr.responseTEXT);
+            
+            var reponse = eval(xhr.responseTEXT);
+            //test format of response
+            
+            
+        }else{		    
+            addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+            return;
+        }
     }};
-    xhr.open("POST", document.getElementById('url' + player).value,  true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('game=connectFour&match_id=666-' + player + '&you=' + symbol + '&grid=' + JSON.stringify(grid) );
+    xhr.open("POST", document.getElementById('url' + p).value,  true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(stringToSend );
 
   }else{
     //wait for human response, show buttons on empty cases
@@ -163,9 +177,30 @@ function startGame(){
   document.getElementById('fightResult').appendChild(table);
   var divLogs=createElem("div",{"id":"logs"});
   document.getElementById('fightResult').appendChild(divLogs); 
-    
+   
+   //init vars
   grid={"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""};
+  gameId=Math.floor((Math.random() * 10000) + 1); 
   
+  //envoyer les requetes d'init aux bots
+  for (var p = 1; p < 3 ; p++){
+  
+    if(document.getElementById("player" + p + "Type").value == "bot"){
+    
+        var xhr = new XMLHttpRequest(); 
+        xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+	    if(xhr.status  == 200) {
+                addLog('Message d\'init envoyé au bot player ' + p );
+	    }else{		    
+                addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+                return;
+	    }
+        }};
+        xhr.open("POST", document.getElementById('url' + p).value,  true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(' {"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
+    }
+  }
   play(1);
 }
 </script>
