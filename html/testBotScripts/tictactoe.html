@@ -83,12 +83,30 @@ function playingAT(cellKey){
       addLog("Player " + currentPlayer + "tente de jouer sur " + cellKey +". Cette case est déjà prise, il perd");
     }
     
+    //placer le caractere
+    if(currentPlayer == 1){
+        var symbol= "X";
+    }else{
+        var symbol="O";
+    }
+    grid[cellKey]=symbol;
+    document.getElementById[cellkey].innerHTML = symbol;
+    addLog("Player " + currentPlayer + " joue " + cellKey);
     //does he win?
-    
+    //tester si trois caracteres allignés
+    if(
+            ((grid['0-0'] == grid['0-1']) && (grid['0-1'] == grid['0-2']) && (grid['0-2']!==""))
+        OR  ((grid['1-0'] == grid['1-1']) && (grid['1-1'] == grid['1-2']) && (grid['1-2']!==""))
+        OR  ((grid['2-0'] == grid['2-1']) && (grid['2-1'] == grid['2-2']) && (grid['2-2']!==""))
+        OR  ((grid['0-0'] == grid['1-0']) && (grid['1-0'] == grid['2-0']) && (grid['2-0']!==""))
+        OR  ((grid['0-1'] == grid['1-1']) && (grid['1-1'] == grid['2-1']) && (grid['2-1']!==""))
+        OR  ((grid['0-2'] == grid['1-2']) && (grid['1-2'] == grid['2-2']) && (grid['2-2']!==""))
+        OR  ((grid['0-0'] == grid['1-1']) && (grid['1-1'] == grid['2-2']) && (grid['2-2']!==""))
+        OR  ((grid['0-2'] == grid['1-1']) && (grid['1-1'] == grid['2-0']) && (grid['2-0']!==""))
+    ){
+        addLog("Player " + currentPlayer + "gagne la partie");
+    }
 
-    
-    //To Do
-    
     //change player
     if(currentPlayer == 1){
         play(2);
@@ -135,6 +153,7 @@ function play(player){
             }
             playingAT(cellTarget);
             
+            
         }else{		    
             addLog('player ' + p + ' n est pas joignable ' + xhr.status);
             return;
@@ -161,9 +180,6 @@ function startGame(){
   while (document.getElementById("fightResult").firstChild) {
     document.getElementById("fightResult").removeChild(document.getElementById("fightResult").firstChild);
   }
-
-  
-  
   //create grid
   var table=createElem('table',{'class':'battleGrid', 'id': 'grid'});
   for (var i=0; i < 3 ; i++){
