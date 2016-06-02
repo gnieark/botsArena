@@ -139,7 +139,7 @@ function play(player){
     var xhr = new XMLHttpRequest(); 
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
         if(xhr.status  == 200) {
-            addLog('message send to bot ' + p ':' + stringToSend);
+            addLog('message send to bot ' + p + ':' + stringToSend);
             addLog('his awnser is: ' + xhr.responseTEXT);
             
             var reponse = eval(xhr.responseTEXT);
