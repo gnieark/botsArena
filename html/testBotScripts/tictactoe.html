@@ -125,15 +125,15 @@ function play(player){
         var symbol="O";
     }
     
-    var arrToSend= [
-        "game-id"       : "" + gameId,
+    var arrToSend= {
+        "game-id": "" + gameId,
         "action"        : "play-turn",
         "game"          : "tictactoe",
         "players"       : 2,
         "board"         : grid,
         "you"           : symbol,
         "player-index"  : p-1
-    ];
+    };
     var stringToSend = JSON.stringify(arrToSend);
     
     var xhr = new XMLHttpRequest(); 
