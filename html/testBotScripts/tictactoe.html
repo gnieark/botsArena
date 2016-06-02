@@ -84,6 +84,7 @@ function playingAT(cellKey){
     }
     
     //does he win?
+    
 
     
     //To Do
@@ -124,8 +125,15 @@ function play(player){
             addLog('his awnser is: ' + xhr.responseTEXT);
             
             var reponse = eval(xhr.responseTEXT);
+            var cellTarget= reponse['play'];
+                       
             //test format of response
-            
+            var reg = '/^[0-2]\-[0-2]$/';
+            if (!reg.test(cellTarget)){
+	      addLog('player ' + p + ' a fait une réponse non conforme: ' + xhr.responseTEXT);
+	      return;
+            }
+            playingAT(cellTarget);
             
         }else{		    
             addLog('player ' + p + ' n est pas joignable ' + xhr.status);
