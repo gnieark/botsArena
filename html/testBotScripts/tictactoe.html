@@ -141,9 +141,13 @@ function play(player){
         if(xhr.status  == 200) {
             addLog('message send to bot ' + player + ':' + stringToSend);
             addLog('his awnser is: ' + xhr.responseTEXT);
-            
-            var reponse = eval(xhr.responseTEXT);
-            var cellTarget= reponse['play'];
+            try{
+                var reponse = JSON.parse(xhr.responseTEXT);
+                var cellTarget= reponse['play'];
+            }catch(e){
+                addLog('player ' + player + ' a fait une réponse non conforme aux specs: ' + xhr.responseTEXT);
+                return;
+            }
                        
             //test format of response
             var reg = '/^[0-2]\-[0-2]$/';
