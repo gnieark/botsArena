@@ -139,7 +139,7 @@ function play(player){
     var xhr = new XMLHttpRequest(); 
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
         if(xhr.status  == 200) {
-            addLog('message send to bot ' + p + ':' + stringToSend);
+            addLog('message send to bot ' + player + ':' + stringToSend);
             addLog('his awnser is: ' + xhr.responseTEXT);
             
             var reponse = eval(xhr.responseTEXT);
@@ -148,18 +148,18 @@ function play(player){
             //test format of response
             var reg = '/^[0-2]\-[0-2]$/';
             if (!reg.test(cellTarget)){
-	      addLog('player ' + p + ' a fait une réponse non conforme: ' + xhr.responseTEXT);
+	      addLog('player ' + player + ' a fait une réponse non conforme: ' + xhr.responseTEXT);
 	      return;
             }
             playingAT(cellTarget);
             
             
         }else{		    
-            addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+            addLog('player ' + player + ' n est pas joignable ' + xhr.status);
             return;
         }
     }};
-    xhr.open("POST", document.getElementById('url' + p).value,  true);
+    xhr.open("POST", document.getElementById('url' + player).value,  true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(stringToSend );
 
