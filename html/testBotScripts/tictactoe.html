@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Gnieark" />
+    <title>Test ton bot</title>
+      <style type="text/css">
+body{width:100%; font-size:100%; line-height:140%; word-wrap:break-word; text-rendering:optimizelegibility;
+  margin:0 auto; font-family : "lucida grande", "gill sans", arial, sans-serif; left:auto;}
+header{ background-color:#A60800; width: 100%; overflow: hidden; height: auto;}
+header h1{display: block; font-size:300%; color:#FFF;float: left; margin-left: 5%;}
+header nav{display: block; width: 45%; color:#FFF; float: right;}
+#menus{ margin-left: 50px; width:100%; display: table;}
+#menus a{color: #fff; display: table-cell; text-decoration: none;text-align: center;border-radius: 15px 15px 0px 0px;}
+#menus a.selected{color:#202020; background-color:#fff;}
+footer{height: 70px; display: block; color: #343638; font-size: 11pt; line-height: 15pt; margin: 0; padding-top: 15pt;
+    overflow-x: hidden;    box-sizing: border-box; background-image: -webkit-linear-gradient(top, #f5f5f5,#e9e9e9);
+    border-top: 1px solid #bebebe; color: #999; font-size: 12px; line-height: 1.5em; text-align: center;width: 100%;}
+footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weight: normal;}
+#languages{float: right; text-align: right;}
+section{margin: 0 auto; width: 90%;}
+article{float: right; width:70%;}
+aside{float:left; width: 28%; border-right: 1px dashed green;}
+aside table {width: 90%;}
+aside table tr td{width: 33%;}
+aside table tr td input{width: 100%;}
+.center{text-align: center;}
+aside p img{ width: 100%; max-width:342px;} 
+form textarea, form input, form select {width:40%;}
+form input[type=checkbox], form input[type=radio] {  width:15px; }
+form label {float:left; width:40%; margin-right:0.5em;
+  padding-top:0.2em; text-align:right;}
+pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas, "Times New Roman", Verdana;
+  border-left: 4px solid #CCC; padding-left: 8px;}
+  .battleGrid{padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
+.battleGrid tr{}
+.battleGrid td{border: 1px dashed green; text-align: center; font-weight: bold;width:2em; height: 2em; vertical-align: middle;}
+.winCase{background-color:red;}
+.hidden{display: none;}
+#logs{font-size: 70%;}
+</style>
+
+<script>
+var grid={"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""};
+var currentPlayer=0;
+var gameId=0;
+
+function createElem(type,attributes){
+    var elem=document.createElement(type);
+    for (var i in attributes)
+    {elem.setAttribute(i,attributes[i]);}
+    return elem;
+}
+function addLog(message){
+  var p=createElem('p');
+  p.innerHTML=message;
+  document.getElementById('logs').appendChild(p);
+}
+function changePlayerType(player,newValue){
+  if(newValue == "bot"){
+    document.getElementById('url' + player).disabled="";
+  }else{
+     document.getElementById('url' + player).disabled="disabled";
+  }
+}
+function playingAT(cellKey){
+    //hide buttons
+    var inputs = document.getElementById('grid').getElementsByTagName('input');
+    for (var index = 0; index < inputs.length; index++) {
+      inputs[index].setAttribute("class","hidden");
+    }
+     
+    if(currentPlayer == 1){
+      var symbol= "X";
+    }else{
+      var symbol="O";
+    }
+    
+    //test if cell is empty
+    if(grid[cellKey] !== ""){
+      addLog("Player " + currentPlayer + "tente de jouer sur " + cellKey +". Cette case est déjà prise, il perd");
+    }
+    
+    //placer le caractere
+    if(currentPlayer == 1){
+        var symbol= "X";
+    }else{
+        var symbol="O";
+    }
+    grid[cellKey]=symbol;
+    document.getElementById(cellKey).innerHTML = symbol;
+
+    addLog("Player " + currentPlayer + " joue " + cellKey);
+    //does he win?
+    //tester si trois caracteres allignés
+    if(
+            ((grid['0-0'] == grid['0-1']) && (grid['0-1'] == grid['0-2']) && (grid['0-2']!==""))
+        ||  ((grid['1-0'] == grid['1-1']) && (grid['1-1'] == grid['1-2']) && (grid['1-2']!==""))
+        ||  ((grid['2-0'] == grid['2-1']) && (grid['2-1'] == grid['2-2']) && (grid['2-2']!==""))
+        ||  ((grid['0-0'] == grid['1-0']) && (grid['1-0'] == grid['2-0']) && (grid['2-0']!==""))
+        ||  ((grid['0-1'] == grid['1-1']) && (grid['1-1'] == grid['2-1']) && (grid['2-1']!==""))
+        ||  ((grid['0-2'] == grid['1-2']) && (grid['1-2'] == grid['2-2']) && (grid['2-2']!==""))
+        ||  ((grid['0-0'] == grid['1-1']) && (grid['1-1'] == grid['2-2']) && (grid['2-2']!==""))
+        ||  ((grid['0-2'] == grid['1-1']) && (grid['1-1'] == grid['2-0']) && (grid['2-0']!==""))
+    ){
+        addLog("Player " + currentPlayer + "gagne la partie");
+        return;
+    }
+
+    //change player
+    if(currentPlayer == 1){
+        play(2);
+    }else{
+        play(1);
+    } 
+}
+function play(player){
+  currentPlayer=player;  
+  if(document.getElementById("player" + player + "Type").value == "bot"){
+    //call bot url
+    
+    if(currentPlayer == 1){
+        var symbol= "X";
+    }else{
+        var symbol="O";
+    }
+    
+    var arrToSend= {
+        "game-id": "" + gameId,
+        "action"        : "play-turn",
+        "game"          : "tictactoe",
+        "players"       : 2,
+        "board"         : grid,
+        "you"           : symbol,
+        "player-index"  : player-1
+    };
+    var stringToSend = JSON.stringify(arrToSend);
+    
+    var xhr = new XMLHttpRequest(); 
+    xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+        if(xhr.status  == 200) {
+            addLog('message send to bot ' + player + ':' + stringToSend);
+            addLog('his awnser is: ' + xhr.responseText);
+            try{
+                var reponse = JSON.parse(xhr.responseText);
+                var cellTarget= reponse['play'];
+            }catch(e){
+                addLog('player ' + player + ' a fait une réponse non conforme aux specs: ' + xhr.responseText);
+                return;
+            }
+                       
+            //test format of response
+            var reg = /^[0-2]-[0-2]$/;
+            if (!reg.test(cellTarget)){
+	      addLog('player ' + player + ' a fait une réponse non conforme: ' + xhr.responseText);
+	      return;
+            }
+            playingAT(cellTarget);
+            
+            
+        }else{		    
+            addLog('player ' + player + ' n est pas joignable ' + xhr.status);
+            return;
+        }
+    }};
+    xhr.open("POST", document.getElementById('url' + player).value,  true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(stringToSend );
+
+  }else{
+    //wait for human response, show buttons on empty cases
+    for (var key in grid){
+      if(grid[key] == ""){
+	document.getElementById('button' + key).setAttribute("class", "");
+      }
+    }
+   
+  }
+
+}
+function startGame(){
+  //empty div
+  document.getElementById("fightResult").innerHTML="";
+  while (document.getElementById("fightResult").firstChild) {
+    document.getElementById("fightResult").removeChild(document.getElementById("fightResult").firstChild);
+  }
+  //create grid
+  var table=createElem('table',{'class':'battleGrid', 'id': 'grid'});
+  for (var i=0; i < 3 ; i++){
+      var tr=createElem('tr');
+      for (var j=0;j<3; j++){
+	  var td=createElem('td',{'id': j + '-' + i});
+	  var playerButton=createElem('input',{
+	      'type': 'button',
+	      'id':'button' + j + '-' + i, 
+	      'onclick':"playingAT('" + j + '-' + i + "');",'value':'-',
+	      'class': 'hidden'}
+	  );
+	  td.appendChild(playerButton);
+	  tr.appendChild (td);
+      }
+      
+      table.appendChild(tr);
+  }
+  document.getElementById('fightResult').appendChild(table);
+  var divLogs=createElem("div",{"id":"logs"});
+  document.getElementById('fightResult').appendChild(divLogs); 
+   
+   //init vars
+  grid={"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""};
+  gameId=Math.floor((Math.random() * 10000) + 1); 
+  
+  //envoyer les requetes d'init aux bots
+  for (var p = 1; p < 3 ; p++){
+  
+    if(document.getElementById("player" + p + "Type").value == "bot"){
+    
+        var xhr = new XMLHttpRequest(); 
+        xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
+	    if(xhr.status  == 200) {
+                addLog('Message d\'init envoyé au bot player ' + p );
+	    }else{		    
+                addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+                return;
+	    }
+        }};
+        xhr.open("POST", document.getElementById('url' + p).value,  true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(' {"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
+    }
+  }
+  play(1);
+}
+</script>
+</head>
+<body>
+<header>
+<h1>Debug and test your tictactoe AI</h1>
+</header>
+  <section>
+    <aside>
+    <h2>Configure the test</h2>
+    <table>
+    <tr>
+	<td>Player 1</td>
+	<td><select id="player1Type" name="player1Type" onchange="changePlayerType(1,this.value);">
+	      <option value="bot">bot</option>
+	      <option value="human">human</option>
+	    </select>
+	</td>
+	<td>
+	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://ias.tinad.fr/tictactoe.php"/>
+	 </td>
+    </tr>
+    <tr>
+      <td>Player 2</td>
+      <td>
+	<select id="player2Type" name="player2Type" onchange="changePlayerType(2,this.value);">
+	    <option value="human">human</option>
+	    <option value="bot">bot</option>
+	</select>
+      </td>
+      <td>
+	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://ias.tinad.fr/tictactoe.php"/>
+      </td>
+    </tr>
+    </table>
+    <p><input type="button" onclick="startGame()" value="Fight"/></p>
+    </aside>
+    <article id="fightResult">
+    </article>
+  </section>
+  <footer>
+    <a href="/p/About">About</a><a href="https://github.com/gnieark/botsArena">Bots'Arena source code</a><a href="/p/legals">Mentions légales</a>
+  </footer>
+</body>
+</html>
