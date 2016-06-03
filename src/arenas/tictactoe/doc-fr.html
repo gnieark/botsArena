@@ -176,7 +176,7 @@ Match nul
 <p>Cette petite page html+javascript vous permettra de tester et débogguer votre bot.<br/> Elle vous permettra de tester votre boot via son url, contre lui même, un humain ou stupidIA.<br/> Une fois prêt, vous l'inscrirez dans l'arène.</p>
 <p> Par défaut, les navigateurs ne permettent pas en javascript de faire des requettes Cross domaine. C'est une sécurité du navigateur. Il y a donc trois possibilités</p>
 <ul><li>Vous ajoutez à votre bot les <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all">headers permettant les requettes de type POST provenant d'un autre domaine</a></li>
-<li>Plus simple, vous téléchargez la page et la mettez dans le VHOST de votre bot le temps des tests</li>
+<li>Plus simple, vous téléchargez la page (click droit, enregistrer la cible du lien sous)et la mettez dans le VHOST de votre bot le temps des tests. Tout son code (html, css et javascript) est inclus dans la page sans ressource externe, dans le but qu'elle puisse etre facilement téléchargée et utilisable.</li>
 <li>Vous utilisez un navigateur web qui supporte le javascript et permet les requetes cross domain. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/">Ça semble possible</a>.</li>
 </ul>
 <p>Ce problème ne se posera pas au niveau de l'arène une fois que votre bot sera inscrit. Car dans ce cas, c'est le serveur qui fait les requetes vers les bots, pas un navigateur web</p>
