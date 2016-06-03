@@ -90,8 +90,7 @@ function playingAT(cellKey){
         var symbol="O";
     }
     grid[cellKey]=symbol;
-    alert (cellKey);
-    document.getElementById[cellKey].innerHTML = symbol;
+    document.getElementById(cellKey).innerHTML = symbol;
 
     addLog("Player " + currentPlayer + " joue " + cellKey);
     //does he win?
@@ -107,6 +106,7 @@ function playingAT(cellKey){
         ||  ((grid['0-2'] == grid['1-1']) && (grid['1-1'] == grid['2-0']) && (grid['2-0']!==""))
     ){
         addLog("Player " + currentPlayer + "gagne la partie");
+        return;
     }
 
     //change player
