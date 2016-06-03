@@ -140,19 +140,19 @@ function play(player){
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
         if(xhr.status  == 200) {
             addLog('message send to bot ' + player + ':' + stringToSend);
-            addLog('his awnser is: ' + xhr.responseTEXT);
+            addLog('his awnser is: ' + xhr.responseText);
             try{
-                var reponse = JSON.parse(xhr.responseTEXT);
+                var reponse = JSON.parse(xhr.responseText);
                 var cellTarget= reponse['play'];
             }catch(e){
-                addLog('player ' + player + ' a fait une réponse non conforme aux specs: ' + xhr.responseTEXT);
+                addLog('player ' + player + ' a fait une réponse non conforme aux specs: ' + xhr.responseText);
                 return;
             }
                        
             //test format of response
             var reg = '/^[0-2]\-[0-2]$/';
             if (!reg.test(cellTarget)){
-	      addLog('player ' + player + ' a fait une réponse non conforme: ' + xhr.responseTEXT);
+	      addLog('player ' + player + ' a fait une réponse non conforme: ' + xhr.responseText);
 	      return;
             }
             playingAT(cellTarget);
