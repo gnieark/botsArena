@@ -150,7 +150,7 @@ function play(player){
             }
                        
             //test format of response
-            var reg = '/^[0-2]\-[0-2]$/';
+            var reg = '/^[0-2]-[0-2]$/';
             if (!reg.test(cellTarget)){
 	      addLog('player ' + player + ' a fait une réponse non conforme: ' + xhr.responseText);
 	      return;
