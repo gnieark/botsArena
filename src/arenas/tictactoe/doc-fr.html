@@ -1,7 +1,7 @@
 <h1>Fonctionnement des duels de morpion</h1>
 <p>
     Ne vous fiez pas au GIF animé de la page d'accueil du site.<br/>
-    Il est là pour illustrer le fonctionnement global de l'arène, mais il est faux.
+    Il est là pour illustrer le fonctionnement global de l'arène, mais il est inexact.
 </p>
 <h2>Communications entre l'arène et votre bot</h2>
 <p>Pour communiquer, l'arène (le serveur hébergeant botsarena) fait des requetes http(s) de type POST vers les bots. Le message est dans le corps de la requête au format JSON.</p>
@@ -173,13 +173,14 @@ Match nul
 
 <h2>Outils pour développer et tester votre bot</h2>
 <h3><a href="/testBotScripts/tictactoe.html">Script Botsarena</a></h3>
+<p>Afin de vous aider sur la façon de gérer les communications entre le bot et l'arène, n'hésitez pas à jeter un coup d'oeil dans le <a href="https://github.com/gnieark/IAS/blob/master/stupidIATictactoe.php">code source PHP de stupidIA</a><p>
 <p>Cette petite page html+javascript vous permettra de tester et débogguer votre bot.<br/> Elle vous permettra de tester votre boot via son url, contre lui même, un humain ou stupidIA.<br/> Une fois prêt, vous l'inscrirez dans l'arène.</p>
-<p> Par défaut, les navigateurs ne permettent pas en javascript de faire des requettes Cross domaine. C'est une sécurité du navigateur. Il y a donc trois possibilités</p>
-<ul><li>Vous ajoutez à votre bot les <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all">headers permettant les requettes de type POST provenant d'un autre domaine</a></li>
+<p> Par défaut, les navigateurs ne permettent pas en javascript de faire des requettes Cross domaine. C'est une sécurité du navigateur. Il y a donc trois possibilités:</p>
+<ul><li>Vous ajoutez à votre bot les <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all">headers permettant les requettes de type POST provenant d'un autre domaine</a>.</li>
 <li>Plus simple, vous téléchargez la page (click droit, enregistrer la cible du lien sous)et la mettez dans le VHOST de votre bot le temps des tests. Tout son code (html, css et javascript) est inclus dans la page sans ressource externe, dans le but qu'elle puisse etre facilement téléchargée et utilisable.</li>
 <li>Vous utilisez un navigateur web qui supporte le javascript et permet les requetes cross domain. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/">Ça semble possible</a>.</li>
 </ul>
-<p>Ce problème ne se posera pas au niveau de l'arène une fois que votre bot sera inscrit. Car dans ce cas, c'est le serveur qui fait les requetes vers les bots, pas un navigateur web</p>
+<p>Ce problème ne se posera pas au niveau de l'arène une fois que votre bot sera inscrit. Car dans ce cas, c'est le serveur qui fait les requetes vers les bots, pas un navigateur web.</p>
 <h3><a href="https://github.com/moul/bolosseum">Bolosseum</a></h3>
 <p>Vous trouverez des outils en ligne de commande pour tester et déboguer votre bot sur le projet github Bolosseum de @moul.</p>
 <h2>Faire entrer votre bot dans cette arène</h2>
