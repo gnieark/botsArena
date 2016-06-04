@@ -3,40 +3,184 @@
     Do not trust the animated GIF of the site's home page.<br/>
     It's the illustration of the overall operation of the arena, but it is wrong : the tictactoe only needs to send 10 variables to the bots.<br/>
     The choice was therefore made to pass them by GET parameters and not by POST as shown in the animation.
-</p>
-<h2>Requirements : GET variables and HTML return</h2>
-<p>
-    Your program does not have to manage a whole part of noughts and crosses, just one lap.
-</p>
-<p>
-    The arbitrator program (the arena) build a request as follows :
-</p>
-<pre>
-    https://votreUrl/?you=O&amp;0-0=&amp;0-1=O&amp;0-2=X&amp;1-0=X&amp;1-1=X&amp;1-2=O&amp;2-0=O&amp;2-1=&amp;2-2=X
+
+<h2>requests from BotsArena to your bot</h2>
+<p>To talk, botsarena (the server hosting botsarena) execute a POST request on your bot's http(s) server with the json as body</p>
+<p>Your bot responds with a JSON array</p>
+<h3>Message initating the game</h3>
+  BotsArena sends:
+  <pre>{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":0}</pre>
+  <p>Explanation of each parameters:</p>
+  <ul>
+    <li><em>game-id</em> string identifying the party.</li>
+    <li><em>action</em> string identifying the phase, <em>init</em> at this step <em>play-turn</em> at the next step.</li>
+    <li><em>game</em> string identifying the game. Always "tictactoe".  it can be used if you give a single URL for multiple bots.</li>
+    <li><em>players</em> Int indicating the number of players in the game, still 2 on Tic Tac Toe.</li>
+    <li><em>board</em> Empty or unused at this step, see next chapter.</li>
+    <li><em>player-index</em> int The order of your bot in turns. The first player is 0, second is 2.</li>
+  </ul>
+  <p>Your bot should return his name JSON format:</p>
+  <pre>
+  {"name":"botName"}
+  </pre>
+
+  <p>The arena currently does not check this response, the init step was included to ensure compatibility with <a href="https://github.com/moul/bolosseum"> Bolosseum </a> .
+    If your bot returns a blank page at this step (action = init), it will work.</p>
+  <h3>Message asking you to play (only one turn) </h3>
+  <p>The Arena sends as example the following message:</p>
+  <pre>{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}</pre>
+   <ul>
+    <li><em>game-id</em> String identifying the party.</li>
+    <li><em>action</em> String identifying the phase, <em>play-turn</em> now, you have to play.</li>
+    <li><em>game</em> String identifying the game. Always "tictactoe".</li>
+    <li><em>players</em> Int indicating the number of players in the game, still 2 on Tic Tac Toe.</li>
+    <li><em>board</em> The map, i'll explain it at next chapter</li>
+    <li><em>you</em> String, Your bot's character on the grid</li>
+    <li><em>player-index</em> Int The order of your bot in turns. The first player is 0, second is 2.</li>
+  </ul>  
+  <h4>The map</h4>
+  <p> It is represented by a sub-array. The index corresponds to x-y coordinates of the box. x and y are between 0 and 2. Vaues can be:</p>
+  <ul>
+    <li>Empty, this cell is free</li>
+    <li>"X" or "O", Corresponding player alrready played this cell.</li>
+  </ul>
+
+<h2>Exemple de partie</h2>
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":0}
 </pre>
-<p>
-    The GET parameter "you" indicate what is your symbol in the noughts and crosses grid<br/>
-    Classically : "X" or "O"
-</p>
-<p>
-    For each box of the noughts and crosses grid, a GET parameter corresponding to the coordinates ("0-0", "0-1", etc ...) is indicated to you.<br/>
-    He can be :
-</p>
-<ul>
-    <li>Your symbol (which means that you have already played there)</li>
-    <li>The symbol of your opponent. He has already played in this box</li>
-    <li>Nothing, the box is available</li>
+<pre class="botResponse">
+{"name":"moul-tictactoe"}
+</pre>
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":1}
+</pre>
+<pre class="botResponse">
+{"name":"moul-tictactoe"}
+</pre>
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+</pre>
+<pre class="botResponse">
+{"play":"0-1"}
+</pre>
+<pre>
+Player 1 played at 0-1 new grid is:
+X
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"X","0-2":"","1-0":"","1-1":"","1-2":"","2-0":"","2-1":"","2-2":""},"you":"O","player-index":1}
+</pre>
+<pre class="botResponse">
+{"play":"1-1"}
+</pre>
+<pre>
+Player 2 played at 1-1 new grid is
+X
+O
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"","0-1":"X","0-2":"","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+</pre>
+<pre class="botResponse">
+{"play":"0-0"}
+</pre>
+<pre>
+Player 1 played at 0-0 new grid is
+X X
+O
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"O","player-index":1}
+</pre>
+<pre class="botResponse">
+{"play":"0-2"}
+</pre>
+<pre>
+Player 2 played at 0-2 new grid is
+X X O
+O
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"","1-1":"O","1-2":"","2-0":"","2-1":"","2-2":""},"you":"X","player-index":0}
+</pre>
+<pre class="botResponse">
+{"play":"2-0"}
+</pre>
+<pre>
+Player 1 played at 2-0 new grid is
+X X O
+O
+X
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"","1-1":"O","1-2":"","2-0":"X","2-1":"","2-2":""},"you":"O","player-index":1}
+</pre>
+<pre class="botResponse">
+{"play":"1-0"}
+</pre>
+<pre>
+Player 2 played at 1-0 new grid is
+X X O
+O O
+X
+</pre>
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"","2-0":"X","2-1":"","2-2":""},"you":"X","player-index":0}
+</pre>
+<pre class="botResponse">
+{"play":"1-2"}
+</pre>
+<pre>
+Player 1 played at 1-2 new grid is
+X X O
+O O X
+X
+</pre>
+
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"X","2-0":"X","2-1":"","2-2":""},"you":"O","player-index":1}
+</pre>
+<pre class="botResponse">
+{"play":"2-1"}
+</pre>
+<pre>
+Player 2 played at 2-1 new grid is
+X X O
+O O X
+X O
+</pre>
+<pre class="arrenaMessage">
+{"game-id":"1126","action":"play-turn","game":"tictactoe","players":2,"board":{"0-0":"X","0-1":"X","0-2":"O","1-0":"O","1-1":"O","1-2":"X","2-0":"X","2-1":"O","2-2":""},"you":"X","player-index":0}
+</pre>
+<pre class="botResponse">
+{"play":"2-2"}
+</pre>
+<pre>
+Player 1 played at 2-2 new grid is
+X X O
+O O X
+X O X
+
+DRAW
+</pre>
+<h2> Tools for developing and testing your bot </h2>
+<p> To help you on how to manage communications between the bot and the arena, please take a look in the <a href = "https://github.com/gnieark/IAS/blob/master/stupidIATictactoe.php "> source PHP stupidIA </a>. <p>
+
+<h3> <a href="/testBotScripts/tictactoe.html"> Script Botsarena </a> </h3>
+<p> This small html + javascript page will allow you to test and debug on your bot. <br/> It will allow you to test your boot via its URL, against himself, a human or stupidIA. <br/> Once ready, Express Sign your bot in the arena. </ p>
+<p> By default, browsers do not allow javascript to make Cross domain queries. It is a browser security. So there are three options: </ p>
+<ul> <li> You add to your bot <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all"> headers than allow for CORS </a> field. </li>
+<li> More simple, you download the page (right click, save target as) and put it in your bot VHOST time tests. All the code (html, css and javascript) is included in the page without external resource, in order that it can be easily downloaded and used. </li>
+<li> You use a web browser that supports JavaScript and allows cross domain queries. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/"> It seems possible </a>. </ li>
 </ul>
-<p>
-    Your program chooses the box on which he wishes to play in view of the grid and returns its coordinates.
-</p>
-<p>
-    The result of the HTTP (s) request can only be : "0-0" ou "0-1" ou "0-2" ou "1-0" etc.
-</p>
-<p>
-    A player (an AI) that answers something else, or responds with the coordinates of a box already played, loses the game.
-</p>
-<h2>Publish your program to test it then release into to the arena</h2>
-<p>
-    The form is on <a href="/">website home page</a> !
-</p>
+<p> This problem does not arise at the arena once your bot will be registered. Because in that case, it is the requests to the bot, not a browser. </p>
+<h3> <a href="https://github.com/moul/bolosseum"> Bolosseum </a> </h3>
+<p> You will find command line tools to test and debug your bot on github project Bolosseum of @moul. </p>
+<h2> Bringing your bot in this arena </h2>
+<p> The registration form your bot is on the site's home page. </p>
