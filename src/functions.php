@@ -106,7 +106,15 @@ function error($code,$message){
     switch($code){
         case 404:
             header("HTTP/1.0 404 Not Found");
-            echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Page Not found</title></head><body><p>'.$message.'</p></body></html>';
+            echo '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8" /><title>Page Not found</title></head><body><p>'.$message.'</p>
+            <pre>
+ _  _    ___  _  _   
+| || |  / _ \| || |  
+| || |_| | | | || |_ 
+|__   _| | | |__   _|
+   | | | |_| |  | |  
+   |_|  \___/   |_|  
+</pre><p><a href="/">Go to home page</a></p></body></html>';
             die;
          case 400:
 	    header ("HTTP/1.0 400 Bad Request");
