@@ -256,7 +256,7 @@ if (isset($_POST['xd_check'])){
       if(($currentArena == "") && (!isset($_GET['doc']))){ 
 	echo ' class="selected"';
       }
-      echo '>'.$lang['HOME'.'</a>';
+      echo '>'.$lang['HOME'].'</a>';
 
         foreach($arenas as $arena){
             if( $arena['id'] == $currentArena){
