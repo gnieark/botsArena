@@ -68,7 +68,7 @@ switch ($_POST['act']){
         'game'       => 'tictactoe',
         'players'    => 2,
         'board'      => $map,
-        'you'       =>  $playerCHAR,
+        'you'        =>  $playerCHAR,
         'player-index'  =>$playerIndex
       );
       
@@ -126,7 +126,7 @@ switch ($_POST['act']){
 		$playerPlayingNow=1;
 	    }
       }else{
-	    echo "<p>".$playerName." a fait une réponse non conforme. Il perd</p>";
+	    echo "<p>".$playerName." a fait une réponse non conforme. Il perd</p><p>".json_encode($playerResponse)."</p>";
 	    break;
       
       }
