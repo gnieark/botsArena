@@ -49,6 +49,6 @@ function get_IA_Response($iaUrl,$postParams){
     );
     $output= curl_exec($ch);
     curl_close($ch); 
-    echo $iaUrl." ".$output.'<br/>';
+    echo $iaUrl." ".$data_string." ".$output.'<br/>';
     return json_decode($output,TRUE);
 }
