@@ -52,7 +52,7 @@ switch ($_POST['act']){
       
       for($player = 0; $player < 2; $player++){
 		    $params[$player]=array(
-			'game-id'        =>  $_SESSION['matchId',
+			'game-id'        =>  $_SESSION['matchId'],
 			'action'         =>  'init',
 			'game'           =>  'connectFou',
 			'players'        => 2,
