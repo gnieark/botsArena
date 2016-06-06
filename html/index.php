@@ -251,8 +251,12 @@ if (isset($_POST['xd_check'])){
 	 }else{
 	    echo '<nav id="languages"><a href="/'. $currentArena.'-fr">fr</a>&nbsp;<a href="/'.$currentArena.'-en">en</a></nav>';
 	 }
-      <nav id="menus"><a href="/"<?php if(($currentArena == "") && (!isset($_GET['doc']))) echo ' class="selected"'; ?>><?php echo $lang['HOME']; ?></a>
-      <?php
+      
+      echo '<nav id="menus"><a href="/"';
+      if(($currentArena == "") && (!isset($_GET['doc']))){ 
+	echo ' class="selected"';
+      }
+      echo '>'.$lang['HOME'.'</a>';
 
         foreach($arenas as $arena){
             if( $arena['id'] == $currentArena){
