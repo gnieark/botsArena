@@ -36,9 +36,7 @@ switch ($_POST['act']){
     }
     get_IA_Response($bots[$bot1]['url'],$params[0]); //don't care about result
     get_IA_Response($bots[$bot2]['url'],$params[1]); //don't care about result
-      
-            //"game-id":"gameid","action":"init","game":"tictactoe","players":2,"board":null,"you":null,"player-index":0}
-        //[0000] body> {"name":"moul-tictactoe","play":null,"error":null}
+
         
     $playerPlayingNow=1;
     
@@ -68,7 +66,7 @@ switch ($_POST['act']){
         'game'       => 'tictactoe',
         'players'    => 2,
         'board'      => $map,
-        'you'       =>  $playerCHAR,
+        'you'        =>  $playerCHAR,
         'player-index'  =>$playerIndex
       );
       
@@ -126,7 +124,7 @@ switch ($_POST['act']){
 		$playerPlayingNow=1;
 	    }
       }else{
-	    echo "<p>".$playerName." a fait une réponse non conforme. Il perd</p>";
+	    echo "<p>".$playerName." a fait une réponse non conforme. Il perd.</p>";
 	    break;
       
       }
