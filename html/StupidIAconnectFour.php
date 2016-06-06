@@ -5,7 +5,7 @@
 */
 $in=file_get_contents('php://input');
 $params=json_decode($in, TRUE);
-$grid=$params['grid'];
+$grid=$params['board'];
 $colAvailable=array();
 
 for($i=0;$i<7;$i++){
@@ -14,5 +14,5 @@ for($i=0;$i<7;$i++){
   }
 }
 shuffle($colAvailable);
-echo $colAvailable[0];
+echo "{'play':'".$colAvailable[0]."'}";
 die;
