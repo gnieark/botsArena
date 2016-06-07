@@ -130,15 +130,8 @@ function playingAT(col){
     
     //diagonal \
     /*
-   5|X| | | | | |
-   4| |X| | | | |
-   3| | |X| | | |
-   2| | | |X| | |
-   1| | | | |X| |
-   0|1|2|3|4|5|X|    
-   
-    diagonal is an affin function:
-    y=-x+b
+    * diagonal is an affin function:
+    * y=-x+b
     */
     //find b
     var b = parseInt(y + x);
@@ -165,9 +158,6 @@ function playingAT(col){
       wins(currentPlayer);
       return;
     }
-    
-    
-    
     //diagonal / affin function like y=x+b
     b = parseInt(y - x);
     if( b > -1){
@@ -235,8 +225,6 @@ function play(player){
             addLog('player ' + player + ' made a non confom response: ' + xhr.responseText);
             return;
         }
-    
-            
         var t = new RegExp('^[0-6]$');
         if (t.test(colTarget)){
             playingAT(colTarget);
@@ -304,9 +292,7 @@ function startGame(){
 	      return;
 	  } 
 	 }
-
     }
-     
     play(1);
 }
 </script>
