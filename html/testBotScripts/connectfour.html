@@ -125,10 +125,7 @@ function playingAT(col){
       return;
     }
     
-    //diagonals
-    //\
-    
-    //for (var kx=x, var ky=y; kx < 7, ky 
+    //diagonal \
     /*
    5|X| | | | | |
    4| |X| | | | |
@@ -136,21 +133,65 @@ function playingAT(col){
    2| | | |X| | |
    1| | | | |X| |
    0|1|2|3|4|5|X|    
-    y=ax+b
-    1 = a *5 + b
-    5 = a * 1 +b
-    b = 1 - 5a
-    5= a + 1 - 5a
-    5 = -4a + 1
-    -4a = 4
-    a = -1
-    b = 6
-    
-    
-    
-    ky=akx+b
-    
+   
+    diagonal is an affin function:
+    y=-x+b
     */
+    //find b
+    var b= y + x;
+    if (b < 6){
+        //first point of the diagonal has x=0;
+        var kx = 0;
+        var ky = b; //:aga: 
+    }else{
+        //first point of the diagonal has y=5
+        var kx = b - 5;
+        var ky = 5;
+    }
+    var line="";
+    for (var lx = kx, var ly = ky; (lx < 7) && (ly > -1); lx++, ly--;){
+        if( grid[ly][lx] == ""){
+            line += " ";
+        }else{
+            line += grid[ly][lx];
+        }
+    }
+    
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+    
+    
+    
+    //diagonal / affin function like y=x+b
+    b = y - x;
+    if( b > -1){
+        //first point has x=0
+        kx = 0;
+        ky = b
+
+    }else{
+        //first point has y=0
+        ky = 0;
+        kx = -b;
+    }
+    
+    var line="";
+    for (var lx = kx, var ly = ky; (lx < 7) && (ly < 6); lx++, ly++;){
+       if( grid[ly][lx] == ""){
+            line += " ";
+        }else{
+            line += grid[ly][lx];
+        }   
+    }
+    
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+       
+    
     //change player
     if(currentPlayer == 1){
         play(2);
