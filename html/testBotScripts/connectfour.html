@@ -52,6 +52,9 @@ var board=[["","","","","","",""],
 var currentPlayer=1;
 var gameId="0";
 
+function wins(player){
+    addLog('player ' + player + ' wins'); 
+}
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -151,7 +154,6 @@ function playingAT(col){
     var line="";
     var lx , ly;
     for (lx = kx, ly = ky; (lx < 7) && (ly > -1); lx++ , ly-- ){
-        alert (ly + " " + ky);
         if( board[ly][lx] == ""){
             line += " ";
         }else{
