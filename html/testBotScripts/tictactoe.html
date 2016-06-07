@@ -219,7 +219,7 @@ function startGame(){
       var xhr = new XMLHttpRequest(); 
       xhr.open("POST", document.getElementById('url' + p).value,  false);
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(' {"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
+      xhr.send('{"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
       if(xhr.status  == 200) {
 	  addLog('Message d\'init envoyé au bot player ' + p );
       }else{		    
