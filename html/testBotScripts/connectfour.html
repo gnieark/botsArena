@@ -50,6 +50,7 @@ var board=[["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""]];
 var currentPlayer=1;
+var gameId="0";
 
 function createElem(type,attributes){
     var elem=document.createElement(type);
@@ -140,41 +141,45 @@ function play(player){
   currentPlayer=player;  
   if(document.getElementById("player" + player + "Type").value == "bot"){
     //call bot url
-    
     if(currentPlayer == 1){
         var symbol= "X";
     }else{
         var symbol="O";
     }
-    
-    
-    
-    
+    var arrToSend= {
+        "game-id": "" + gameId,
+        "action"        : "play-turn",
+        "game"          : "connectFour",
+        "players"       : 2,
+        "board"         : grid,
+        "you"           : symbol,
+        "player-index"  : player-1
+    };
     
     var xhr = new XMLHttpRequest(); 
-    xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-	    if(xhr.status  == 200) {
-	      var response=xhr.responseText;
-	      var t = new RegExp('^[0-6]$');
-	      if (t.test(response)){
-		  playingAT(response);
-	      }else{
-		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse: "' + response + '"' );
-	      }
-	    }else{		    
-		    alert (xhr.status);
-		    die;
-	    }
-    }};
+    xhr.open("POST", document.getElementById('url' + player).value,  false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(arrToSend) );
+    if(xhr.status  == 200) {
+        try{
+            var reponse = JSON.parse(xhr.responseText);
+            var colTarget= reponse['play'];
+        }catch(e){
+            addLog('player ' + player + ' made a non confom response: ' + xhr.responseText);
+            return;
+        }
     
-    
-    
-    xhr.open("POST", document.getElementById('url' + player).value,  true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('game=connectFour&match_id=666-' + player + '&you=' + symbol + '&grid=' + JSON.stringify(grid) );
-
-    
-    
+            
+        var t = new RegExp('^[0-6]$');
+        if (t.test(colTarget)){
+            playingAT(colTarget);
+        }else{
+            addLog ('bot response must be a digit betwin 0 and 7, witch indicate the conumn number where he wants play. Voici sa réponse: "' + colTarget + '"' );
+        }
+    }else{		    
+            addLog('le bot ' + player + ' does not respond. ' + xhr.status);
+            return;
+    }
   }else{
     //wait for human response, show buttons
     document.getElementById("playerButtons").setAttribute("class", "");
@@ -183,7 +188,9 @@ function play(player){
 }
 function startGame(){
   //empty div
-  document.getElementById("fightResult").innerHTML="";
+  while (document.getElementById("fightResult").firstChild) {
+    document.getElementById("fightResult").removeChild(document.getElementById("fightResult").firstChild);
+  }
   //create grid
   var table=createElem('table',{'class':'battleGrid', 'id': 'grid'});
   for (var i=6; i > -1; i--){
@@ -214,7 +221,7 @@ function startGame(){
       ["","","","","","",""],
       ["","","","","","",""],
       ["","","","","","",""]];
-      
+    gameId=Math.floor((Math.random() * 10000) + 1); 
     //send init messages
     for (var p = 1; p < 3 ; p++){
     
@@ -222,9 +229,9 @@ function startGame(){
 	  var xhr = new XMLHttpRequest(); 
 	  xhr.open("POST", document.getElementById('url' + p).value,  false);
 	  xhr.setRequestHeader("Content-Type", "application/json");
-	  xhr.send(' {"game-id":"1127","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'}');
+	  xhr.send(' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'}');
 	  if(xhr.status  == 200) {
-	    addLog('Message d\'init envoyé au bot player ' + p );
+	    addLog('Message d\'init envoyé au bot player ' + p + ' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'} <br/> il a répondu ' +  xhr.responseText );
 	    }else{		    
 	      addLog('player ' + p + ' n est pas joignable ' + xhr.status);
 	      return;
