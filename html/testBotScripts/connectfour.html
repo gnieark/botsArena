@@ -178,7 +178,8 @@ function playingAT(col){
     }
     
     var line="";
-    for (var lx = kx , var ly = ky ; (lx < 7) && (ly < 6) ; lx++ , ly++){
+    var lx , ly;
+    for (lx = kx , ly = ky ; (lx < 7) && (ly < 6) ; lx++ , ly++){
        if( grid[ly][lx] == ""){
             line += " ";
         }else{
