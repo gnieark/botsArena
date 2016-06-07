@@ -147,6 +147,10 @@ function play(player){
         var symbol="O";
     }
     
+    
+    
+    
+    
     var xhr = new XMLHttpRequest(); 
     xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
 	    if(xhr.status  == 200) {
@@ -162,10 +166,15 @@ function play(player){
 		    die;
 	    }
     }};
+    
+    
+    
     xhr.open("POST", document.getElementById('url' + player).value,  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send('game=connectFour&match_id=666-' + player + '&you=' + symbol + '&grid=' + JSON.stringify(grid) );
 
+    
+    
   }else{
     //wait for human response, show buttons
     document.getElementById("playerButtons").setAttribute("class", "");
@@ -214,13 +223,14 @@ function startGame(){
 	  xhr.open("POST", document.getElementById('url' + p).value,  false);
 	  xhr.setRequestHeader("Content-Type", "application/json");
 	  xhr.send(' {"game-id":"1127","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'}');
-      }
-      if(xhr.status  == 200) {
-	addLog('Message d\'init envoyé au bot player ' + p );
-	}else{		    
-	  addLog('player ' + p + ' n est pas joignable ' + xhr.status);
-	  return;
-      }
+	  if(xhr.status  == 200) {
+	    addLog('Message d\'init envoyé au bot player ' + p );
+	    }else{		    
+	      addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+	      return;
+	  } 
+	 }
+
     }
      
     play(1);
