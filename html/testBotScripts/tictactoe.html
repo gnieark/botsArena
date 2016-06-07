@@ -215,20 +215,17 @@ function startGame(){
   //envoyer les requetes d'init aux bots
   for (var p = 1; p < 3 ; p++){
   
-    if(document.getElementById("player" + p + "Type").value == "bot"){
-    
-        var xhr = new XMLHttpRequest(); 
-        xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-	    if(xhr.status  == 200) {
-                addLog('Message d\'init envoyé au bot player ' + p );
-	    }else{		    
-                addLog('player ' + p + ' n est pas joignable ' + xhr.status);
-                return;
-	    }
-        }};
-        xhr.open("POST", document.getElementById('url' + p).value,  true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(' {"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
+    if(document.getElementById("player" + p + "Type").value == "bot"){ 
+      var xhr = new XMLHttpRequest(); 
+      xhr.open("POST", document.getElementById('url' + p).value,  false);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(' {"game-id":"1126","action":"init","game":"tictactoe","players":2,"board":"","player-index":' + (p - 1) +'}');
+      if(xhr.status  == 200) {
+	  addLog('Message d\'init envoyé au bot player ' + p );
+      }else{		    
+	  addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+	  return;
+      }
     }
   }
   play(1);
