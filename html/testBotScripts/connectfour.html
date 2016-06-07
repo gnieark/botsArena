@@ -138,7 +138,7 @@ function playingAT(col){
     y=-x+b
     */
     //find b
-    var b = y + x;
+    var b = parseInt(y + x);
     if (b < 6){
         //first point of the diagonal has x=0;
         var kx = 0;
@@ -167,7 +167,7 @@ function playingAT(col){
     
     
     //diagonal / affin function like y=x+b
-    b = 0 + y - x;
+    b = parseInt(y - x);
     if( b > -1){
         //first point has x=0
         kx = 0;
