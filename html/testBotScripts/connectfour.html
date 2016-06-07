@@ -217,6 +217,7 @@ function play(player){
     xhr.open("POST", document.getElementById('url' + player).value,  false);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(arrToSend) );
+    addlog('Message send to player ' + player + ': ' +JSON.stringify(arrToSend) );
     if(xhr.status  == 200) {
         try{
             var reponse = JSON.parse(xhr.responseText);
