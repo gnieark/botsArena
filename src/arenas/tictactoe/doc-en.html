@@ -3,7 +3,7 @@
     Do not trust the animated GIF of the site's home page.<br/>
     It's the illustration of the overall operation of the arena, but it is wrong : the tictactoe only needs to send 10 variables to the bots.<br/>
     The choice was therefore made to pass them by GET parameters and not by POST as shown in the animation.
-
+</p>
 <h2>requests from BotsArena to your bot</h2>
 <p>To talk, botsarena (the server hosting botsarena) execute a POST request on your bot's http(s) server with the json as body</p>
 <p>Your bot responds with a JSON array</p>
@@ -170,14 +170,14 @@ X O X
 DRAW
 </pre>
 <h2> Tools for developing and testing your bot </h2>
-<p> To help you on how to manage communications between the bot and the arena, please take a look in the <a href = "https://github.com/gnieark/IAS/blob/master/stupidIATictactoe.php "> source PHP stupidIA </a>. <p>
+<p> To help you on how to manage communications between the bot and the arena, please take a look in the <a href = "https://github.com/gnieark/IAS/blob/master/stupidIATictactoe.php "> source PHP stupidIA </a>.</p>
 
 <h3> <a href="/testBotScripts/tictactoe.html"> Script Botsarena </a> </h3>
-<p> This small html + javascript page will allow you to test and debug on your bot. <br/> It will allow you to test your boot via its URL, against himself, a human or stupidIA. <br/> Once ready, Express Sign your bot in the arena. </ p>
-<p> By default, browsers do not allow javascript to make Cross domain queries. It is a browser security. So there are three options: </ p>
-<ul> <li> You add to your bot <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all"> headers than allow for CORS </a> field. </li>
+<p> This small html + javascript page will allow you to test and debug on your bot. <br/> It will allow you to test your boot via its URL, against himself, a human or stupidIA. <br/> Once ready, Express Sign your bot in the arena. </p>
+<p> By default, browsers do not allow javascript to make Cross domain queries. It is a browser security. So there are three options: </p>
+<ul> <li> You add to your bot <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all"> headers that allow cross POST queries</a></li>. 
 <li> More simple, you download the page (right click, save target as) and put it in your bot VHOST time tests. All the code (html, css and javascript) is included in the page without external resource, in order that it can be easily downloaded and used. </li>
-<li> You use a web browser that supports JavaScript and allows cross domain queries. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/"> It seems possible </a>. </ li>
+<li> You use a web browser that supports JavaScript and allows cross domain queries. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/"> It seems possible </a>. </li>
 </ul>
 <p> This problem does not arise at the arena once your bot will be registered. Because in that case, it is the requests to the bot, not a browser. </p>
 <h3> <a href="https://github.com/moul/bolosseum"> Bolosseum </a> </h3>
