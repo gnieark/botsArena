@@ -83,6 +83,11 @@ function playingAT(col){
       var symbol="O";
     }
     
+    if(board[5][col]!== ""){
+      addLog('Player ' + currentPlayer + ', symbol ' + symbol + ' wants to play on column  ' + col + ' but that column is already full. He loses.');
+      return;
+    }
+    
     //find the first line empty
     var i=0;
     for(i = 0; i < 6 , board[i][col] !== ""; i++){
@@ -185,7 +190,18 @@ function playingAT(col){
       wins(currentPlayer);
       return;
     }
-       
+    
+    //if it was the last cell
+    var full=true;
+    for (var i = 0; i < 7; i ++){
+      if( board[5][i] == "" ){
+	full = true;
+      }
+    }
+    if (full){
+      addLog('match nul');
+      return;
+    }
     
     //change player
     if(currentPlayer == 1){

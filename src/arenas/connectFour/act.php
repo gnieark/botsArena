@@ -254,14 +254,38 @@ switch ($_POST['act']){
           }
 	  
 	}else{
-	  $anwserToJS=array(
-	  'continue'	=> 1,
-	  'strikeX' 	=> $strikeX,
-	  'strikeY'	=> $strikeY,
-	  'strikeSymbol'=> $you,
-	  'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer
-	  );
+	
+	  //Was it the last cell?
 
+	  $full=true;
+	  foreach ($_SESSION['map'][5] as $cell) {
+	    if ($cell == ""){
+	      $full=false;
+	      break;
+	    }
+	  }
+	  
+	  if($full){
+	  
+	   save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],0);
+	   $anwserToJS=array(
+	    'continue'	=> 0,
+	    'strikeX' 	=> $strikeX,
+	    'strikeY'	=> $strikeY,
+	    'strikeSymbol'=> $you,
+	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul"
+	    );
+	  
+	  }else{
+	
+	    $anwserToJS=array(
+	    'continue'	=> 1,
+	    'strikeX' 	=> $strikeX,
+	    'strikeY'	=> $strikeY,
+	    'strikeSymbol'=> $you,
+	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer
+	    );
+	  }
 	}
       
       }else{
