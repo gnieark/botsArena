@@ -58,7 +58,7 @@ switch ($_POST['act']){
 	  default:
 	      error(500,"oups");
 	      die;
-      }
+	}
       
       $paramsToSend=array(
         'game-id'    => $game_id,

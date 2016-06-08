@@ -6,29 +6,42 @@
    </ul>
 </p>
 
-<h3>Requ&ecirc;te générée par l'arène (ce site) vers votre bot</h3>
-L'arène fait une requ&ecirc;te http(s) avec les parametres POST suivants vers votre site:
+<h2>Communications entre l'arène et votre bot</h2>
+<p>Pour communiquer, l'arène (le serveur hébergeant botsarena) fait des requetes http(s) de type POST vers les bots. Le message est dans le corps de la requête au format JSON.</p>
+<p>Votre bot répond par un array au format JSON.</p>
+<h3>Message d'initialisation de votre partie</h3>
+  l'arène envoie le message suivant:
+  <pre>{"game-id":"1126","action":"init","game":"connectFour","players":2,"board":"","player-index":0}</pre>
+  <p>Si on décompose le tableau pour l'expliquer:</p>
+  <ul>
+    <li><em>game-id</em> string identifiant la partie.</li>
+    <li><em>action</em> string identifiant la phase, <em>init</em> tout de suite, sera  <em>play-turn</em> dans le châpitre suivant.</li>
+    <li><em>game</em> string identifiant le jeu. Ici, ce sera forcément connectFour. ça peut servir si vous donnez une seule URL pour plusieurs bots.</li>
+    <li><em>players</em> Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion.</li>
+    <li><em>board</em> Vide à cette étape, voire non fourni, voir chapitre suivant.</li>
+    <li><em>player-index</em> int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+  </ul>
+  <p>Votre bot doit retourner le nom de votre bot format JSON:</p>
+  <pre>
+  {"name":"botName"}
+  </pre>
+  <p>L'arène ne vérifie pas actuellement cette réponse, l'étape d'init a été insérée pour assurer la compatibilité avec <a href="https://github.com/moul/bolosseum">Bolosseum</a>.
+    Si votre bot repond une page blanche à cette étape (action=init), ça marchera dans le cadre de botsarena.</p>
 
-<table class="tabledoc">
-  <tr><th>paramètre</th><th>valeur</th></tr>
-  <tr>
-    <td>game</td>
-    <td>
-	Chaîne de caractères, sera toujours "connectFour".<br/>
-	Peut servir si votre url sert à plusieurs jeux.
-    </td>
-  </tr>
-  <tr>
-    <td>match_id</td>
-    <td>
-	Chaîne de caractères. Répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
-	Le premier nombre (digits avant le tiret) identifie le match.<br/>
-	Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
-	Ça vous servira si votre IA fait des statistiques sur les matchs.
-    </td>
-  </tr>
-  <tr><td>you</td><td>vous indique quel est votre symbole dans la grille</td></tr>
-  <tr><td>grid</td><td>tableau à deux dimmensions au format JSON vous indiquant l'état de la grille<br/>
+<h3>Message vous demandant de jouer (seulement un tour)</h3>
+  <p>L'arène vous envoie par exemple le message suivant:</p>
+  <pre>{"game-id":"9916","action":"play-turn","game":"connectFour","players":2,"board":[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]],"you":"X","player-index":0}</pre>
+   <ul>
+    <li><em>game-id</em> String identifiant la partie.</li>
+    <li><em>action</em> String identifiant la phase, <em>play-turn</em> tout de suite, qui vous indique que vous devez jouer.</li>
+    <li><em>game</em> String identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seulle URL pour plusieurs bots.</li>
+    <li><em>players</em> Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion</li>
+    <li><em>board</em> La carte je donne le détail ci dessous</li>
+    <li><em>you</em> String, Votre caractère dans la grille</li>
+    <li><em>player-index</em> Int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+  </ul>  
+  <h4>la map</h4>
+  <p>Elle est contenue dans le champs board du message JSON.C'est un tableau à deux dimmensions au format JSON vous indiquant l'état de la grille.<br/>
   Exemple:<br/>
   <pre>
   [["","","","X","0","",""],
@@ -39,8 +52,33 @@ L'arène fait une requ&ecirc;te http(s) avec les parametres POST suivants vers v
    ["","","","","","",""]]
   </pre>
   
-  </td></tr>
-</table>
+  <p>Visuellement, Le tableau est inversé par rapport à un plateau de puissance 4. La ligne ayant l'index zéro (en haut dans l'extrait ci dessus) représente la ligne du bas.</p>
+  <p>Les valeurs peuvent être:</p>
+    <ul>
+    <li>Vide, personne n'a joué à cette case</li>
+    <li>"X" ou "O", le joueur ayant ce symbole a déjà joué cette case.</li>
+  </ul>
 
 <h3>Réponse de votre bot</h3>
-<p>Seulement un caractère. Il indique la colonne dans laquelle vous souhaitez jouer 0 à 7</p>
+<p>Au format JSON, Seulement un caractère. Il indique la colonne dans laquelle vous souhaitez jouer 0 à 6 bornes incluses.</p>
+<pre>
+{"play":"3"}
+</pre>
+<p>Pour indiquer que vous souhaitez dans la troisième colonne. <br/>
+Evidemment l'arène respecte la gravité et placera votre pion dans la première case libre de la colonne (en partant de l'index 0).</p>
+
+<h2>Outils pour développer et tester votre bot</h2>
+<p>Afin de vous aider sur la façon de gérer les communications entre le bot et l'arène, n'hésitez pas à jeter un coup d'oeil dans le <a href="https://github.com/gnieark/IAS/blob/master/StupidIAconnectFour.php">code source PHP de stupidIA</a>.<p>
+
+<h3><a href="/testBotScripts/connectfour.html">Script Botsarena</a></h3>
+<p>Cette petite page html+javascript vous permettra de tester et débogguer votre bot.<br/> Elle vous permettra de tester votre boot via son url, contre lui même, un humain ou stupidIA.<br/> Une fois prêt, vous l'inscrirez dans l'arène.</p>
+<p> Par défaut, les navigateurs ne permettent pas en javascript de faire des requettes Cross domaine. C'est une sécurité du navigateur. Il y a donc trois possibilités:</p>
+<ul><li>Vous ajoutez à votre bot les <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all">headers permettant les requettes de type POST provenant d'un autre domaine</a>.</li>
+<li>Plus simple, vous téléchargez la page (click droit, enregistrer la cible du lien sous)et la mettez dans le VHOST de votre bot le temps des tests. Tout son code (html, css et javascript) est inclus dans la page sans ressource externe, dans le but qu'elle puisse etre facilement téléchargée et utilisable.</li>
+<li>Vous utilisez un navigateur web qui supporte le javascript et permet les requetes cross domain. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/">Ça semble possible</a>.</li>
+</ul>
+<p>Ce problème ne se posera pas au niveau de l'arène une fois que votre bot sera inscrit. Car dans ce cas, c'est le serveur qui fait les requetes vers les bots, pas un navigateur web.</p>
+<h3><a href="https://github.com/moul/bolosseum">Bolosseum</a></h3>
+<p>Vous trouverez des outils en ligne de commande pour tester et déboguer votre bot sur le projet github Bolosseum de @moul.</p>
+<h2>Faire entrer votre bot dans cette arène</h2>
+<p>Le formulaire d'inscription de votre bot est sur la page d'accueil du site.</p>

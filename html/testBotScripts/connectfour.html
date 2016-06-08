@@ -36,21 +36,25 @@ pre{ font-style: normal;font-size: 16px; margin-left: 32px;font-family: Consolas
   border-left: 4px solid #CCC; padding-left: 8px;}
   .battleGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
 .battleGrid tr{}
-.battleGrid tr td{border: 1px dashed green; text-align: center; font-weight: bold;min-width:20px; height:20px;}
+.battleGrid td{border: 1px dashed green; text-align: center; font-weight: bold;width:2em; height: 2em; vertical-align: middle;}
 .winCase{background-color:red;}
 .hidden{display: none;}
 #logs{font-size: 70%;}
 </style>
 
 <script>
-var grid=[["","","","","","",""],
+var board=[["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""],
    ["","","","","","",""]];
 var currentPlayer=1;
+var gameId="0";
 
+function wins(player){
+    addLog('player ' + player + ' wins'); 
+}
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -81,10 +85,10 @@ function playingAT(col){
     
     //find the first line empty
     var i=0;
-    for(i = 0; i < 6 , grid[i][col] !== ""; i++){
+    for(i = 0; i < 6 , board[i][col] !== ""; i++){
       //nothing juste a counter
     }
-    grid[i][col]=symbol;
+    board[i][col]=symbol;
     document.getElementById('td' + col + '_' + i).innerHTML = symbol;
     addLog('player ' + currentPlayer + ', symbol ' + symbol + ' played col ' + col); 
     
@@ -92,17 +96,17 @@ function playingAT(col){
     var x=col;
     var y=i;
     var searchValue="";
-    for var k=0; k < 4; k++){
+    for (var k=0; k < 4; k++){
       searchValue +=symbol;
     }
     
     //horizontaly
     var line="";
     for (var k=0; k < 7; k++){
-      if(grid[y][k] == ""){
+      if(board[y][k] == ""){
 	line += " ";
       }else{
-	line += grid[y][k];
+	line += board[y][k];
       }
     }
     if (line.indexOf(searchValue) > -1){
@@ -113,10 +117,10 @@ function playingAT(col){
     //verticaly
     var line="";
     for (var k=0; k < 6; k++){
-      if(grid[k][x] == ""){
+      if(board[k][x] == ""){
 	line += " ";
       }else{
-	line += grid[k][x];
+	line += board[k][x];
       }
     }
     if (line.indexOf(searchValue) > -1){
@@ -124,10 +128,64 @@ function playingAT(col){
       return;
     }
     
-    //diagonals
-    //\
+    //diagonal \
+    /*
+    * diagonal is an affin function:
+    * y=-x+b
+    */
+    //find b
+    var b = parseInt(y + x);
+    if (b < 6){
+        //first point of the diagonal has x=0;
+        var kx = 0;
+        var ky = b; //:aga: 
+    }else{
+        //first point of the diagonal has y=5
+        var kx = b - 5;
+        var ky = 5;
+    }
+    var line="";
+    var lx , ly;
+    for (lx = kx, ly = ky; (lx < 7) && (ly > -1); lx++ , ly-- ){
+        if( board[ly][lx] == ""){
+            line += " ";
+        }else{
+            line += board[ly][lx];
+        }
+    }
     
-    for (var kx=x, var ky=y; kx < 7, ky 
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+    //diagonal / affin function like y=x+b
+    b = parseInt(y - x);
+    if( b > -1){
+        //first point has x=0
+        kx = 0;
+        ky = b
+
+    }else{
+        //first point has y=0
+        ky = 0;
+        kx = -b;
+    }
+    
+    var line="";
+    var lx , ly;
+    for (lx = kx , ly = ky ; (lx < 7) && (ly < 6) ; lx++ , ly++){
+       if( board[ly][lx] == ""){
+            line += " ";
+        }else{
+            line += board[ly][lx];
+        }   
+    }
+    
+    if (line.indexOf(searchValue) > -1){
+      wins(currentPlayer);
+      return;
+    }
+       
     
     //change player
     if(currentPlayer == 1){
@@ -140,32 +198,44 @@ function play(player){
   currentPlayer=player;  
   if(document.getElementById("player" + player + "Type").value == "bot"){
     //call bot url
-    
     if(currentPlayer == 1){
         var symbol= "X";
     }else{
         var symbol="O";
     }
+    var arrToSend= {
+        "game-id": "" + gameId,
+        "action"        : "play-turn",
+        "game"          : "connectFour",
+        "players"       : 2,
+        "board"         : board,
+        "you"           : symbol,
+        "player-index"  : player-1
+    };
     
     var xhr = new XMLHttpRequest(); 
-    xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
-	    if(xhr.status  == 200) {
-	      var response=xhr.responseText;
-	      var t = new RegExp('^[0-6]$');
-	      if (t.test(response)){
-		  playingAT(response);
-	      }else{
-		alert ('la reponse du bot doit etre un digit compris entre 0 et 7, correspondant à la colonne. Voici sa réponse: "' + response + '"' );
-	      }
-	    }else{		    
-		    alert (xhr.status);
-		    die;
-	    }
-    }};
-    xhr.open("POST", document.getElementById('url' + player).value,  true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('game=connectFour&match_id=666-' + player + '&you=' + symbol + '&grid=' + JSON.stringify(grid) );
-
+    xhr.open("POST", document.getElementById('url' + player).value,  false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(arrToSend) );
+    addLog('Message send to player ' + player + ': ' +JSON.stringify(arrToSend) );
+    if(xhr.status  == 200) {
+        try{
+            var reponse = JSON.parse(xhr.responseText);
+            var colTarget= reponse['play'];
+        }catch(e){
+            addLog('player ' + player + ' made a non confom response: ' + xhr.responseText);
+            return;
+        }
+        var t = new RegExp('^[0-6]$');
+        if (t.test(colTarget)){
+            playingAT(colTarget);
+        }else{
+            addLog ('bot response must be a digit betwin 0 and 7, witch indicate the conumn number where he wants play. Voici sa réponse: "' + colTarget + '"' );
+        }
+    }else{		    
+            addLog('le bot ' + player + ' does not respond. ' + xhr.status);
+            return;
+    }
   }else{
     //wait for human response, show buttons
     document.getElementById("playerButtons").setAttribute("class", "");
@@ -174,9 +244,11 @@ function play(player){
 }
 function startGame(){
   //empty div
-  document.getElementById("fightResult").innerHTML="";
-  //create grid
-  var table=createElem('table',{'class':'battleGrid', 'id': 'grid'});
+  while (document.getElementById("fightResult").firstChild) {
+    document.getElementById("fightResult").removeChild(document.getElementById("fightResult").firstChild);
+  }
+  //create board
+  var table=createElem('table',{'class':'battleGrid', 'id': 'board'});
   for (var i=6; i > -1; i--){
       var tr=createElem('tr');
       for (var j=0;j<7; j++){
@@ -197,14 +269,31 @@ function startGame(){
         newTr.appendChild(newTd);
     }
     
-    document.getElementById('grid').appendChild(newTr);
+    document.getElementById('board').appendChild(newTr);
     
-    grid=[["","","","","","",""],
+    board=[["","","","","","",""],
       ["","","","","","",""],
       ["","","","","","",""],
       ["","","","","","",""],
       ["","","","","","",""],
       ["","","","","","",""]];
+    gameId=Math.floor((Math.random() * 10000) + 1); 
+    //send init messages
+    for (var p = 1; p < 3 ; p++){
+    
+      if(document.getElementById("player" + p + "Type").value == "bot"){
+	  var xhr = new XMLHttpRequest(); 
+	  xhr.open("POST", document.getElementById('url' + p).value,  false);
+	  xhr.setRequestHeader("Content-Type", "application/json");
+	  xhr.send(' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'}');
+	  if(xhr.status  == 200) {
+	    addLog('Message d\'init envoyé au bot player ' + p + ' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'} <br/> il a répondu ' +  xhr.responseText );
+	    }else{		    
+	      addLog('player ' + p + ' n est pas joignable ' + xhr.status);
+	      return;
+	  } 
+	 }
+    }
     play(1);
 }
 </script>
@@ -225,7 +314,7 @@ function startGame(){
 	    </select>
 	</td>
 	<td>
-	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://botsarena.tinad.fr/StupidIAconnectFour.php"/>
+	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
 	 </td>
     </tr>
     <tr>
@@ -237,7 +326,7 @@ function startGame(){
 	</select>
       </td>
       <td>
-	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://botsarena.tinad.fr/StupidIAconnectFour.php"/>
+	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
       </td>
     </tr>
     </table>

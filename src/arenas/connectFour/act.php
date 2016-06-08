@@ -48,6 +48,23 @@ switch ($_POST['act']){
       $_SESSION['matchId']=get_unique_id();
       $_SESSION['game']="connectFou";
          
+      //send init message   
+      
+      for($player = 0; $player < 2; $player++){
+		    $params[$player]=array(
+			'game-id'        =>  $_SESSION['matchId'],
+			'action'         =>  'init',
+			'game'           =>  'connectFou',
+			'players'        => 2,
+			'board'          => '',
+			'player-index'   => $player 
+		    );
+	}
+	get_IA_Response($_SESSION['bot1']['url'],$params[0]); //don't care about result
+	get_IA_Response($_SESSION['bot2']['url'],$params[1]); //don't care about result
+
+      
+         
     //echo "plop".json_encode($_SESSION['map']);
   case "fight":
   
@@ -77,29 +94,41 @@ switch ($_POST['act']){
 	  $you="X";
 	}
       }
+  /*
   
+  
+    game-id string identifiant la partie.
+    action string identifiant la phase, init tout de suite, sera play-turn dans le châpitre suivant.
+    game string identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seule URL pour plusieurs bots.
+    players Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion.
+    board Vide à cette étape, voir chapitre suivant.
+    player-index int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.
+*/
       //make post datas to send
       $postDatas=array(
-	'game'       => 'connectFour',
-	 'match_id'  => $_SESSION['matchId']."-".$_SESSION['currentPlayer'],
-	 'opponent'  => $opponentName,
-	 'you'	     => $you,
-	 'grid'		=>  $_SESSION['map']
-	    
+	 'game-id'  	=> $_SESSION['matchId'],
+	 'action'	=> 'play-turn',
+	 'game'       	=> 'connectFour',
+	 'players'	=> 2,
+	 'opponent'  	=> $opponentName,
+	 'you'	     	=> $you,
+	 'board'	=> $_SESSION['map'],
+	 'player-index'	=> $_SESSION['currentPlayer'] - 1
       );
       //send query
-      $anwserPlayer=get_IA_Response($botUrl,$postDatas);
-      //for test ***************************
-      //echo $anwserPlayer; die;
+      $tempPlayer = get_IA_Response($botUrl,$postDatas);
+      $anwserPlayer = $tempPlayer['play'];
+      
       //vérifier la validité de la réponse
       if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
 	//reponse conforme
 	
 	for($y = 0; $_SESSION['map'][$y][$anwserPlayer] <> ""; $y++){
 	}
-	 $_SESSION['map'][$y][$anwserPlayer]=$you;
-	 $strikeX=$anwserPlayer;
-	 $strikeY=$y;
+	
+	$_SESSION['map'][$y][$anwserPlayer]=$you;
+	$strikeX=$anwserPlayer;
+	$strikeY=$y;
 	
 	//does he win?
 	$wins=false;
