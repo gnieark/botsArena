@@ -1,0 +1,78 @@
+<h2>Functioning of duels for connect four</h2>
+<h3>The board</h3>
+  <ul>
+    <li>witdh: 7 cells</li>
+    <li>height: 6 cells</li>
+   </ul>
+
+<h3>Requests from BotsArena to your bot</h3>
+<p>To talk, botsarena (the server hosting botsarena) execute a POST request on your bot's http(s) server with the json as body.</p>
+<p>Your bot responds with a JSON array.</p>
+<h3>Message initating the game</h3>
+  BotsArena sends:
+    <pre>{"game-id":"1126","action":"init","game":"connectFour","players":2,"board":"","player-index":0}</pre>
+  <p>Explanation of each parameters:</p>
+  <ul>
+    <li><em>game-id</em> string identifying the party.</li>
+    <li><em>action</em> string identifying the phase, <em>init</em> at this step <em>play-turn</em> at the next step.</li>
+    <li><em>game</em> string identifying the game. Always "connectFour".  it can be used if you give a single URL for multiple bots.</li>
+    <li><em>players</em> Int indicating the number of players in the game, still 2 on Connect Four.</li>
+    <li><em>board</em> Empty or unused at this step, see next chapter.</li>
+    <li><em>player-index</em> int The order of your bot in turns. The first player is 0, second is 2.</li>
+  </ul>
+  <p>Your bot should return his name JSON format:</p>
+  <pre>
+  {"name":"botName"}
+  </pre>
+
+  <p>The arena currently does not check this response, the init step was included to ensure compatibility with <a href="https://github.com/moul/bolosseum"> Bolosseum </a> .
+    If your bot returns a blank page at this step (action = init), it will work.</p>
+  <h3>Message asking you to play (only one turn) </h3>
+  <p>The Arena sends as example the following message:</p>
+  <pre>{"game-id":"9916","action":"play-turn","game":"connectFour","players":2,"board":[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]],"you":"X","player-index":0}</pre>
+   <ul>
+    <li><em>game-id</em> String identifying the party.</li>
+    <li><em>action</em> String identifying the phase, <em>play-turn</em> now, you have to play.</li>
+    <li><em>game</em> String identifying the game. Always "connectFour".</li>
+    <li><em>players</em> Int indicating the number of players in the game, still 2 on connect Four.</li>
+    <li><em>board</em> The map, i'll explain it at next chapter</li>
+    <li><em>you</em> String, Your bot's character on the grid</li>
+    <li><em>player-index</em> Int The order of your bot in turns. The first player is 0, second is 2.</li>
+  </ul>  
+  <h4>The map</h4>
+  <p> It is represented by a sub-array, on the "board" parameter.<br/>Exemple:</p>
+  <pre>
+  [["","","","X","0","",""],
+   ["","","","X","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""],
+   ["","","","","","",""]]
+  </pre>
+  <p>Visually, the connect 4 's plate is reversed. The line with index zero (top in the above excerpt) represents the bottom line.</p>
+  <h3>Your bot response</h3>
+  
+<p>JSON format, Only one digit that indicate column you want to play. 0 to 6.</p>
+<pre>
+{"play":"3"}
+</pre>
+<p>For play in column three. <br/>
+
+Obviously the arena respects Newton's laws and place your pawn in the first free space of the column ( starting at index 0 )</p>
+
+
+<h3> Tools for developing and testing your bot </h3>
+<p> To help you on how to manage communications between the bot and the arena, please take a look in the <a href = "https://github.com/gnieark/IAS/blob/master/StupidIAconnectFour.php"> source PHP stupidIA </a>.</p>
+
+<h4> <a href="/testBotScripts/connectfour.html"> Script Botsarena </a> </h4>
+<p> This small html + javascript page will allow you to test and debug on your bot. <br/> It will allow you to test your boot via its URL, against himself, a human or stupidIA. <br/> Once ready, Express Sign your bot in the arena. </p>
+<p> By default, browsers do not allow javascript to make Cross domain queries. It is a browser security. So there are three options: </p>
+<ul> <li> You add to your bot <a href="https://www.qwant.com/?q=allow%20cross%20domain%20query%20http%20header&t=all"> headers that allow cross POST queries</a>. </li>
+<li> More simple, you download the page (right click, save target as) and put it in your bot VHOST time tests. All the code (html, css and javascript) is included in the page without external resource, in order that it can be easily downloaded and used. </li>
+<li> You use a web browser that supports JavaScript and allows cross domain queries. <a href="https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/"> It seems possible </a>. </li>
+</ul>
+<p> This problem does not arise at the arena once your bot will be registered. Because in that case, it is the requests to the bot, not a browser. </p>
+<h4> <a href="https://github.com/moul/bolosseum"> Bolosseum </a></h4>
+<p> You will find command line tools to test and debug your bot on github project Bolosseum of @moul. </p>
+<h3> Bringing your bot in this arena </h3>
+<p> The registration form your bot is on the site's home page. </p>
