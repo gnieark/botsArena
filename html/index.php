@@ -54,7 +54,8 @@ if(isset($_GET['arena'])){
     echo '<ul class="podium">';
     foreach($podium as $sc){
         $count++;
-        switch $count{
+        
+        switch($count){
             case 1:
                 $img='<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
                 break;
