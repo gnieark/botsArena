@@ -16,6 +16,6 @@ mysqli_query(
   bots.id=bots_modifs.real_id
   AND bots_modifs.validate_secret='".mysqli_real_escape_string($lnMysql,$_GET['params'])."';");
   
- ?
+?>
  <h2>Thanks!</h2>
  <p> Votre bot est validé, merci d'avoir donné à manger à Bots'Arena</p>
