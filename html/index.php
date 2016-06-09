@@ -162,12 +162,12 @@ if(isset($_GET['arena'])){
  
         break;
     case "editBot":
-            if(!isset($_GET['params'])){
+        if(!isset($_GET['params'])){
             error(404,"Page does not exists");
             die;
         }
         $rs=mysqli_query($lnMysql,
-            "SELECT id,name,game,url,description,date_inscription 
+            "SELECT id,name,game,url,description,unclean_description,date_inscription 
             FROM bots 
             WHERE id='".mysqli_real_escape_string($lnMysql,$_GET['params'])."' 
             AND active='1'"); 
@@ -181,7 +181,8 @@ if(isset($_GET['arena'])){
             'game'              => $r[2],
             'url'               => $r[3],
             'description'       => $r[4],
-            'date_inscription'  => $r[5]
+            'unclean_description'=> $r[5],
+            'date_inscription'  => $r[6]
         );
         $siteTitle="Modifier un bot";
         $siteDescription="bots arena ";
@@ -190,6 +191,30 @@ if(isset($_GET['arena'])){
         $asideSectionContent=''; //to do
         $cssAdditionalScript="";
         $jsAdditionalScript="";
+      break;
+      
+    case "validateEditBot":
+	//check if secret is ok
+	if(!isset($_GET['params'])){
+            error(404,"Page does not exists");
+            die;
+        }
+        
+        $rs=mysqli_query($lnMysql," SELECT 1 FROM bots_modifs WHERE validate_secret='".mysqli_real_escape_string($lnMysql,$_GET['params'])."';");
+        if(!$r=mysqli_fetch_row($rs)){
+            error(404,"Page doesn't exist");
+            die;
+        }
+        
+        $siteTitle="Your bot is changed";
+        $siteDescription="bots arena ";
+        $permitIndex=false;
+        $mainSectionScript="../src/validateEditBot.php";
+        $asideSectionContent=''; //to do
+        $cssAdditionalScript="";
+        $jsAdditionalScript="";  
+    
+    
       break;
     default:
       error(404,"Not found");

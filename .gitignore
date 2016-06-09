@@ -7,6 +7,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-
+.*.kate-swp
+.swp.*
 src/config.php
 src/countBattles.txt
