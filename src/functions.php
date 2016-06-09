@@ -177,6 +177,47 @@ function get_battles_history($game){
     }
     return $results;
 }
+function ELO_get_podium($arena){
+    global $lnMysql;
+    $podium=array();
+    $rs=mysqli_query($lnMysql,"SELECT id,name,description,ELO FROM bots WHERE game='".$arena."' AND active='1' ORDER BY ELO DESC, name");
+    while($r = mysqli_fetch_row($rs)){
+        $podium[]=array(
+            'id'            => $r[0],
+            'name'          => $r[1],
+            'description'   => $r[2],
+            'ELO'           => $r[3]
+        );
+    }
+    return $podium;
+}
+function ELO_get_k($elo){
+    if ($elo < 1000){
+            return 80;
+    }
+    if ($elo < 2000){
+        return 50;
+    }
+    if ($elo <= 2400){
+            return 30;
+    }
+    return 20;
+}
+function ELO_get_new_ranks($elo1,$elo2,$score){
+    /*
+    * return an array containing new ELO scores after a battle
+    * $score :  0 player 2 won 
+    *           0.5 draws
+    *           1 player 1 won 
+    */
+    
+    //good luck for understanding it 
+    //(see https://blog.antoine-augusti.fr/2012/06/maths-et-code-le-classement-elo/)
+    return array(
+        $elo1 + ELO_get_k($elo1) * ($score - (1/ (1 + pow(10,(($elo2 - $elo1) / 400))))),
+        $elo2 + ELO_get_k($elo2) * (1 - $score - (1/ (1 + pow(10,(($elo1 - $elo2) / 400)))))
+    );
+}
 function save_battle($game,$bot1,$bot2,$resultat){
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 
@@ -186,11 +227,12 @@ function save_battle($game,$bot1,$bot2,$resultat){
 
     
     //chercher les id de bot 1 et bot2
-    $rs=mysqli_query($lnMysql,"SELECT name,id FROM bots 
+    $rs=mysqli_query($lnMysql,"SELECT name,id,ELO FROM bots 
                                 WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
                                  OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");
     while($r=mysqli_fetch_row($rs)){
         $bots[$r[0]]=$r[1];
+        $actualELO[$r[0]]=$r[2];
     }
     
     if((!isset($bots[$bot1])) OR (!isset($bots[$bot2]))){
@@ -201,25 +243,41 @@ function save_battle($game,$bot1,$bot2,$resultat){
     switch($resultat){
         case 0:
             $field="nulCount";
+            $eloScore = 0.5;
             break;
         case 1:
             $field="player1_winsCount";
+            $eloScore = 1;
             break;
         case 2:
             $field="player2_winsCount";
+            $eloScore = 0;
             break;
         default:
              error (500,"something impossible has happened");
              break;
     }
     
-    mysqli_query($lnMysql,
-        "INSERT INTO arena_history(game,player1_id,player2_id,".$field.") VALUES
+    $newRanks = ELO_get_new_ranks($actualELO[$bot1],$actualELO[$bot2],$eloScore);
+    
+    mysqli_multi_query($lnMysql,
+        "
+        UPDATE bots
+        SET ELO='".$newRanks[0]."'
+        WHERE id='".$bots[$bot1]."';
+        
+        UPDATE bots
+        SET ELO='".$newRanks[1]."'
+        WHERE id='".$bots[$bot2]."';
+        
+        
+        INSERT INTO arena_history(game,player1_id,player2_id,".$field.") VALUES
         ('".mysqli_real_escape_string($lnMysql,$game)."',
         '".$bots[$bot1]."',
         '".$bots[$bot2]."',
         '1')
         ON DUPLICATE KEY UPDATE ".$field." = ".$field." + 1;");
+        
 }
 function get_unique_id(){
 
