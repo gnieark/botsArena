@@ -201,8 +201,8 @@ function ELO_get_new_ranks($elo1,$elo2,$score){
     //good luck for understanding it 
     //(see https://blog.antoine-augusti.fr/2012/06/maths-et-code-le-classement-elo/)
     return array(
-        $elo1 + ELO_get_k($elo1) * ($score - (1/ (1 + pow(10,(($elo2 - $elo1) / 400;))))),
-        $elo2 + ELO_get_k($elo2) * ($score - (1/ (1 + pow(10,(($elo1 - $elo2) / 400;)))))
+        $elo1 + ELO_get_k($elo1) * ($score - (1/ (1 + pow(10,(($elo2 - $elo1) / 400))))),
+        $elo2 + ELO_get_k($elo2) * ($score - (1/ (1 + pow(10,(($elo1 - $elo2) / 400)))))
     );
 }
 function save_battle($game,$bot1,$bot2,$resultat){
@@ -246,18 +246,7 @@ function save_battle($game,$bot1,$bot2,$resultat){
     }
     
     $newRanks = ELO_get_new_ranks($actualELO[$bot1],$actualELO[$bot2],$eloScore);
-   
-   echo
-           "
-        UPDATE bots
-        SET ELO='".$newRanks[0]."'
-        WHERE id='".$bots[$bot1]."';
-        
-        UPDATE bots
-        SET ELO='".$newRanks[1]."'
-        WHERE id='".$bots[$bot2]."';";
-   
-   
+    
     mysqli_multi_query($lnMysql,
         "
         UPDATE bots
