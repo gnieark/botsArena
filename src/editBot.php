@@ -8,7 +8,7 @@ if(isset($_POST['xd_check'])){
  $botDescription=$_POST['botDescription'];
  $email=$_POST['email'];
   
- if(isset($err)) && $err <> ""){
+ if((isset($err)) && ($err <> "")){
   $message="<h3>".$err."</h3>";
   $editDone=false;
  }elseif($err == ""){
