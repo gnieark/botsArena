@@ -151,7 +151,7 @@ switch($_POST['act']){
             )."',
             NOW(),
             '".$secret."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['email'])."'";
+            '".mysqli_real_escape_string($lnMysql,$_POST['email'])."')";
             
         mysqli_query($lnMysql,
         " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
@@ -164,7 +164,7 @@ switch($_POST['act']){
             )."',
             NOW(),
             '".$secret."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['email'])."'"
+            '".mysqli_real_escape_string($lnMysql,$_POST['email'])."')"
         );
         
         //send e-mail
