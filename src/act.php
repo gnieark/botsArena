@@ -97,6 +97,7 @@ switch($_POST['act']){
       error(404,"wrong post parameter");
       die;
     }
+    echo "plop";
     $err="";
     
     //check author e-mail
