@@ -141,7 +141,7 @@ switch($_POST['act']){
             $botUrl = $_POST['botURL'];
         }
         
-        echo " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
+        echo  " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
             '".mysqli_real_escape_string($lnMysql,$botUrl)."',
