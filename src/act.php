@@ -3,7 +3,7 @@
 //Del unvalidated bots
 mysqli_query($lnMysql, "DELETE FROM bots WHERE active='0' AND TIMESTAMPDIFF(DAY, NOW(), date_inscription) > 2");
 mysqli_query($lnMysql, "DELETE FROM bot_modifs WHERE TIMESTAMPDIFF(DAY, NOW(), date_modification) > 2");
-print_r($_POST);
+
 switch($_POST['act']){
   case "addBot":
     //verifier les variables "botName""botGame""botURL""email""botDescription"
@@ -140,19 +140,7 @@ switch($_POST['act']){
             
             $botUrl = $_POST['botURL'];
         }
-        
-        echo  " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
-            '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
-            '".mysqli_real_escape_string($lnMysql,$botUrl)."',
-            '".mysqli_real_escape_string($lnMysql,
-                preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
-                ,nl2br(htmlentities($_POST['botDescription'])))
-            )."',
-            NOW(),
-            '".$secret."',
-            '".mysqli_real_escape_string($lnMysql,$_POST['email'])."')";
-            
+           
         mysqli_query($lnMysql,
         " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
