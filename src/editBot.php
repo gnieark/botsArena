@@ -1,5 +1,4 @@
 <?php
-print_r($_GET);
 if(isset($_POST['xd_check'])){
  $botName=$_POST['botName'];
  $botGame=$_POST['botGame'];

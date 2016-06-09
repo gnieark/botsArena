@@ -194,6 +194,18 @@ if(isset($_GET['arena'])){
       break;
       
     case "validateEditBot":
+	//check if secret is ok
+	if(!isset($_GET['params'])){
+            error(404,"Page does not exists");
+            die;
+        }
+        
+        $rs=mysqli_query($lnMysql," SELECT 1 FROM bots_modifs WHERE validate_secret='".mysqli_real_escape_string($lnMysql,$_GET['params'])."';");
+        if(!$r=mysqli_fetch_row($rs)){
+            error(404,"Page doesn't exist");
+            die;
+        }
+        
         $siteTitle="Your bot is changed";
         $siteDescription="bots arena ";
         $permitIndex=false;

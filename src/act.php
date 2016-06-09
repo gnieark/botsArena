@@ -142,7 +142,8 @@ switch($_POST['act']){
         }
            
         mysqli_query($lnMysql,
-        " INSERT INTO bots_modifs( name, game, url, description,unclean_description, date_modification, validate_secret, author_email) VALUES (
+        " INSERT INTO bots_modifs( real_id, name, game, url, description,unclean_description, date_modification, validate_secret, author_email) VALUES (
+	    '".mysqli_real_escape_string($lnMysql,$_POST['botId'])."',
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
             '".mysqli_real_escape_string($lnMysql,$botUrl)."',
