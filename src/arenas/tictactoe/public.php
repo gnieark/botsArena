@@ -12,7 +12,7 @@ if(!$postParams){
 }
 
 ?>
-    <article>
+<article>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
 		<p>
 			<select name="bot1" id="bot1">
