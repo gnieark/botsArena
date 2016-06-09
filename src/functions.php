@@ -246,7 +246,18 @@ function save_battle($game,$bot1,$bot2,$resultat){
     }
     
     $newRanks = ELO_get_new_ranks($actualELO[$bot1],$actualELO[$bot2],$eloScore);
-    
+   
+   echo
+           "
+        UPDATE bots
+        SET ELO='".$newRanks[0]."'
+        WHERE id='".$bots[$bot1]."';
+        
+        UPDATE bots
+        SET ELO='".$newRanks[1]."'
+        WHERE id='".$bots[$bot2]."';";
+   
+   
     mysqli_multi_query($lnMysql,
         "
         UPDATE bots
