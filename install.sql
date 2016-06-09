@@ -29,8 +29,10 @@ CREATE TABLE IF NOT EXISTS `bots` (
   `date_inscription` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `validate_secret` varchar(8) NOT NULL,
   `author_email` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `ELO` int(11) NOT NULL DEFAULT '1500',
+   PRIMARY KEY (`id`)
 );
+
 
 --
 -- Contenu de la table `bots` only stupid ias
