@@ -142,7 +142,7 @@ switch($_POST['act']){
         }
            
         mysqli_query($lnMysql,
-        " INSERT INTO bots_modifs( name, game, url, description, date_modification, validate_secret, author_email) VALUES (
+        " INSERT INTO bots_modifs( name, game, url, description,unclean_description, date_modification, validate_secret, author_email) VALUES (
             '".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
             '".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
             '".mysqli_real_escape_string($lnMysql,$botUrl)."',
@@ -150,6 +150,7 @@ switch($_POST['act']){
                 preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
                 ,nl2br(htmlentities($_POST['botDescription'])))
             )."',
+            '".mysqli_real_escape_string($lnMysql,$_POST['botDescription'])."',
             NOW(),
             '".$secret."',
             '".mysqli_real_escape_string($lnMysql,$_POST['email'])."')"

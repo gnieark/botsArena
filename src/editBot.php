@@ -1,22 +1,18 @@
 <?php
-
+print_r($_GET);
 if(isset($_POST['xd_check'])){
  $botName=$_POST['botName'];
  $botGame=$_POST['botGame'];
  $botURL=$_POST['botURL'];
  $botDescription=$_POST['botDescription'];
  $email=$_POST['email'];
- 
- 
- 
- 
- 
+
  
 }else{
  $botName=$theBot['name'];
  $botGame=$theBot['game'];
  $botURL=$theBot['url'];
- $botDescription=$theBot['description'];
+ $botDescription=$theBot['unclean_description'];
  $email="";
 }
 
