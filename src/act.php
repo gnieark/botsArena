@@ -175,7 +175,7 @@ switch($_POST['act']){
         $mail->setFrom($smtpParams['username'], 'Bots Arena');
         $mail->Subject = 'BotsArena';
         $mail->addAddress($_POST['email']);
-        $mail->Body = $lang['E_MAIL_EDIT_BOT']."\n".$siteParam['BASEURL'].'p/editBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
+        $mail->Body = $lang['E_MAIL_EDIT_BOT']."\n".$siteParam['BASEURL'].'p/ValidateEditBot/'.$secret."\n".$lang['E_MAIL_ADD_BOT_SIGNATURE'];
         if (!$mail->send()) {
             error(500,"Mailer Error: " . $mail->ErrorInfo);
         } else {

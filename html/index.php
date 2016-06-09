@@ -162,7 +162,7 @@ if(isset($_GET['arena'])){
  
         break;
     case "editBot":
-            if(!isset($_GET['params'])){
+        if(!isset($_GET['params'])){
             error(404,"Page does not exists");
             die;
         }
@@ -191,6 +191,18 @@ if(isset($_GET['arena'])){
         $asideSectionContent=''; //to do
         $cssAdditionalScript="";
         $jsAdditionalScript="";
+      break;
+      
+    case "ValidateEditBot":
+        $siteTitle="Your bot is changed";
+        $siteDescription="bots arena ";
+        $permitIndex=false;
+        $mainSectionScript="../src/validateEditBot.php";
+        $asideSectionContent=''; //to do
+        $cssAdditionalScript="";
+        $jsAdditionalScript="";  
+    
+    
       break;
     default:
       error(404,"Not found");
