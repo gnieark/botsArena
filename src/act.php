@@ -107,7 +107,7 @@ switch($_POST['act']){
       AND id='".mysqli_real_escape_string($lnMysql,$_POST['botId'])."'"
     );
     if(!$r=mysqli_fetch_row($rs)){
-      $err.= "L'adresse e-mail ne correspond pas à celle enregistrée\n";  
+      $err.= "L'adresse e-mail ne correspond pas à celle qui a servi à l'inscription du bot.\n";  
     }
     //check name
     $rs=mysqli_query($lnMysql,
@@ -118,7 +118,7 @@ switch($_POST['act']){
     );
       
     if($r=mysqli_fetch_row($rs)){
-      $err.="Un bot du même nom existe déjà";
+      $err.="Un bot du même nom existe déjà.";
     }
     //BotUrl
     if(($_POST['botURL'] <> "") && (!preg_match("/^(http|https):\/\//", $_POST['botURL']))){
