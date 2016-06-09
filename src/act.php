@@ -56,11 +56,11 @@ switch($_POST['act']){
 		'0',
 		NOW(),
 		'".$secret."',
-		'".mysqli_real_escape_string($lnMysql,$_POST['email'])."'";  
+		'".mysqli_real_escape_string($lnMysql,$_POST['email'])."')";  
 		
 	$rs=mysqli_query($lnMysql,$sql);
          
-         echo $sql; die;
+         //echo $sql; die;
          
          
         include __DIR__."/config.php";
