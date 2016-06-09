@@ -104,6 +104,7 @@ pre{
   border-left: 4px solid #CCC;
   padding-left: 8px;
 }
+.podium li img {height: 50px;}
 @media screen and (max-width: 800px){
 	aside, article{display: block; width: 100%; border-right:none;}
 

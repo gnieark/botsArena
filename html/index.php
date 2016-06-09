@@ -72,9 +72,9 @@ if(isset($_GET['arena'])){
         
         }
         
-        $asideSectionContent.='<li>'.$img.'<a href="/p/aboutBot/'.$sc['id'].'">'.htmlentities($sc['name']).'</a> ELO Rank: '.$sc['ELO'].'</li>'; 
+        $asideSectionContent.='<li>'.$img.'<a href="/p/aboutBot/'.$sc['id'].'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
     }
-    $asideSectionContent.='</ul>';
+    $asideSectionContent.='</ul><h2>détail des matchs</h2>';
     
     foreach($hist as $sc){
         $asideSectionContent.='<h3><a href="/p/aboutBot/'.htmlentities($sc['bot1']).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.htmlentities($sc['bot2']).'">'.$sc['bot2'].'</a></h3>
