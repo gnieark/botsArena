@@ -45,7 +45,7 @@ switch($_POST['act']){
       //last char must be alphanum. Mail client should cut url if isn't.
       $secret.=rand_str(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890');
       
-      $sql =  "INSERT INTO bots (name,game,url,description,active,date_inscription,validate_secret,author_email) VALUES(
+      $sql =  "INSERT INTO bots (name,game,url,description,unclean_description,active,date_inscription,validate_secret,author_email) VALUES(
 		'".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botName']))."',
 		'".mysqli_real_escape_string($lnMysql,$_POST['botGame'])."',
 		'".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botURL']))."',
@@ -53,6 +53,7 @@ switch($_POST['act']){
 		    preg_replace('#^(http|https|mailto|ftp)://(([a-z0-9\/\.\?-_=\#@:~])*)#i','<a href="$1://$2">$1://$2</a>'
 		    ,nl2br(htmlentities($_POST['botDescription'])))
 		    )."',
+		'".mysqli_real_escape_string($lnMysql,htmlentities($_POST['botDescription']))."',    
 		'0',
 		NOW(),
 		'".$secret."',
