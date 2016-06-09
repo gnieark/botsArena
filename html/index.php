@@ -51,28 +51,29 @@ if(isset($_GET['arena'])){
     
     $podium=ELO_get_podium($currentArena);
     $count=0;
+    echo '<ul class="podium">';
     foreach($podium as $sc){
         $count++;
-        switch ($count){
+        switch $count{
             case 1:
-                $img=
+                $img='<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
                 break;
             case 2: 
-            
+                $img='<img src="/imgs/Silver_Medal.svg" alt="Silver_Medal.svg"/>';
                 break;
-                
             case 3:
-            
+                $img='<img src="/imgs/Bronze_Medal.svg" alt="Bronze_Medal.svg"/>';
                 break;
             default:
-            
+                $img='<img src="/imgs/Emoji_u1f4a9.svg" alt="caca"/>';
                 break;
             
         
         }
-    
-    
+        
+        echo '<li>'.$img.'<a href="/p/aboutBot/'.$sc['id'].'">'.htmlentities($sc['name']).'</a> ELO Rank: '.$sc['ELO'].'</li>'; 
     }
+    echo '</ul>';
     
     foreach($hist as $sc){
         $asideSectionContent.='<h3><a href="/p/aboutBot/'.htmlentities($sc['bot1']).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.htmlentities($sc['bot2']).'">'.$sc['bot2'].'</a></h3>
