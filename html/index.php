@@ -193,7 +193,7 @@ if(isset($_GET['arena'])){
         $jsAdditionalScript="";
       break;
       
-    case "ValidateEditBot":
+    case "validateEditBot":
         $siteTitle="Your bot is changed";
         $siteDescription="bots arena ";
         $permitIndex=false;
