@@ -5,7 +5,7 @@ if(!$r=mysqli_fetch_row($rs)){
     die;
 }
 
-mysqli_query(
+mysqli_query($lnMysql,
 "UPDATE bots, bots_modifs
   SET bots.name		=	bots_modifs.name
   , bots.game		=	bots_modifs.game
