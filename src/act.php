@@ -97,7 +97,7 @@ switch($_POST['act']){
       error(404,"wrong post parameter");
       die;
     }
-    echo "plop";
+    
     $err="";
     
     //check author e-mail
@@ -122,7 +122,7 @@ switch($_POST['act']){
     }
     //BotUrl
     if(($_POST['botURL'] <> "") && (!preg_match("/^(http|https):\/\//", $_POST['botURL']))){
-      $alerts.="L'URL n'est pas valide.\n";
+      $err.="L'URL n'est pas valide.\n";
     }
     if($err == ""){
  
@@ -186,11 +186,7 @@ switch($_POST['act']){
 
 	  
     
-    }else{
-     //echo "plop".$err."plop"; die;
     }
-
-    
     break;
     
    default:
