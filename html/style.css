@@ -104,7 +104,7 @@ pre{
   border-left: 4px solid #CCC;
   padding-left: 8px;
 }
-.podium{list-style-type:none;}
+.podium{list-style-type:none;padding: 5px 20px 5px 0;}
 .podium li{padding: 5px 20px 5px 0;}
 .podium li img {height: 50px;}
 @media screen and (max-width: 800px){
