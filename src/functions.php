@@ -177,7 +177,20 @@ function get_battles_history($game){
     }
     return $results;
 }
-
+function ELO_get_podium($arena){
+    global $lnMysql;
+    $podium=array();
+    $rs=mysqli_query($lnMysql,"SELECT id,name,description,ELO FROM bots WHERE game='".$arena."' AND active='1' ORDER BY ELO DESC, name");
+    while($r = mysqli_fetch_row($rs)){
+        $podium[]=array(
+            'id'            => $r[0],
+            'name'          => $r[1],
+            'description'   => $r[2],
+            'ELO'           => $r[3]
+        );
+    }
+    return $podium;
+}
 function ELO_get_k($elo){
     if ($elo < 1000){
             return 80;

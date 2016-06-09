@@ -48,6 +48,32 @@ if(isset($_GET['arena'])){
     $mainSectionScript="../src/arenas/".$currentArena."/public.php";
     $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
     <h2>Scores</h2>';
+    
+    $podium=ELO_get_podium($currentArena);
+    $count=0;
+    foreach($podium as $sc){
+        $count++;
+        switch ($count){
+            case 1:
+                $img=
+                break;
+            case 2: 
+            
+                break;
+                
+            case 3:
+            
+                break;
+            default:
+            
+                break;
+            
+        
+        }
+    
+    
+    }
+    
     foreach($hist as $sc){
         $asideSectionContent.='<h3><a href="/p/aboutBot/'.htmlentities($sc['bot1']).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.htmlentities($sc['bot2']).'">'.$sc['bot2'].'</a></h3>
             <ul>
