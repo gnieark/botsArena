@@ -294,6 +294,7 @@ function get_unique_id(){
   return $count;
 }
 function get_default_aside_content($currentArena){
+  global $lang;
     $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
     <h2>Scores</h2>';
     
