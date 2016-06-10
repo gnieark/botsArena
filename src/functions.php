@@ -180,7 +180,6 @@ function get_battles_history($game){
 function ELO_get_podium($arena){
     global $lnMysql;
     $podium=array();
-    echo "SELECT id,name,description,ELO FROM bots WHERE game='".substr($arena,0,10)."' AND active='1' ORDER BY ELO DESC, name";
     $rs=mysqli_query($lnMysql,"SELECT id,name,description,ELO FROM bots WHERE game='".substr($arena,0,10)."' AND active='1' ORDER BY ELO DESC, name");
     while($r = mysqli_fetch_row($rs)){
         $podium[]=array(
