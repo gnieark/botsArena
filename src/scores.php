@@ -1,5 +1,6 @@
-<?php$hist=get_battles_history($currentArena);
+<?php
 $hist=get_battles_history($currentArena);
+
 
 foreach($hist as $sc){
     echo '<h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
