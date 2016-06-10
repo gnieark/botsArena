@@ -74,7 +74,7 @@ if(isset($_GET['arena'])){
         
         $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
     }
-    $asideSectionContent.='</ul><h2><a href="#" onclick="document.getElementById(\'detailMatches\').class=\'\';">Détail des matchs</a></h2>';
+    $asideSectionContent.='</ul><p><a href="#" onclick="document.getElementById(\'detailMatches\').setAttribute(\'class\',\'\');">Détail des matchs &gt;&gt;</a></p';
     
     foreach($hist as $sc){
         $asideSectionContent.='<article id="detailMatches" class="hidden"><h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
