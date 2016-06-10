@@ -7,13 +7,7 @@ It's a website for programming AI challenges. Everyone can read a game's specifi
 
 # Still in dev
 - The stable website (Using github API, Vhost is synchronized to branch master) is [https://botsarena.tinad.fr/](https://botsarena.tinad.fr/)
-- Dev [http://botsarena-dev.tinad.fr/](http://botsarena-dev.tinad.fr/) (synchronized on this repo 's dev branch), can show messages like "parse error","Internal server error" etc...
-To do:
-- English translation
-- Develop others arenas (thinking about Connect Four, tron, and maybe one day chess)
-- Fixes
-- Show bot's description
-- Page for bot's owners (manage description url etc...)
+- Dev [http://botsarena-dev.tinad.fr/](http://botsarena-dev.tinad.fr/) (identifiant: plop password: plip) (synchronized on this repo 's dev branch),As it's a dev version you can show messages like "parse error","Internal server error" etc...
 
 # Contribute
 You are welcome, Make pull requests on branch dev. Im available on twitter [@gnieark](https://twitter.com/gnieark) in order to talk.
