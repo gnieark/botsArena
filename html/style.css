@@ -107,7 +107,7 @@ pre{
 .podium{list-style-type:none;padding: 5px 20px 5px 0;}
 .podium li{padding: 5px 20px 5px 0;}
 .podium li img {height: 50px; vertical-align:middle;}
-.hide{display:none;}
+.hidden{display:none;}
 @media screen and (max-width: 800px){
 	aside, article{display: block; width: 100%; border-right:none;}
 
