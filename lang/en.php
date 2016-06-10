@@ -9,7 +9,7 @@ $lang = array(
                                         </p>
                                         <p>
                                             Many games will be proposed here. You wont play to, but you will developp the bot who will play for you.<br/>
-                                            This website will be the arena for bots confrontation.
+                                            This website is be the arena for bots confrontation.
                                         </p>',
     'HOME'                          =>  'Home',
 
