@@ -293,7 +293,36 @@ function get_unique_id(){
   fclose($fp);
   return $count;
 }
-
+function get_default_aside_content($currentArena){
+    $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
+    <h2>Scores</h2>';
+    
+    $podium=ELO_get_podium($currentArena);
+    $count=0;
+    $asideSectionContent.='<ul class="podium">';
+    foreach($podium as $sc){
+        $count++;
+        
+        switch($count){
+            case 1:
+                $img='<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
+                break;
+            case 2: 
+                $img='<img src="/imgs/Silver_Medal.svg" alt="Silver_Medal.svg"/>';
+                break;
+            case 3:
+                $img='<img src="/imgs/Bronze_Medal.svg" alt="Bronze_Medal.svg"/>';
+                break;
+            default:
+                $img='<img src="/imgs/Emoji_u1f4a9.svg" alt="caca"/>';
+                break;
+        }
+        
+        $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
+    }
+    $asideSectionContent.='</ul><p><a href="/'.$currentArena.'/scores">Détail des matchs &gt;&gt;</a></p>';
+   return $asideSectionContent;
+}
 function does_arena_exist($string,$arenasArr){
     foreach($arenasArr as $arena){
       if($string == $arena['id']){
