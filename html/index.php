@@ -121,7 +121,9 @@ if(isset($_GET['arena'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
     }
     $jsAdditionalScript="";
-    
+}elseif(isset($_GET['scores'])){
+  //to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 }elseif(isset($_GET['page'])){
   //simple page
   switch($_GET['page']){
