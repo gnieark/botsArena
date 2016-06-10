@@ -74,10 +74,10 @@ if(isset($_GET['arena'])){
         
         $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
     }
-    $asideSectionContent.='</ul><p><a href="#" onclick="document.getElementById(\'detailMatches\').setAttribute(\'class\',\'\');">Détail des matchs &gt;&gt;</a></p';
+    $asideSectionContent.='</ul><p><a href="#" onclick="document.getElementById(\'detailMatches\').setAttribute(\'class\',\'\');">Détail des matchs &gt;&gt;</a></p><article id="detailMatches" class="hidden">';
     
     foreach($hist as $sc){
-        $asideSectionContent.='<article id="detailMatches" class="hidden"><h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
+        $asideSectionContent.='<h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
             <ul>
             <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
             <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
