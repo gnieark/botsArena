@@ -41,50 +41,10 @@ if(isset($_GET['arena'])){
         error(404,"Wrong parameter");
         die;
     }
-    $hist=get_battles_history($currentArena);
-    
     $siteTitle=$currentArenaArr['title'];
     $siteDescription=$currentArenaArr['metaDescription'];
     $mainSectionScript="../src/arenas/".$currentArena."/public.php";
-    $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
-    <h2>Scores</h2>';
-    
-    $podium=ELO_get_podium($currentArena);
-    $count=0;
-    $asideSectionContent.='<ul class="podium">';
-    foreach($podium as $sc){
-        $count++;
-        
-        switch($count){
-            case 1:
-                $img='<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
-                break;
-            case 2: 
-                $img='<img src="/imgs/Silver_Medal.svg" alt="Silver_Medal.svg"/>';
-                break;
-            case 3:
-                $img='<img src="/imgs/Bronze_Medal.svg" alt="Bronze_Medal.svg"/>';
-                break;
-            default:
-                $img='<img src="/imgs/Emoji_u1f4a9.svg" alt="caca"/>';
-                break;
-            
-        
-        }
-        
-        $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
-    }
-    $asideSectionContent.='</ul><h2>Détail des matchs</h2>';
-    
-    foreach($hist as $sc){
-        $asideSectionContent.='<h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
-            <ul>
-            <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
-            <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
-            <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
-            </ul>';
-    }
-    
+    $asideSectionContent= get_default_aside_content($currentArena);   
     $cssAdditionalScript="";
     if(isset($currentArenaArr['cssFile'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
@@ -112,16 +72,41 @@ if(isset($_GET['arena'])){
         error(404,"Wrong parameter");
         die;
     }
-    $siteTitle="Specifications ".$currentArenaArr['title'];
-    $siteDescription="documentation, faites votre propre bot pour ".$currentArenaArr['metaDescription'];
-    $mainSectionScript="../src/arenas/".$currentArenaArr['id']."/doc-".$lang['lang'].".html";
-    $asideSectionContent=''; //to do
-    $cssAdditionalScript="";
+    $siteTitle = "Specifications ".$currentArenaArr['title'];
+    $siteDescription = "documentation, faites votre propre bot pour ".$currentArenaArr['metaDescription'];
+    $mainSectionScript = "../src/arenas/".$currentArenaArr['id']."/doc-".$lang['lang'].".html";
+    $asideSectionContent = get_default_aside_content($currentArena);  
+    $cssAdditionalScript = "";
     if(isset($currentArenaArr['cssFile'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
     }
     $jsAdditionalScript="";
     
+}elseif(isset($_GET['scores'])){
+      //check if arena exists
+   $currentArena = false;
+   foreach($arenas as $arena){
+        if($arena['id'] == $_GET['scores']){
+            $currentArena = $_GET['scores'];
+            $currentArenaArr=$arena;
+            break;
+        }
+    }
+    if(!$currentArena){
+        error(404,"Wrong parameter");
+        die;
+    }
+
+    $siteTitle="détail des combats ".$currentArenaArr['title'];
+    $siteDescription="scores ".$currentArenaArr['metaDescription'];
+    $mainSectionScript="../src/scores.php";
+    $asideSectionContent=get_default_aside_content($currentArena);
+    $cssAdditionalScript="";
+    $jsAdditionalScript="";
+
+
+  //to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 }elseif(isset($_GET['page'])){
   //simple page
   switch($_GET['page']){
