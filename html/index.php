@@ -72,7 +72,7 @@ if(isset($_GET['arena'])){
         
         }
         
-        $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name'])).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
+        $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
     }
     $asideSectionContent.='</ul><h2>Détail des matchs</h2>';
     
