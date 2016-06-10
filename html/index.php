@@ -74,7 +74,7 @@ if(isset($_GET['arena'])){
         
         $asideSectionContent.='<li>'.$img.'&nbsp;<a href="/p/aboutBot/'.urlencode(htmlentities(($sc['name']))).'">'.htmlentities($sc['name']).'</a> ELO rank: '.$sc['ELO'].'</li>'; 
     }
-    $asideSectionContent.='</ul><p><a href="#" onclick="document.getElementById(\'detailMatches\').setAttribute(\'class\',\'\');">Détail des matchs &gt;&gt;</a></p><article id="detailMatches" class="hidden">';
+    $asideSectionContent.='</ul><p><a href="#" onclick="document.getElementById(\'detailMatches\').setAttribute(\'class\',\'\');">Détail des matchs &gt;&gt;</a></p><div id="detailMatches" class="hidden">';
     
     foreach($hist as $sc){
         $asideSectionContent.='<h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
@@ -84,7 +84,7 @@ if(isset($_GET['arena'])){
             <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
             </ul>';
     }
-    $asideSectionContent.='</article>';
+    $asideSectionContent.='</div>';
     $cssAdditionalScript="";
     if(isset($currentArenaArr['cssFile'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
