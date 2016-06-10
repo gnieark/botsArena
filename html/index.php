@@ -77,14 +77,14 @@ if(isset($_GET['arena'])){
     $asideSectionContent.='</ul><h2><a href="#" onclick="document.getElementById(\'detailMatches\').class=\'\';">Détail des matchs</a></h2>';
     
     foreach($hist as $sc){
-        $asideSectionContent.='<h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
-            <ul id="detailMatches" class="hidden">
+        $asideSectionContent.='<article id="detailMatches" class="hidden"><h3><a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot1'])).'">'.$sc['bot1'].'</a> VS <a href="/p/aboutBot/'.urlencode(htmlentities($sc['bot2'])).'">'.$sc['bot2'].'</a></h3>
+            <ul>
             <li>'.$sc['bot1']." ".$lang['VICTORIES'].":".$sc['player1Wins'].'</li>
             <li>'.$sc['bot2']." ".$lang['VICTORIES'].":".$sc['player2Wins'].'</li>
             <li>'.$lang['DRAW'].":".$sc['draws'].'</li>
             </ul>';
     }
-    
+    $asideSectionContent.='</article>';
     $cssAdditionalScript="";
     if(isset($currentArenaArr['cssFile'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
