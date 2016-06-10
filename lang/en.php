@@ -5,8 +5,7 @@ $lang = array(
 
     'SITE_NAME'                     =>  'Bots\' Arena',
     'SITE_DESCRIPTION'              =>  '<p>
-                                            Welcome on the Bots\' Arena.<br/>
-                                            <b>This website is still in developpement.</b>
+                                            Welcome on the Bots\' Arena.
                                         </p>
                                         <p>
                                             Many games will be proposed here. You wont play to, but you will developp the bot who will play for you.<br/>

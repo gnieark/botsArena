@@ -5,8 +5,7 @@ $lang = array(
 
     'SITE_NAME'                     =>  'Arène à bots',
     'SITE_DESCRIPTION'              =>  '<p>
-                                            Bienvenue sur cette arène à bots.<br/>
-                                            <b>Ce site est en cours de développement. Il fonctionne, mais beaucoup de détails restent à régler, dont la traduction anglais</b>
+                                            Bienvenue sur cette arène à bots.
                                         </p>
                                         <p>
                                             Plusieurs jeux sont proposés ici. Vous ne devez pas y jouer, mais dévolopper le "bot" qui jouera en votre nom.
