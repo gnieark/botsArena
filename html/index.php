@@ -20,6 +20,7 @@ $lang=get_language_array();
 //check type of page
 //$_GET['arena'] -> an arena
 //$_GET['doc'] -> arena documentation
+//$_GET['scores'] -> show fights'history for the arena
 //$_GET['page'] -> a simple page like about page, legals etc...
 //Nothing -> home page
 
@@ -75,7 +76,7 @@ if(isset($_GET['arena'])){
     $siteTitle = "Specifications ".$currentArenaArr['title'];
     $siteDescription = "documentation, faites votre propre bot pour ".$currentArenaArr['metaDescription'];
     $mainSectionScript = "../src/arenas/".$currentArenaArr['id']."/doc-".$lang['lang'].".html";
-    $asideSectionContent = get_default_aside_content($currentArena);  
+    $asideSectionContent = "";
     $cssAdditionalScript = "";
     if(isset($currentArenaArr['cssFile'])){
       $cssAdditionalScript.='<style type="text/css"><!--'."\n".file_get_contents("../src/arenas/".$currentArena."/".$currentArenaArr['cssFile'])."\n--></style>";
@@ -103,9 +104,6 @@ if(isset($_GET['arena'])){
     $asideSectionContent=get_default_aside_content($currentArena);
     $cssAdditionalScript="";
     $jsAdditionalScript="";
-
-
-  //to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 }elseif(isset($_GET['page'])){
   //simple page
