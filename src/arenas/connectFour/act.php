@@ -64,15 +64,10 @@ switch ($_POST['act']){
 	get_IA_Response($_SESSION['bot1']['url'],$params[0]); //don't care about result
 	get_IA_Response($_SESSION['bot2']['url'],$params[1]); //don't care about result
 
-      
-         
-    //echo "plop".json_encode($_SESSION['map']);
-    
+
   case "fight":
   
-      if(
-          ($_SESSION['game'] <> "connectFou") || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId'))
-       ){
+      if(($_SESSION['game'] <> "connectFou") || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId']))){
 	error(500,"game non found");    
       }
         
