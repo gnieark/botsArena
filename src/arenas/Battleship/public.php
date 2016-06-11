@@ -1,6 +1,6 @@
 <article>
 <h2>Cette arène est en cours de maintenance, elle sera de nouveau prête dans les prochains jours</h2>
-<p><img src="imgs/Arenes-Nimes.jpg" alt="travaux sur les arènes de Nimes"/></p>
+<p><img style="width: 100%;" src="/imgs/Arenes-Nimes.jpg" alt="travaux sur les arènes de Nimes"/></p>
 
 </article>
 <?php
