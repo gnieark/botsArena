@@ -294,7 +294,7 @@ switch ($_POST['act']){
 	  'continue' =>0,
 	  'strikeX' 	=> -1,
 	  'strikeY'	=> -1,
-	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd"
+	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd".json_encode($tempPlayer)."|";
 	);
         if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],2);
