@@ -2,10 +2,11 @@
 
 require_once(__DIR__."/functions.php");
 $bots=get_Bots_Array('connectFou');
-
+$new=false;
 switch ($_POST['act']){
 
   case "newFight":
+    $new=true;
     //remove $_SESSION less xd_check
     $xd=$_SESSION['xd_check'];
     session_unset();
@@ -66,11 +67,17 @@ switch ($_POST['act']){
       
          
     //echo "plop".json_encode($_SESSION['map']);
+    
   case "fight":
   
-      if($_SESSION['game'] <> "connectFou"){
+  
+      if(
+          ($_SESSION['game'] <> "connectFou") 
+          || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId'))
+        ){
 	error(500,"game non found");    
       }
+        
   
       //What player has to play?
       if(!isset($_SESSION['currentPlayer'])){
@@ -245,7 +252,8 @@ switch ($_POST['act']){
 	  'strikeY'	=> $strikeY,
 	  'strikeSymbol'=> $you,
 	  'log'		=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné",
-	  'cellsWin'	=> json_encode($cellsWin)
+	  'cellsWin'	=> json_encode($cellsWin),
+	  'gameId'      => $_SESSION['matchId']
 	  );
 	  if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],1);
@@ -273,7 +281,8 @@ switch ($_POST['act']){
 	    'strikeX' 	=> $strikeX,
 	    'strikeY'	=> $strikeY,
 	    'strikeSymbol'=> $you,
-	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul"
+	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul",
+	    'gameId'      => $_SESSION['matchId']
 	    );
 	  
 	  }else{
@@ -283,7 +292,8 @@ switch ($_POST['act']){
 	    'strikeX' 	=> $strikeX,
 	    'strikeY'	=> $strikeY,
 	    'strikeSymbol'=> $you,
-	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer
+	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer,
+	    'gameId'      => $_SESSION['matchId']
 	    );
 	  }
 	}
@@ -294,7 +304,8 @@ switch ($_POST['act']){
 	  'continue' =>0,
 	  'strikeX' 	=> -1,
 	  'strikeY'	=> -1,
-	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd".json_encode($tempPlayer)."|"
+	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd".json_encode($tempPlayer),
+	  'gameId'      => $_SESSION['matchId']
 	);
         if($_SESSION['currentPlayer']==1){
             save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],2);
