@@ -67,10 +67,13 @@ switch ($_POST['act']){
 
   case "fight":
   
-      if(($_SESSION['game'] <> "connectFou") || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId']))){
-	error(500,"game non found");    
+      if($_SESSION['game'] <> "connectFou"){
+	error(500,"game non found"); 
+	die;
       }
-        
+      if((!$new) && ($_POST['gameId'] <> $_SESSION['matchId'])){
+        error (512, "not correct gameId");
+      }
   
       //What player has to play?
       if(!isset($_SESSION['currentPlayer'])){

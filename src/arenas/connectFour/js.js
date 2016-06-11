@@ -80,6 +80,9 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
         }
+      }else if(xhr.status  == 512){
+          //just forget
+          return;
       }else{
 	  alert ('error ' + xhr.status);
 	  return;
