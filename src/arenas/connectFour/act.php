@@ -54,7 +54,7 @@ switch ($_POST['act']){
 		    $params[$player]=array(
 			'game-id'        =>  $_SESSION['matchId'],
 			'action'         =>  'init',
-			'game'           =>  'connectFou',
+			'game'           =>  'connectfour',
 			'players'        => 2,
 			'board'          => '',
 			'player-index'   => $player 
@@ -108,7 +108,7 @@ switch ($_POST['act']){
       $postDatas=array(
 	 'game-id'  	=> $_SESSION['matchId'],
 	 'action'	=> 'play-turn',
-	 'game'       	=> 'connectFour',
+	 'game'       	=> 'connectfour',
 	 'players'	=> 2,
 	 'opponent'  	=> $opponentName,
 	 'you'	     	=> $you,

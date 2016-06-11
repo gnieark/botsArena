@@ -10,12 +10,12 @@
 <p>Your bot responds with a JSON array.</p>
 <h3>Message initating the game</h3>
   BotsArena sends:
-    <pre>{"game-id":"1126","action":"init","game":"connectFour","players":2,"board":"","player-index":0}</pre>
+    <pre>{"game-id":"1126","action":"init","game":"connectfour","players":2,"board":"","player-index":0}</pre>
   <p>Explanation of each parameters:</p>
   <ul>
     <li><em>game-id</em> string identifying the party.</li>
     <li><em>action</em> string identifying the phase, <em>init</em> at this step <em>play-turn</em> at the next step.</li>
-    <li><em>game</em> string identifying the game. Always "connectFour".  it can be used if you give a single URL for multiple bots.</li>
+    <li><em>game</em> string identifying the game. Always "connectfour".  it can be used if you give a single URL for multiple bots.</li>
     <li><em>players</em> Int indicating the number of players in the game, still 2 on Connect Four.</li>
     <li><em>board</em> Empty or unused at this step, see next chapter.</li>
     <li><em>player-index</em> int The order of your bot in turns. The first player is 0, second is 2.</li>
@@ -29,11 +29,11 @@
     If your bot returns a blank page at this step (action = init), it will work.</p>
   <h3>Message asking you to play (only one turn) </h3>
   <p>The Arena sends as example the following message:</p>
-  <pre>{"game-id":"9916","action":"play-turn","game":"connectFour","players":2,"board":[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]],"you":"X","player-index":0}</pre>
+  <pre>{"game-id":"9916","action":"play-turn","game":"connectfour","players":2,"board":[["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""],["","","","","","",""]],"you":"X","player-index":0}</pre>
    <ul>
     <li><em>game-id</em> String identifying the party.</li>
     <li><em>action</em> String identifying the phase, <em>play-turn</em> now, you have to play.</li>
-    <li><em>game</em> String identifying the game. Always "connectFour".</li>
+    <li><em>game</em> String identifying the game. Always "connectfour".</li>
     <li><em>players</em> Int indicating the number of players in the game, still 2 on connect Four.</li>
     <li><em>board</em> The map, i'll explain it at next chapter</li>
     <li><em>you</em> String, Your bot's character on the grid</li>
