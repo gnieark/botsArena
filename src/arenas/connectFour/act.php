@@ -70,11 +70,9 @@ switch ($_POST['act']){
     
   case "fight":
   
-  
       if(
-          ($_SESSION['game'] <> "connectFou") 
-          || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId'))
-        ){
+          ($_SESSION['game'] <> "connectFou") || ((!$new) && ($_POST['gameId'] <> $_SESSION['matchId'))
+       ){
 	error(500,"game non found");    
       }
         
