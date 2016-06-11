@@ -222,7 +222,7 @@ function play(player){
     var arrToSend= {
         "game-id": "" + gameId,
         "action"        : "play-turn",
-        "game"          : "connectfour",
+        "game"          : "connectFour",
         "players"       : 2,
         "board"         : board,
         "you"           : symbol,
@@ -301,9 +301,9 @@ function startGame(){
 	  var xhr = new XMLHttpRequest(); 
 	  xhr.open("POST", document.getElementById('url' + p).value,  false);
 	  xhr.setRequestHeader("Content-Type", "application/json");
-	  xhr.send(' {"game-id":"' + gameId + '","action":"init","game":"connectfour","players":2,"board":"","player-index":' + (p - 1) +'}');
+	  xhr.send(' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'}');
 	  if(xhr.status  == 200) {
-	    addLog('Message d\'init envoyé au bot player ' + p + ' {"game-id":"' + gameId + '","action":"init","game":"connectfour","players":2,"board":"","player-index":' + (p - 1) +'} <br/> il a répondu ' +  xhr.responseText );
+	    addLog('Message d\'init envoyé au bot player ' + p + ' {"game-id":"' + gameId + '","action":"init","game":"connectFour","players":2,"board":"","player-index":' + (p - 1) +'} <br/> il a répondu ' +  xhr.responseText );
 	    }else{		    
 	      addLog('player ' + p + ' n est pas joignable ' + xhr.status);
 	      return;

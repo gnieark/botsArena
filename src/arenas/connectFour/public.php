@@ -23,5 +23,5 @@ $bots=get_Bots_Array('connectFou');
 			  ?>
 			</select>
 		</p>
-	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="connectFour(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
+	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="connectFour(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0);"></p>
     <div id="fightResult"></div>

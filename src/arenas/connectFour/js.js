@@ -18,9 +18,10 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function connectFour(bot1,bot2,xd_check, newGame){
+function connectFour(bot1,bot2,xd_check, gameId, newGame){
     if (newGame === undefined){
-     newGame = true;   
+     newGame = true;
+     gameId=0;
     }
     
     if (newGame){
@@ -58,6 +59,7 @@ function connectFour(bot1,bot2,xd_check, newGame){
         }
         //log
          document.getElementById('logs').innerHTML += reponse['log'] + '<br/>';
+         
         //fill the grid
         if( reponse['strikeX'] > -1){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
@@ -76,8 +78,11 @@ function connectFour(bot1,bot2,xd_check, newGame){
 	
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
-            connectFour(bot1,bot2,xd_check, false);
+            connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
         }
+      }else if(xhr.status  == 512){
+          //just forget
+          return;
       }else{
 	  alert ('error ' + xhr.status);
 	  return;
@@ -90,5 +95,5 @@ function connectFour(bot1,bot2,xd_check, newGame){
     }else{
         var act='fight';
     }
-    xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
+    xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&gameId=' + gameId);
 }
