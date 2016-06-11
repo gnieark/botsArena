@@ -1,4 +1,10 @@
+<article>
+<h2>Cette arène est en cours de maintenance, elle sera de nouveau prête dans les prochains jours</h2>
+<p><img src="Arenes-Nimes.jpg" alt="travaux sur les arènes de Nimes"/></p>
+
+</article>
 <?php
+/*
 require_once(__DIR__."/functions.php");
 
 $bots=get_Bots_Array('Battleship');
@@ -52,4 +58,5 @@ if(!$postParams){
         <!--  battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check) -->
 	<p><label>&nbsp;</label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,getElementById('width').value,getElementById('height').value,getElementById('ship1').value,getElementById('ship2').value,getElementById('ship3').value,getElementById('ship4').value,getElementById('ship5').value,getElementById('ship6').value,'<?php echo xd_check_input(2); ?>');"></p>
     <div id="fightResult"></div>
-</article>
+</article
+*/>
