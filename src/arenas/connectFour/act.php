@@ -106,7 +106,7 @@ switch ($_POST['act']){
 */
       //make post datas to send
       $postDatas=array(
-	 'game-id'  	=> $_SESSION['matchId'],
+	 'game-id'  	=> "".$_SESSION['matchId'],
 	 'action'	=> 'play-turn',
 	 'game'       	=> 'connectfour',
 	 'players'	=> 2,
