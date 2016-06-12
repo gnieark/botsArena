@@ -313,9 +313,9 @@ switch ($_POST['act']){
 	  'strikeX' 	=> -1,
 	  'strikeY'	=> -1,
 	  'log'	=> $you." ".$currentBotName." made a non conform anwser: <br/>
-			    <em>Bots Arena sent:</em>".$tempPlayer['messageSend']."<br/>
-			    <em>".$currentBotName." HTTP STATUS:</em> ".$tempPlayer['httpStatus']."<br/>
-			    <em>His response: </em>".htmlentities($tempPlayer['response']),
+			    Bots Arena sent:<em>".$tempPlayer['messageSend']."</em><br/>
+			    ".$currentBotName." HTTP STATUS:<em> ".$tempPlayer['httpStatus']."</em><br/>
+			    His response: <em>".htmlentities($tempPlayer['response'])."</em>",
 	  'gameId'      => $_SESSION['matchId']
 	);
         if($_SESSION['currentPlayer']==1){
