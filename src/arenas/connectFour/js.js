@@ -21,10 +21,14 @@ function createElem(type,attributes){
 function connectFour(bot1,bot2,xd_check, gameId, newGame){
     if (newGame === undefined){
      newGame = true;
-     gameId=0;
+     
     }
     
     if (newGame){
+        gameId=0;
+        //don't touch the button while game is not ended
+        document.getElementById('fightButton').disabled=true;
+        
         //empty
         while (document.getElementById('fightResult').firstChild) {
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
@@ -65,6 +69,7 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
 	
+	//colorise cells that win
 	if(reponse['cellsWin'] === undefined){
 	  
 	}else{
@@ -79,12 +84,15 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
+        }else{
+             document.getElementById('fightButton').disabled=false;
         }
       }else if(xhr.status  == 512){
           //just forget
           return;
       }else{
 	  alert ('error ' + xhr.status);
+          document.getElementById('fightButton').disabled=false;
 	  return;
       }
     }};
