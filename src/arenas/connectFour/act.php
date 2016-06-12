@@ -127,6 +127,7 @@ switch ($_POST['act']){
       
       //send query
       $tempPlayer = get_IA_Response($botUrl,$postDatas);
+      print_r($tempPlayer);
       if(isset($tempPlayer['arrponseArr']['play'])){
 	$anwserPlayer = $tempPlayer['arrponseArr']['play'];
       }else{
