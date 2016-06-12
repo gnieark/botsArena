@@ -12,6 +12,11 @@ function Ajx(){
 	}
     return request;
 }
+function addLog(message){
+  var p=createElem('p',{});
+  p.innerHTML=message;
+  document.getElementById('logs').appendChild(p); 
+}
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -21,10 +26,14 @@ function createElem(type,attributes){
 function connectFour(bot1,bot2,xd_check, gameId, newGame){
     if (newGame === undefined){
      newGame = true;
-     gameId=0;
+     
     }
     
     if (newGame){
+        gameId=0;
+        //don't touch the button while game is not ended
+        document.getElementById('fightButton').disabled=true;
+        
         //empty
         while (document.getElementById('fightResult').firstChild) {
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
@@ -43,7 +52,7 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
         document.getElementById('fightResult').appendChild(table);
         var divLogs=createElem("div",{"id":"logs"});
         document.getElementById('fightResult').appendChild(divLogs);
-    }
+  }
   //send request  
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
@@ -54,17 +63,18 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
-	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
+	      addLog('erreur' +xhr.responseText);
 	      return;
         }
         //log
-         document.getElementById('logs').innerHTML += reponse['log'] + '<br/>';
+         addLog(reponse['log']);
          
         //fill the grid
         if( reponse['strikeX'] > -1){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
 	}
 	
+	//colorise cells that win
 	if(reponse['cellsWin'] === undefined){
 	  
 	}else{
@@ -79,12 +89,15 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
+        }else{
+             document.getElementById('fightButton').disabled=false;
         }
       }else if(xhr.status  == 512){
           //just forget
           return;
       }else{
 	  alert ('error ' + xhr.status);
+          document.getElementById('fightButton').disabled=false;
 	  return;
       }
     }};
