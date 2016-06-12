@@ -75,7 +75,7 @@ switch ($_POST['act']){
                     if(isset($tempPlayer['responseArr']['play'])){
                         $playerResponse = $tempPlayer['responseArr']['play'];
                     }else{
-                        $anwserPlayer = -1;
+                        $playerResponse = -1;
                     }
                     
                     //tester la validité de la réponse
