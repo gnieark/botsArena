@@ -71,7 +71,7 @@ switch ($_POST['act']){
                     );
                     
                     
-                    $tempPlayer = get_IA_Response($botUrl,$paramsToSend);
+                    $tempPlayer = get_IA_Response($playerURL,$paramsToSend);
                     if(isset($tempPlayer['responseArr']['play'])){
                         $playerResponse = $tempPlayer['responseArr']['play'];
                     }else{
