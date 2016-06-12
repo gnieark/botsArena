@@ -348,9 +348,11 @@ function get_IA_Response($iaUrl,$postParams){
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       
     );
+
+    $output= curl_exec($ch);
     $httpCode = curl_getinfo($ch);
     print_r($httpCode);
-    $output= curl_exec($ch);
+    
     curl_close($ch); 
     if(! $arr = json_decode($output,TRUE)){
       $arr=array();
