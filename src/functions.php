@@ -348,7 +348,7 @@ function get_IA_Response($iaUrl,$postParams){
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       
     );
-    $httpCode = curl_getinfo($ch); 
+    $httpCode = curl_getinfo($ch,CURLINFO_HTTP_CODE); 
     $output= curl_exec($ch);
     curl_close($ch); 
     if(! $arr = json_decode($output,TRUE)){
@@ -357,7 +357,7 @@ function get_IA_Response($iaUrl,$postParams){
     
     return array(
       'messageSend' 	=> $data_string,
-      'httpStatus'  	=> $httpCode['http_code'],
+      'httpStatus'  	=> $httpCode,
       'response'	=> $output,
       'responseArr'	=> $arr    
     );
