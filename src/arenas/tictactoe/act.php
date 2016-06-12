@@ -132,7 +132,7 @@ switch ($_POST['act']){
                     }else{
                         echo "<p>".$playerName." made a non conform anwser, he lost: <br/>
                             Bots Arena sent:<em>".$tempPlayer['messageSend']."</em><br/>
-                            ".$currentBotName." HTTP STATUS:<em> ".$tempPlayer['httpStatus']."</em><br/>
+                            ".$playerName." HTTP STATUS:<em> ".$tempPlayer['httpStatus']."</em><br/>
                             His response: <em>".htmlentities($tempPlayer['response'])."</em></p>";
                         
                         
