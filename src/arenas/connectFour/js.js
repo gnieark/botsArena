@@ -12,6 +12,11 @@ function Ajx(){
 	}
     return request;
 }
+function addLog(message){
+  var p=createElem('p',{});
+  p.innerHTML=message;
+  document.getElementById('logs').appendChild(p); 
+}
 function createElem(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
@@ -58,11 +63,11 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
-	      document.getElementById('logs').innerHTML += 'erreur' +xhr.responseText;
+	      addLog('erreur' +xhr.responseText);
 	      return;
         }
         //log
-         document.getElementById('logs').innerHTML += reponse['log'] + '<br/>';
+         addLog(reponse['log']);
          
         //fill the grid
         if( reponse['strikeX'] > -1){
