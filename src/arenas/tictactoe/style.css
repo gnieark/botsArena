@@ -7,3 +7,4 @@ td {min-width: 10px; height: 10px;}
 .arrenaMessage::before{content: "arena message:"; color: grey; font-size: 70%; test-transform:italic;}
 .botResponse{color: red;}
 .botResponse::before{content: "bot response:";color: grey; font-size: 70%; test-transform:italic;}
+#fightResult p em {color: grey; font-size: 70%; test-transform:italic;}
