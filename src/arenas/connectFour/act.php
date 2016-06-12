@@ -61,6 +61,12 @@ switch ($_POST['act']){
 			'player-index'   => $player 
 		    );
 	}
+	/*
+      'messageSend' 	=> $data_string,
+      'httpStatus'  	=> $curl_getinfo($ch)['http_code'],
+      'response'	=> $output,
+      'responseArr'	=> $arr 
+	*/
 	get_IA_Response($_SESSION['bot1']['url'],$params[0]); //don't care about result
 	get_IA_Response($_SESSION['bot2']['url'],$params[1]); //don't care about result
 
@@ -118,9 +124,14 @@ switch ($_POST['act']){
 	 'board'	=> $_SESSION['map'],
 	 'player-index'	=> $_SESSION['currentPlayer'] - 1
       );
+      
       //send query
       $tempPlayer = get_IA_Response($botUrl,$postDatas);
-      $anwserPlayer = $tempPlayer['play'];
+      if(isset($tempPlayer['arrponseArr']['play'])){
+	$anwserPlayer = $tempPlayer['arrponseArr']['play'];
+      }else{
+	$anwserPlayer = -1;
+      }
       
       //vérifier la validité de la réponse
       if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
@@ -273,34 +284,38 @@ switch ($_POST['act']){
 	  
 	   save_battle('connectFou',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],0);
 	   $anwserToJS=array(
-	    'continue'	=> 0,
-	    'strikeX' 	=> $strikeX,
-	    'strikeY'	=> $strikeY,
-	    'strikeSymbol'=> $you,
-	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul",
-	    'gameId'      => $_SESSION['matchId']
+	      'continue'	=> 0,
+	      'strikeX' 	=> $strikeX,
+	      'strikeY'	=> $strikeY,
+	      'strikeSymbol'=> $you,
+	      'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul",
+	      'gameId'      => $_SESSION['matchId']
 	    );
 	  
 	  }else{
 	
 	    $anwserToJS=array(
-	    'continue'	=> 1,
-	    'strikeX' 	=> $strikeX,
-	    'strikeY'	=> $strikeY,
-	    'strikeSymbol'=> $you,
-	    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer,
-	    'gameId'      => $_SESSION['matchId']
+	      'continue'	=> 1,
+	      'strikeX' 	=> $strikeX,
+	      'strikeY'	=> $strikeY,
+	      'strikeSymbol'=> $you,
+	      'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer,
+	      'gameId'      => $_SESSION['matchId']
 	    );
 	  }
 	}
       
       }else{
 	//reponse non conforme
+		
 	$anwserToJS=array(
 	  'continue' =>0,
 	  'strikeX' 	=> -1,
 	  'strikeY'	=> -1,
-	  'log'	=> $you." ".$currentBotName." a fait une réponse non conforme, il perd".json_encode($tempPlayer),
+	  'log'	=> $you." ".$currentBotName." made a non conform anwser: <br/>
+			    Bots Arena sent:".$tempPlayer['messageSend']."<br/>
+			    ".$currentBotName." HTTP STATUS: ".$tempPlayer['httpStatus']."<br/>
+			    His response: ".html_entities($tempPlayer['response']),
 	  'gameId'      => $_SESSION['matchId']
 	);
         if($_SESSION['currentPlayer']==1){

@@ -332,8 +332,9 @@ function does_arena_exist($string,$arenasArr){
     return false;
 }
 
-function get_IA_Response($iaUrl,$postParams,$verbose=false){
-    //send params JSON as body
+function get_IA_Response($iaUrl,$postParams){
+    // send params JSON as body
+    // return query detail on an array
 
     $data_string = json_encode($postParams);
    
@@ -347,23 +348,17 @@ function get_IA_Response($iaUrl,$postParams,$verbose=false){
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       
     );
-    
-    if ($output= curl_exec($ch)){
-        $queryOk = true;
-        
-    
-    }else{
-        $queryOk = false;
-    
-    }
-    
-    
+    //$httpCode = curl_getinfo($ch)['http_code']; 
+    $output= curl_exec($ch);
     curl_close($ch); 
-    //echo $iaUrl." ".$data_string." ".$output.'<br/>';
-    
-    if($verbose){
-        
-    }else{
-        return json_decode($output,TRUE);
+    if(! $arr = json_decode($output,TRUE)){
+      $arr=array();
     }
+    
+    return array(
+      'messageSend' 	=> $data_string,
+      'httpStatus'  	=> $curl_getinfo($ch)['http_code'],
+      'response'	=> $output,
+      'responseArr'	=> $arr    
+    );
 }
