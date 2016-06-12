@@ -47,7 +47,7 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
         document.getElementById('fightResult').appendChild(table);
         var divLogs=createElem("div",{"id":"logs"});
         document.getElementById('fightResult').appendChild(divLogs);
-    }
+  }
   //send request  
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 

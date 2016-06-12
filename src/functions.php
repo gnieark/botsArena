@@ -280,42 +280,41 @@ function save_battle($game,$bot1,$bot2,$resultat){
         
 }
 function get_unique_id(){
+    //increment the number 
 
   $fp = fopen(__DIR__.'/../countBattles.txt', 'c+');
   flock($fp, LOCK_EX);
-
   $count = (int)fread($fp, filesize(__DIR__.'/../countBattles.txt'));
   ftruncate($fp, 0);
   fseek($fp, 0);
   fwrite($fp, $count + 1);
-
   flock($fp, LOCK_UN);
   fclose($fp);
   return $count;
 }
 function get_default_aside_content($currentArena){
   global $lang;
-    $asideSectionContent='<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
+    $asideSectionContent = '<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
     <h2>Scores</h2>';
     
     $podium=ELO_get_podium($currentArena);
     $count=0;
-    $asideSectionContent.='<ul class="podium">';
+    $asideSectionContent.= '<ul class="podium">';
     foreach($podium as $sc){
         $count++;
         
         switch($count){
             case 1:
-                $img='<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
+                $img = '<img src="/imgs/Gold_Medal.svg" alt="Gold_Medal.svg"/>';
                 break;
             case 2: 
-                $img='<img src="/imgs/Silver_Medal.svg" alt="Silver_Medal.svg"/>';
+                $img = '<img src="/imgs/Silver_Medal.svg" alt="Silver_Medal.svg"/>';
                 break;
             case 3:
-                $img='<img src="/imgs/Bronze_Medal.svg" alt="Bronze_Medal.svg"/>';
+                $img = '<img src="/imgs/Bronze_Medal.svg" alt="Bronze_Medal.svg"/>';
                 break;
             default:
-                $img='<img src="/imgs/Emoji_u1f4a9.svg" alt="caca"/>';
+                $img = '<img src="/imgs/Emoji_u1f4a9.svg" alt="caca"/>';
                 break;
         }
         
@@ -333,7 +332,7 @@ function does_arena_exist($string,$arenasArr){
     return false;
 }
 
-function get_IA_Response($iaUrl,$postParams){
+function get_IA_Response($iaUrl,$postParams,$verbose=false){
     //send params JSON as body
 
     $data_string = json_encode($postParams);
@@ -348,8 +347,23 @@ function get_IA_Response($iaUrl,$postParams){
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       
     );
-    $output= curl_exec($ch);
+    
+    if ($output= curl_exec($ch)){
+        $queryOk = true;
+        
+    
+    }else{
+        $queryOk = false;
+    
+    }
+    
+    
     curl_close($ch); 
     //echo $iaUrl." ".$data_string." ".$output.'<br/>';
-    return json_decode($output,TRUE);
+    
+    if($verbose){
+        
+    }else{
+        return json_decode($output,TRUE);
+    }
 }
