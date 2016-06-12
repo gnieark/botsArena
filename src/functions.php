@@ -357,7 +357,7 @@ function get_IA_Response($iaUrl,$postParams){
     
     return array(
       'messageSend' 	=> $data_string,
-      'httpStatus'  	=> $curl_getinfo($ch)['http_code'],
+      'httpStatus'  	=> curl_getinfo($ch)['http_code'],
       'response'	=> $output,
       'responseArr'	=> $arr    
     );
