@@ -350,9 +350,7 @@ function get_IA_Response($iaUrl,$postParams){
     );
 
     $output= curl_exec($ch);
-    $httpCode = curl_getinfo($ch);
-    print_r($httpCode);
-    
+    $httpCode = curl_getinfo($ch)['http_code'];    
     curl_close($ch); 
     if(! $arr = json_decode($output,TRUE)){
       $arr=array();
