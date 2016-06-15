@@ -1,4 +1,15 @@
 <?php
+#- BEGIN LICENSE BLOCK ---------------------------------------
+#
+# This file is part of botsArena.
+#
+# Copyright (C) Gnieark https://blog-du-grouik.tinad.fr et contributeurs
+# Licensed under the GPL version 3.0 license.
+# See LICENSE file or
+# http://www.gnu.org/licenses/gpl-3.0-standalone.html
+#
+# -- END LICENSE BLOCK -----------------------------------------
+
 function is_it_possible_to_place_ships_on_grid($gridWidth,$gridHeight,$nbShipsSize1,$nbShipsSize2,$nbShipsSize3,$nbShipsSize4,$nbShipsSize5,$nbShipsSize6){
   //return false or true
   //not a perfect solution
