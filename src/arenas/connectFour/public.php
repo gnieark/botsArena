@@ -1,8 +1,6 @@
 <?php
 require_once(__DIR__."/functions.php");
-
 $bots=get_Bots_Array('connectFou');
-
 ?>
 <article>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
