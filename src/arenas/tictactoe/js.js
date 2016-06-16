@@ -22,5 +22,5 @@ function tictactoe(bot1,bot2,xd_check,fullLogs){
     }};
     xhr.open("POST", '/tictactoe',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&fulLLogs=' + fullLogs + '&xd_check=' + xd_check);
+    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&fullLogs=' + fullLogs + '&xd_check=' + xd_check);
 }
