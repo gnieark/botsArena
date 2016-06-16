@@ -13,11 +13,11 @@ function Ajx(){
     return request;
 }
 function addLog(message){
-  //var divLogs = document.getElementById("logs");
+  var divLogs = document.getElementById("logs");
   var p=createElem('p',{});
   p.innerHTML=message;
-  document.getElementById("logs").appendChild(p); 
-  //divLogs.scrollTop = divLogs.scrollHeight;
+  divLogs.appendChild(p); 
+  divLogs.scrollTop = divLogs.scrollHeight;
   
 }
 function createElem(type,attributes){
