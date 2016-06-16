@@ -41,6 +41,6 @@ if(!$postParams){
 			</select>
 		</p>
 		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
-	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tictactoe(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',document.getElementById("fullLogs").checked);"></p>
+	<p><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tictactoe(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',document.getElementById('fullLogs').checked);"></p>
     <div id="fightResult"></div>
 </article>
