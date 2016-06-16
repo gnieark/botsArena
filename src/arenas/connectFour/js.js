@@ -17,7 +17,7 @@ function addLog(message){
   var p=createElem('p',{});
   p.innerHTML=message;
   divLogs.appendChild(p); 
-  divLogs.scrollTop = divLogs.scrollHeight;
+  //divLogs.scrollTop = divLogs.scrollHeight;
   
 }
 function createElem(type,attributes){
