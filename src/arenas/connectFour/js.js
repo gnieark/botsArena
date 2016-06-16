@@ -13,9 +13,12 @@ function Ajx(){
     return request;
 }
 function addLog(message){
+  var divLogs = document.getElementById("logs");
   var p=createElem('p',{});
   p.innerHTML=message;
-  document.getElementById('logs').appendChild(p); 
+  divLogs.appendChild(p); 
+  divLogs.scrollTop = divLogs.scrollHeight;
+  
 }
 function createElem(type,attributes){
     var elem=document.createElement(type);
@@ -57,9 +60,6 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
       if(xhr.status  == 200) {
-        //for test
-        // alert(xhr.responseText);
-          
         try{
             var reponse = JSON.parse(xhr.responseText);  
         }catch(e){
@@ -85,7 +85,6 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	    
 	}
 	
-	
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
             connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
@@ -108,5 +107,5 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
     }else{
         var act='fight';
     }
-    xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&gameId=' + gameId);
+    xhr.send('act=' + act + '&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&gameId=' + gameId + '&fullLogs=' + document.getElementById("fullLogs").checked);
 }

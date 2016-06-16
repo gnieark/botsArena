@@ -132,7 +132,15 @@ switch ($_POST['act']){
                 }else{
                     $anwserPlayer = -1;
                 }
-                
+
+                if($_POST['fullLogs'] == "true"){
+                 $fullLogs='Arena send to '.$currentBotName.'<em>'.htmlentities($tempPlayer['messageSend']).'</em><br/>
+                 HTTP status: <em>'.htmlentities($tempPlayer['httpStatus']).'</em><br/>
+                 Bot anwser: <em>'.htmlentities($tempPlayer['response']).'</em><br/>';
+                    
+                }else{
+                    $fullLogs='';
+                }
                 //vérifier la validité de la réponse
                 if((isset($_SESSION['map'][5][$anwserPlayer])) && ($_SESSION['map'][5][$anwserPlayer] == "")){
                     //reponse conforme
@@ -258,7 +266,7 @@ switch ($_POST['act']){
                             'strikeX' 	=> $strikeX,
                             'strikeY'	=> $strikeY,
                             'strikeSymbol'=> $you,
-                            'log'		=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné",
+                            'log'		=> $fullLogs.$you." ".$currentBotName." joue colonne ". $anwserPlayer." et a gagné",
                             'cellsWin'	=> json_encode($cellsWin),
                             'gameId'      => $_SESSION['matchId']
                             );
@@ -288,7 +296,7 @@ switch ($_POST['act']){
                                     'strikeX' 	=> $strikeX,
                                     'strikeY'	=> $strikeY,
                                     'strikeSymbol'=> $you,
-                                    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul",
+                                    'log'	=> $fullLogs.$you." ".$currentBotName." joue colonne ". $anwserPlayer." match nul",
                                     'gameId'      => $_SESSION['matchId']
                                     );
                                     
@@ -299,7 +307,7 @@ switch ($_POST['act']){
                                     'strikeX' 	=> $strikeX,
                                     'strikeY'	=> $strikeY,
                                     'strikeSymbol'=> $you,
-                                    'log'	=> $you." ".$currentBotName." joue colonne ". $anwserPlayer,
+                                    'log'	=> $fullLogs.$you." ".$currentBotName." joue colonne ". $anwserPlayer,
                                     'gameId'      => $_SESSION['matchId']
                                     );
                             }
@@ -312,10 +320,7 @@ switch ($_POST['act']){
                             'continue' =>0,
                             'strikeX' 	=> -1,
                             'strikeY'	=> -1,
-                            'log'	=> $you." ".$currentBotName." made a non conform anwser: <br/>
-                            Bots Arena sent:<em>".$tempPlayer['messageSend']."</em><br/>
-                            ".$currentBotName." HTTP STATUS:<em> ".$tempPlayer['httpStatus']."</em><br/>
-                            His response: <em>".htmlentities($tempPlayer['response'])."</em>",
+                            'log'	=> $fullLogs.$you." ".$currentBotName." made a non conform anwser.",
                             'gameId'      => $_SESSION['matchId']
                             );
                             if($_SESSION['currentPlayer']==1){
