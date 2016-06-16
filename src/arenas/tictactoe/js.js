@@ -12,7 +12,7 @@ function Ajx(){
 	}
     return request;
 }
-function tictactoe(bot1,bot2,xd_check){
+function tictactoe(bot1,bot2,xd_check,fullLogs){
   document.getElementById('fightResult').innerHTML = '<p>Please wait...</p>';
   var xhr = Ajx(); 
   xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
@@ -22,5 +22,5 @@ function tictactoe(bot1,bot2,xd_check){
     }};
     xhr.open("POST", '/tictactoe',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check);
+    xhr.send('act=fight&bot1=' + bot1 + '&bot2=' + bot2 + '&fulLLog' = fullLogs + '&xd_check=' + xd_check);
 }

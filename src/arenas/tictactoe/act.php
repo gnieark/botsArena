@@ -78,10 +78,20 @@ switch ($_POST['act']){
                         $playerResponse = -1;
                     }
                     
+                    
+                    if($_POST['fullLogs'] == "true"){
+                        $fullLogs='Arena send to '.$playerName.'<em>'.htmlentities($tempPlayer['messageSend']).'</em><br/>
+                        HTTP status: <em>'.htmlentities($tempPlayer['httpStatus']).'</em><br/>
+                        Bot anwser: <em>'.htmlentities($tempPlayer['response']).'</em><br/>';
+                        
+                    }else{
+                        $fullLogs='';
+                    }
+                    
                     //tester la validité de la réponse
                     if((isset($map[$playerResponse])) && ($map[$playerResponse]=="")){
                         //reponse conforme
-                        echo  "<p>".$playerName." joue en ".$playerResponse." la nouvelle grille est <br/>";       
+                        echo  "<p>".$fullLogs.$playerName." joue en ".$playerResponse." la nouvelle grille est <br/>";       
                         $map[$playerResponse]=$playerCHAR;
                         echo "<table>";
                         for($j=0;$j<3;$j++){
