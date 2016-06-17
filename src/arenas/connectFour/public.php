@@ -22,6 +22,6 @@ $bots=get_Bots_Array('connectFou');
 			</select>
 		</p>
 		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
-	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="connectFour(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0);"></p>
+	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="connectFour(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0,document.getElementById(fullLogs).checked);"></p>
     <div id="fightResult"></div>
 </article>
