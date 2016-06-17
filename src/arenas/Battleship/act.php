@@ -50,7 +50,6 @@ switch ($_POST['act']){
 	      die;
 	}
 	$postValues[$p[0]]=$value;
-		
       }
       //check if bots exists
       $bot1Exists = false;
