@@ -300,7 +300,7 @@ switch ($_POST['act']){
                     if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
                         echo json_encode(array(
                             'target' => '',
-                            'log' => $currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
+                            'log' => $fullLogs.$currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
                             ));
                             save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent); 
                             die;
@@ -357,7 +357,7 @@ switch ($_POST['act']){
                         echo json_encode(array(
                             'opponent'=> $opponent,
                             'target' => $x.",".$y,
-                            'log' => $currentBot['name']." tire en ".$x.",".$y." ".$result,
+                            'log' => $fullLogs.$currentBot['name']." tire en ".$x.",".$y." ".$result,
                             'continue' => $continue
                             ));
                             
