@@ -56,6 +56,6 @@ if(!$postParams){
                 </select></em>
         </p>
         <p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
-	<p><label>&nbsp;</label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,getElementById('width').value,getElementById('height').value,getElementById('ship1').value,getElementById('ship2').value,getElementById('ship3').value,getElementById('ship4').value,getElementById('ship5').value,getElementById('ship6').value,'<?php echo xd_check_input(2); ?>');"></p>
+	<p><label>&nbsp;</label><input type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="battleship(document.getElementById('bot1').value,document.getElementById('bot2').value,getElementById('width').value,getElementById('height').value,getElementById('ship1').value,getElementById('ship2').value,getElementById('ship3').value,getElementById('ship4').value,getElementById('ship5').value,getElementById('ship6').value,'<?php echo xd_check_input(2); ?>',document.getElementById('fullLogs').checked);"></p>
     <div id="fightResult"></div>
 </article>
