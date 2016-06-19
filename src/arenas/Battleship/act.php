@@ -111,7 +111,7 @@ switch ($_POST['act']){
                 'game-id'   => $_SESSION['matchId'],
                 'game'      => 'battleship',
                 'action'    => 'init',
-                'players'    => 2
+                'players'    => 2,
                 'player-index'   => $player -1,
                 'board'  => array(
                     'opponent'  => $opponentName,
