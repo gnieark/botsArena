@@ -239,7 +239,11 @@ switch ($_POST['act']){
             
             break;
             case "fight":
-                
+                if($_POST['fullLogs'] == 'true'){
+                        $fullLogs = true;
+                }else{
+                    $fullLogs = false;
+                }
                 if(count($_SESSION['strikes'][1]) == count($_SESSION['strikes'][2])){
                     //player 1 has to fight
                     $currentPlayer=1;

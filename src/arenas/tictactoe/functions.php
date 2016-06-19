@@ -1,4 +1,15 @@
 <?php
+#- BEGIN LICENSE BLOCK ---------------------------------------
+#
+# This file is part of botsArena.
+#
+# Copyright (C) Gnieark et contributeurs
+# Licensed under the GPL version 3.0 license.
+# See LICENSE file or
+# http://www.gnu.org/licenses/gpl-3.0-standalone.html
+#
+# -- END LICENSE BLOCK -----------------------------------------
+
 function get_Post_Params($botsCount){
       $keysBots=array('bot1','bot2');
       foreach($keysBots as $botKey){
@@ -15,22 +26,3 @@ function get_Post_Params($botsCount){
       }
       return array('bot1' => $_POST['bot1'],'bot2' => $_POST['bot2']);
 }
-
-
-
-
-/*
-function get_Bots_Array(){
-  //Recupérer la liste des Bots
-  $bots=array();
-  $botsList=explode("\n",file_get_contents(__DIR__."/listOfBots.txt"));
-  
-  foreach($botsList as $botLigne){
-    if(preg_match("/\ (http|https):\/\//", $botLigne)){
-      list($name,$url)=explode(" ",$botLigne);
-      $bots[]=array("name" => $name, "url" =>$url);
-    }
-  }
-  return $bots;
-}
-*/

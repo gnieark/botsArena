@@ -1,4 +1,15 @@
 <?php
+#- BEGIN LICENSE BLOCK ---------------------------------------
+#
+# This file is part of botsArena.
+#
+# Copyright (C) Gnieark et contributeurs
+# Licensed under the GPL version 3.0 license.
+# See LICENSE file or
+# http://www.gnu.org/licenses/gpl-3.0-standalone.html
+#
+# -- END LICENSE BLOCK -----------------------------------------
+
 $rs=mysqli_query($lnMysql,"SELECT 1 FROM bots_modifs WHERE validate_secret='".mysqli_real_escape_string($lnMysql,$_GET['params'])."';");
 if(!$r=mysqli_fetch_row($rs)){
     error(404,"Page doesn't exist");
