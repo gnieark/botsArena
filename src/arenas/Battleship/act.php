@@ -138,8 +138,8 @@ switch ($_POST['act']){
                 
                 
             ;
-            print_r($anwserPlayerJson);
-            if(!isset($anwserPlayerJson['boats'])){
+            
+            if(!isset($anwserPlayerJson['reponse']['boats'])){
             
                 echo $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd 1.";
                 if($player==1){
