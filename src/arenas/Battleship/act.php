@@ -137,9 +137,11 @@ switch ($_POST['act']){
                 
                 
                 
-            $boatsPlayer = json_decode( html_entity_decode($anwserPlayer));
-            if(!$boatsPlayer){
-                echo $currentBot['name']." a fait une réponse non conforme, il perd.".$anwserPlayer;
+            ;
+            
+            if(!isset($anwserPlayerJson['boats'])){
+            
+                echo $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd.".$anwserPlayer;
                 if($player==1){
                     save_battle('Battleship',$bot1['name'],$bot2['name'],2);
                 }else{
@@ -147,6 +149,8 @@ switch ($_POST['act']){
                 }
                 die;
             }
+            
+            $boatsPlayer = $anwserPlayerJson['boats']
             
             //init grid
             for($y = 0; $y < $postValues['gridHeight']; $y++){
@@ -209,7 +213,7 @@ switch ($_POST['act']){
             }
             foreach($nbBoatsIwant as $nb){
                 if($nb <> 0){
-                    echo $currentBot['name']." n'a pas placé le bon nombre de bateaux. Il perd.";
+                    echo $fullLogs.$currentBot['name']." n'a pas placé le bon nombre de bateaux. Il perd.";
                     if($player==1){
                         save_battle('Battleship',$bot1['name'],$bot2['name'],2);
                     }else{
