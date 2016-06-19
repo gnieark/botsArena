@@ -271,7 +271,7 @@ switch ($_POST['act']){
                         'ship6'             => $_SESSION['ship6'],
                         'your_strikes'	=> $_SESSION['strikes'][$currentPlayer],
                         'his_strikes'	=> $_SESSION['strikes'][$opponent]
-                    
+                        )
                     );
                     $anwserPlayerJson=get_IA_Response($currentBot['url'],$botParamsToSend); 
                     if($fullLogs){
