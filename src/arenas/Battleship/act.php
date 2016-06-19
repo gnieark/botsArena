@@ -288,7 +288,8 @@ switch ($_POST['act']){
                     }
                
                     
-                    if(!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['play'])){
+                    if ((!isset($anwserPlayerJson['play']))
+                        OR (!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['play']))){
                         echo json_encode(array(
                             'target' => '',
                             'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
