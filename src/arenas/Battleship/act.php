@@ -141,7 +141,7 @@ switch ($_POST['act']){
             
             if(!isset($anwserPlayerJson['boats'])){
             
-                echo $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd.";
+                echo $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd 1.";
                 if($player==1){
                     save_battle('Battleship',$bot1['name'],$bot2['name'],2);
                 }else{
