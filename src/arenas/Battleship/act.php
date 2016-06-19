@@ -137,7 +137,7 @@ switch ($_POST['act']){
                 
                 
                 
-            ;
+            
             
             if(!isset($anwserPlayerJson['responseArr']['boats'])){
             
@@ -255,29 +255,38 @@ switch ($_POST['act']){
                 }
                 
                 $botParamsToSend=array(
-                    'game'      => 'Battleship',
-                    'match_id'  => $_SESSION['matchId']."-".$currentPlayer,
-                    'act'       => 'fight',
-                    'opponent'  => $opponentName,
-                    'width'     => $_SESSION['width'],
-                    'height'    => $_SESSION['height'],
-                    'ship1'     => $_SESSION['ship1'],
-                    'ship2'     => $_SESSION['ship2'],
-                    'ship3'     => $_SESSION['ship3'],
-                    'ship4'     => $_SESSION['ship4'],
-                    'ship5'     => $_SESSION['ship5'],
-                    'ship6'     => $_SESSION['ship6'],
-                    'your_strikes'	=> json_encode($_SESSION['strikes'][$currentPlayer]),
-                    'his_strikes'	=> json_encode($_SESSION['strikes'][$opponent])
+                    'game'              => 'Battleship',
+                    'game-id'           => $_SESSION['matchId']."-".$currentPlayer,
+                    'action'            => 'play-turn',
+                    'player-index'      => $currentPlayer - 1,
+                    'board'  => array(
+                    'opponent'          => $opponentName,
+                        'width'             => $_SESSION['width'],
+                        'height'            => $_SESSION['height'],
+                        'ship1'             => $_SESSION['ship1'],
+                        'ship2'             => $_SESSION['ship2'],
+                        'ship3'             => $_SESSION['ship3'],
+                        'ship4'             => $_SESSION['ship4'],
+                        'ship5'             => $_SESSION['ship5'],
+                        'ship6'             => $_SESSION['ship6'],
+                        'your_strikes'	=> $_SESSION['strikes'][$currentPlayer],
+                        'his_strikes'	=> $_SESSION['strikes'][$opponent]
                     
                     );
-                    $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
+                    $anwserPlayerJson=get_IA_Response($currentBot['url'],$botParamsToSend); 
+                    if($fullLogs){
+                        $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayerJson['messageSend']).'</em><br/>
+                        HTTP status: <em>'.htmlentities($anwserPlayerJson['httpStatus']).'</em><br/>
+                        Bot anwser: <em>'.htmlentities($anwserPlayerJson['response']).'</em><br/>';
+                    }else{
+                        $fullLogs="";
+                    }
+               
                     
-                    if(!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayer)){
+                    if(!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayer['responseArr']['play'])){
                         echo json_encode(array(
                             'target' => '',
-                            'log' => $currentBot['name']." a fait une réponse non conforme, il perd.".$anwserPlayer
-                            ));
+                            'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
                             save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
                             die;
                     }
