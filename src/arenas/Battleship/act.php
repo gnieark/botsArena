@@ -287,14 +287,14 @@ switch ($_POST['act']){
                     }
                
                     
-                    if(!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayer['responseArr']['play'])){
+                    if(!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['responseArr']['play'])){
                         echo json_encode(array(
                             'target' => '',
                             'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
                             save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
                             die;
                     }
-                    list($x,$y)=explode(",",$anwserPlayer);
+                    list($x,$y)=explode(",",$anwserPlayerJson['responseArr']['play']);
                     
                     //check if shot is under map's limits
                     if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
