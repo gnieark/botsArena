@@ -280,9 +280,9 @@ switch ($_POST['act']){
                     $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
                     $anwserPlayerJson=$anwserPlayer['responseArr'];
                     if($fullLogs){
-                        $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayerJson['messageSend']).'</em><br />
-                        HTTP status: <em>'.htmlentities($anwserPlayerJson['httpStatus']).'</em><br />
-                        Bot anwser: <em>'.htmlentities($anwserPlayerJson['response']).'</em><br />';
+                        $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayer['messageSend']).'</em><br />
+                        HTTP status: <em>'.htmlentities($anwserPlayer['httpStatus']).'</em><br />
+                        Bot anwser: <em>'.htmlentities($anwserPlayer['response']).'</em><br />';
                     }else{
                         $fullLogs="";
                     }
