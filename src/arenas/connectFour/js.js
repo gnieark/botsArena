@@ -68,7 +68,9 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
         }
         //log
          addLog(reponse['log']);
-         
+         if(newGame){
+          gameId = reponse['gameId'];
+         }
         //fill the grid
         if( reponse['strikeX'] > -1){
 	   document.getElementById('td' + reponse['strikeX'] + '_' + reponse['strikeY']).innerHTML = reponse['strikeSymbol'];
@@ -87,7 +89,7 @@ function connectFour(bot1,bot2,xd_check, gameId, newGame){
 	
 	//if game isn't finished, continue
 	if(reponse['continue'] == 1){
-            connectFour(bot1,bot2,xd_check,reponse['gameId'], false);
+            connectFour(bot1,bot2,xd_check,gameId, false);
         }else{
              document.getElementById('fightButton').disabled=false;
         }
