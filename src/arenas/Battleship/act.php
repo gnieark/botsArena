@@ -150,7 +150,7 @@ switch ($_POST['act']){
                 die;
             }
             
-            $boatsPlayer = $anwserPlayerJson['boats']
+            $boatsPlayer = $anwserPlayerJson['boats'];
             
             //init grid
             for($y = 0; $y < $postValues['gridHeight']; $y++){
