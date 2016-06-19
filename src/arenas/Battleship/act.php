@@ -139,7 +139,7 @@ switch ($_POST['act']){
                 
             ;
             
-            if(!isset($anwserPlayerJson['response']['boats'])){
+            if(!isset($anwserPlayerJson['responseArr']['boats'])){
             
                 echo $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd 1.";
                 if($player==1){
