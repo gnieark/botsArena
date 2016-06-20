@@ -95,7 +95,7 @@ switch ($_POST['act']){
         //******vars checked, lets init the initGame *******
             
         $_SESSION['matchId']=get_unique_id();
-        
+        $grid['logs'] = array();
         
         for($player = 1; $player <= 2; $player++){
             
@@ -182,6 +182,8 @@ switch ($_POST['act']){
                         save_battle('Battleship',$bot1['name'],$bot2['name'],1);
                     }
                     die;
+                }else{
+		  $grid['logs'][] = $fullLogs.$currentBot['name']." put his ships on the map.";
                 }
                 //remember each cases of each boats
                 $boatListOfCases=array();
@@ -260,7 +262,7 @@ switch ($_POST['act']){
                 
                 $botParamsToSend=array(
                     'game'              => 'Battleship',
-                    'game-id'           => $_SESSION['matchId']."-".$currentPlayer,
+                    'game-id'           => $_SESSION['matchId'],
                     'action'            => 'play-turn',
                     'player-index'      => $currentPlayer - 1,
                     'board'  => array(

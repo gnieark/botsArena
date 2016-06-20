@@ -131,9 +131,11 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
                     }
             }
         }
-        var p=createElem("p");
-        p.innerHTML='players placed theirs ships';
-        document.getElementById('logs').appendChild(p);
+        for each (var lo in grid['logs']){
+	  var p=createElem("p");
+	  p.innerHTML='o;
+	  document.getElementById('logs').appendChild(p);
+	}
         fight(xd_check,fullLogs);
     }
 				
