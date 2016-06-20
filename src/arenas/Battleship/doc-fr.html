@@ -17,17 +17,16 @@
     <li><em>game</em> string identifiant le jeu. Ici, ce sera forcément tictactoe. ça peut servir si vous donnez une seule URL pour plusieurs bots.</li>
     <li><em>players</em> Int indiquant le nombre de joueurs dans la partie, toujours 2 au morpion.</li>
     <li><em>player-index</em> int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
-     <li><em>board</em>
+     <li><em>board</em> un tableau vous donnant les parametres:
       <ul>
-	<li>opponent</li>
-	<li>width</li>
-	<li>height</li>
-	<li>ship1</li>
-	<li>ship2</li>
-	<li>ship3</li>
-	<li>ship4</li>
-	<li>ship5</li>
-	<li>ship6</li>
+	<li><em>opponent</em> Chaîne de caractères identifiant votre adversaire.
+Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier. </li>
+	<li><em>width</em>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</li>
+	<li><em>height</em>Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</li>
+	<li><em>ship1</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</li>
+	<li><em>ship2</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</li>
+	<li>...</li>
+	<li><em>ship6</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</li>
      </ul>
      </li>
    </ul>
