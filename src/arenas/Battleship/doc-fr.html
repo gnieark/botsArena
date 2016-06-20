@@ -1,155 +1,45 @@
-<p>
-    La bataille navale se joue en deux phases :
-</p>
+<h1>Fonctionnement de la bataille navale</h1>
+<p>Elle se joue en deux phases</p>
 <ul>
     <li>Placement des bateaux sur les maps</li>
     <li>Echange de tirs</li>
 </ul>
-<p>
-    A chaque tour de jeu l'arène fait des requetes http(s) contenant des paramètres de type POST, vers vos bots.<br/>
-    Ces derniers doivent répondre selon les spécifications ci dessous.
-</p>
-<h2>Descriptif des paramètres envoyés par l'arène</h2>
-<table class="tabledoc">
-    <tr>
-        <th>Paramètre</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>game</td>
-        <td>
-            Chaîne de caractères, sera toujours "Battleship".<br/>
-            Peut servir si votre url sert à plusieurs jeux.
-        </td>
-    </tr>
-    <tr>
-        <td>match_id</td>
-        <td>
-            Chaîne de caractères. Répond à l'expression régulière suivante: ^[0-9]+-(1|2)$<br/>
-            Le premier nombre (digits avant le tiret) identifie le match.<br/>
-            Le numéro après le tiret vous indique si vous êtes le bot 1 ou le bot 2 dans l'ordre de jeu.<br/>
-            Ça vous servira si votre IA fait des statistiques sur les matchs.
-        </td>
-    </tr>
-    <tr>
-        <td>act</td>
-        <td>
-            Peut prendre deux valeurs :<br/>
-            <ul>
-                <li>"init" : On démarre la partie, vous devez placer vos bateaux</li>
-                <li>"fight" : Vous envoyez un tir</li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td>opponent</td>
-        <td>
-            Chaîne de caractères identifiant votre adversaire.<br/>
-            Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier.
-        </td>
-    </tr>
-    <tr>
-        <td>width</td>
-        <td>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</td>
-    </tr>
-    <tr>
-        <td>height</td>
-        <td>Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</td>
-    </tr>
-    <tr>
-        <td>ship1</td>
-        <td>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</td>
-    </tr>
-    <tr>
-        <td>ship2</td>
-        <td>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</td>
-    </tr>
-    <tr>
-        <td>...</td>
-        <td>...</td>
-    </tr>
-    <tr>
-        <td>ship6</td>
-        <td>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</td>
-    </tr>
-    <tr>
-        <td>your_strikes</td>
-        <td>
-            <p>
-                Chaîne de caractères représentant un array au format JSON.<br/>
-                Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight).<br/>
-                Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
-                Lors du premier tour de jeu, il représente un array vide.
-            </p>
-            <p>
-                <i>[ ]</i>
-            </p>
-            <p>
-                Lors du deuxième tour de jeu, il contient le tir précédent et son résultat :
-            </p>
-            <p>
-                <i>[{"target":"2,0","result":""}]</i>
-            </p>
-            <p>
-                Lors du troisième tour de jeu, les deux tirs précédents :
-            </p>
-            <p>
-                <i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</i>
-            </p>
-            <p>
-                Chaque tir est un sous array pour lesquels:
-            </p>
-            <ul>
-                <li>L'index target indique les coordonnées du tir x,y</li>
-                <li>
-                    result peut être :
-                    <ul>
-                        <li>Vide "" signifie que le tir n'a rien touché</li>
-                        <li>"hit" Un navire ennemi a été touché</li>
-                        <li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td>his_strikes</td>
-        <td>Idem sauf qu'il s'agit du tir de l'adversaire.</td>
-    </tr>
-</table>
-<h2>Ce que doit retourner votre bot</h2>
-<h3>Lors de l'initialisation de la partie</h3>
-<p>
-    Lors de l'initialisation d'une partie StupidIA VS StupidsIA, l'arène a envoyé au bot les parametres POST suivants :
-</p>
-<pre>
-    game=Battleship&amp;match_id=828-1&amp;act=init&amp;opponent=stupidIA&amp;width=10&amp;height=10&amp;ship1=0&amp;ship2=1&amp;ship3=2&amp;ship4=1&amp;ship5=1&amp;ship6=0
-</pre>
-<p>
-    Soit, sous forme plus lisible :
-</p>
-<pre>
-    [game] => Battleship
-    [match_id] => 828-1
-    [act] => init
-    [opponent] => stupidIA
-    [width] => 10
-    [height] => 10
-    [ship1] => 0
-    [ship2] => 1
-    [ship3] => 2
-    [ship4] => 1
-    [ship5] => 1
-    [ship6] => 0
-</pre>
-<p>
-    La page http que doit générer votre bot contient la position des navires.
-</p>
-<p>
-    Vous retournez une chaine de caractères qui est un tableau JSON ayant autant d'enregistrements que de navires.<br/>
-    Chaque navire est défini par les coordonnées de ses extrémités.
-</p>
+<h2>Communications entre l'arène et votre bot</h2>
+<p>Pour communiquer, l'arène (le serveur hébergeant botsarena) fait des requetes http(s) de type POST vers les bots. Le message est dans le corps de la requête au format JSON.</p>
+<p>Votre bot répond par un array au format JSON.</p>
+<h3>Message d'initialisation de votre partie</h3>
+  l'arène envoie le message suivant:
+  <pre>{"game-id":1609,"game":"battleship","action":"init","players":2,"player-index":0,"board":{"opponent":"stupidIA","width":"10","height":"10","ship1":"0","ship2":"1","ship3":"2","ship4":"1","ship5":"1","ship6":"0"}}</pre>
+  <p>Si on décompose le tableau pour l'expliquer:</p>
+  <ul>
+    <li><em>game-id</em> string identifiant la partie.</li>
+    <li><em>action</em> string identifiant la phase, <em>init</em> tout de suite, sera  <em>play-turn</em> dans le châpitre suivant.</li>
+    <li><em>game</em> string identifiant le jeu. Ici, ce sera forcément battleship. ça peut servir si vous donnez une seule URL pour plusieurs bots.</li>
+    <li><em>players</em> Int indiquant le nombre de joueurs dans la partie, toujours 2 à la bataille navale.</li>
+    <li><em>player-index</em> int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+     <li><em>board</em> un tableau vous donnant les parametres:
+      <ul>
+	<li><em>opponent</em> Chaîne de caractères identifiant votre adversaire.
+Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier. </li>
+	<li><em>width</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</li>
+	<li><em>height</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</li>
+	<li><em>ship1</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</li>
+	<li><em>ship2</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</li>
+	<li>...</li>
+	<li><em>ship6</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</li>
+     </ul>
+     </li>
+   </ul>
+  <p>Votre bot doit retourner le nom de votre bot et le placement de vos bateaux au format JSON:</p>
+  <pre>
+  {"name":"gnieark","boats":["4,2-4,6","3,3-3,0","2,3-2,1","7,9-5,9","6,8-6,7"]}
+  </pre>
+   <ul>
+    <li><em>name</em> Le nom de votre bot (actuellment non pris en compte par cette arène).</li>  
+    <li><em>boats</em> Tableau indiquant le placement de vos bateaux</li>
+  </ul>
 <ul>
+<h3>boats</h3>
     <li>La grille commence au point 0,0.</li>
     <li>Les entiers, ordonnée et abscisses, définissant un point, sont séparés d'une virgule &quot;,&quot;.</li>
     <li>Les deux points définissant les extrémités d'un navire sont séparés par un tiret &quot;-&quot;.</li>
@@ -313,65 +203,70 @@
         <td class="empty" id="bot1-9-9"></td>
     </tr>
 </table>
-<h3>Lors du combat</h3>
-<p>
-    Voici quelques exemples des parametres envoyés par l'arène.
-</p>
-<h4>Premier tour de jeu (your_strikes et his_strikes sont vides)</h4>
-<pre>
-    [game] => Battleship
-    [match_id] => 834-1
-    [act] => fight
-    [opponent] => stupidIA
-    [width] => 10
-    [height] => 10
-    [ship1] => 0
-    [ship2] => 1
-    [ship3] => 2
-    [ship4] => 1
-    [ship5] => 1
-    [ship6] => 0
-    [your_strikes] => []
-    [his_strikes] => []
-</pre>
-<h4>Deuxième tour de jeu</h4>
-<pre>
-    [game] => Battleship
-    [match_id] => 834-1
-    [act] => fight
-    [opponent] => stupidIA
-    [width] => 10
-    [height] => 10
-    [ship1] => 0
-    [ship2] => 1
-    [ship3] => 2
-    [ship4] => 1
-    [ship5] => 1
-    [ship6] => 0
-    [your_strikes] => [{"target":"4,6","result":""}]
-    [his_strikes] => [{"target":"7,8","result":""}]
-</pre>
-<h4>Troisième tour de jeu</h4>
-<pre>
-    [game] => Battleship
-    [match_id] => 834-1
-    [act] => fight
-    [opponent] => stupidIA
-    [width] => 10
-    [height] => 10
-    [ship1] => 0
-    [ship2] => 1
-    [ship3] => 2
-    [ship4] => 1
-    [ship5] => 1
-    [ship6] => 0
-    [your_strikes] => [{"target":"4,6","result":""},{"target":"3,9","result":"hit"}]
-    [his_strikes] => [{"target":"7,8","result":""},{"target":"7,8","result":""}]
-</pre>
-<h4>Vous devez tout simplement retourner l'adresse de la case sur laquelle vous souhaitez tirer sous forme de x,y</h4>
-<pre>
-    6,9
-</pre>
-<p>
-    Pour tirer aux coordonnées x=6 y=9
-</p>
+
+  <h3>Message vous demandant de jouer (seulement un tour)</h3>
+  <p>L'arène vous envoie par exemple le message suivant:</p>
+  <pre>{"game":"Battleship","game-id":1615,"action":"play-turn","player-index":1,"board":{"opponent":"stupidIA","width":"10","height":"10","ship1":"0","ship2":"1","ship3":"2","ship4":"1","ship5":"1","ship6":"0","your_strikes":[{"target":"4,3","result":""},{"target":"9,8","result":""}],"his_strikes":[{"target":"2,2","result":""},{"target":"0,6","result":""},{"target":"7,0","result":""}]}}</pre>
+   <ul>
+    <li><em>game-id</em> String identifiant la partie.</li>
+    <li><em>action</em> String identifiant la phase, <em>play-turn</em> tout de suite, qui vous indique que vous devez jouer.</li>
+    <li><em>game</em> String identifiant le jeu. Ici, ce sera forcément battleship. ça peut servir si vous donnez une seulle URL pour plusieurs bots.</li>
+    <li><em>players</em> Int indiquant le nombre de joueurs dans la partie, toujours 2 à la bataille navale.</li>
+    <li><em>board</em> La carte je donne le détail ci dessous</li>
+    <li><em>you</em> String, Votre caractère dans la grille</li>
+    <li><em>player-index</em> Int, L'ordre de votre bot dans les tours de jeu. Le premier joueur a la valeur 0, le deuxième 1.</li>
+  </ul>  
+  <h4>la map</h4>
+  <p>Elle est représentée par les éléments d'écrits à l'étape précédente et par deux sous tableaux your_strikes et his strikes</p>
+     <ul>
+	<li><em>opponent</em> Chaîne de caractères identifiant votre adversaire.
+Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier. </li>
+	<li><em>width</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</li>
+	<li><em>height</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</li>
+	<li><em>ship1</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</li>
+	<li><em>ship2</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</li>
+	<li>...</li>
+	<li><em>ship6</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</li>
+	<li><em>your_strikes</em> tableau vous indiquant vos tirs précédents et eur résultat</li>
+	<li><em>his_strikes</em> Idem, mais pour l'adversaire. Si ce dernier tire selon un modèle prédisible, vous saurez comment comment placer vos bateaux lors de la prochaine partie</li>
+	</ul>
+    <h4> your_strikes et his_strikes</h4>
+    
+    <p>Chaîne de caractères représentant un array au format JSON.<br/>
+    Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight).<br/>
+    Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
+    Lors du premier tour de jeu, il représente un array vide:
+    </p>
+    <pre>[ ]</pre>
+    <p>
+	Lors du deuxième tour de jeu, il contient le tir précédent et son résultat :
+    </p>
+    <pre>[{"target":"2,0","result":""}]</pre>
+    <p>
+	Lors du troisième tour de jeu, les deux tirs précédents :
+    </p>
+    <pre>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</pre>
+    <p>
+	Chaque tir est un sous array pour lesquels:
+    </p>
+    <ul>
+	<li>L'index target indique les coordonnées du tir x,y</li>
+	<li>
+	    result peut être :
+	    <ul>
+		<li>Vide "" signifie que le tir n'a rien touché</li>
+		<li>"hit" Un navire ennemi a été touché</li>
+		<li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
+	    </ul>
+	</li>
+    </ul>
+            
+<h3>Réponse de votre bot</h3>
+<p>Il doit répondre par les coordonnées de la case dans laquelle il souhaite effectuer un tir.</p>
+<pre>{"play":"1,8"}</pre>
+<p>x,y</p>
+<h2>Outils pour développer et tester votre bot</h2>
+
+<h3>Script Botsarena en cours de développement</h3>
+<h2>Faire entrer votre bot dans cette arène</h2>
+<p>Le formulaire d'inscription de votre bot est sur la page d'accueil du site.</p>

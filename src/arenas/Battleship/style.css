@@ -4,6 +4,7 @@ article p select {}
 td{min-width: 15px; height: 15px;}
 #fightResult{display:table;}
 #logs{display:block;padding-left:10px; height: 200px; overflow-y: scroll;}
+#logs em {color: grey; font-size: 70%; test-transform:italic;}
 .battleshipGrid{display:table-cell; padding-left:10px; border-collapse:collapse; margin: 20px 20px 20px 20px;}
 .nofloat{float: none;}
 .battleshipGrid tr{}

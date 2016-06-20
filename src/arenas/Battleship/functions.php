@@ -76,18 +76,6 @@ function generate_numeric_select($start,$end,$selected,$name,$id){
     
 }
 
-function get_IA_Response($iaUrl,$postParams){
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $iaUrl);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postParams);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $output = curl_exec($ch);
-    curl_close($ch);   
-    return htmlentities($output);
-}
-
-
 function place_ship_on_map($x1,$y1,$x2,$y2,$map){
   if ((($x1 <> $x2) && ($y1 <> $y2))
     OR (!isset($map[$y1][$x1]))

@@ -108,6 +108,7 @@ pre{
   font-family: Consolas, "Times New Roman", Verdana;
   border-left: 4px solid #CCC;
   padding-left: 8px;
+  white-space: normal;
 }
 .podium{list-style-type:none;padding: 5px 20px 5px 0;}
 .podium li{padding: 5px 20px 5px 0;}

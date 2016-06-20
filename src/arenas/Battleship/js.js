@@ -19,7 +19,7 @@ function createElem(type,attributes)
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function fight(xd_check){
+function fight(xd_check,fullLogs,gameId){
     var xhr = Ajx(); 
         xhr.onreadystatechange  = function(){if(xhr.readyState  == 4){ 
         if(xhr.status  == 200) {
@@ -34,11 +34,11 @@ function fight(xd_check){
 	    document.getElementById( 'bot' + strike['opponent'] + '-' + coords[1] + '-' +  coords[0]).innerHTML = "X";
 	  }
 	  var p=createElem("p");
-	  p.innerHTML=strike['log'];
+	  p.innerHTML=strike['logs'];
 	  document.getElementById('logs').appendChild(p);
 	  document.getElementById("logs").scrollTop=document.getElementById("logs").scrollHeight;
 	  if( strike['continue'] == 1){
-	    fight(xd_check);
+	    fight(xd_check,fullLogs,gameId);
 	  }
             
         }
@@ -46,11 +46,11 @@ function fight(xd_check){
     }};
     xhr.open("POST", '/Battleship',  true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('act=fight&xd_check=' + xd_check);
+    xhr.send('act=fight&xd_check=' + xd_check + '&fullLogs=' + fullLogs);
 
 }
 
-function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check){
+function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShip4,nbShip5,nbShip6,xd_check,fullLogs){
   
   var shipsArea= parseInt(nbShip1) + 2 * parseInt(nbShip2) + 3 * parseInt(nbShip3) + 4 * parseInt(nbShip4) + 5 * parseInt(nbShip5) + 6 * parseInt(nbShip6);
   if(shipsArea > parseInt(gridWidth * gridHeight / 2) ){
@@ -131,10 +131,12 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
                     }
             }
         }
-        var p=createElem("p");
-        p.innerHTML='players placed theirs ships';
-        document.getElementById('logs').appendChild(p);
-        fight(xd_check);
+        for (var i = 0; i < grids['logs'].length; i++) {
+	  var p = createElem("p");
+	  p.innerHTML = grids['logs'][i];
+	  document.getElementById('logs').appendChild(p);
+	}
+        fight(xd_check,fullLogs);
     }
 				
   }};
@@ -152,6 +154,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
   + '&nbShip5=' + nbShip5
   + '&nbShip6=' + nbShip6 
   + '&xd_check=' + xd_check
+  + '&fullLogs=' + fullLogs
   );
 
 }
