@@ -242,10 +242,15 @@ switch ($_POST['act']){
             break;
 	  case "fight":
 	      if($_POST['fullLogs'] == 'true'){
-		      $fullLogs = true;
+		  $WantFullLogs = true;
 	      }else{
-		  $fullLogs = false;
+		  $WantFullLogs = false;
 	      }
+	      
+	      if(!isset($fullLogs)){
+		$fullLogs = "";
+	      }
+	      
 	      if(count($_SESSION['strikes'][1]) == count($_SESSION['strikes'][2])){
 		  //player 1 has to fight
 		  $currentPlayer=1;
@@ -281,12 +286,12 @@ switch ($_POST['act']){
 		  );
 		  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
 		  $anwserPlayerJson=$anwserPlayer['responseArr'];
-		  if($fullLogs){
-		      $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayer['messageSend']).'</em><br />
+		  if($WantFullLogs){
+		      $fullLogs.='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayer['messageSend']).'</em><br />
 		      HTTP status: <em>'.htmlentities($anwserPlayer['httpStatus']).'</em><br />
 		      Bot anwser: <em>'.htmlentities($anwserPlayer['response']).'</em><br />';
 		  }else{
-		      $fullLogs="";
+		      $fullLogs.="";
 		  }
 	      
 		  
