@@ -21,21 +21,22 @@
       <ul>
 	<li><em>opponent</em> Chaîne de caractères identifiant votre adversaire.
 Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte en fonction de l'adversaire et de l'historique des combats avec ce dernier. </li>
-	<li><em>width</em>Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</li>
-	<li><em>height</em>Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</li>
-	<li><em>ship1</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</li>
-	<li><em>ship2</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</li>
+	<li><em>width</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la largeur de la map.</li>
+	<li><em>height</em> Entier, compris entre 1 et 100, bornes incluses, vous indique la hauteur de la map.</li>
+	<li><em>ship1</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 1 case à placer.</li>
+	<li><em>ship2</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 2 cases à placer.</li>
 	<li>...</li>
-	<li><em>ship6</em>Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</li>
+	<li><em>ship6</em> Entier, compris entre 0 et 10, bornes incluses, vous indique le nombre de bateaux de longeur 6 cases à placer.</li>
      </ul>
      </li>
    </ul>
-  <p>Votre bot doit retourner le nom de votre bot format JSON:</p>
+  <p>Votre bot doit retourner le nom de votre bot et le placement de vos bateaux au format JSON:</p>
   <pre>
-  {"name":"botName"}
+  {"name":"gnieark","boats":["4,2-4,6","3,3-3,0","2,3-2,1","7,9-5,9","6,8-6,7"]}
   </pre>
    <ul>
     <li><em>name</em> le nom de votre bot (actuellment non pris en compte par cette arène).</li>  
+    <li><em>boats</em></li>
   </ul>
   <p>L'arène ne vérifie pas actuellement cette réponse, l'étape d'init a été insérée pour assurer la compatibilité avec <a href="https://github.com/moul/bolosseum">Bolosseum</a>.
     Si votre bot repond une page blanche à cette étape (action=init), ça marchera dans le cadre de botsarena.</p>
