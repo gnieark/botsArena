@@ -134,7 +134,7 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
         for (var i = 0; i < grids['logs'].lenght; i++) {
 	  //alert (grids['logs'][i]);
 	  var p = createElem("p");
-	  p.innerHTML = grids['logs'][i];
+	  p.innerHTML = grids[logs][i];
 	  document.getElementById('logs').appendChild(p);
 	}
         //fight(xd_check,fullLogs);
