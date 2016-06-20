@@ -131,9 +131,9 @@ function battleship(bot1,bot2,gridWidth,gridHeight,nbShip1,nbShip2,nbShip3,nbShi
                     }
             }
         }
-        for each (var lo in grid['logs']){
+        for (var i = 1; i < grid['logs'].lenght; i++) {
 	  var p=createElem("p");
-	  p.innerHTML='o;
+	  p.innerHTML=grid['logs'][i];
 	  document.getElementById('logs').appendChild(p);
 	}
         fight(xd_check,fullLogs);

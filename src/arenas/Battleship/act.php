@@ -240,133 +240,133 @@ switch ($_POST['act']){
             die;
             
             break;
-            case "fight":
-                if($_POST['fullLogs'] == 'true'){
-                        $fullLogs = true;
-                }else{
-                    $fullLogs = false;
-                }
-                if(count($_SESSION['strikes'][1]) == count($_SESSION['strikes'][2])){
-                    //player 1 has to fight
-                    $currentPlayer=1;
-                    $currentBot=$_SESSION['bot1'];
-                    $opponent=2;
-                    $opponentName=$_SESSION['bot2']['name'];
-                }else{
-                    //it's player2
-                    $currentPlayer=2;
-                    $currentBot=$_SESSION['bot2'];
-                    $opponentName=$_SESSION['bot1']['name'];
-                    $opponent=1;
-                }
-                
-                $botParamsToSend=array(
-                    'game'              => 'Battleship',
-                    'game-id'           => $_SESSION['matchId'],
-                    'action'            => 'play-turn',
-                    'player-index'      => $currentPlayer - 1,
-                    'board'  => array(
-                    'opponent'          => $opponentName,
-                        'width'             => $_SESSION['width'],
-                        'height'            => $_SESSION['height'],
-                        'ship1'             => $_SESSION['ship1'],
-                        'ship2'             => $_SESSION['ship2'],
-                        'ship3'             => $_SESSION['ship3'],
-                        'ship4'             => $_SESSION['ship4'],
-                        'ship5'             => $_SESSION['ship5'],
-                        'ship6'             => $_SESSION['ship6'],
-                        'your_strikes'	=> $_SESSION['strikes'][$currentPlayer],
-                        'his_strikes'	=> $_SESSION['strikes'][$opponent]
-                        )
-                    );
-                    $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
-                    $anwserPlayerJson=$anwserPlayer['responseArr'];
-                    if($fullLogs){
-                        $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayer['messageSend']).'</em><br />
-                        HTTP status: <em>'.htmlentities($anwserPlayer['httpStatus']).'</em><br />
-                        Bot anwser: <em>'.htmlentities($anwserPlayer['response']).'</em><br />';
-                    }else{
-                        $fullLogs="";
-                    }
-               
-                    
-                    if ((!isset($anwserPlayerJson['play']))
-                        OR (!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['play']))){
-                        echo json_encode(array(
-                            'target' => '',
-                            'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
-                            save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
-                            die;
-                    }
-                    list($x,$y)=explode(",",$anwserPlayerJson['play']);
-                    
-                    //check if shot is under map's limits
-                    if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
-                        echo json_encode(array(
-                            'target' => '',
-                            'log' => $fullLogs.$currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
-                            ));
-                            save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent); 
-                            die;
-                    }
-                    
-                    //put previous strikes in a one dimmension array ;
-                    $previousStrikes=array();
-                    foreach( $_SESSION['strikes'][$currentPlayer] as $strikes){
-                        $previousStrikes[]=$strikes['target'];
-                    }
-                    
-                    //do this strike hit a boat?
-                    $continue=1;
-                    $result='';
-                    
-                    for( $shipIndex = 0; $shipIndex < count( $_SESSION['ships'][$opponent]); $shipIndex ++){
-                        $ennemyBoat = $_SESSION['ships'][$opponent][$shipIndex];
-                        
-                        if(in_array($x.",".$y, $ennemyBoat)){
-                            $result='hit';
-                            //sunk?
-                            $sunk=true;
-                            foreach($ennemyBoat as  $boatCase){
-                                if((!in_array($boatCase,$previousStrikes)) && ($boatCase <> $x.",".$y)) {
-                                    $sunk=false;
-                                    break;
-                                }
-                            }
-                            if($sunk){
-                                $result="hit and sunk";
-                                //remove the ship
-                                unset($_SESSION['ships'][$opponent][$shipIndex]);
-                                $_SESSION['ships'][$opponent] = array_values($_SESSION['ships'][$opponent]);
-                                //var_dump($_SESSION['ships'][$opponent]);
-                                //win the game?
-                                if(count($_SESSION['ships'][$opponent]) == 0){
-                                    $result="hit sunk and win";
-                                    $continue=0;
-                                    save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$currentPlayer);
-                                }
-                            }
-                            
-                            break;
-                        }
-                    }
-                    
-                    //remember this shot
-                    $_SESSION['strikes'][$currentPlayer][]=array(
-                        'target' => $x.",".$y,
-                        'result' => $result
-                        );
-                        
-                        //send message for the arena's ajax web page
-                        echo json_encode(array(
-                            'opponent'=> $opponent,
-                            'target' => $x.",".$y,
-                            'log' => $fullLogs.$currentBot['name']." tire en ".$x.",".$y." ".$result,
-                            'continue' => $continue
-                            ));
-                            
-                            die;
-                            break;
-                            default:
-                                break;
+	  case "fight":
+	      if($_POST['fullLogs'] == 'true'){
+		      $fullLogs = true;
+	      }else{
+		  $fullLogs = false;
+	      }
+	      if(count($_SESSION['strikes'][1]) == count($_SESSION['strikes'][2])){
+		  //player 1 has to fight
+		  $currentPlayer=1;
+		  $currentBot=$_SESSION['bot1'];
+		  $opponent=2;
+		  $opponentName=$_SESSION['bot2']['name'];
+	      }else{
+		  //it's player2
+		  $currentPlayer=2;
+		  $currentBot=$_SESSION['bot2'];
+		  $opponentName=$_SESSION['bot1']['name'];
+		  $opponent=1;
+	      }
+	      
+	      $botParamsToSend=array(
+		  'game'              => 'Battleship',
+		  'game-id'           => $_SESSION['matchId'],
+		  'action'            => 'play-turn',
+		  'player-index'      => $currentPlayer - 1,
+		  'board'  => array(
+		  'opponent'          => $opponentName,
+		      'width'             => $_SESSION['width'],
+		      'height'            => $_SESSION['height'],
+		      'ship1'             => $_SESSION['ship1'],
+		      'ship2'             => $_SESSION['ship2'],
+		      'ship3'             => $_SESSION['ship3'],
+		      'ship4'             => $_SESSION['ship4'],
+		      'ship5'             => $_SESSION['ship5'],
+		      'ship6'             => $_SESSION['ship6'],
+		      'your_strikes'	=> $_SESSION['strikes'][$currentPlayer],
+		      'his_strikes'	=> $_SESSION['strikes'][$opponent]
+		      )
+		  );
+		  $anwserPlayer=get_IA_Response($currentBot['url'],$botParamsToSend); 
+		  $anwserPlayerJson=$anwserPlayer['responseArr'];
+		  if($fullLogs){
+		      $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayer['messageSend']).'</em><br />
+		      HTTP status: <em>'.htmlentities($anwserPlayer['httpStatus']).'</em><br />
+		      Bot anwser: <em>'.htmlentities($anwserPlayer['response']).'</em><br />';
+		  }else{
+		      $fullLogs="";
+		  }
+	      
+		  
+		  if ((!isset($anwserPlayerJson['play']))
+		      OR (!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['play']))){
+		      echo json_encode(array(
+			  'target' => '',
+			  'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
+			  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
+			  die;
+		  }
+		  list($x,$y)=explode(",",$anwserPlayerJson['play']);
+		  
+		  //check if shot is under map's limits
+		  if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
+		      echo json_encode(array(
+			  'target' => '',
+			  'log' => $fullLogs.$currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
+			  ));
+			  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent); 
+			  die;
+		  }
+		  
+		  //put previous strikes in a one dimmension array ;
+		  $previousStrikes=array();
+		  foreach( $_SESSION['strikes'][$currentPlayer] as $strikes){
+		      $previousStrikes[]=$strikes['target'];
+		  }
+		  
+		  //do this strike hit a boat?
+		  $continue=1;
+		  $result='';
+		  
+		  for( $shipIndex = 0; $shipIndex < count( $_SESSION['ships'][$opponent]); $shipIndex ++){
+		      $ennemyBoat = $_SESSION['ships'][$opponent][$shipIndex];
+		      
+		      if(in_array($x.",".$y, $ennemyBoat)){
+			  $result='hit';
+			  //sunk?
+			  $sunk=true;
+			  foreach($ennemyBoat as  $boatCase){
+			      if((!in_array($boatCase,$previousStrikes)) && ($boatCase <> $x.",".$y)) {
+				  $sunk=false;
+				  break;
+			      }
+			  }
+			  if($sunk){
+			      $result="hit and sunk";
+			      //remove the ship
+			      unset($_SESSION['ships'][$opponent][$shipIndex]);
+			      $_SESSION['ships'][$opponent] = array_values($_SESSION['ships'][$opponent]);
+			      //var_dump($_SESSION['ships'][$opponent]);
+			      //win the game?
+			      if(count($_SESSION['ships'][$opponent]) == 0){
+				  $result="hit sunk and win";
+				  $continue=0;
+				  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$currentPlayer);
+			      }
+			  }
+			  
+			  break;
+		      }
+		  }
+		  
+		  //remember this shot
+		  $_SESSION['strikes'][$currentPlayer][]=array(
+		      'target' => $x.",".$y,
+		      'result' => $result
+		      );
+		      
+		      //send message for the arena's ajax web page
+		      echo json_encode(array(
+			  'opponent'=> $opponent,
+			  'target' => $x.",".$y,
+			  'log' => $fullLogs.$currentBot['name']." tire en ".$x.",".$y." ".$result,
+			  'continue' => $continue
+			  ));
+			  
+			  die;
+			  break;
+			  default:
+			      break;
 }
