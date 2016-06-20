@@ -298,7 +298,7 @@ switch ($_POST['act']){
 		      OR (!preg_match('/^[0-9]+,[0-9]+$/',$anwserPlayerJson['play']))){
 		      echo json_encode(array(
 			  'target' => '',
-			  'log' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
+			  'logs' => $fullLogs.$currentBot['name']." a fait une réponse non conforme, il perd."));
 			  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent);
 			  die;
 		  }
@@ -308,7 +308,7 @@ switch ($_POST['act']){
 		  if(($x >= $_SESSION['width']) OR ($y >= $_SESSION['height'])){
 		      echo json_encode(array(
 			  'target' => '',
-			  'log' => $fullLogs.$currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
+			  'logs' => $fullLogs.$currentBot['name']." a fait un tir en dehors des limites de la carte. ".$x.",".$y." C'est interdit par les conventions de Geneve. Il perd"
 			  ));
 			  save_battle('Battleship',$_SESSION['bot1']['name'],$_SESSION['bot2']['name'],$opponent); 
 			  die;
@@ -361,16 +361,16 @@ switch ($_POST['act']){
 		      'result' => $result
 		      );
 		      
-		      //send message for the arena's ajax web page
-		      echo json_encode(array(
-			  'opponent'=> $opponent,
-			  'target' => $x.",".$y,
-			  'log' => $fullLogs.$currentBot['name']." tire en ".$x.",".$y." ".$result,
-			  'continue' => $continue
-			  ));
-			  
-			  die;
-			  break;
-			  default:
-			      break;
+		  //send message for the arena's ajax web page
+		  echo json_encode(array(
+		      'opponent'=> $opponent,
+		      'target' => $x.",".$y,
+		      'logs' => $fullLogs.$currentBot['name']." tire en ".$x.",".$y." ".$result,
+		      'continue' => $continue
+		   ));
+		      
+		   die;
+		   break;
+	default:
+	     break;
 }
