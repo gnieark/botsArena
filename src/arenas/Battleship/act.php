@@ -56,7 +56,7 @@ switch ($_POST['act']){
             die;
         }    
         if($_POST['fullLogs'] == 'true'){
-                $wantFullLogs = true;
+            $wantFullLogs = true;
         }else{
             $wantFullLogs = false;
         }
@@ -182,8 +182,6 @@ switch ($_POST['act']){
                         save_battle('Battleship',$bot1['name'],$bot2['name'],1);
                     }
                     die;
-                }else{
-		  $grid['logs'][] = $fullLogs.$currentBot['name']." put his ships on the map.";
                 }
                 //remember each cases of each boats
                 $boatListOfCases=array();
@@ -223,7 +221,8 @@ switch ($_POST['act']){
                     }
                     die;
                 }
-            } 
+            }
+            $grid['logs'][] = $fullLogs.$currentBot['name']." put his ships on the map.";
         }
         $_SESSION['ship1']=$postValues['nbShip1'];
         $_SESSION['ship2']=$postValues['nbShip2'];
