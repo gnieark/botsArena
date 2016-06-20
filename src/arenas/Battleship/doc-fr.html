@@ -230,7 +230,43 @@ Ainsi, vous pouvez pousser le délire jusqu'à faire un algorythme qui s'adapte 
 	<li><em>your_strikes</em> tableau vous indiquant vos tirs précédents et eur résultat</li>
 	<li><em>his_strikes</em> Idem, mais pour l'adversaire. Si ce dernier tire selon un modèle prédisible, vous saurez comment comment placer vos bateaux lors de la prochaine partie</li>
 	</ul>
-  
+    <h4> your_strikes et his_strikes</h4>
+    
+    <p>Chaîne de caractères représentant un array au format JSON.<br/>
+    Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight).<br/>
+    Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
+    Lors du premier tour de jeu, il représente un array vide:
+    </p>
+    <p>
+	<i>[ ]</i>
+    </p>
+    <p>
+	Lors du deuxième tour de jeu, il contient le tir précédent et son résultat :
+    </p>
+    <p>
+	<i>[{"target":"2,0","result":""}]</i>
+    </p>
+    <p>
+	Lors du troisième tour de jeu, les deux tirs précédents :
+    </p>
+    <p>
+	<i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</i>
+    </p>
+    <p>
+	Chaque tir est un sous array pour lesquels:
+    </p>
+    <ul>
+	<li>L'index target indique les coordonnées du tir x,y</li>
+	<li>
+	    result peut être :
+	    <ul>
+		<li>Vide "" signifie que le tir n'a rien touché</li>
+		<li>"hit" Un navire ennemi a été touché</li>
+		<li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
+	    </ul>
+	</li>
+    </ul>
+            
 
 <h2>Exemple de partie</h2>
 <pre class="arrenaMessage">
@@ -455,40 +491,7 @@ Match nul
         <td>your_strikes</td>
         <td>
             <p>
-                Chaîne de caractères représentant un array au format JSON.<br/>
-                Ce parametre n'est envoyé que lors de la phase de tirs du jeu (act=fight).<br/>
-                Il vous indique les tirs que vous avez déjà effectués et leur résultats.<br/>
-                Lors du premier tour de jeu, il représente un array vide.
-            </p>
-            <p>
-                <i>[ ]</i>
-            </p>
-            <p>
-                Lors du deuxième tour de jeu, il contient le tir précédent et son résultat :
-            </p>
-            <p>
-                <i>[{"target":"2,0","result":""}]</i>
-            </p>
-            <p>
-                Lors du troisième tour de jeu, les deux tirs précédents :
-            </p>
-            <p>
-                <i>[{"target":"2,0","result":"hit"},{"target":"5,1","result":"hit"}]</i>
-            </p>
-            <p>
-                Chaque tir est un sous array pour lesquels:
-            </p>
-            <ul>
-                <li>L'index target indique les coordonnées du tir x,y</li>
-                <li>
-                    result peut être :
-                    <ul>
-                        <li>Vide "" signifie que le tir n'a rien touché</li>
-                        <li>"hit" Un navire ennemi a été touché</li>
-                        <li>"hit and sunk" Un navire ennemi a été touché et coulé</li>
-                    </ul>
-                </li>
-            </ul>
+ 
         </td>
     </tr>
     <tr>
