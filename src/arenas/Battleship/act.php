@@ -56,9 +56,9 @@ switch ($_POST['act']){
             die;
         }    
         if($_POST['fullLogs'] == 'true'){
-                $fullLogs = true;
+                $wantFullLogs = true;
         }else{
-            $fullLogs = false;
+            $wantFullLogs = false;
         }
         
         //check if bots exists
@@ -127,7 +127,7 @@ switch ($_POST['act']){
             );
             
             $anwserPlayerJson=get_IA_Response($currentBot['url'],$botParamsToSend);
-            if($fullLogs){
+            if($wantFullLogs){
                 $fullLogs='Arena send to '.$currentBot['name'].'<em>'.htmlentities($anwserPlayerJson['messageSend']).'</em><br/>
                 HTTP status: <em>'.htmlentities($anwserPlayerJson['httpStatus']).'</em><br/>
                 Bot anwser: <em>'.htmlentities($anwserPlayerJson['response']).'</em><br/>';
@@ -241,12 +241,16 @@ switch ($_POST['act']){
             
             break;
 	  case "fight":
+	      if(($_POST['fullLogs'] <> 'true') && ($_POST['fullLogs'] <> 'false')){
+		  error(500, 'wrong POST parameters');
+		  die;
+	      }    
 	      if($_POST['fullLogs'] == 'true'){
-		  $WantFullLogs = true;
+		      $wantFullLogs = true;
 	      }else{
-		  $WantFullLogs = false;
+		  $wantFullLogs = false;
 	      }
-	      
+		
 	      if(!isset($fullLogs)){
 		$fullLogs = "";
 	      }
