@@ -244,6 +244,7 @@ function play(player){
         }
         var t = new RegExp('^[0-6]$');
         if (t.test(colTarget)){
+	    addLog('His rsponse is:' +  xhr.responseText); 
             playingAT(colTarget);
         }else{
             addLog ('bot response must be a digit betwin 0 and 7, witch indicate the conumn number where he wants play. Voici sa réponse: "' + colTarget + '"' );
