@@ -25,7 +25,7 @@ article{float: right; width:70%;}
 aside{float:left; width: 28%; border-right: 1px dashed green;}
 aside table {width: 90%;}
 aside table tr td{width: 33%;}
-aside table tr td input{width: 100%;}
+aside table tr td input, aside table tr td select {width: 100%;}
 .center{text-align: center;}
 aside p img{ width: 100%; max-width:342px;} 
 form textarea, form input, form select {width:40%;}
@@ -246,7 +246,9 @@ function startGame(){
 	      <option value="human">human</option>
 	    </select>
 	</td>
-	<td>
+    </tr>
+    <tr>
+    	<td colspan="2">
 	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://ias.tinad.fr/stupidIATictactoe.php"/>
 	 </td>
     </tr>
@@ -258,7 +260,9 @@ function startGame(){
 	    <option value="bot">bot</option>
 	</select>
       </td>
-      <td>
+     </tr>
+     <tr>
+      <td colspan="2">
 	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://ias.tinad.fr/stupidIATictactoe.php"/>
       </td>
     </tr>

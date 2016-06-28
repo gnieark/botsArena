@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Gnieark" />
-    <title>Test ton bot</title>
+    <title>ConnectFour's Ludus</title>
       <style type="text/css">
 body{width:100%; font-size:100%; line-height:140%; word-wrap:break-word; text-rendering:optimizelegibility;
   margin:0 auto; font-family : "lucida grande", "gill sans", arial, sans-serif; left:auto;}
@@ -25,10 +25,10 @@ article{float: right; width:70%;}
 aside{float:left; width: 28%; border-right: 1px dashed green;}
 aside table {width: 90%;}
 aside table tr td{width: 33%;}
-aside table tr td input{width: 100%;}
+aside table tr td input, aside table tr td select {width: 100%;}
 .center{text-align: center;}
 aside p img{ width: 100%; max-width:342px;} 
-form textarea, form input, form select {width:40%;}
+form textarea, form input, form select {width:100%;}
 form input[type=checkbox], form input[type=radio] {  width:15px; }
 form label {float:left; width:40%; margin-right:0.5em;
   padding-top:0.2em; text-align:right;}
@@ -317,9 +317,12 @@ function startGame(){
 </head>
 <body>
 <header>
-<h1>Debug and test your connectFour AI</h1>
+<h1>ConnectFour's Ludus</h1>
 </header>
   <section>
+    <p>Here you can test and fix your bot, against himself, against human or against any other bot if you know the URL.
+   <br/>No scoring here, it's a Ludus (gladiators training center).</p>
+ 
     <aside>
     <h2>Configure the test</h2>
     <table>
@@ -330,10 +333,15 @@ function startGame(){
 	      <option value="human">human</option>
 	    </select>
 	</td>
-	<td>
+
+    </tr>
+    <tr>
+    	<td colspan="2">
 	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
 	 </td>
     </tr>
+    
+    
     <tr>
       <td>Player 2</td>
       <td>
@@ -342,10 +350,13 @@ function startGame(){
 	    <option value="bot">bot</option>
 	</select>
       </td>
-      <td>
+    </tr>
+    <tr>
+          <td colspan="2">
 	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
       </td>
     </tr>
+    
     </table>
     <p><input type="button" onclick="startGame()" value="Fight"/></p>
     </aside>

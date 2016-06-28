@@ -55,5 +55,7 @@ $lang = array(
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>  'Votre adresse e-mail (servira pour la validation de votre bot)',
     'SAVE_BOT'                      =>  'Enregistrer',
     'E_MAIL_EDIT_BOT'		    =>  "Bonjour Dude! \n Suivez l'URL suivante pour valider les modifications sur votre bot.",
-    'YOUR_EMAIL_FOR_BOT_EDIT'	    =>  'L\'adresse e-mail qui a servi à l\'inscription du bot:'
+    'YOUR_EMAIL_FOR_BOT_EDIT'	    =>  'L\'adresse e-mail qui a servi à l\'inscription du bot:',
+    'GO-TO-LUDUS'		    =>  'Se rendre au ludus',
+    'LUDUS-DETAIL'		    =>  '(Page pour débogguer votre bot sans comptage des scores)'
 );

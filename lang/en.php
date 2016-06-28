@@ -55,5 +55,7 @@ $lang = array(
     'YOUR_EMAIL_FOR_BOT_VALIDATION' =>  'Your email address (will serve to validate your bot)',
     'SAVE_BOT'                      =>  'Save',
     'E_MAIL_EDIT_BOT'	   	    =>  "Hello Dude! \n Please Folow the next URL in order to validate your bot update.",
-    'YOUR_EMAIL_FOR_BOT_EDIT'	    =>  'E-mail used for add this bot:'
+    'YOUR_EMAIL_FOR_BOT_EDIT'	    =>  'E-mail used for add this bot:',
+    'GO-TO-LUDUS'		    =>  'Visit the ludus',
+    'LUDUS-DETAIL'		    =>  '(Place to fix / improve your bot without scoring)'
 );

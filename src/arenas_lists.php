@@ -17,7 +17,8 @@ $arenas=array(
         'title' => "Tic Tac Toe",
         'metaDescription'   => 'Affrontements de bots au TicTacToe, morpion',
         'jsFile'=> "js.js",
-        'cssFile'=> "style.css"
+        'cssFile'=> "style.css",
+        'ludusUrl' => "/testBotScripts/tictactoe.html"
     ),
     array(
         'id' => "Battleship",
@@ -33,7 +34,8 @@ $arenas=array(
         'title' => "Puissance 4",
         'metaDescription'   => 'Affrontements de bots puissance 4',
         'jsFile'=> "js.js",
-        'cssFile'=> "style.css"
+        'cssFile'=> "style.css",
+        'ludusUrl' => "/testBotScripts/connectfour.html"
     )
     
 );
