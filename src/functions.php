@@ -311,7 +311,7 @@ function get_default_aside_content($currentArena){
     
     //lien pour le ludus
     if(isset($currentArenaArr['ludusUrl'])){
-      echo '<p><a href="'.$currentArenaArr['ludusUrl'].'">'.$lang['GO-TO-LUDUS'].'</a>&nbsp;'.$lang['LUDUS-DETAIL'].'</p>';
+     $asideSectionContent.= '<p><a href="'.$currentArenaArr['ludusUrl'].'">'.$lang['GO-TO-LUDUS'].'</a>&nbsp;'.$lang['LUDUS-DETAIL'].'</p>';
     }
     
     //scores
