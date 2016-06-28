@@ -11,7 +11,7 @@
 # -- END LICENSE BLOCK -----------------------------------------
 
 require_once(__DIR__."/functions.php");
-$bots=get_Bots_Array('connectFou');
+$bots=get_Bots_Array('tron');
 ?>
 <article>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
@@ -33,6 +33,6 @@ $bots=get_Bots_Array('connectFou');
 			</select>
 		</p>
 		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
-	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="connectFour(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0);"></p>
+	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tron(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0);"></p>
     <div id="fightResult"></div>
 </article>
