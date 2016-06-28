@@ -71,15 +71,11 @@ switch ($_POST['act']){
                     'player-index'   => $player 
                     );
             }
-            /*
-             *     'messageSend' 	=> $data_string,
-             *     'httpStatus'  	=> $curl_getinfo($ch)['http_code'],
-             *     'response'	=> $output,
-             *     'responseArr'	=> $arr 
-             */
+
             get_IA_Response($_SESSION['bot1']['url'],$params[0]); //don't care about result
             get_IA_Response($_SESSION['bot2']['url'],$params[1]); //don't care about result
             
+            //don't break, continue
             
             case "fight":
                 

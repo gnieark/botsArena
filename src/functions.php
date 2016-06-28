@@ -305,9 +305,17 @@ function get_unique_id(){
 }
 function get_default_aside_content($currentArena){
   global $lang;
-    $asideSectionContent = '<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>
-    <h2>Scores</h2>';
     
+    //bla bla
+    $asideSectionContent = '<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>';
+    
+    //lien pour le ludus
+    if(isset($currentArena['ludusUrl'])){
+      echo '<p><a href="'.$currentArena['ludusUrl'].'">'.$lang['GO-TO-LUDUS'].'</a>&nbsp;'.$lang['LUDUS-DETAIL'].'</p>';
+    }
+    
+    //scores
+    $asideSectionContent.='<h2>Scores</h2>';
     $podium=ELO_get_podium($currentArena);
     $count=0;
     $asideSectionContent.= '<ul class="podium">';
