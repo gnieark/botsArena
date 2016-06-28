@@ -333,10 +333,15 @@ function startGame(){
 	      <option value="human">human</option>
 	    </select>
 	</td>
-	<td>
+
+    </tr>
+    <tr>
+    	<td colspan="2">
 	    <input id="url1" type="text" name="player1URL" placeholder="url du bot http://localhost" value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
 	 </td>
     </tr>
+    
+    
     <tr>
       <td>Player 2</td>
       <td>
@@ -345,10 +350,13 @@ function startGame(){
 	    <option value="bot">bot</option>
 	</select>
       </td>
-      <td>
+    </tr>
+    <tr>
+          <td colspan="2">
 	<input id="url2" type="text" name="player2URL" placeholder="url du bot http://localhost" disabled value="https://ias.tinad.fr/StupidIAconnectFour.php"/>
       </td>
     </tr>
+    
     </table>
     <p><input type="button" onclick="startGame()" value="Fight"/></p>
     </aside>
