@@ -304,14 +304,14 @@ function get_unique_id(){
   return $count;
 }
 function get_default_aside_content($currentArena){
-  global $lang;
+  global $lang, $currentArenaArr;
     
     //bla bla
     $asideSectionContent = '<h2>infos:</h2><p>'.$lang['DEV-YOUR-OWN-BOT'].'<br/> <a href="/'.$currentArena.'/doc">'.$lang['DOC_SPECS_LINKS'].'</a></p>';
     
     //lien pour le ludus
-    if(isset($currentArena['ludusUrl'])){
-      echo '<p><a href="'.$currentArena['ludusUrl'].'">'.$lang['GO-TO-LUDUS'].'</a>&nbsp;'.$lang['LUDUS-DETAIL'].'</p>';
+    if(isset($currentArenaArr['ludusUrl'])){
+      echo '<p><a href="'.$currentArenaArr['ludusUrl'].'">'.$lang['GO-TO-LUDUS'].'</a>&nbsp;'.$lang['LUDUS-DETAIL'].'</p>';
     }
     
     //scores
