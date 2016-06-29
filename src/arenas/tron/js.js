@@ -12,7 +12,7 @@ function createElemNS(type,attributes){
     return elem;
 }
 
-function applyInitMessage(){
+function applyInitMessage(request){
   if(request.readyState  == 4){ 
     if(request.status  == 200) {
       alert ("ok");
@@ -37,7 +37,7 @@ function tron(bot1,bot2,xdcheck){
 	document.getElementById("fightResult").appendChild(svg);
 		
 	//ask arena to send bots init messages
-	var request = new XMLHttpRequest();	 
+	var request = new XMLHttpRequest(request);	 
 	request.onreadystatechange  = applyInitMessage;
 	request.open("POST", '/tron',  true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
