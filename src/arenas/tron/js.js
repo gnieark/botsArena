@@ -42,8 +42,4 @@ function tron(bot1,bot2,xdcheck){
 	request.open("POST", '/tron',  true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send('act=initGame&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&fullLogs=' + document.getElementById("fullLogs").checked);
-      }
-	
-	
-	
 }
