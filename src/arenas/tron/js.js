@@ -24,7 +24,7 @@ function applyInitMessage(request){
     }
   }
 }
-function tron(bot1,bot2,xdcheck){
+function tron(bot1,bot2,xd_check){
         //empty
         while (document.getElementById('fightResult').firstChild) {
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
