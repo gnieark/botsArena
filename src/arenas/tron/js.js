@@ -11,6 +11,17 @@ function createElemNS(type,attributes){
     {elem.setAttributeNS(null,i,attributes[i]);}
     return elem;
 }
+function changeSelect(number,botId){
+    //show an other selector if bot is chosen
+    var next = parseInt(number) + 1;
+    if((botId > 0) && (botId < 12)){
+        if(document.getElementById('selectBot' + next){
+            return;
+        }else{
+            show_bot_panel(next);
+        }
+    }
+}
 function show_bot_panel(number){
         //configurePlayers
         var fieldset = createElem('fieldset',{'class':'botFormulaire'});
@@ -18,7 +29,7 @@ function show_bot_panel(number){
         legend.innerHTML = 'bot ' + number;
         fieldset.appendChild(legend);
         var p=createElem('p');
-        var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(this.value);'});
+        var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(number,this.value);'});
         var option = createElem('option',{'value': '0', 'selected': 'selected'});
         option.innerHTML =  '';
         select.appendChild(option);
