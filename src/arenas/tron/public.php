@@ -23,7 +23,7 @@ foreach($bots as $bot){
 
     </div>
    <script>
-   var botsAvailable = <?php echo json_encode($botsArena); ?>;
+   var botsAvailable = <?php echo json_encode($botsArr); ?>;
    show_bot_panel(0);
    </script>
    
