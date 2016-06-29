@@ -13,10 +13,14 @@ function createElemNS(type,attributes){
 
 
 function tron(bot1,bot2,xdcheck){
+        //empty
+        while (document.getElementById('fightResult').firstChild) {
+            document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
+        }
+	// draw border;
+	var svg = createElem('svg',{'id':'map','width':'1000','height':'1000'});
+	var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
+	svg.appendChild(rect);
 	
-	//var svgDoc = svg.contentDocument;
-	var rect=createElemNS('rect',{'x':'10','y':'10','width':'50','height':'80','style':'stroke:#000000; fill:none;'});
-	
-	document.getElementById("map").appendChild(rect);
-  
+	document.getElementById("fightResult").appendChild(svg);
 }
