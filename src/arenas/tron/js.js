@@ -14,6 +14,9 @@ function createElemNS(type,attributes){
 function show_bot_panel(number){
         //configurePlayers
         var fieldset = createElem('fieldset',{'class':'botFormulaire'});
+        var legend = createElem('legend',{});
+        legend.innerHTML = 'bot ' + number;
+        fieldset.appendChild(legend);
         var p=createElem('p');
         var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(this.value);'});
         for (var i = 0; i <  botsAvailable.length; i++){
