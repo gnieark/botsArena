@@ -16,7 +16,7 @@ function applyInitMessage(req){
   //callback function when init game request
   if(req.readyState  == 4){ 
     if(req.status  == 200) {
-      alert (req.responseTxt);
+      alert (req.responseText);
 
     }else{
 	alert ('error ' + xhr.status);
