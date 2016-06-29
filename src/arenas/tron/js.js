@@ -1,4 +1,9 @@
-
+function createElem(type,attributes){
+    var elem=document.createElement(type);
+    for (var i in attributes)
+    {elem.setAttribute(i,attributes[i]);}
+    return elem;
+}
 
 
 
@@ -7,6 +12,9 @@ function tron(bot1,bot2,xdcheck){
         while (document.getElementById('fightResult').firstChild) {
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         } 
+        
+        var mapImg = createElem('svg',{'alt' : 'map'});
+	
        
 alert("plop");
 	// "circle" may be any tag name
@@ -18,6 +26,7 @@ alert("plop");
 	shape.setAttribute("fill", "green");
 	// Add to a parent node; document.documentElement should be the root svg element.
 	// Acquiring a parent element with document.getElementById() would be safest.
-	document.getElementById('fightResult').appendChild(shape);
+	mapImg.appendChild(shape);
+	document.getElementById('fightResult').appendChild(mapImg);
   
 }
