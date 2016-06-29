@@ -34,7 +34,7 @@ $bots=get_Bots_Array('tron');
 		</p>
 		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
 	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tron(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>',0);"></p>
-<svg width="100" height="100">
-  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-</svg>
+	<svg id="map" width="1000" height="1000">
+	
+	</svg>
 </article>
