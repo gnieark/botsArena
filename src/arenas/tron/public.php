@@ -12,26 +12,22 @@
 
 require_once(__DIR__."/functions.php");
 $bots=get_Bots_Array('tron');
+$botsArr=array();
+foreach($bots as $bot){
+  $botsArr[]=array('id' => $bot['id'], 'name' => $bot['name']);
+}
 ?>
 <article id="mainArticle">
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
-		<p>
-			<select name="bot1" id="bot1">
-			  <?php
-			    foreach($bots as $bot){
-			      echo '<option value="'.$bot['id'].'">'.$bot['name'].'</option>';
-			    }
-			  ?>
-			</select>
-			&nbsp;VS&nbsp;
-			<select name="bot2" id="bot2">
-			  <?php
-			    foreach($bots as $bot){
-			      echo '<option value="'.$bot['id'].'">'.$bot['name'].'</option>';
-			    }
-			  ?>
-			</select>
-		</p>
+    <div id="configurePlayers">
+
+    </div>
+   <script>
+   var botsAvailable = <?php echo json_encode($botsArena); ?>;
+   show_bot_panel(0);
+   </script>
+   
+   
 		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
 	<p><input id="fightButton" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tron(document.getElementById('bot1').value,document.getElementById('bot2').value,'<?php echo xd_check_input(2); ?>');"></p>
 	 <div id="fightResult"></div>

@@ -38,7 +38,7 @@ switch ($_POST['act']){
 	error (500,"missing parameter 2");
     }
     
-    echo "plop";
+  
   
   
     break;
