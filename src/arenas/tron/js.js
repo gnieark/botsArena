@@ -20,7 +20,7 @@ function changeSelect(number,botId){
         }else{
             show_bot_panel(next);
         }
-        if(number > 1){
+        if(number > 0){
                 document.getElementById('fightButton').disabled = false;
         }
     }
