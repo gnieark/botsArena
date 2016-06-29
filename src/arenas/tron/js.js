@@ -15,7 +15,7 @@ function changeSelect(number,botId){
     //show an other selector if bot is chosen
     var next = parseInt(number) + 1;
     if((botId > 0) && (botId < 12)){
-        if(document.getElementById('selectBot' + next){
+        if(document.getElementById('selectBot' + next)){
             return;
         }else{
             show_bot_panel(next);
