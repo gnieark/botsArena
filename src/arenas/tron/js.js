@@ -15,15 +15,8 @@ function tron(bot1,bot2,xdcheck){
         
         var mapImg = createElem('svg',{'alt' : 'map','width':'200','height':'200'});
 	// "circle" may be any tag name
-	var shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	// Set any attributes as desired
-	shape.setAttribute("cx", 25);
-	shape.setAttribute("cy", 25);
-	shape.setAttribute("r",  20);
-	shape.setAttribute("fill", "green");
-	// Add to a parent node; document.documentElement should be the root svg element.
-	// Acquiring a parent element with document.getElementById() would be safest.
-	mapImg.appendChild(shape);
+	mapImg.innerHTML = '<line x1="50" y1="50" x2="150" y2="150" stroke="black" stroke-width="2" /><line x1="100" y1="50" x2="200" y2="150" stroke="red" stroke-width="10" /><line x1="150" y1="50" x2="250" y2="150" stroke="blue" stroke-width="5" stroke-dasharray="5,3,2" />';
+
 	document.getElementById('fightResult').appendChild(mapImg);
   
 }
