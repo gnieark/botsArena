@@ -19,9 +19,9 @@ foreach($bots as $bot){
 ?>
 <article id="mainArticle">
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
-    <div id="configurePlayers">
+    <aside id="configurePlayers">
 
-    </div>
+    </aside>
    <script>
    var botsAvailable = <?php echo json_encode($botsArr); ?>;
    show_bot_panel(0);

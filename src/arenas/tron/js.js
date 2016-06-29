@@ -11,6 +11,22 @@ function createElemNS(type,attributes){
     {elem.setAttributeNS(null,i,attributes[i]);}
     return elem;
 }
+function show_bot_panel(number){
+        //configurePlayers
+        var fieldset = createElem('fieldset',{'class':'botFormulaire'});
+        var p=createElem('p');
+        var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(this.value);'});
+        for each (var bot in botsAvailable){
+            var option = createElem('option',{'value':bot['id']});
+            option.innerHTML = bot['name'];
+            select.appendChild(option);
+        }
+        p.appendChild(select);
+        fieldset.appendChild(p);
+        
+        
+        document.getElementById('configurePlayers').appendChild(fieldset);
+}
 
 function applyInitMessage(req){
   //callback function when init game request
