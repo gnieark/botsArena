@@ -5,7 +5,7 @@ class TronPlayer{
   private $name;
   private $tail = array();
   private $direction;
-  public $state;
+  private $state;
 
   private function set_direction($newDir){
     //can't be the opposite of the previous direction
@@ -25,7 +25,9 @@ class TronPlayer{
     if($dir == ""){
       $dir = $this->direction;
     }
-    
+    if(!$this->set_direction()){
+      return false;
+    }
     $headCoords = end($this->tail);
     
     
@@ -46,6 +48,7 @@ class TronPlayer{
 	return false;
       
     }
+    $this->tail[] = $targetCoords;
 
   }
   
