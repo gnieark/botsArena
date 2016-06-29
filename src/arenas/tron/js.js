@@ -18,7 +18,7 @@ function tron(bot1,bot2,xdcheck){
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         }
 	// draw border;
-	var svg = createElemNS('svg',{'id':'map','width':'200','height':'200','viewBox':'0 0 1000 1000"});
+	var svg = createElemNS('svg',{'id':'map','width':'200','height':'200','viewBox':'0 0 1000 1000'});
 	var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
 	svg.appendChild(rect);
 	
