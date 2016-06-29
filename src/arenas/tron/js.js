@@ -7,7 +7,7 @@ function createElem(type,attributes){
 function createElemNs(type,attributes){
     var elem=document.createElement(type);
     for (var i in attributes)
-    {elem.setAttributeNs(i,attributes[i]);}
+    {elem.setAttributeNs(null,i,attributes[i]);}
     return elem;
 }
 
