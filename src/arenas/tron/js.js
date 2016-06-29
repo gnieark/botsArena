@@ -8,10 +8,7 @@ function createElem(type,attributes){
 
 
 function tron(bot1,bot2,xdcheck){
-         //empty
-
-        
-        var mapImg = createElem('svg',{'alt' : 'map','width':'200','height':'200'});
+        var mapImg = createElem('svg',{'alt' : 'map','width':'200px','height':'200px','xmlns':'http://www.w3.org/2000/svg'});
 	// "circle" may be any tag name
 	mapImg.innerHTML = '    <rect id="rect1" x="10" y="10" width="50" height="80" style="stroke:#000000; fill:none;"/>';
 	document.getElementById('mainArticle').appendChild(mapImg);
