@@ -4,10 +4,10 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function createElemNs(type,attributes){
+function createElemNS(type,attributes){
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
     for (var i in attributes)
-    {elem.setAttributeNs(null,i,attributes[i]);}
+    {elem.setAttributeNS(null,i,attributes[i]);}
     return elem;
 }
 
@@ -15,7 +15,7 @@ function createElemNs(type,attributes){
 function tron(bot1,bot2,xdcheck){
 	
 	//var svgDoc = svg.contentDocument;
-	var rect=createElemNs('rect',{'x':'10','y':'10','width':'50','height':'80','style':'stroke:#000000; fill:none;'});
+	var rect=createElemNS('rect',{'x':'10','y':'10','width':'50','height':'80','style':'stroke:#000000; fill:none;'});
 	
 	document.getElementById("map").appendChild(rect);
   
