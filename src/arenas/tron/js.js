@@ -38,7 +38,7 @@ function tron(bot1,bot2,xd_check){
 		
 	//ask arena to send bots init messages
 	var request = new XMLHttpRequest();	 
-	request.onreadystatechange  = applyInitMessage(request);
+	request.onreadystatechange  = function(){applyInitMessage(request)};
 	request.open("POST", '/tron',  true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send('act=initGame&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&fullLogs=' + document.getElementById("fullLogs").checked);
