@@ -1,2 +1,2 @@
 #configurePlayers{width: 100%;}
-#configurePlayers fieldset{display: block; width: 100px;}
+#configurePlayers fieldset{display: block; width: 100px; float:left;}
