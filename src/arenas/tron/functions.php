@@ -53,7 +53,7 @@ class TronPlayer{
   }
   
   
-  public function __construct($id,$initialX0,$initialY0,$initialDirection){
+  public function __construct($id,$initialX,$initialY,$initialDirection){
     $lnBdd = conn_bdd();
     $rs = mysqli_query($lnBdd,
       "SELECT name,url FROM bots WHERE game='tron' AND id='".mysqli_real_escape_string($lnBdd, $id)."';"
