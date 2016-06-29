@@ -8,7 +8,7 @@ function tron(bot1,bot2,xdcheck){
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         } 
        
-
+alert("plop");
 	// "circle" may be any tag name
 	var shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 	// Set any attributes as desired
