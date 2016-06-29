@@ -7,7 +7,7 @@ function createElem(type,attributes){
 function createElemNs(type,attributes){
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
     for (var i in attributes)
-    {elem.setAttributeNs(null,i,attributes[i]);}
+    {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
 
