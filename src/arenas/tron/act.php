@@ -23,11 +23,11 @@ switch ($_POST['act']){
     $bot2Exists = false;
     foreach($bots as $bot){
 	if($bot['id'] == $_POST['bot1']){
-	    $_SESSION['bots'][]=new TronPlayer($bot['id']);
+	    $_SESSION['bots'][]=new TronPlayer($bot['id'],1,1);
 	    $bot1Exists =true;
 	}
 	if($bot['id'] == $_POST['bot2']){
-	    $_SESSION['bots'][]=new TronPlayer($bot['id']);
+	    $_SESSION['bots'][]=new TronPlayer($bot['id'],998,998);
 	    $bot2Exists =true;
 	}
 	if ($bot1Exists && $bot2Exists){

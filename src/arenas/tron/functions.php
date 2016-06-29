@@ -31,7 +31,7 @@ class TronPlayer{
     $headCoords = end($this->tail);
     
     
-    switch $dir{
+    switch ($dir){
       case "y+":
 	$targetCoords = array($headCoords[0],$headCoords[1]++);
 	break;
