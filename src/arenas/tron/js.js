@@ -29,7 +29,7 @@ function show_bot_panel(number){
         legend.innerHTML = 'bot ' + number;
         fieldset.appendChild(legend);
         var p=createElem('p');
-        var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(number,this.value);'});
+        var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(' + number + ',this.value);'});
         var option = createElem('option',{'value': '0', 'selected': 'selected'});
         option.innerHTML =  '';
         select.appendChild(option);
