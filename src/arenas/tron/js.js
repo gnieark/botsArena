@@ -14,7 +14,7 @@ function createElemNS(type,attributes){
 function changeSelect(number,botId){
     //show an other selector if bot is chosen
     var next = parseInt(number) + 1;
-    if((botId > 0) && (botId < 12)){
+    if((botId > 0) && (number < 12)){
         if(document.getElementById('selectBot' + next)){
             return;
         }else{
