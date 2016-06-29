@@ -16,9 +16,9 @@ function show_bot_panel(number){
         var fieldset = createElem('fieldset',{'class':'botFormulaire'});
         var p=createElem('p');
         var select = createElem('select',{'id':'selectBot' + number, 'onchange':'changeSelect(this.value);'});
-        for each (var bot in botsAvailable){
-            var option = createElem('option',{'value':bot['id']});
-            option.innerHTML = bot['name'];
+        for (var i = 0; i <  botsAvailable.length; i++){
+            var option = createElem('option',{'value': botsAvailable[i]['id']});
+            option.innerHTML =  botsAvailable[i]['name'];
             select.appendChild(option);
         }
         p.appendChild(select);
