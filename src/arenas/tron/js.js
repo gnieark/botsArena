@@ -21,7 +21,7 @@ function changeSelect(number,botId){
             show_bot_panel(next);
         }
         if(number > 1){
-                document.getElementById('fightButton').setAttribute('disabled','');
+                document.getElementById('fightButton').disabled = false;
         }
     }
 }
