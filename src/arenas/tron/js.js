@@ -13,8 +13,7 @@ function tron(bot1,bot2,xdcheck){
         
         var mapImg = createElem('svg',{'alt' : 'map','width':'200','height':'200'});
 	// "circle" may be any tag name
-	mapImg.innerHTML = '<line x1="50" y1="50" x2="150" y2="150" stroke="black" stroke-width="2" /><line x1="100" y1="50" x2="200" y2="150" stroke="red" stroke-width="10" /><line x1="150" y1="50" x2="250" y2="150" stroke="blue" stroke-width="5" stroke-dasharray="5,3,2" />';
-
+	mapImg.innerHTML = '    <rect id="rect1" x="10" y="10" width="50" height="80" style="stroke:#000000; fill:none;"/>';
 	document.getElementById('mainArticle').appendChild(mapImg);
   
 }
