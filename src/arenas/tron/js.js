@@ -13,9 +13,10 @@ function createElemNS(type,attributes){
 }
 
 function applyInitMessage(req){
+  //callback function when init game request
   if(req.readyState  == 4){ 
     if(req.status  == 200) {
-      alert ("ok");
+      alert (req.responseTxt);
 
     }else{
 	alert ('error ' + xhr.status);

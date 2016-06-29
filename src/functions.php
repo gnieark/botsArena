@@ -151,7 +151,7 @@ function conn_bdd(){
     }                                                                                                                                                                                                      
     mysqli_select_db($linkMysql,$mysqlParams['database']);
     mysqli_set_charset($linkMysql, 'utf8');  
-    return $linkMysql; //does PHP can do that?
+    return $linkMysql;
 
 }
 function get_battles_history($game){
