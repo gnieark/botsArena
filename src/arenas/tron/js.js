@@ -76,7 +76,7 @@ function tron(xd_check){
 	var botsList=[];
 	var i=0;
 	while(document.getElementById('selectBot' + i)){
-	  botsList.push(document.getElementById('selectBot' + i)).value;
+	  botsList.push(document.getElementById('selectBot' + i).value);
 	    i++;
 	}
 	

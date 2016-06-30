@@ -18,6 +18,7 @@ switch ($_POST['act']){
   
     //check if bots exists
     $bots=get_Bots_Array('tron');
+    $botsArray = json_decode($_POST['bots']);
 
     $bot1Exists = false;
     $bot2Exists = false;
