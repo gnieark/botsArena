@@ -6,7 +6,11 @@ class TronPlayer{
   private $tail = array();
   private $direction;
   private $state;
-
+  
+  public function getStatus(){
+    return $this->state;
+  }
+  
   private function set_direction($newDir){
     //can't be the opposite of the previous direction
     if(
@@ -20,7 +24,7 @@ class TronPlayer{
     $this->direction = $newdir;
     return true;
   }
-  
+
   public function grow($dir=""){
     if($dir == ""){
       $dir = $this->direction;

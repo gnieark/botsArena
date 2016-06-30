@@ -17,26 +17,30 @@ switch ($_POST['act']){
   case "initGame":
   
     //check if bots exists
-    $bots=get_Bots_Array('tron');
-    $botsArray = json_decode($_POST['bots']);
-
-    $bot1Exists = false;
-    $bot2Exists = false;
-    foreach($bots as $bot){
-	if($bot['id'] == $_POST['bot1']){
-	    $_SESSION['bots'][]=new TronPlayer($bot['id'],500,10,'y+');
-	    $bot1Exists =true;
-	}
-	if($bot['id'] == $_POST['bot2']){
-	    $_SESSION['bots'][]=new TronPlayer($bot['id'],500,989,'y-');
-	    $bot2Exists =true;
-	}
-	if ($bot1Exists && $bot2Exists){
-	    break;
-	} 
+    $botsArrayTemp = json_decode($_POST['bots']);
+    
+    $_SESSION['bots'] = array();
+    $positions = array();
+    $botCount = 0;
+    foreach($botsArrayTemp as $botId){
+      do{
+	  $x = rand(1,999);
+	  $y = rand(1,999);
+      }while(in_array($x.",".$y,$positions));
+      
+      $positions[] = $x.",".$y;
+      $_SESSION['bots'][$botCount] =  new TronPlayer($bot['id'],500,10,'y+');
+      
+      if  ($_SESSION['bots'][$botCount]->getStatus() === false){
+       unset($_SESSION['bots'][$botCount]);
+      }else{
+	$botCount++;
+      }
+      
     }
-    if ((!$bot1Exists) OR (!$bot2Exists)){
-	error (500,"missing parameter 2");
+
+    if ($botCount < 2){
+	error (500,"missing bots");
     }
     
   
