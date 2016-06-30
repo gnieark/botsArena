@@ -43,12 +43,12 @@ function show_bot_panel(number){
         }
         p.appendChild(select);
         fieldset.appendChild(p);
-        
-        
+       
         document.getElementById('configurePlayers').appendChild(fieldset);
 }
 
 function applyInitMessage(req){
+  document.getElementById('fightButton').disabled=true;
   //callback function when init game request
   if(req.readyState  == 4){ 
     if(req.status  == 200) {
@@ -70,13 +70,20 @@ function tron(xd_check){
 	var svg = createElemNS('svg',{'id':'map','width':'500','height':'500','viewBox':'0 0 1000 1000'});
 	var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
 	svg.appendChild(rect);
-	
 	document.getElementById("fightResult").appendChild(svg);
 		
+	//get bot list
+	var botsList=[];
+	var i=0;
+	while(document.getElementById('selectBot' + i)){
+	  botsList.push(document.getElementById('selectBot' + i)).value;
+	    i++;
+	}
+	
 	//ask arena to send bots init messages
 	var request = new XMLHttpRequest();	 
 	request.onreadystatechange  = function(){applyInitMessage(request)};
 	request.open("POST", '/tron',  true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.send('act=initGame&bot1=' + bot1 + '&bot2=' + bot2 + '&xd_check=' + xd_check + '&fullLogs=' + document.getElementById("fullLogs").checked);
+	request.send('act=initGame&xd_check=' + xd_check + '&bots=' + JSON.parse(botsList) + '&fullLogs=' + document.getElementById("fullLogs").checked);
 }
