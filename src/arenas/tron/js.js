@@ -55,7 +55,7 @@ function applyInitMessage(req){
       alert (req.responseText);
 
     }else{
-	alert ('error ' + xhr.status);
+	alert ('error ' + response.status);
 	document.getElementById('fightButton').disabled=false;
 	return;
     }
