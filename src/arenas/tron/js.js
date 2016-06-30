@@ -61,7 +61,7 @@ function applyInitMessage(req){
     }
   }
 }
-function tron(bot1,bot2,xd_check){
+function tron(xd_check){
         //empty
         while (document.getElementById('fightResult').firstChild) {
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
