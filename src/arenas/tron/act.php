@@ -19,7 +19,7 @@ switch ($_POST['act']){
     //check if bots exists
     $botsArrayTemp = json_decode($_POST['bots']);
     
-    $_SESSION['bots'] = array();
+    $bots = array();
     $positions = array();
     $botCount = 0;
     foreach($botsArrayTemp as $botId){
@@ -29,10 +29,10 @@ switch ($_POST['act']){
       }while(in_array($x.",".$y,$positions));
       
       $positions[] = $x.",".$y;
-      $_SESSION['bots'][$botCount] =  new TronPlayer($bot['id'],500,10,'y+');
+      $bots[$botCount] =  new TronPlayer($bot['id'],500,10,'y+');
       
-      if  ($_SESSION['bots'][$botCount]->getStatus() === false){
-       unset($_SESSION['bots'][$botCount]);
+      if  ($bots[$botCount]->getStatus() === false){
+       unset($bots[$botCount]);
       }else{
 	$botCount++;
       }
