@@ -85,5 +85,5 @@ function tron(xd_check){
 	request.onreadystatechange  = function(){applyInitMessage(request)};
 	request.open("POST", '/tron',  true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.send('act=initGame&xd_check=' + xd_check + '&bots=' + JSON.parse(botsList) + '&fullLogs=' + document.getElementById("fullLogs").checked);
+	request.send('act=initGame&xd_check=' + xd_check + '&bots=' + JSON.stringify(botsList) + '&fullLogs=' + document.getElementById("fullLogs").checked);
 }
