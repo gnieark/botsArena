@@ -29,7 +29,7 @@ switch ($_POST['act']){
       }while(in_array($x.",".$y,$positions));
       
       $positions[] = $x.",".$y;
-      $bots[$botCount] =  new TronPlayer($bot['id'],500,10,'y+');
+      $bots[$botCount] =  new TronPlayer($botId,$x,$y,'y+');
       
       if  ($bots[$botCount]->getStatus() === false){
        unset($bots[$botCount]);
