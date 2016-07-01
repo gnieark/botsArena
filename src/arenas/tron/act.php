@@ -69,16 +69,12 @@ switch ($_POST['act']){
       }
       
     }
- /*   
-    if($_POST['fullLogs'] == "true"){
-    $fullLogs='Arena send to '.$playerName.'<em>'.htmlentities($tempPlayer['messageSend']).'</em><br/>
-    HTTP status: <em>'.htmlentities($tempPlayer['httpStatus']).'</em><br/>
-    Bot anwser: <em>'.htmlentities($tempPlayer['response']).'</em><br/>';
-	
-    }else{
-	$fullLogs='';
-    }
- */   
+    
+    return json_encode(array(
+      'status'	=> 'OK',
+      'logs'	=> $logs
+    ));
+    
     die;
     break;
   default:

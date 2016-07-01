@@ -4,6 +4,14 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+function addLog(message){
+  var divLogs = document.getElementById("logs");
+  var p=createElem('p',{});
+  p.innerHTML=message;
+  divLogs.appendChild(p); 
+  divLogs.scrollTop = divLogs.scrollHeight;
+  
+}
 function createElemNS(type,attributes){
     //same as createElem but with ns for svg file
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
@@ -52,7 +60,14 @@ function applyInitMessage(req){
   //callback function when init game request
   if(req.readyState  == 4){ 
     if(req.status  == 200) {
-      alert (req.responseText);
+      //alert (req.responseText);
+      try{ 
+	 var ret = JSON.parse(req.responseText);
+      }catch(e){
+	      addLog('erreur' +xhr.responseText);
+	      return;
+      }
+      addLog(ret['logs']);
 
     }else{
 	alert ('error ' + req.status);
@@ -71,7 +86,9 @@ function tron(xd_check){
 	var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
 	svg.appendChild(rect);
 	document.getElementById("fightResult").appendChild(svg);
-		
+
+	var plogs = createElem("p",{'id':'logs'});
+	document.getElementById("fightResult").appendChild(plogs);
 	//get bot list
 	var botsList=[];
 	var i=0;
