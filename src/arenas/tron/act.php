@@ -46,7 +46,7 @@ switch ($_POST['act']){
     //send init message
     $gameId = get_unique_id();
     $responses = array();
-    for ($botCount = 0; $botCount < count($bot); $botCount ++){
+    for ($botCount = 0; $botCount < count($bots); $botCount ++){
       $messageArr = array(
 	'game-id'	=> "".$gameId,
 	'action'	=> 'init',
@@ -56,7 +56,7 @@ switch ($_POST['act']){
 	'player-index'	=> $botCount
       );
       
-      $responses[] = get_IA_Response($bots[$botCount]->url,$messageArr); //don't care about result
+      $responses[] = get_IA_Response($bots[$botCount]->url,$messageArr); 
     }
     print_r($responses);
     break;
