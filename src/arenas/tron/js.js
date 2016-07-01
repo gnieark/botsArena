@@ -64,7 +64,7 @@ function applyInitMessage(req){
       try{ 
 	 var ret = JSON.parse(req.responseText);
       }catch(e){
-	      addLog('erreur' +xhr.responseText);
+	      addLog('erreur' + req.responseText);
 	      return;
       }
       addLog(ret['logs']);
