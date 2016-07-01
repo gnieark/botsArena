@@ -10,6 +10,9 @@ class TronPlayer{
   public function getStatus(){
     return $this->state;
   }
+  public function getURL(){
+    return $this->url;
+  }
   
   private function set_direction($newDir){
     //can't be the opposite of the previous direction

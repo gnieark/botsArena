@@ -56,7 +56,7 @@ switch ($_POST['act']){
 	'player-index'	=> $botCount
       );
       
-      $responses[] = get_IA_Response($bots[$botCount]->url,$messageArr); 
+      $responses[] = get_IA_Response($bots[$botCount]->getURL(),$messageArr); 
     }
     print_r($responses);
     break;
