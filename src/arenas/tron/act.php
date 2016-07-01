@@ -50,7 +50,7 @@ switch ($_POST['act']){
       $messageArr = array(
 	'game-id'	=> "".$gameId,
 	'action'	=> 'init',
-	'game'		=> 'tron'
+	'game'		=> 'tron',
 	'board'		=> '',
 	'players'	=> $players,
 	'player-index'	=> $botCount
