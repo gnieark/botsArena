@@ -38,14 +38,27 @@ switch ($_POST['act']){
       }
       
     }
-
+    $players = $botCount;
     if ($botCount < 2){
 	error (500,"missing bots");
     }
     
-  
-  
-  
+    //send init message
+    $gameId = get_unique_id();
+    $responses = array();
+    for ($botCount = 0; $botCount < count($bot); $botCount ++){
+      $messageArr = array(
+	'game-id'	=> "".$gameId,
+	'action'	=> 'init',
+	'game'		=> 'tron'
+	'board'		=> '',
+	'players'	=> $players,
+	'player-index'	=> $botCount
+      );
+      
+      $responses[] = get_IA_Response($bots[$botCount]->url,$messageArr); //don't care about result
+    }
+    print_r($responses);
     break;
   default:
     break;
