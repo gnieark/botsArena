@@ -42,10 +42,13 @@ switch ($_POST['act']){
     if ($botCount < 2){
 	error (500,"missing bots");
     }
+
+    $logs="";
     
     //send init message
     $gameId = get_unique_id();
     $responses = array();
+
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
       $messageArr = array(
 	'game-id'	=> "".$gameId,
@@ -56,10 +59,26 @@ switch ($_POST['act']){
 	'player-index'	=> $botCount
       );
       
-      $responses[] = get_IA_Response($bots[$botCount]->getURL(),$messageArr); 
+      $resp = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
+      if($_POST['fullLogs'] == "true"){
+	$logs.='Arena send to '.$bots[$botCount]->getName().'<em>'.htmlentities($resp['messageSend']).'</em><br/>
+	HTTP status: <em>'.htmlentities($resp['httpStatus']).'</em><br/>
+	Bot anwser: <em>'.htmlentities($resp['response']).'</em><br/>';
+      }else{
+	$logs.="Init message send to ".$bots[$botCount]->getName()."<br/>";
+      }
+      
     }
-    print_r($responses);
-    
+ /*   
+    if($_POST['fullLogs'] == "true"){
+    $fullLogs='Arena send to '.$playerName.'<em>'.htmlentities($tempPlayer['messageSend']).'</em><br/>
+    HTTP status: <em>'.htmlentities($tempPlayer['httpStatus']).'</em><br/>
+    Bot anwser: <em>'.htmlentities($tempPlayer['response']).'</em><br/>';
+	
+    }else{
+	$fullLogs='';
+    }
+ */   
     die;
     break;
   default:

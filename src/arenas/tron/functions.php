@@ -13,7 +13,9 @@ class TronPlayer{
   public function getURL(){
     return $this->url;
   }
-  
+  public function getName(){
+    return $this->name;
+  ]
   private function set_direction($newDir){
     //can't be the opposite of the previous direction
     if(
