@@ -70,7 +70,7 @@ switch ($_POST['act']){
       
     }
     
-    return json_encode(array(
+    echo json_encode(array(
       'status'	=> 'OK',
       'logs'	=> $logs
     ));
