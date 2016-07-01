@@ -59,6 +59,8 @@ switch ($_POST['act']){
       $responses[] = get_IA_Response($bots[$botCount]->getURL(),$messageArr); 
     }
     print_r($responses);
+    
+    die;
     break;
   default:
     break;
