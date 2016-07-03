@@ -83,8 +83,23 @@ switch ($_POST['act']){
     die;
     break;
   case "play":
+  
+    //check for correct game ID
+    if($_POST['gameId'] !== $_SESSION['gameId']){
+      echo '{"status":"error"}';
+      die;
+    }
+    $bots = unserialize($_SESSION['bots']);
+    
+    for ($botCount = 0; $botCount < count($bots); $botCount ++){
+      $sendMessage = array(
+	'game-id'	=>  ''
+      );
+    }
     print_r($_SESSION);
   
+  
+    die;
     break;
   default:
     break;
