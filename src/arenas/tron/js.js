@@ -81,7 +81,7 @@ function applyInitMessage(req,xd_check){
 }
 function play(gameId,xd_check){
   
-  	var request = new XMLHttpRequest();	 
+  	var req = new XMLHttpRequest();	 
 	req.onreadystatechange  = function(){
 	  if(req.readyState  == 4){ 
 	    if(req.status  == 200) {
