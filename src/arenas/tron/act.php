@@ -70,12 +70,21 @@ switch ($_POST['act']){
       
     }
     
+    //save bots on session var
+    $_SESSION['bots'] = serialize($bots);
+    $_SESSION['gameId'] = $gameId;
+    
     echo json_encode(array(
       'status'	=> 'OK',
-      'logs'	=> $logs
+      'logs'	=> $logs,
+      'gameId'	=> $gameId
     ));
     
     die;
+    break;
+  case "play":
+    print_r($_SESSION);
+  
     break;
   default:
     break;
