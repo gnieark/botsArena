@@ -38,7 +38,7 @@ switch ($_POST['act']){
       }
       
     }
-    $players = $botCount;
+    $_SESSION['players'] = $botCount;
     if ($botCount < 2){
 	error (500,"missing bots");
     }
@@ -55,7 +55,7 @@ switch ($_POST['act']){
 	'action'	=> 'init',
 	'game'		=> 'tron',
 	'board'		=> '',
-	'players'	=> $players,
+	'players'	=> $_SESSION['players'],
 	'player-index'	=> $botCount
       );
       
@@ -90,13 +90,27 @@ switch ($_POST['act']){
       die;
     }
     $bots = unserialize($_SESSION['bots']);
-    
+    $board= array(); 
+    //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
-      $sendMessage = array(
-	'game-id'	=>  ''
-      );
+      $board[$botCount] = $bots[$botCount]->getTail();
     }
-    print_r($_SESSION);
+    
+    $responses = array();
+    for ($botCount = 0; $botCount < count($bots); $botCount ++){
+      $messageArr = array(
+	'game-id'	=>  '',
+	'action'	=> 'play-turn',
+	'game'		=> 'tron',
+	'board'		=> $board,
+	'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
+	'players'	=> $_SESSION['players']	
+      );
+      
+      $responses[$botCount] = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
+    }
+    
+    print_r($responses);
   
   
     die;

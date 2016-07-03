@@ -6,7 +6,9 @@ class TronPlayer{
   private $tail = array();
   private $direction;
   private $state;
-  
+  public function getTail(){
+    return $this->tail;
+  }
   public function getStatus(){
     return $this->state;
   }
