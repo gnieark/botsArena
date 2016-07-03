@@ -92,9 +92,9 @@ function play(gameId,xd_check){
 	    }
 	  }
 	};
-	request.open("POST", '/tron',  true);
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.send('act=play&xd_check=' + xd_check + '&gameId=' + gameId + '&fullLogs=' + document.getElementById("fullLogs").checked);
+	req.open("POST", '/tron',  true);
+	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	req.send('act=play&xd_check=' + xd_check + '&gameId=' + gameId + '&fullLogs=' + document.getElementById("fullLogs").checked);
   
 }
 function tron(xd_check){
