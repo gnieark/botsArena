@@ -85,7 +85,7 @@ switch ($_POST['act']){
   case "play":
   
     //check for correct game ID
-    if($_POST['gameId'] !=== $_SESSION['gameId']){
+    if($_POST['gameId'] <> $_SESSION['gameId']){
       echo '{"status":"error"}';
       die;
     }
