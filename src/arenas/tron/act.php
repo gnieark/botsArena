@@ -114,13 +114,14 @@ switch ($_POST['act']){
 	
 	$busyCells = array_merge($busyCells, $bots[$botCount]->getTail()); 
 	$responses[$botCount] = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
-	if(in_array($responses[$botCount]['responseArr'], $busyCells)){
+	
+	if(in_array($responses[$botCount]['responseArr']['play'], $busyCells)){
 	  //this bot plays on a non empty cell, it looses
 	  $bots[$botCount]->loose();
 	  $logs.= $bots[$botCount]->getName()." Played on a non empty cell, he loses.<br/>";
 	  $loosingBots[] = $bots[$botCount]->getName();
 	}else{
-	  $targets[] = $responses[$botCount]['responseArr'];
+	  $targets[] = $responses[$botCount]['responseArr']['play'];
 	}
 	
       }
