@@ -1,5 +1,22 @@
 <?php
 
+
+function save_draw_bots($arr){
+  /*
+  * Recursive function who save all combionaisons of draw matches
+  */
+  
+  if(count($arr) < 2){
+    return;
+  }else{
+    $a = $arr[0];
+    array_shift($arr)
+    foreach($arr as $bot){
+      save_battle('tron',$a,$bot,0);
+    }
+    save_draw_bots($arr);
+  }
+}
 class TronPlayer{
   private $url;
   private $name;
@@ -41,7 +58,6 @@ class TronPlayer{
     }
     $headCoords = end($this->tail);
     
-    
     switch ($dir){
       case "y+":
 	$targetCoords = array($headCoords[0],$headCoords[1]++);
@@ -57,13 +73,16 @@ class TronPlayer{
 	break;
       default:
 	return false;
-      
     }
     $this->tail[] = $targetCoords;
 
   }
   
-  
+  public function loose(){
+    $this->state = false;
+    $this->tail = array();
+    return false;
+  }
   public function __construct($id,$initialX,$initialY,$initialDirection){
     $lnBdd = conn_bdd();
     $rs = mysqli_query($lnBdd,

@@ -83,7 +83,7 @@ switch ($_POST['act']){
     die;
     break;
   case "play":
-  
+    $logs = "";
     //check for correct game ID
     if($_POST['gameId'] <> $_SESSION['gameId']){
       echo '{"status":"error"}';
@@ -96,20 +96,52 @@ switch ($_POST['act']){
       $board[$botCount] = $bots[$botCount]->getTail();
     }
     
+    $busyCells = array(); //les cases prises
     $responses = array();
+    $loosingBots = array();
+    $targets = array();
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
-      $messageArr = array(
-	'game-id'	=>  '',
-	'action'	=> 'play-turn',
-	'game'		=> 'tron',
-	'board'		=> $board,
-	'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
-	'players'	=> $_SESSION['players']	
-      );
-      
-      $responses[$botCount] = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
-    }
     
+      if($bots[$botCount]->getStatus()){
+	$messageArr = array(
+	  'game-id'	=>  '',
+	  'action'	=> 'play-turn',
+	  'game'		=> 'tron',
+	  'board'		=> $board,
+	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
+	  'players'	=> $_SESSION['players']	
+	);
+	
+	$busyCells = array_merge($busyCells, $bots[$botCount]->getTail()); 
+	$responses[$botCount] = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
+	if(in_array($responses[$botCount]['responseArr'], $busyCells)){
+	  //this bot plays on a non empty cell, it looses
+	  $bots[$botCount]->loose();
+	  $logs.= $bots[$botCount]->getName()." Played on a non empty cell, he loses.<br/>";
+	  $loosingBots[] = $bots[$botCount]->getName();
+	}else{
+	  $targets[] = $responses[$botCount]['responseArr'];
+	}
+	
+      }
+    }
+
+    for ($botCount = 0; $botCount < count($bots); $botCount ++){
+      if($bots[$botCount]->getStatus()){
+      
+      }
+     }
+    //dans les bots qui restent, y en a t-il qui jouent sur ma ême case?
+    
+    
+    //save pat game betwin loosing bots
+     save_draw_bots($loosingBots);
+    //find losing bots
+    
+  
+    
+    
+  
     print_r($responses);
   
   
