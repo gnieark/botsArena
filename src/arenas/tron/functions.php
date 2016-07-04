@@ -10,7 +10,7 @@ function save_draw_bots($arr){
     return;
   }else{
     $a = $arr[0];
-    array_shift($arr)
+    array_shift($arr);
     foreach($arr as $bot){
       save_battle('tron',$a,$bot,0);
     }
