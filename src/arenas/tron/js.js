@@ -69,7 +69,6 @@ function applyInitMessage(req,xd_check){
       }
       addLog(ret['logs']);
       if(ret['status'] == "OK"){
-	alert(ret['gameId']);
 	play(ret['gameId'],xd_check);
       }
 
