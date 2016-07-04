@@ -128,10 +128,10 @@ switch ($_POST['act']){
 
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
       if($bots[$botCount]->getStatus()){
-      
+	 
       }
      }
-    //dans les bots qui restent, y en a t-il qui jouent sur ma ême case?
+    
     
     
     //save pat game betwin loosing bots
@@ -142,7 +142,7 @@ switch ($_POST['act']){
     
     
   
-    print_r($responses);
+    print_r($targets);
   
   
     die;
