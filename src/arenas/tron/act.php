@@ -21,9 +21,10 @@ switch ($_POST['act']){
     $logs = $game->init_game();
     
     echo json_encode(array(
-      'status'	=> $game->getStatus();,
-      'logs'	=> $logs
-      'gameId'	=> $game->getGameId();
+      'status'	=> $game->get_continue(),
+      'logs'	=> $logs,
+      'gameId'	=> $game->getGameId(),
+      'botsPosition' => $game->getBotsPositions()
     ));
     
     $_SESSION['game'] = serialize($game);
@@ -34,12 +35,21 @@ switch ($_POST['act']){
   case "play":
     $logs = "";
     //check for correct game ID
-    if($_POST['gameId'] <> $_SESSION['gameId']){
+
+    if(!isset($_SESSION['game'])){
       echo '{"status":"error"}';
-      die;
+      die; 
     }
-    $bots = unserialize($_SESSION['bots']);
-    $board= array(); 
+    
+    $game= unserialize($_SESSION['game']);
+
+    if($game->getGameId() <> $_POST['gameId']){
+      //sometimes if an ajax callback is applied after init an other game
+      echo '{"status":"error"}';
+      die; 
+    }
+    
+    
     //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
       $board[$botCount] = $bots[$botCount]->getTail();

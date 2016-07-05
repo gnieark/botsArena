@@ -20,6 +20,18 @@ function save_draw_bots($arr){
 class TronGame{
   private $bots;
   private $gameId;
+  public function getBotsPositions(){
+    $nbeBots = count($this->bots);
+    $arr = array();
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+      $arr[$botCount] = array(
+	"name"	=> $this->bots[$botCount]->getName(),
+	"tail"	=> $this->bots[$botCount]->getTail()
+      
+      );
+    }
+    return $arr;
+  }
   public function getGameId(){
     return $this->gameId;
   }
@@ -39,7 +51,7 @@ class TronGame{
   }
   public function init_game(){
     //send init messages to bots
-    
+    $logs = "";
     $nbeBots = count($this->bots);
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       $messageArr = array(
@@ -51,25 +63,15 @@ class TronGame{
 	'player-index'	=> $botCount
       );
       
-      $resp = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
+      $resp = get_IA_Response($this->bots[$botCount]->getURL(),$messageArr);
       
       if($_POST['fullLogs'] == "true"){
 	$logs.='Arena send to '.$bots[$botCount]->getName().'<em>'.htmlentities($resp['messageSend']).'</em><br/>
 	HTTP status: <em>'.htmlentities($resp['httpStatus']).'</em><br/>
 	Bot anwser: <em>'.htmlentities($resp['response']).'</em><br/>';
       }else{
-	$logs.="Init message send to ".$bots[$botCount]->getName()."<br/>";
-      }
-      
-      //check response
-      if(
-	  ($resp['httpStatus'] <> 200)
-	  OR (!pregmatch('^[0-9]*,[0-9]*$', $resp['responseArr']))
-	){
-	   $this->bots[$botCount]->loose();
-	   $logs.= $this->bots[$botCount]->getName." Made a non conform response <br/>";
-	}
-      
+	$logs.="Init message send to ".$this->bots[$botCount]->getName()."<br/>";
+      }  
     }
     
     return $logs;
