@@ -12,6 +12,22 @@ function addLog(message){
   divLogs.scrollTop = divLogs.scrollHeight;
   
 }
+function growTails(newPointsByPlayer){
+
+  var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
+  //document.getElementById('map');
+  for (var botId in newPointsByPlayer){
+      
+      var tail = newPointsByPlayer[botId]['tail'];
+      for(var coordsIx in tail){
+	
+	coords = tail[coordsIx];	
+	//draw the point
+	var rect=createElemNS('rect',{'x':coords[0],'y':coords[1],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	document.getElementById('map').appendChild(rect);	
+      }
+  }
+}
 function createElemNS(type,attributes){
     //same as createElem but with ns for svg file
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
@@ -68,8 +84,9 @@ function applyInitMessage(req,xd_check){
 	      return;
       }
       addLog(ret['logs']);
-      if(ret['status'] == "OK"){
-	play(ret['gameId'],xd_check);
+      if(ret['status'] == true){
+	growTails(ret['botsPosition']);
+	//play(ret['gameId'],xd_check);
       }
 
     }else{

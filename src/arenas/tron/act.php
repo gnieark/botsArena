@@ -17,7 +17,14 @@ switch ($_POST['act']){
   case "initGame":
   
     $botsArrayTemp = json_decode($_POST['bots']);
-    $game = new TronGame($botsArrayTemp);
+    $botsIds = array();
+     //dont take non selected bots (value=0)
+    foreach($botsArrayTemp as $bot){
+      if($bot > 0){
+	$botsIds[] = $bot;
+      }
+    }
+    $game = new TronGame($botsIds);
     $logs = $game->init_game();
     
     echo json_encode(array(

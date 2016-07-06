@@ -84,7 +84,7 @@ class TronGame{
     return $arr;
   }
   public function __construct($botsIds){
-  
+    
     $this->gameId = get_unique_id();
     $this->bots = array();
     $positions = array();
@@ -101,7 +101,10 @@ class TronGame{
       $this->bots[$botCount] =  new TronPlayer($botId,$x,$y,'y+');
       
       if  ($this->bots[$botCount]->getStatus() === false){
+      
        $err = "Something went wrong for ".$this->bots[$botCount]->getName()."<br/>";
+      }else{
+	$botCount++;
       }
     }
     return $err;
