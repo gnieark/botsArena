@@ -86,7 +86,7 @@ function applyInitMessage(req,xd_check){
       addLog(ret['logs']);
       if(ret['status'] == true){
 	growTails(ret['botsPosition']);
-	//play(ret['gameId'],xd_check);
+	play(ret['gameId'],xd_check);
       }
 
     }else{

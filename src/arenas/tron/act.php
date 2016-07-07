@@ -55,7 +55,7 @@ switch ($_POST['act']){
       echo '{"status":"error"}';
       die; 
     }
-    
+    $game()->newLap();
     
     //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
