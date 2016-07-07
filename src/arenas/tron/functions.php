@@ -1,6 +1,5 @@
 <?php
-include ("class.TronGame.php");
-include ("class.TronPlayer.php");
+
 function save_draw_bots($arr){
   /*
   * Recursive function who save all combionaisons of draw matches

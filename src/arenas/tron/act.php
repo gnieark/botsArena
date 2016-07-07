@@ -11,7 +11,8 @@
 # -- END LICENSE BLOCK -----------------------------------------
 
 require_once(__DIR__."/functions.php");
-
+require_once ("class.TronGame.php");
+require_once ("class.TronPlayer.php");
 
 switch ($_POST['act']){
   case "initGame":
@@ -41,21 +42,19 @@ switch ($_POST['act']){
     break;
   case "play":
     $logs = "";
-    //check for correct game ID
-
     if(!isset($_SESSION['game'])){
       echo '{"status":"error"}';
       die; 
     }
     
-    $game= unserialize($_SESSION['game']);
+    $game = unserialize($_SESSION['game']);
 
     if($game->getGameId() <> $_POST['gameId']){
       //sometimes if an ajax callback is applied after init an other game
       echo '{"status":"error"}';
       die; 
     }
-    $game()->newLap();
+    $game->new_lap();
     
     //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){

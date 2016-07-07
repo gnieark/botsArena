@@ -31,6 +31,10 @@ class TronGame{
       return false;
     }
   }
+  public function new_lap(){
+    
+  
+  }
   public function init_game(){
     //send init messages to bots
     $logs = "";
