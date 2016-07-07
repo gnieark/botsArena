@@ -55,7 +55,7 @@ switch ($_POST['act']){
       die; 
     }
     $game->new_lap();
-    
+    /*
     //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){
       $board[$botCount] = $bots[$botCount]->getTail();
@@ -110,7 +110,7 @@ switch ($_POST['act']){
   
     print_r($targets);
   
-  
+  */
     die;
     break;
   default:

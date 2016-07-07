@@ -1,5 +1,6 @@
 <?php
-class TronGame{
+class TronGame
+{
   private $bots;
   private $gameId;
   public function getBotsPositions(){
@@ -14,9 +15,84 @@ class TronGame{
     }
     return $arr;
   }
+  
   public function getGameId(){
     return $this->gameId;
   }
+  
+  private function getBoard(){
+    $board = array();
+    $nbeBots = count($this->bots);
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+      $board[] = $this->bots[$botCount]->getTail();
+    }
+    return $board;
+  }
+  
+  private function get_multi_IAS_Responses($iasUrls, $postParams){
+    //same as the get_IAS_Responses function
+    // but more than one bot requested parallely
+    
+    $cmh = curl_multi_init();
+    for ($i = 0; $i < count($iasUrls); $i++){
+	$data_string = json_encode($postParams[$i]);
+    
+	  $ch[$i] = curl_init($iasUrls[$i]);                                                                      
+	  curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
+	  curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
+	  curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
+	  curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
+	  curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);                                                                      
+	  curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
+	      'Content-Type: application/json',                                                                                
+	      'Content-Length: ' . strlen($data_string))                                                                       
+	  );
+	  curl_multi_add_handle($cmh,$ch[$i]);
+    }
+    //send the requests
+    do {
+      $returnVal = curl_multi_exec($cmh, $runningHandles);
+    } while ($returnVal == CURLM_CALL_MULTI_PERFORM);
+    // Loop and continue processing the request
+    while ($runningHandles && $returnVal== CURLM_OK) {
+	// Wait forever for network
+	$numberReady = curl_multi_select($cmh);
+	if ($numberReady != -1) {
+	  // Pull in any new data, or at least handle timeouts
+	  do {
+	    $returnVal = curl_multi_exec($cmh, $runningHandles);
+	  } while ($returnVal == CURLM_CALL_MULTI_PERFORM);
+	}
+      }
+      
+    //Get results
+      for ($i = 0; $i < count($iasUrls); $i++){
+	// Check for errors
+	$curlError = curl_error($ch[$i]);
+	if($curlError == "") {
+	  $response = curl_multi_getcontent($ch[$i]);
+	  if(! $arr = json_decode($response,TRUE)){
+	      $arr=array();
+	    }
+	  $res[$i] = array(
+	    'messageSend' 	=> json_encode($postParams[$i]),
+	    'response'		=> $response,
+	    'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
+	    'responseArr'	=> $arr   
+	   ); 
+	  
+	}else{
+	  $res[$i] = false;
+	}
+	//close
+	curl_multi_remove_handle($cmh, $ch[$i]);
+	curl_close($ch[$i]);
+      }
+      // Clean up the curl_multi handle
+      curl_multi_close($cmh);
+      return $res;
+  }
+  
   public function get_continue(){
     //count bots alive. if less than 1, game is ended
     $count = 0;
@@ -31,10 +107,36 @@ class TronGame{
       return false;
     }
   }
-  public function new_lap(){
-    
   
+  public function new_lap(){
+    // for all alive bots
+    $logs = "";
+    $nbeBots = count($this->bots);
+    $urls = array();
+    $paramToSend = array();
+    
+    
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
+      if  ($this->bots[$botCount]->getStatus()){
+	$urls[$botCount] = $this->bots[$botCount]->getURL();	
+	$paramsToSend[$botCount] = array(
+	  'game-id'		=>  "".$this->gameId,
+	  'action'		=> 'play-turn',
+	  'game'		=> 'tron',
+	  'board'		=> $this->getBoard(),
+	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
+	  'players'	=> $nbeBots
+	);
+      
+      }
+    }
+    
+    $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
+    print_r($responses);
+    
+    
   }
+  
   public function init_game(){
     //send init messages to bots
     $logs = "";
@@ -62,6 +164,7 @@ class TronGame{
     
     return $logs;
   }
+  
   private function getBusyCells(){
     $arr=array();
     foreach($this->bots as $bot){
@@ -69,6 +172,7 @@ class TronGame{
     }
     return $arr;
   }
+  
   public function __construct($botsIds){
     
     $this->gameId = get_unique_id();
