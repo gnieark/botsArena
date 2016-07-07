@@ -436,5 +436,3 @@ function get_multi_IAS_Responses($iasUrls, $postParams){
     curl_multi_close($mh);
     return $res;
 }
-  
-  
