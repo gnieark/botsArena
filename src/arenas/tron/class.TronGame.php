@@ -29,6 +29,23 @@ class TronGame
     return $board;
   }
   
+  private function save_draw_bots($arr){
+    /*
+    * Recursive function who save all combionaisons of draw matches
+    */
+    
+    if(count($arr) < 2){
+      return;
+    }else{
+      $a = $arr[0];
+      array_shift($arr);
+      foreach($arr as $bot){
+	save_battle('tron',$a,$bot,0);
+      }
+      $this->save_draw_bots($arr);
+    }
+  }
+  
   private function get_multi_IAS_Responses($iasUrls, $postParams){
     //same as the get_IAS_Responses function
     // but more than one bot requested parallely
@@ -114,7 +131,8 @@ class TronGame
     $nbeBots = count($this->bots);
     $urls = array();
     $paramToSend = array();
-    
+    $board = $this->getBoard();
+    $loosers = array();
     
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
       if  ($this->bots[$botCount]->getStatus()){
@@ -123,15 +141,53 @@ class TronGame
 	  'game-id'		=>  "".$this->gameId,
 	  'action'		=> 'play-turn',
 	  'game'		=> 'tron',
-	  'board'		=> $this->getBoard(),
+	  'board'		=> $board,
 	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
 	  'players'	=> $nbeBots
 	);
-      
       }
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
+    
+    $targetsList = array();
+    $busyCells = $this->getBusyCells();
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
+      if  ($this->bots[$botCount]->getStatus()){
+	//tester si sa réponse n'est pas sur une case déjà occupée.
+	$target = $this->bot[$botCount]->grow($response[$botCount]['responseArr']['play']);
+	$x = $target[0];
+	$y = $target[1];
+	$hashTargetsList[$botCount] = $x * 1000 + $y; //wil be easyest to compare than if it was arrays
+	if(($target === false)
+	  OR (in_array($target,$busyCells))
+	  OR ($x < 0) OR ($x > 999) OR ($y < 0) OR ($y > 999)
+	){
+	  //he loses
+	  $loosers[] = $botCount; 
+	}
+      }
+    }
+    
+    //did some bots have played on the same cell?
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+      if  ($this->bots[$botCount]->getStatus()){
+	for ($botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){
+	  if  (($this->bots[$botCount2]->getStatus())
+		&& ($botCount <> $botCount2)
+		&& ($hashTargetsList[$botCount] == $hashTargetsList[$botCount2])
+	    ){
+	      //they loose
+	      $loosers[] = $botCount;
+	      $loosers[] = $botCount2;
+	    }
+	  }
+      }
+    }
+    
+    //save_draw_bots
+    
+    
     print_r($responses);
     
     

@@ -30,7 +30,7 @@ class TronPlayer{
     $this->direction = $newDir;
     return true;
   }
-  public function getTargetCell($dir){
+  private function getTargetCell($dir){
   
     if($dir == ""){
       $dir = $this->direction;
@@ -61,7 +61,9 @@ class TronPlayer{
   }
   
   public function grow($dir=""){
-    $this->tail[] = $this->getTargetCell($dir);
+    $targetCell = $this->getTargetCell($dir);
+    $this->tail[] = $targetCell;
+    return $targetCell;
   }
   public function loose(){
     $this->state = false;
