@@ -1,6 +1,7 @@
 <?php
 class TronPlayer{
   private $url;
+  private $id;
   private $name;
   private $tail = array();
   private $direction;
@@ -16,6 +17,9 @@ class TronPlayer{
   }
   public function getName(){
     return $this->name;
+  }
+  public function getId(){
+    return $this->id;
   }
   private function set_direction($newDir){
     //can't be the opposite of the previous direction
@@ -76,6 +80,7 @@ class TronPlayer{
       "SELECT name,url FROM bots WHERE game='tron' AND id='".mysqli_real_escape_string($lnBdd, $id)."';"
     );
     if(($r=mysqli_fetch_row($rs)) && in_array($initialDirection,array('x-','x+','y-','y+'))){
+      $this->id = $id;
       $this->name = $r[0];
       $this->url = $r[1];
       $this->tail = array(array($initialX,$initialY));

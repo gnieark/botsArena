@@ -40,10 +40,19 @@ class TronGame
       $a = $arr[0];
       array_shift($arr);
       foreach($arr as $bot){
-	save_battle('tron',$a,$bot,0);
+	save_battle('tron',$a,$bot,0,'id');
       }
       $this->save_draw_bots($arr);
     }
+  }
+  
+  private function save_losers_winers($arrLoosers,$arrWiners){
+    foreach($arrWiners as $winner){
+      foreach($arrLoosers as $loser){
+	save_battle('tron',$winer,$loser,1,'id');
+      }
+    }
+  
   }
   
   private function get_multi_IAS_Responses($iasUrls, $postParams){
@@ -149,20 +158,25 @@ class TronGame
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
-    
+    //print_r($responses);
     $targetsList = array();
     $busyCells = $this->getBusyCells();
+    $busyCellsStr = array();
+    foreach ($busyCells as $bs){
+      $busyCellsStr[] = $bs[0].",".$bs[1];  //as string for use in in_array
+    }
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
       if  ($this->bots[$botCount]->getStatus()){
 	//tester si sa réponse n'est pas sur une case déjà occupée.
-	$target = $this->bot[$botCount]->grow($response[$botCount]['responseArr']['play']);
+	$target = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
 	$x = $target[0];
 	$y = $target[1];
 	$hashTargetsList[$botCount] = $x * 1000 + $y; //wil be easyest to compare than if it was arrays
 	if(($target === false)
-	  OR (in_array($target,$busyCells))
+	  OR (in_array($target,$busyCellsStr))
 	  OR ($x < 0) OR ($x > 999) OR ($y < 0) OR ($y > 999)
 	){
+	  $this->bots[$botCount]->loose();
 	  //he loses
 	  $loosers[] = $botCount; 
 	}
@@ -177,6 +191,7 @@ class TronGame
 		&& ($botCount <> $botCount2)
 		&& ($hashTargetsList[$botCount] == $hashTargetsList[$botCount2])
 	    ){
+	      $this->bots[$botCount]->loose();
 	      //they loose
 	      $loosers[] = $botCount;
 	      $loosers[] = $botCount2;
@@ -185,10 +200,21 @@ class TronGame
       }
     }
     
-    //save_draw_bots
+    
+    if(count($loosers > 0)){
+    
+      //save_draw_bots
+      save_draw_bots($loosers);
+      $winners = array();
+       for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+	if ($this->bots[$botCount]->getStatus()){
+	  $winners[] = $this->bots[$botCount]->getId();
+	}
+       }
+    }
     
     
-    print_r($responses);
+    //sauver les relations winers loosers
     
     
   }
@@ -224,7 +250,7 @@ class TronGame
   private function getBusyCells(){
     $arr=array();
     foreach($this->bots as $bot){
-      $arr = array_merge($arr,$bot->getTail);
+      $arr = array_merge($arr,$bot->getTail());
     }
     return $arr;
   }
