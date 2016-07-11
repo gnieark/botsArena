@@ -1,4 +1,7 @@
 <?php
+class InvalidDirectionException extends UnexpectedValueException{
+
+}
 class Direction
 {
   private static $top = 0;
@@ -26,6 +29,28 @@ class Direction
 	return "x+";
 	break; 
     }
+  }
+  public static function make($str){
+    $dir = new Direction();
+    switch((string)$str){
+      case "x+":
+	$dir->value = Direction::$right;
+	break;
+      case "x-":
+	$dir->value = Direction::$left;
+	break;
+      case "y+":
+	$dir->value = Direction::$top;
+	break;
+      case "y-":
+	$dir->value = Direction::$bottom;
+	break;
+      default:
+	throw new InvalidDirectionException("expected 'x+', 'x-', 'y+' or 'y-'". (string)$str."received.");
+	break;
+	
+    }
+    return $dir;
   }
   public function opposite(){
      $opposites = array(
