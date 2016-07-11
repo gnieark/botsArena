@@ -105,7 +105,7 @@ class TronGame
 	    'response'		=> $response,
 	    'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
 	    'responseArr'	=> $arr   
-	   ); 
+	  ); 
 	  
 	}else{
 	  $res[$i] = false;
@@ -206,12 +206,12 @@ class TronGame
       //save_draw_bots
       $this->save_draw_bots($loosers);
       $winners = array();
-       for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+      for ($botCount = 0; $botCount < $nbeBots; $botCount++){
 	if ($this->bots[$botCount]->getStatus()){
 	  $winners[] = $this->bots[$botCount]->getId();
 	}
-       }
-       //sauver les relations winers loosers
+      }
+      //sauver les relations winers loosers
       $this->save_losers_winers($loosers,$winners);
     }
     
@@ -226,7 +226,7 @@ class TronGame
       }
     }
   
-   return $arrRapport;
+  return $arrRapport;
     
   }
   
@@ -285,7 +285,7 @@ class TronGame
       
       if  ($this->bots[$botCount]->getStatus() === false){
       
-       $err = "Something went wrong for ".$this->bots[$botCount]->getName()."<br/>";
+      $err = "Something went wrong for ".$this->bots[$botCount]->getName()."<br/>";
       }else{
 	$botCount++;
       }

@@ -103,9 +103,7 @@ function play(gameId,xd_check){
 	  if(req.readyState  == 4){ 
 	    if(req.status  == 200) {
 	      addLog(req.responseText);
-	      var reponse = JSON.parse(req.responseText);
-	      
-	      
+	      var reponse = JSON.parse(req.responseText);  
 	    }else{
 	      
 	    }
