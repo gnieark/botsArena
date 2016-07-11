@@ -54,7 +54,18 @@ switch ($_POST['act']){
       echo '{"status":"error"}';
       die; 
     }
-    $game->new_lap();
+    $lap = $game->new_lap();
+    if($game->get_continue()){
+      $continue = 1;
+    }else{
+      $continue = 0;
+    }
+    echo json_encode(array(
+      'gameId' 	  	=> $game->getGameId(),
+      'continue' 	=> $continue,
+      'lap'		=> $lap
+    ));
+    die;
     /*
     //make the board array
     for ($botCount = 0; $botCount < count($bots); $botCount ++){

@@ -169,6 +169,7 @@ class TronGame
       if  ($this->bots[$botCount]->getStatus()){
 	//tester si sa réponse n'est pas sur une case déjà occupée.
 	$target = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
+	$targetByBot[$botCount] = $target;
 	$x = $target[0];
 	$y = $target[1];
 	$hashTargetsList[$botCount] = $x * 1000 + $y; //wil be easyest to compare than if it was arrays
@@ -202,20 +203,30 @@ class TronGame
     
     
     if(count($loosers > 0)){
-    
       //save_draw_bots
-      save_draw_bots($loosers);
+      $this->save_draw_bots($loosers);
       $winners = array();
        for ($botCount = 0; $botCount < $nbeBots; $botCount++){
 	if ($this->bots[$botCount]->getStatus()){
 	  $winners[] = $this->bots[$botCount]->getId();
 	}
        }
+       //sauver les relations winers loosers
+      $this->save_losers_winers($loosers,$winners);
     }
     
-    
-    //sauver les relations winers loosers
-    
+    // generer un array en retour qui permettra de dessiner les modifications
+    // sur la map
+    $arrRapport = array();
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+      if ($this->bots[$botCount]->getStatus()){
+	$arrRapport[$botCount] = $targetByBot[$botCount];
+      }else{
+	$arrRapport[$botCount] = "die";
+      }
+    }
+  
+   return $arrRapport;
     
   }
   
