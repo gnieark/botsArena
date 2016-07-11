@@ -11,8 +11,9 @@
 # -- END LICENSE BLOCK -----------------------------------------
 
 require_once(__DIR__."/functions.php");
-require_once ("class.TronGame.php");
-require_once ("class.TronPlayer.php");
+require_once ("TronGame.php");
+require_once ("TronPlayer.php");
+require_once ("Direction.php");
 
 switch ($_POST['act']){
   case "initGame":
