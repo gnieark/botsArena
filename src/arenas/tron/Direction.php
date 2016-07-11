@@ -37,6 +37,6 @@ class Direction
      
     $opposite = new Direction();
     $opposite->value = $opposites[$this->value];
-  
+    return $opposite;
   }
 }
