@@ -10,10 +10,36 @@ class Direction
   private static $right = 3;
   
   private $value;
+
+  public $deltaX;
+  public $deltaY;
   
   public function __construct(){
     $this->value = 0;
   }
+  
+  private function setValue($value){
+    $this->value = $value;
+    switch ($value){
+      case Direction::$bottom:
+	$this->deltaY = -1;
+	$this->deltaX = 0;
+	break;
+      case Direction::$top:
+	$this->deltaY = 1;
+	$this->deltaX = 0;
+	break;  
+      case Direction::$left:
+	$this->deltaY = 0;
+	$this->deltaX = -1;
+	break;
+      case Direction::$right:
+	$this->deltaY = 0;
+	$this->deltaX = 1;
+	break;
+    }
+  }
+  
   public function __toString(){
     switch ($this->value){
       case Direction::$top:
@@ -30,25 +56,24 @@ class Direction
 	break; 
     }
   }
+  
   public static function make($str){
     $dir = new Direction();
     switch((string)$str){
       case "x+":
-	$dir->value = Direction::$right;
+	$dir->setValue(Direction::$right);
 	break;
       case "x-":
-	$dir->value = Direction::$left;
+	$dir->setValue(Direction::$left);
 	break;
       case "y+":
-	$dir->value = Direction::$top;
+	$dir->setValue(Direction::$top);
 	break;
       case "y-":
-	$dir->value = Direction::$bottom;
+	$dir->setValue(Direction::$bottom);
 	break;
       default:
 	throw new InvalidDirectionException("expected 'x+', 'x-', 'y+' or 'y-'". (string)$str."received.");
-	break;
-	
     }
     return $dir;
   }
@@ -61,7 +86,7 @@ class Direction
      );
      
     $opposite = new Direction();
-    $opposite->value = $opposites[$this->value];
+    $opposite->setValue($opposites[$this->value]);
     return $opposite;
   }
 }

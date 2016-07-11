@@ -36,6 +36,14 @@ class Directiontest extends TestCase {
   /**
     * @dataProvider validStrings
     */
+  public function testDeltaXY($validString){
+    $dir = Direction::make($validString);
+    $this->assertTrue($dir->deltaX != 0 || $dir->deltaY != 0);
+  }
+  
+  /**
+    * @dataProvider validStrings
+    */
   public function testToString($validString){
     $this->assertTrue(Direction::make($validString) == $validString);
   }
@@ -59,6 +67,5 @@ class Directiontest extends TestCase {
     $opop = $dir->opposite()->opposite();
     $this->assertTrue($dir == $opop);
   }
-  
 
 }
