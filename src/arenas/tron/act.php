@@ -66,63 +66,7 @@ switch ($_POST['act']){
       'lap'		=> $lap
     ));
     die;
-    /*
-    //make the board array
-    for ($botCount = 0; $botCount < count($bots); $botCount ++){
-      $board[$botCount] = $bots[$botCount]->getTail();
-    }
-    
-    $busyCells = array(); //les cases prises
-    $responses = array();
-    $loosingBots = array();
-    $targets = array();
-    for ($botCount = 0; $botCount < count($bots); $botCount ++){
-    
-      if($bots[$botCount]->getStatus()){
-	$messageArr = array(
-	  'game-id'	=>  '',
-	  'action'	=> 'play-turn',
-	  'game'		=> 'tron',
-	  'board'		=> $board,
-	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
-	  'players'	=> $_SESSION['players']	
-	);
-	
-	$busyCells = array_merge($busyCells, $bots[$botCount]->getTail()); 
-	$responses[$botCount] = get_IA_Response($bots[$botCount]->getURL(),$messageArr);
-	print_r($responses[$botCount]);
-	if(in_array($bots[$botCount]->getTargetCell($responses[$botCount]['responseArr']['play']), $busyCells)){
-	  //this bot plays on a non empty cell, it looses
-	  $bots[$botCount]->loose();
-	  $logs.= $bots[$botCount]->getName()." Played on a non empty cell, he loses.<br/>";
-	  $loosingBots[] = $bots[$botCount]->getName();
-	}else{
-	  $targets[] = $bots[$botCount]->getTargetCell($responses[$botCount]['responseArr']['play']);
-	}
-	
-      }
-    }
-    //test if some bots plays at the same place
-    for ($botCount = 0; $botCount < count($bots); $botCount ++){
-      if($bots[$botCount]->getStatus()){
-	 
-      }
-     }
-    
-    
-    
-    //save pat game betwin loosing bots
-     save_draw_bots($loosingBots);
-    //find losing bots
-    
-  
-    
-    
-  
-    print_r($targets);
-  
-  */
-    die;
+
     break;
   default:
     break;
