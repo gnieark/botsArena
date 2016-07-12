@@ -69,11 +69,13 @@ class TronPlayer{
     $this->tail[] = $targetCell;
     return $targetCell;
   }
+  
   public function loose(){
     $this->state = false;
     $this->tail = array();
     return false;
   }
+  
   public function __construct($id,$initialX,$initialY,$initialDirection){
     $lnBdd = conn_bdd();
     $rs = mysqli_query($lnBdd,
