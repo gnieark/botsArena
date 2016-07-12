@@ -16,9 +16,13 @@ class Tail{
     $this->tail = array($InitialCoords);
   }
   
+  public function empty_tail(){
+    
+  }
+  
   public function grow(Direction $dir){
-    $last = Tail::getLastTailCoord();
-    Tail::tail[] = $last->addDirection($dir);
+    $last = $this->getLastTailCoord();
+    $this->tail[] = $last->addDirection($dir);
   }
   
   public function getLastTailCoord(){

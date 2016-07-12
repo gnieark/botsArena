@@ -1,6 +1,17 @@
 <?php
 class TronGame
 {
+  private $bots; //array of bots
+  private $gameId;
+  private $status; //false => Game ended or not initialised
+  
+  
+  
+
+}
+/*
+class TronGame
+{
   private $bots;
   private $gameId;
   public function getBotsPositions(){
@@ -30,9 +41,9 @@ class TronGame
   }
   
   private function save_draw_bots($arr){
-    /*
+    *
     * Recursive function who save all combionaisons of draw matches
-    */
+    *
     
     if(count($arr) < 2){
       return;
@@ -293,4 +304,4 @@ class TronGame
     return $err;
   }
 }
-?>
+*/
