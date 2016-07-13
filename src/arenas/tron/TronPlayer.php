@@ -8,21 +8,22 @@ class TronPlayer{
   
   public $isAlive = true;
     
-  public function grow($dir=""){
-    $targetCell = $this->getTargetCell($dir);
-    $this->tail[] = $targetCell;
-    return $targetCell;
+    
+  public function grow(Direction $dir){
+    //$targetCell = $this->getTargetCell($dir);
+    //$this->tail[] = $targetCell;
+    //return $targetCell;
+    $this->trail->grow($dir);
   }
   
   public function loose(){
-   
    $this->isAlive = false;
-   // $this->tail = array();
+   $this->tail->empty_tail();
     return false;
   }
   public function __make($botId, Coords $initialsCoords,$name,$url){
     $this->id = $botId;
-    $this->tail = Tail::make($initialsCoords);
+    $this->tail = Trail::make($initialsCoords);
     $this->name = $name;
     $this->url = $url; 
   }

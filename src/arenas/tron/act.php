@@ -14,6 +14,8 @@ require_once(__DIR__."/functions.php");
 require_once ("TronGame.php");
 require_once ("TronPlayer.php");
 require_once ("Direction.php");
+require_once ("Trail.php");
+require_once ("Coords.php");
 
 switch ($_POST['act']){
   case "initGame":
