@@ -12,6 +12,10 @@ class Trail {
     return $this->trail->top();
   }
 
+  public function emptyTrail(){
+     $this->trail = new SplStack();
+  }
+  
   public function add($value) {
     if(!$this->trail->isEmpty()) {
       if(Trail::kind($this->trail->bottom()) !== Trail::kind($value)) {

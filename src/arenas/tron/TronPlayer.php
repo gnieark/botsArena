@@ -10,25 +10,24 @@ class TronPlayer{
     
     
   public function grow(Direction $dir){
-    //$targetCell = $this->getTargetCell($dir);
-    //$this->tail[] = $targetCell;
-    //return $targetCell;
-    $this->trail->grow($dir);
+    $this->trail->add($this->trail->last()->addDirection($dir));
   }
   
   public function loose(){
    $this->isAlive = false;
-   $this->tail->empty_tail();
+   $this->trail->emptyTrail();
     return false;
   }
   public function __make($botId, Coords $initialsCoords,$name,$url){
     $this->id = $botId;
-    $this->tail = Trail::make($initialsCoords);
+    $this->trail = new Trail;
+    $this->trail->add($initialsCoords);
     $this->name = $name;
     $this->url = $url; 
+    $this->state = true; 
   }
   public function __construct(){
-    $this->state = true; 
+    $this->state = false; 
   }
   /*
   public function __construct($id,$initialX,$initialY,$initialDirection){
@@ -49,4 +48,3 @@ class TronPlayer{
   }
   */
 }
-?>
