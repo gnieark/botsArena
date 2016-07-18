@@ -4,6 +4,56 @@ class TronGame
   private $bots; //array of bots
   private $gameId;
   private $status; //false => Game ended or not initialised
+  
+  private function apply_looses($loosersArr){
+    
+    //save draws
+    if( count($loosersArr) > 1 ){
+      $loosersById = array();
+      foreach($loosersArr as $bot){
+	$loosersById[] = $this->bots[$bot]->id;
+      }
+      $this->save_draw_bots($loosersById);
+    }
+    
+    //save victories
+    if( count($loosersArr) > 0 ){
+      //make victorous bots array
+      $vbots = array();
+      for ($botCount = 0; $botCount < $nbeBots; $botCount++){ 
+	if($this->bots[$botCount]->isAlive){
+	  $vbots[] = $this->bots[$botCount]->id;
+	}
+      }
+      $this->save_losers_winers($loosersById,$vbots);
+    }
+    
+  }
+  private function save_draw_bots($arr){
+    /*
+    * Recursive function who save all combionaisons of draw matches
+    */
+    
+    if(count($arr) < 2){
+      return;
+    }else{
+      $a = $arr[0];
+      array_shift($arr);
+      foreach($arr as $bot){
+	save_battle('tron',$a,$bot,0,'id');
+      }
+      $this->save_draw_bots($arr);
+    }
+  }
+  
+  private function save_losers_winers($arrLoosers,$arrWiners){
+    foreach($arrWiners as $winner){
+      foreach($arrLoosers as $loser){
+	save_battle('tron',$winer,$loser,1,'id');
+      }
+    }
+  
+  }
 
   public function new_lap(){
     // for all alive bots
@@ -13,10 +63,13 @@ class TronGame
     $paramToSend = array();
     $board = $this->getBoard();
     $loosers = array();
+    $lastsCells = array();
     
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
       if  ($this->bots[$botCount]->getStatus()){
-	$urls[$botCount] = $this->bots[$botCount]->getURL();	
+      
+	$urls[$botCount] = $this->bots[$botCount]->getURL();
+	
 	$paramsToSend[$botCount] = array(
 	  'game-id'		=>  "".$this->gameId,
 	  'action'		=> 'play-turn',
@@ -29,77 +82,29 @@ class TronGame
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
+    //$responses[$botCount]['responseArr']['play']
     
-    
-    //print_r($responses);
-    $targetsList = array();
-    $busyCells = $this->getBusyCells();
-    $busyCellsStr = array();
-    foreach ($busyCells as $bs){
-      $busyCellsStr[] = $bs[0].",".$bs[1];  //as string for use in in_array
-    }
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
-      if  ($this->bots[$botCount]->getStatus()){
-	//tester si sa réponse n'est pas sur une case déjà occupée.
-	$target = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
-	$targetByBot[$botCount] = $target;
-	$x = $target[0];
-	$y = $target[1];
-	$hashTargetsList[$botCount] = $x * 1000 + $y; //wil be easyest to compare than if it was arrays
-	if(($target === false)
-	  OR (in_array($target,$busyCellsStr))
-	  OR ($x < 0) OR ($x > 999) OR ($y < 0) OR ($y > 999)
-	){
-	  $this->bots[$botCount]->loose();
-	  //he loses
-	  $loosers[] = $botCount; 
-	}
-      }
-    }
-    
-    //did some bots have played on the same cell?
+    //grow bots'tails
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->getStatus()){
-	for ($botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){
-	  if  (($this->bots[$botCount2]->getStatus())
-		&& ($botCount <> $botCount2)
-		&& ($hashTargetsList[$botCount] == $hashTargetsList[$botCount2])
-	    ){
-	      $this->bots[$botCount]->loose();
-	      //they loose
-	      $loosers[] = $botCount;
-	      $loosers[] = $botCount2;
-	    }
-	  }
+	$lastsCells[$botCount] = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
       }
     }
     
-    
-    if(count($loosers > 0)){
-      //save_draw_bots
-      $this->save_draw_bots($loosers);
-      $winners = array();
-      for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-	if ($this->bots[$botCount]->getStatus()){
-	  $winners[] = $this->bots[$botCount]->getId();
-	}
-      }
-      //sauver les relations winers loosers
-      $this->save_losers_winers($loosers,$winners);
-    }
-    
-    // generer un array en retour qui permettra de dessiner les modifications
-    // sur la map
-    $arrRapport = array();
+    //test if loose
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      if ($this->bots[$botCount]->getStatus()){
-	$arrRapport[$botCount] = $targetByBot[$botCount];
-      }else{
-	$arrRapport[$botCount] = "die";
+      if  ($this->bots[$botCount]->getStatus()){
+	 foreach($this->bots as $otherBot){
+	  if($otherBot->trail->contains($lastsCells($botCount)))
+	    $loosers[] = $botCount;
+	    $this->bots[$botCount]->loose();
+	    break;
+	 }
       }
     }
-  
-    return $arrRapport;
+    
+    //return all trails for draw svg
+    
     
   }
 
@@ -174,7 +179,6 @@ class TronGame
       $fullLogs = "";
       $nbeBots = count($this->bots);
       for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      
 	$messageArr = array(
 	  'game-id'	=> "".$this->gameId,
 	  'action'	=> 'init',
@@ -218,7 +222,7 @@ class TronGame
     $positions = array();
     $botCount = 0;
     $err = "";
-    foreach($botsInfo as $bot){
+    foreach($botsInfos as $bot){
       //find a random start position
       do{
 	  $x = rand(1,999);

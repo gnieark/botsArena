@@ -11,6 +11,7 @@ class TronPlayer{
     
   public function grow(Direction $dir){
     $this->trail->add($this->trail->last()->addDirection($dir));
+    return $this->trail->last();
   }
   
   public function loose(){
@@ -23,8 +24,8 @@ class TronPlayer{
     $this->trail = new Trail;
     $this->trail->add($initialsCoords);
     $this->name = $name;
-    $this->url = $url; 
-    $this->state = true; 
+    $this->url = $url;
+    $this->state = true;
   }
   public function __construct(){
     $this->state = false; 

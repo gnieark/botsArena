@@ -20,15 +20,29 @@ require_once ("Coords.php");
 switch ($_POST['act']){
   case "initGame":
   
+    $rs = mysqli_query($lnBdd,"SELECT id,name,url FROM bots WHERE game='tron';");
+    while($r = mysqli_fetch_row($rs)){
+      $botsFullArr[$r[0]] = array('name' => $r[1], 'url' => $r[2]);
+    }
+  
     $botsArrayTemp = json_decode($_POST['bots']);
     $botsIds = array();
      //dont take non selected bots (value=0)
+    $queries = "";
     foreach($botsArrayTemp as $bot){
       if($bot > 0){
 	$botsIds[] = $bot;
       }
     }
+    
+
+    
     $game = new TronGame($botsIds);
+    
+    
+    
+    
+    
     $logs = $game->init_game();
     
     echo json_encode(array(
