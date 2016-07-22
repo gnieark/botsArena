@@ -26,10 +26,7 @@ foreach($bots as $bot){
    var botsAvailable = <?php echo json_encode($botsArr); ?>;
    show_bot_panel(0);
    </script>
-   
-   
-		<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
+	<p><input type="checkbox" id="fullLogs"/><label for="fullLogs">view the full logs</label></p>
 	<p><input id="fightButton" disabled="disabled" type="button" value="<?php echo $lang['FIGHT']; ?>" onclick="tron('<?php echo xd_check_input(2); ?>');"></p>
 	 <div id="fightResult"></div>
-
 </article>

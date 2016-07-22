@@ -10,7 +10,6 @@
 #
 # -- END LICENSE BLOCK -----------------------------------------
 
-require_once(__DIR__."/functions.php");
 require_once ("TronGame.php");
 require_once ("TronPlayer.php");
 require_once ("Direction.php");
@@ -20,36 +19,32 @@ require_once ("Coords.php");
 switch ($_POST['act']){
   case "initGame":
   
-    $rs = mysqli_query($lnBdd,"SELECT id,name,url FROM bots WHERE game='tron';");
+    $rs = mysqli_query($lnMysql,"SELECT id,name,url FROM bots WHERE game='tron';");
     while($r = mysqli_fetch_row($rs)){
-      $botsFullArr[$r[0]] = array('name' => $r[1], 'url' => $r[2]);
+      $botsFullArr[$r[0]] = array('id' => $r[0], 'name' => $r[1], 'url' => $r[2]);
     }
   
+    
     $botsArrayTemp = json_decode($_POST['bots']);
-    $botsIds = array();
-     //dont take non selected bots (value=0)
-    $queries = "";
-    foreach($botsArrayTemp as $bot){
-      if($bot > 0){
-	$botsIds[] = $bot;
+    $botsInfos = array();
+    
+    foreach($botsArrayTemp as $id){
+      //tester si le bot existe dans la bdd
+      if(isset($botsFullArr[$id])){
+	$botsInfos[] = $botsFullArr[$id];
       }
     }
-    
-
-    
-    $game = new TronGame($botsIds);
-    
-    
-    
-    
+    //************
+    $game = new TronGame($botsInfos);
+  
     
     $logs = $game->init_game();
     
     echo json_encode(array(
       'status'	=> $game->get_continue(),
       'logs'	=> $logs,
-      'gameId'	=> $game->getGameId(),
-      'botsPosition' => $game->getBotsPositions()
+      'gameId'	=> $game->gameId,
+      'botsPosition' => $game->get_trails()
     ));
     
     $_SESSION['game'] = serialize($game);

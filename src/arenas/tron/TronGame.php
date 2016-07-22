@@ -2,11 +2,25 @@
 class TronGame
 {
   private $bots; //array of bots
-  private $gameId;
+  public $gameId;
   private $status; //false => Game ended or not initialised
   
-  private function apply_looses($loosersArr){
-    
+  public function get_continue(){
+    //count bots alive. if less than 1, game is ended
+    $count = 0;
+    foreach($this->bots as $bot){
+      if( $bot->isAlive == true){
+	$count++;
+      }
+    }
+    if($count > 1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  private function apply_looses($loosersArr){    
     //save draws
     if( count($loosersArr) > 1 ){
       $loosersById = array();
@@ -55,6 +69,14 @@ class TronGame
   
   }
 
+  public function get_trails(){
+     //return all trails for draw svg
+    $trailsArr = array();
+    foreach($this->bots as $bot){
+      $trailsArr[] = $bot->trail;
+    }
+    return json_encode($trailsArr);
+  }
   public function new_lap(){
     // for all alive bots
     $logs = "";
@@ -82,9 +104,8 @@ class TronGame
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
-    //$responses[$botCount]['responseArr']['play']
-    
-    //grow bots'tails
+
+      //grow bots'tails
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->getStatus()){
 	$lastsCells[$botCount] = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
@@ -103,7 +124,7 @@ class TronGame
       }
     }
     
-    //return all trails for draw svg
+    return $this->get_trails();
     
     
   }
@@ -188,40 +209,24 @@ class TronGame
 	  'player-index'	=> $botCount
 	);      
 	
-	$resp = get_IA_Response($this->bots[$botCount]->getURL(),$messageArr);
-	$fullLogs .= 'Arena send to '.$bots[$botCount]->getName().'<em>'.htmlentities($resp['messageSend']).'</em><br/>
+	$resp = get_IA_Response($this->bots[$botCount]->url,$messageArr);
+	$fullLogs .= 'Arena send to '.$this->bots[$botCount]->name.'<em>'.htmlentities($resp['messageSend']).'</em><br/>
 	  HTTP status: <em>'.htmlentities($resp['httpStatus']).'</em><br/>
 	  Bot anwser: <em>'.htmlentities($resp['response']).'</em><br/>';
-	$logs.="Init message send to ".$this->bots[$botCount]->getName()."<br/>";    
+	$logs.="Init message send to ".$this->bots[$botCount]->name."<br/>";    
       }
       return array($logs,$fullLogs);
     }
-
-  
-  
-    public function __construct($botsInfos){
-    /*
-    * $botsInfo like:
-    * $botsInfo = array(
-		     array(
-				'id' 	=>
-				'name'	=>
-				'url'	=>
-				),
-			array(
-				'id' 	=>
-				'name'	=>
-				'url'	=>
-				)
-			)
-      */
     
-    
+    public function __construct($botsInfos){    
     $this->gameId = get_unique_id();
     $this->bots = array();
     $positions = array();
     $botCount = 0;
     $err = "";
+    
+    //print_r($botsInfos);
+    
     foreach($botsInfos as $bot){
       //find a random start position
       do{
@@ -231,10 +236,11 @@ class TronGame
       
       $positions[] = $x.",".$y;
       $startCoord = new Coords($x,$y);
-     
-      $this->bots[$botCount] =  new TronPlayer($bot['id'],$startCoord,$bot['name'],$bot['url']);
+  
+      $this->bots[$botCount] =  new TronPlayer();
+      $this->bots[$botCount]->make($bot['id'],$startCoord,$bot['name'],$bot['url']);
       
-      if  ($this->bots[$botCount]->getStatus() === false){
+      if  ($this->bots[$botCount]->isAlive === false){
 	$err .= "Something went wrong for ".$this->bots[$botCount]->getName()."<br/>";
       }else{
 	$botCount++;
@@ -244,115 +250,3 @@ class TronGame
   }
 
 }
-/*
-class TronGame
-{
-  private $bots;
-  private $gameId;
-  public function getBotsPositions(){
-    $nbeBots = count($this->bots);
-    $arr = array();
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      $arr[$botCount] = array(
-	"name"	=> $this->bots[$botCount]->getName(),
-	"tail"	=> $this->bots[$botCount]->getTail()
-      
-      );
-    }
-    return $arr;
-  }
-  
-  public function getGameId(){
-    return $this->gameId;
-  }
-  
-  private function getBoard(){
-    $board = array();
-    $nbeBots = count($this->bots);
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      $board[] = $this->bots[$botCount]->getTail();
-    }
-    return $board;
-  }
-  
-  private function save_draw_bots($arr){
-    *
-    * Recursive function who save all combionaisons of draw matches
-    *
-    
-    if(count($arr) < 2){
-      return;
-    }else{
-      $a = $arr[0];
-      array_shift($arr);
-      foreach($arr as $bot){
-	save_battle('tron',$a,$bot,0,'id');
-      }
-      $this->save_draw_bots($arr);
-    }
-  }
-  
-  private function save_losers_winers($arrLoosers,$arrWiners){
-    foreach($arrWiners as $winner){
-      foreach($arrLoosers as $loser){
-	save_battle('tron',$winer,$loser,1,'id');
-      }
-    }
-  
-  }
-  
-  public function get_continue(){
-    //count bots alive. if less than 1, game is ended
-    $count = 0;
-    foreach($this->bots as $bot){
-      if( $bot->getStatus() == true){
-	$count++;
-      }
-    }
-    if($count > 1){
-      return true;
-    }else{
-      return false;
-    }
-  }
-  
-  
-  public function init_game(){
-    //send init messages to bots
-    $logs = "";
-    $nbeBots = count($this->bots);
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      $messageArr = array(
-	'game-id'	=> "".$this->gameId,
-	'action'	=> 'init',
-	'game'		=> 'tron',
-	'board'		=> '',
-	'players'	=> $nbeBots,
-	'player-index'	=> $botCount
-      );
-      
-      $resp = get_IA_Response($this->bots[$botCount]->getURL(),$messageArr);
-      
-      if($_POST['fullLogs'] == "true"){
-	$logs.='Arena send to '.$bots[$botCount]->getName().'<em>'.htmlentities($resp['messageSend']).'</em><br/>
-	HTTP status: <em>'.htmlentities($resp['httpStatus']).'</em><br/>
-	Bot anwser: <em>'.htmlentities($resp['response']).'</em><br/>';
-      }else{
-	$logs.="Init message send to ".$this->bots[$botCount]->getName()."<br/>";
-      }  
-    }
-    
-    return $logs;
-  }
-  
-  private function getBusyCells(){
-    $arr=array();
-    foreach($this->bots as $bot){
-      $arr = array_merge($arr,$bot->getTail());
-    }
-    return $arr;
-  }
-  
-
-}
-*/

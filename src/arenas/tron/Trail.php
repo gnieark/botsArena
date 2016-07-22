@@ -34,8 +34,11 @@ class Trail {
     $this->trail->push($value);
   }
   public function __toString(){
-    $str = "";
-      return implode(
+    $arr = "";
+    foreach($this->trail as $value) {
+     $arr[] = $value; 
+    }
+    return json_encode($arr);
   
   
   }
