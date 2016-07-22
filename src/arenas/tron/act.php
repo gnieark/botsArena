@@ -61,7 +61,7 @@ switch ($_POST['act']){
     
     $game = unserialize($_SESSION['game']);
 
-    if($game->getGameId() <> $_POST['gameId']){
+    if($game->gameId <> $_POST['gameId']){
       //sometimes if an ajax callback is applied after init an other game
       echo '{"status":"error"}';
       die; 
@@ -73,7 +73,7 @@ switch ($_POST['act']){
       $continue = 0;
     }
     echo json_encode(array(
-      'gameId' 	  	=> $game->getGameId(),
+      'gameId' 	  	=> $game->gameId,
       'continue' 	=> $continue,
       'lap'		=> $lap
     ));

@@ -75,6 +75,7 @@ class TronGame
     foreach($this->bots as $bot){
       $trailsArr[] = $bot->trail;
     }
+    //echo json_encode($trailsArr);
     return json_encode($trailsArr);
   }
   public function new_lap(){
@@ -83,14 +84,14 @@ class TronGame
     $nbeBots = count($this->bots);
     $urls = array();
     $paramToSend = array();
-    $board = $this->getBoard();
+    $board = $this->get_trails();
     $loosers = array();
     $lastsCells = array();
     
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
-      if  ($this->bots[$botCount]->getStatus()){
+      if  ($this->bots[$botCount]->isAlive){
       
-	$urls[$botCount] = $this->bots[$botCount]->getURL();
+	$urls[$botCount] = $this->bots[$botCount]->url;
 	
 	$paramsToSend[$botCount] = array(
 	  'game-id'		=>  "".$this->gameId,
@@ -105,16 +106,20 @@ class TronGame
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
 
+    print_r($responses);
+    
       //grow bots'tails
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      if  ($this->bots[$botCount]->getStatus()){
-	$lastsCells[$botCount] = $this->bots[$botCount]->grow($responses[$botCount]['responseArr']['play']);
+      if  ($this->bots[$botCount]->isAlive){
+	$dir = Direction::make($responses[$botCount]['responseArr']['play']);
+	$lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
       }
     }
     
+    
     //test if loose
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      if  ($this->bots[$botCount]->getStatus()){
+      if  ($this->bots[$botCount]->isAlive){
 	 foreach($this->bots as $otherBot){
 	  if($otherBot->trail->contains($lastsCells($botCount)))
 	    $loosers[] = $botCount;
@@ -248,5 +253,4 @@ class TronGame
     }
     return $err;
   }
-
 }
