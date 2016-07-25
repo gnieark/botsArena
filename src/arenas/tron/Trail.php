@@ -34,20 +34,21 @@ class Trail {
     $this->trail->push($value);
   }
   public function __toString(){
-    $arr = "";
-    foreach($this->trail as $value) {
-     $arr[] = $value; 
+    return json_encode($this->getTrailAsArray()); 
+  }
+  public function getTrailAsArray(){
+    $arr = array();
+    foreach($this->trail as $coord) {
+     $arr[] = array($coord->x,$coord->y);
     }
-    return json_encode($arr);
-  
-  
+    return $arr;
   }
   public function contains($searchedValue) {
     foreach($this->trail as $value) {
-      if($value == $searchedValue) return TRUE;
+      if($value == $searchedValue) return true;
     }
 
-    return FALSE;
+    return false;
   }
 
   public static function kind($var) {
