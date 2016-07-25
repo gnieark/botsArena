@@ -75,7 +75,7 @@ class TronGame
     foreach($this->bots as $bot){
       $trailsArr[] = $bot->trail->getTrailAsArray();
     }
-    return json_encode($trailsArr);
+    return $trailsArr;
   }
   public function new_lap(){
     // for all alive bots
@@ -104,7 +104,7 @@ class TronGame
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
-    print_r($responses);
+    //print_r($responses);
       //grow bots'tails
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->isAlive){
@@ -120,7 +120,7 @@ class TronGame
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->isAlive){
 	 foreach($this->bots as $otherBot){
-	  if($otherBot->trail->contains($lastsCells($botCount)))
+	  if($otherBot->trail->contains($lastsCells[$botCount]))
 	    $loosers[] = $botCount;
 	    $this->bots[$botCount]->loose();
 	    break;
