@@ -5,14 +5,12 @@ class TronPlayer{
   public $name;
   public $trail;
   private $direction;
-  
   public $isAlive = true;
     
   public function grow(Direction $dir){
     $this->trail->add($this->trail->last()->addDirection($dir));
     return $this->trail->last();
   }
-  
   public function loose(){
    $this->isAlive = false;
    $this->trail->emptyTrail();
@@ -29,5 +27,4 @@ class TronPlayer{
   public function __construct(){
     $this->state = false; 
   }
- 
 }

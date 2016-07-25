@@ -119,12 +119,17 @@ class TronGame
     //test if loose
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->isAlive){
-	 foreach($this->bots as $otherBot){
-	  if($otherBot->trail->contains($lastsCells[$botCount]))
+	for( $botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){
+      
+	  if(($botCount <> $botCount2)
+	      && ($this->bots[$botCount2]->trail->contains($lastsCells[$botCount]))
+	  ){
 	    $loosers[] = $botCount;
 	    $this->bots[$botCount]->loose();
 	    break;
 	 }
+	 
+      }
       }
     }
     
