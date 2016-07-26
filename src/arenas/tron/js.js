@@ -43,9 +43,9 @@ function changeSelect(number,botId){
             return;
         }else{
             show_bot_panel(next);
-        }
+        }   
         if(number > 0){
-                document.getElementById('fightButton').disabled = false;
+	  document.getElementById('fightButton').disabled = false;
         }
     }
 }
@@ -96,6 +96,22 @@ function applyInitMessage(req,xd_check){
     }
   }
 }
+
+
+function drawMap(map){
+  console.log(map);
+  var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
+
+  for (var botId in map){
+      for(var coordsI in  map[botId]){
+	coords = map[botId][coordsI];
+	//draw the point
+	var rect=createElemNS('rect',{'x':coords[0],'y':coords[1],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	document.getElementById('map').appendChild(rect);	
+      }
+  }
+}
+
 function play(gameId,xd_check){
   
   	var req = new XMLHttpRequest();	 
@@ -105,8 +121,12 @@ function play(gameId,xd_check){
 	      addLog(req.responseText);
 	      var reponse = JSON.parse(req.responseText);  
 	      
-	      growTails(reponse['lap']);
-	      play(gameId,xd_check);
+	      
+	      
+	      drawMap(reponse['lap']);
+	      if(reponse['continue'] == '1'){
+		play(gameId,xd_check);
+	      }
 	      
 	    }else{
 	      
@@ -116,7 +136,6 @@ function play(gameId,xd_check){
 	req.open("POST", '/tron',  true);
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	req.send('act=play&xd_check=' + xd_check + '&gameId=' + gameId + '&fullLogs=' + document.getElementById("fullLogs").checked);
-  
 }
 function tron(xd_check){
         //empty

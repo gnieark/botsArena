@@ -77,6 +77,7 @@ switch ($_POST['act']){
       'continue' 	=> $continue,
       'lap'		=> $lap
     ));
+     $_SESSION['game'] = serialize($game);
     die;
 
     break;
