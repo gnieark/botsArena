@@ -36,6 +36,14 @@ $arenas=array(
         'jsFile'=> "js.js",
         'cssFile'=> "style.css",
         'ludusUrl' => "/testBotScripts/connectfour.html"
+    ),
+            array(
+        'id' => "tron",
+        'url' => "/tron",
+        'title' => "Tron",
+        'metaDescription'   => 'Affrontements de bots à Tron',
+        'jsFile'=> "js.js",
+        'cssFile'=> "style.css"
     )
     
 );

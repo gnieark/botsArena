@@ -151,7 +151,7 @@ function conn_bdd(){
     }                                                                                                                                                                                                      
     mysqli_select_db($linkMysql,$mysqlParams['database']);
     mysqli_set_charset($linkMysql, 'utf8');  
-    return $linkMysql; //does PHP can do that?
+    return $linkMysql;
 
 }
 function get_battles_history($game){
@@ -229,18 +229,24 @@ function ELO_get_new_ranks($elo1,$elo2,$score){
         $elo2 + ELO_get_k($elo2) * (1 - $score - (1/ (1 + pow(10,(($elo1 - $elo2) / 400)))))
     );
 }
-function save_battle($game,$bot1,$bot2,$resultat){
+
+function save_battle($game,$bot1,$bot2,$resultat,$nameOrIds = 'name'){
+  //$bots1 and $bots2 are bots'names
     //resultat: 0 match nul, 1 bot1 gagne 2 bot 2 gagne
 
     global $lnMysql;
-    
     $game=substr($game,0,8); //limit 8 char for limitting  mysql index size
-
     
-    //chercher les id de bot 1 et bot2
-    $rs=mysqli_query($lnMysql,"SELECT name,id,ELO FROM bots 
-                                WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
-                                 OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");
+    if($nameOrIds == "name"){   
+	//chercher les id de bot 1 et bot2
+	$rs=mysqli_query($lnMysql,"SELECT name,id,ELO FROM bots 
+				    WHERE name='".mysqli_real_escape_string($lnMysql,$bot1)."'
+				    OR name='".mysqli_real_escape_string($lnMysql,$bot2)."'");				 
+    }else{
+	$rs = mysqli_query($lnMysql, "SELECT name,id,ELO FROM bots 
+				      WHERE id='".mysqli_real_escape_string($lnMysql,$bot1)."'
+				      OR id='".mysqli_real_escape_string($lnMysql,$bot2)."'");
+    }
     while($r=mysqli_fetch_row($rs)){
         $bots[$r[0]]=$r[1];
         $actualELO[$r[0]]=$r[2];
