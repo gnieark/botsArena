@@ -36,6 +36,7 @@ class Trail {
   public function __toString(){
     return json_encode($this->getTrailAsArray()); 
   }
+
   public function getTrailAsArray(){
     $arr = array();
     foreach($this->trail as $coord) {

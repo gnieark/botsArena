@@ -44,7 +44,7 @@ switch ($_POST['act']){
       'status'	=> $game->get_continue(),
       'logs'	=> $logs,
       'gameId'	=> $game->gameId,
-      'botsPosition' => $game->get_trails()
+      'botsPosition' => $game->get_lasts_trails()
     ));
     
     $_SESSION['game'] = serialize($game);

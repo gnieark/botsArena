@@ -12,6 +12,7 @@ function addLog(message){
   divLogs.scrollTop = divLogs.scrollHeight;
   
 }
+/*
 function growTails(newPointsByPlayer){
 
   var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
@@ -28,6 +29,7 @@ function growTails(newPointsByPlayer){
       }
   }
 }
+*/
 function createElemNS(type,attributes){
     //same as createElem but with ns for svg file
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
@@ -85,7 +87,7 @@ function applyInitMessage(req,xd_check){
       }
       addLog(ret['logs']);
       if(ret['status'] == true){
-	growTails(ret['botsPosition']);
+	drawMap(ret['botsPosition']);
 	play(ret['gameId'],xd_check);
       }
 
@@ -103,12 +105,18 @@ function drawMap(map){
   var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
 
   for (var botId in map){
+    	//draw the point
+	var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	document.getElementById('map').appendChild(rect);
+	/*
       for(var coordsI in  map[botId]){
 	coords = map[botId][coordsI];
 	//draw the point
 	var rect=createElemNS('rect',{'x':coords[0],'y':coords[1],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	
 	document.getElementById('map').appendChild(rect);	
       }
+      */
   }
 }
 
@@ -126,9 +134,12 @@ function play(gameId,xd_check){
 	      drawMap(reponse['lap']);
 	      if(reponse['continue'] == '1'){
 		play(gameId,xd_check);
+	      }else{
+		alert ('game ended');
 	      }
 	      
 	    }else{
+	      alert('erreur' + req.status);
 	      
 	    }
 	  }

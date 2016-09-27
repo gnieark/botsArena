@@ -77,6 +77,14 @@ class TronGame
     }
     return $trailsArr;
   }
+  public function get_lasts_trails(){
+    //return only the lasts coords for each tail
+    $trailsArr = array();
+    foreach($this->bots as $bot){
+      $trailsArr[] = $bot->trail->last();
+    }
+    return $trailsArr;
+  }
   public function new_lap(){
     // for all alive bots
     $logs = "";
@@ -133,7 +141,7 @@ class TronGame
       }
     }
     
-    return $this->get_trails();
+    return $this->get_lasts_trails();
     
     
   }
