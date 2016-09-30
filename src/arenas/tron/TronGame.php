@@ -181,22 +181,13 @@ class TronGame
 	  );
 	  curl_multi_add_handle($cmh,$ch[$i]);
     }
+    
     //send the requests
     do {
       $returnVal = curl_multi_exec($cmh, $runningHandles);
-    } while ($returnVal == CURLM_CALL_MULTI_PERFORM);
-    // Loop and continue processing the request
-    while ($runningHandles && $returnVal== CURLM_OK) {
-	// Wait forever for network
-	$numberReady = curl_multi_select($cmh);
-	if ($numberReady != -1) {
-	  // Pull in any new data, or at least handle timeouts
-	  do {
-	    $returnVal = curl_multi_exec($cmh, $runningHandles);
-	  } while ($returnVal == CURLM_CALL_MULTI_PERFORM);
-	}
-      }
-      
+    }while($runningHandles > 0);
+    
+     
     //Get results
       for ($i = 0; $i < count($iasUrls); $i++){
 	// Check for errors

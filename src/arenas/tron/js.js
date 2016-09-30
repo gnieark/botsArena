@@ -105,13 +105,10 @@ function play(gameId,xd_check){
 	      drawMap(reponse['lap']);
 	      if(reponse['continue'] == '1'){
 		
-		setTimeout(function(){
+		//setTimeout(function(){
 		    play(gameId,xd_check);
-		} ,500);
-		
-		
-		
-		
+		//} ,500);
+			
 	      }else{
 		alert ('game ended');
 	      }
