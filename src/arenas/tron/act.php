@@ -10,6 +10,8 @@
 #
 # -- END LICENSE BLOCK -----------------------------------------
 
+//error_log(json_encode($_SESSION,true)."\n\n");
+
 require_once ("TronGame.php");
 require_once ("TronPlayer.php");
 require_once ("Direction.php");

@@ -12,24 +12,7 @@ function addLog(message){
   divLogs.scrollTop = divLogs.scrollHeight;
   
 }
-/*
-function growTails(newPointsByPlayer){
 
-  var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
-  //document.getElementById('map');
-  for (var botId in newPointsByPlayer){
-      
-      var tail = newPointsByPlayer[botId]['tail'];
-      for(var coordsIx in tail){
-	
-	coords = tail[coordsIx];	
-	//draw the point
-	var rect=createElemNS('rect',{'x':coords[0],'y':coords[1],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
-	document.getElementById('map').appendChild(rect);	
-      }
-  }
-}
-*/
 function createElemNS(type,attributes){
     //same as createElem but with ns for svg file
     var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
@@ -92,7 +75,7 @@ function applyInitMessage(req,xd_check){
       }
 
     }else{
-	alert ('error ' + req.status);
+	alert ('error ' + req.status + req.responseText );
 	document.getElementById('fightButton').disabled=false;
 	return;
     }
@@ -108,15 +91,6 @@ function drawMap(map){
     	//draw the point
 	var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
 	document.getElementById('map').appendChild(rect);
-	/*
-      for(var coordsI in  map[botId]){
-	coords = map[botId][coordsI];
-	//draw the point
-	var rect=createElemNS('rect',{'x':coords[0],'y':coords[1],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
-	
-	document.getElementById('map').appendChild(rect);	
-      }
-      */
   }
 }
 
@@ -127,13 +101,17 @@ function play(gameId,xd_check){
 	  if(req.readyState  == 4){ 
 	    if(req.status  == 200) {
 	      addLog(req.responseText);
-	      var reponse = JSON.parse(req.responseText);  
-	      
-	      
-	      
+	      var reponse = JSON.parse(req.responseText);  	      
 	      drawMap(reponse['lap']);
 	      if(reponse['continue'] == '1'){
-		play(gameId,xd_check);
+		
+		setTimeout(function(){
+		    play(gameId,xd_check);
+		} ,500);
+		
+		
+		
+		
 	      }else{
 		alert ('game ended');
 	      }

@@ -25,9 +25,10 @@ class Trail {
       }
 
       if($this->contains($value)) {
-        throw new AlreadyBeenAddedException(
-          'value has already been added to the trail'
-        );
+        //throw new AlreadyBeenAddedException(
+        //  'value has already been added to the trail'.$value.'|'.$this->__toString()
+        //);
+        return false;
       }
     }
 

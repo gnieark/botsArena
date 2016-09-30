@@ -92,6 +92,7 @@ class TronGame
     $urls = array();
     $paramToSend = array();
     $board = $this->get_trails();
+    //$board = $this->get_lasts_trails();
     $loosers = array();
     $lastsCells = array();
     
@@ -108,27 +109,40 @@ class TronGame
 	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
 	  'players'		=> $nbeBots
 	);
+	//!!!!!!!!!!!!! To debug
+	//error_log(json_encode($paramsToSend[$botCount]));
       }
     }
     
     $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
-    //print_r($responses);
-      //grow bots'tails
+
+    //grow bots'tails
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){
       if  ($this->bots[$botCount]->isAlive){
       
-	$dir = Direction::make($responses[$botCount]['responseArr']['play']);
+	if(!$dir = Direction::make($responses[$botCount]['responseArr']['play'])){
+	  //he loses , non conform response
+	    $loosers[] = $botCount;
+	    $this->bots[$botCount]->loose();
+	}else{
 	
-	$lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
+	  $lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
+	  if($lastsCells[$botCount] === false){
+	    $loosers[] = $botCount;
+	    $this->bots[$botCount]->loose();	    
+	  }
+	  
+	}
       }
     }
     
     
     //test if loose
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
+    for ($botCount = 0; $botCount < $nbeBots; $botCount++){ 
       if  ($this->bots[$botCount]->isAlive){
-	for( $botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){
-      
+
+	//tester si collusion avec les cases actuelles
+	for( $botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){   
 	  if(($botCount <> $botCount2)
 	      && ($this->bots[$botCount2]->trail->contains($lastsCells[$botCount]))
 	  ){
@@ -137,13 +151,13 @@ class TronGame
 	    break;
 	 }
 	 
-      }
+	}
+
       }
     }
     
     return $this->get_lasts_trails();
-    
-    
+        
   }
 
   
@@ -218,11 +232,11 @@ class TronGame
       $nbeBots = count($this->bots);
       for ($botCount = 0; $botCount < $nbeBots; $botCount++){
 	$messageArr = array(
-	  'game-id'	=> "".$this->gameId,
-	  'action'	=> 'init',
+	  'game-id'		=> "".$this->gameId,
+	  'action'		=> 'init',
 	  'game'		=> 'tron',
 	  'board'		=> '',
-	  'players'	=> $nbeBots,
+	  'players'		=> $nbeBots,
 	  'player-index'	=> $botCount
 	);      
 	
