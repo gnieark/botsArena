@@ -100,9 +100,9 @@ function play(gameId,xd_check){
 	req.onreadystatechange  = function(){
 	  if(req.readyState  == 4){ 
 	    if(req.status  == 200) {
-	      addLog(req.responseText);
+	      //addLog(req.responseText);
 	      var reponse = JSON.parse(req.responseText);  	      
-	      drawMap(reponse['lap']);
+	      drawMap(reponse['lap']['last_points']);
 	      if(reponse['continue'] == '1'){
 		
 		//setTimeout(function(){

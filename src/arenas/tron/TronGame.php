@@ -66,9 +66,7 @@ class TronGame
 	save_battle('tron',$winer,$loser,1,'id');
       }
     }
-  
   }
-
   public function get_trails(){
      //return all trails for draw svg
     $trailsArr = array();
@@ -109,8 +107,6 @@ class TronGame
 	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
 	  'players'		=> $nbeBots
 	);
-	//!!!!!!!!!!!!! To debug
-	//error_log(json_encode($paramsToSend[$botCount]));
       }
     }
     
@@ -156,11 +152,21 @@ class TronGame
       }
     }
     
-    return $this->get_lasts_trails();
-        
+    
+    //loosers list (in order to pass their id)
+    $loosersList = array();
+    foreach($loosers as $looser){
+      $loosersList[] = array(
+	'order'	=>  $looser,
+	'id'	=> $this->bots[$looser]->id
+      );
+    }
+    
+    return array(
+      'last_points'	=> $this->get_lasts_trails(),
+      'loosers'		=> $loosersList
+     );
   }
-
-  
   private function get_multi_IAS_Responses($iasUrls, $postParams){
     //same as the get_IAS_Responses function
     // but more than one bot requested parallely

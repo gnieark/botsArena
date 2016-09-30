@@ -36,7 +36,7 @@ switch ($_POST['act']){
 	$botsInfos[] = $botsFullArr[$id];
       }
     }
-    //************
+
     $game = new TronGame($botsInfos);
   
     
