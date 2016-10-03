@@ -123,6 +123,7 @@ class TronGame
 	}else{
 	
 	  $lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
+	  
 	  if($lastsCells[$botCount] === false){
 	    $loosers[] = $botCount;
 	    $this->bots[$botCount]->loose();	    
@@ -151,8 +152,7 @@ class TronGame
 
       }
     }
-    
-    
+   
     //loosers list (in order to pass their id)
     $loosersList = array();
     foreach($loosers as $looser){
@@ -173,19 +173,21 @@ class TronGame
     
     $cmh = curl_multi_init();
     for ($i = 0; $i < count($iasUrls); $i++){
-	$data_string = json_encode($postParams[$i]);
-    
-	  $ch[$i] = curl_init($iasUrls[$i]);                                                                      
-	  curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
-	  curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
-	  curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
-	  curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
-	  curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);                                                                      
-	  curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
-	      'Content-Type: application/json',                                                                                
-	      'Content-Length: ' . strlen($data_string))                                                                       
-	  );
-	  curl_multi_add_handle($cmh,$ch[$i]);
+	  if(isset($postParams[$i])){ //dont use already deads bots
+	      $data_string = json_encode($postParams[$i]);
+	
+	      $ch[$i] = curl_init($iasUrls[$i]);                                                                      
+	      curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
+	      curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
+	      curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
+	      curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
+	      curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);                                                                      
+	      curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
+		  'Content-Type: application/json',                                                                                
+		  'Content-Length: ' . strlen($data_string))                                                                       
+	      );
+	      curl_multi_add_handle($cmh,$ch[$i]);
+	   }
     }
     
     //send the requests
@@ -195,34 +197,40 @@ class TronGame
     
      
     //Get results
-      for ($i = 0; $i < count($iasUrls); $i++){
-	// Check for errors
-	$curlError = curl_error($ch[$i]);
-	if($curlError == "") {
-	  $response = curl_multi_getcontent($ch[$i]);
-	  if(! $arr = json_decode($response,TRUE)){
-	      $arr=array();
-	    }
-	  $res[$i] = array(
-	    'messageSend' 	=> json_encode($postParams[$i]),
-	    'response'		=> $response,
-	    'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
-	    'responseArr'	=> $arr   
-	  ); 
-	  
-	}else{
-	  $res[$i] = false;
+     
+    for ($i = 0; $i < count($iasUrls); $i++){
+    
+      if(isset($postParams[$i])){
+	  // Check for errors
+	  $curlError = curl_error($ch[$i]);
+	  if($curlError == "") {
+	    $response = curl_multi_getcontent($ch[$i]);
+	    if(! $arr = json_decode($response,TRUE)){
+		$arr=array();
+	      }
+	    $res[$i] = array(
+	      'messageSend' 	=> json_encode($postParams[$i]),
+	      'response'		=> $response,
+	      'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
+	      'responseArr'	=> $arr   
+	    ); 
+	    
+	  }else{
+	    $res[$i] = false;
+	  }
+	  //close
+	  curl_multi_remove_handle($cmh, $ch[$i]);
+	  curl_close($ch[$i]);
+	
 	}
-	//close
-	curl_multi_remove_handle($cmh, $ch[$i]);
-	curl_close($ch[$i]);
+	
       }
       // Clean up the curl_multi handle
       curl_multi_close($cmh);
       return $res;
   }
    
-    public function init_game(){
+  public function init_game(){
       //send init messages to bots
       $logs = "";
       $fullLogs = "";
@@ -246,7 +254,7 @@ class TronGame
       return array($logs,$fullLogs);
     }
     
-    public function __construct($botsInfos){    
+  public function __construct($botsInfos){    
     $this->gameId = get_unique_id();
     $this->bots = array();
     $positions = array();

@@ -8,12 +8,19 @@ class TronPlayer{
   public $isAlive = true;
     
   public function grow(Direction $dir){
+   $dest = $this->trail->last()->addDirection($dir);
+   if($dest == false){
+	$this->loose();
+	return false;
+    }
+    
     $this->trail->add($this->trail->last()->addDirection($dir));
     return $this->trail->last();
   }
   public function loose(){
    $this->isAlive = false;
    $this->trail->emptyTrail();
+   error_log($this->name." a perdu");
     return false;
   }
   public function make($botId, Coords $initialsCoords,$name,$url){

@@ -9,6 +9,9 @@ class Trail {
   }
 
   public function last() {
+    if($this->trail->isEmpty()){
+      return false;
+    }
     return $this->trail->top();
   }
 
@@ -19,9 +22,12 @@ class Trail {
   public function add($value) {
     if(!$this->trail->isEmpty()) {
       if(Trail::kind($this->trail->bottom()) !== Trail::kind($value)) {
-        throw new TypeError(
-          'items added to a trail must be of the same kind'
-        );
+      
+      //
+      //  throw new TypeError(
+      //    'items added to a trail must be of the same kind'
+      //  );
+	return false;
       }
 
       if($this->contains($value)) {
