@@ -175,7 +175,9 @@ class TronGame
     for ($i = 0; $i < count($iasUrls); $i++){
 	  if(isset($postParams[$i])){ //dont use already deads bots
 	      $data_string = json_encode($postParams[$i]);
-	
+	      
+	      error_log($data_string);
+	      
 	      $ch[$i] = curl_init($iasUrls[$i]);                                                                      
 	      curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
 	      curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
