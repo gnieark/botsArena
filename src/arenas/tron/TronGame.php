@@ -22,19 +22,21 @@ class TronGame
   
   private function apply_looses($loosersArr){    
     //save draws
-    if( count($loosersArr) > 1 ){
+    if( count($loosersArr) > 0 ){
       $loosersById = array();
       foreach($loosersArr as $bot){
 	$loosersById[] = $this->bots[$bot]->id;
       }
+      
+    }
+    if( count($loosersArr) > 1 ){ //...que si  au moins deux joueurs ont perdu sur le meme tour
       $this->save_draw_bots($loosersById);
     }
-    
     //save victories
     if( count($loosersArr) > 0 ){
       //make victorous bots array
       $vbots = array();
-      for ($botCount = 0; $botCount < $nbeBots; $botCount++){ 
+      for ($botCount = 0; $botCount < count($this->bots); $botCount++){ 
 	if($this->bots[$botCount]->isAlive){
 	  $vbots[] = $this->bots[$botCount]->id;
 	}
@@ -62,8 +64,8 @@ class TronGame
   
   private function save_losers_winers($arrLoosers,$arrWiners){
     foreach($arrWiners as $winner){
-      foreach($arrLoosers as $loser){
-	save_battle('tron',$winer,$loser,1,'id');
+      foreach($arrLoosers as $looser){
+	save_battle('tron',$winner,$looser,1,'id');
       }
     }
   }
@@ -161,7 +163,7 @@ class TronGame
 	'id'	=> $this->bots[$looser]->id
       );
     }
-    
+    $this->apply_looses($loosersList);
     return array(
       'last_points'	=> $this->get_lasts_trails(),
       'loosers'		=> $loosersList
@@ -176,7 +178,7 @@ class TronGame
 	  if(isset($postParams[$i])){ //dont use already deads bots
 	      $data_string = json_encode($postParams[$i]);
 	      
-	      error_log($data_string);
+	      //error_log($data_string);
 	      
 	      $ch[$i] = curl_init($iasUrls[$i]);                                                                      
 	      curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 

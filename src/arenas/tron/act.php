@@ -28,6 +28,7 @@ switch ($_POST['act']){
   
     
     $botsArrayTemp = json_decode($_POST['bots']);
+    error_log($botsArrayTemp);
     $botsInfos = array();
     
     foreach($botsArrayTemp as $id){
