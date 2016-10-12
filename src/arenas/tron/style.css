@@ -7,3 +7,4 @@
 #configurePlayers fieldset{display: block; width: 100px; float:left;}
 #logs{display:block;padding-left:10px; height: 200px; overflow-y: scroll;}
 #logs p em {color: grey; font-size: 70%; test-transform:italic;}
+code{font-family: monospace;}

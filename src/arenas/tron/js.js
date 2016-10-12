@@ -84,16 +84,30 @@ function applyInitMessage(req,xd_check){
 
 
 function drawMap(map){
-  console.log(map);
+  //console.log(map);
   var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
 
-  for (var botId in map){
-    	//draw the point
-	var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
-	document.getElementById('map').appendChild(rect);
+  for (var botId in map){	
+	if(typeof(map[botId]['x']) != 'undefined'){ //don't draw deads bots
+	  //draw the point
+	  var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	  document.getElementById('map').appendChild(rect);
+	}
   }
 }
-
+function delTrail(order){
+   var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
+   //on supprime tous les elements ayant la couleur correspndante.
+   
+   var container = document.getElementById('map');
+   
+   var listNode = container.children;
+   for (var i= 0; i < listNode.length; i++){
+    if( listNode[i].style.fill == botsColor[order] ){
+	container.removeChild(listNode[i]);
+    } 
+   }
+}
 function play(gameId,xd_check){
   
   	var req = new XMLHttpRequest();	 
@@ -101,7 +115,22 @@ function play(gameId,xd_check){
 	  if(req.readyState  == 4){ 
 	    if(req.status  == 200) {
 	      //addLog(req.responseText);
-	      var reponse = JSON.parse(req.responseText);  	      
+	      var reponse = JSON.parse(req.responseText);
+	      
+	      //to do Effacer les bots perdants
+	      for(var i=0; i < reponse['lap']['loosers'].length; i++){
+		//alert (req.responseText);
+		//return;			
+		delTrail(reponse['lap']['loosers'][i]['order']);
+		
+		//find the bot name
+		for (var j = 0; j < botsAvailable.length; j ++){
+		 if(botsAvailable[j]['id'] ==  reponse['lap']['loosers'][i]['order']){
+		  var botName = botsAvailable[j]['name'];  
+		 }
+		}
+		addLog("Bot " + reponse['lap']['loosers'][i]['order'] + "id " + reponse['lap']['loosers'][i]['id'] + " Name: " +  botName + " a perdu.");
+	      }
 	      drawMap(reponse['lap']['last_points']);
 	      if(reponse['continue'] == '1'){
 		

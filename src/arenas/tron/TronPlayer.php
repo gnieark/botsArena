@@ -20,7 +20,7 @@ class TronPlayer{
   public function loose(){
    $this->isAlive = false;
    $this->trail->emptyTrail();
-   error_log($this->name." a perdu");
+   //error_log($this->name." a perdu");
     return false;
   }
   public function make($botId, Coords $initialsCoords,$name,$url){
