@@ -142,3 +142,10 @@ Les champs qui différent sont:
 </p>
 <p>L'ordre des "queues" des serpents dans ce tableau correspond à l'ordre des joueurs. Donc votre serpent est representée par la queue correspondant à player-index (le décompte de player-index commence par 0).</p>
 <p>L'ordre des couples de coordonnées de chaque bot, est dans le sens queue vers la tête. Les bots grandissent à chaque tour en déplaçant leur tête.</p>
+<h2>Scoring</h2>
+<p>Le scorring (classement EHLO) reste sur une logique de duels, bien que ce jeu puisse contenir plus de deux bots par match. Le score est modifié au fur et à mesure de la partie à chaque fois qu'un bot "décède":</p>
+<ul>
+  <li>Lors de la défaite d'un bot, l'arène enregistre un match nul contre tous les autres bots qui ont aussi perdu au même tour de jeu.</li>
+  <li>Elle enregistre aussi une défaite des bots morts contre tous les bots encore en course à la fin du tour.</li>
+ </ul>
+

@@ -20,12 +20,15 @@ class TronGame
     }
   }
   
-  private function apply_looses($loosersArr){    
+  private function apply_looses($loosersArr){  
+    //$loosersArr est construit comme ça: [{"order":1,"id":54"},{"order":3,"id":54"}]
+  
     //save draws
     if( count($loosersArr) > 0 ){
       $loosersById = array();
       foreach($loosersArr as $bot){
-	$loosersById[] = $this->bots[$bot]->id;
+	//error_log('apply lose '.$bot['id']);
+	$loosersById[] = $bot['id'];
       }
       
     }
@@ -96,9 +99,13 @@ class TronGame
     $loosers = array();
     $lastsCells = array();
     
+    $scoring = new ScoreLap();
+    
+    
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
       if  ($this->bots[$botCount]->isAlive){
       
+	$scoreLap->addBotOnLap($botCount,$this->bots[$botCount]->id);
 	$urls[$botCount] = $this->bots[$botCount]->url;
 	
 	$paramsToSend[$botCount] = array(
@@ -134,8 +141,6 @@ class TronGame
 	}
       }
     }
-    
-    
     //test if loose
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){ 
       if  ($this->bots[$botCount]->isAlive){
@@ -148,13 +153,10 @@ class TronGame
 	    $loosers[] = $botCount;
 	    $this->bots[$botCount]->loose();
 	    break;
-	 }
-	 
+	 } 
 	}
-
       }
     }
-   
     //loosers list (in order to pass their id)
     $loosersList = array();
     foreach($loosers as $looser){

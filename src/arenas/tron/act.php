@@ -17,6 +17,7 @@ require_once ("TronPlayer.php");
 require_once ("Direction.php");
 require_once ("Trail.php");
 require_once ("Coords.php");
+require_once ("ScoreLap.php");
 
 switch ($_POST['act']){
   case "initGame":
@@ -28,12 +29,12 @@ switch ($_POST['act']){
   
     
     $botsArrayTemp = json_decode($_POST['bots']);
-    error_log($botsArrayTemp);
+    //error_log($_POST['bots']);
     $botsInfos = array();
     
     foreach($botsArrayTemp as $id){
       //tester si le bot existe dans la bdd
-      if(isset($botsFullArr[$id])){
+      if((isset($botsFullArr[$id])) && ($id > 0)){
 	$botsInfos[] = $botsFullArr[$id];
       }
     }
