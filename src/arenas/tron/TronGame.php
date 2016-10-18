@@ -20,58 +20,6 @@ class TronGame
     }
   }
   
-  private function apply_looses($loosersArr){  
-    //$loosersArr est construit comme ça: [{"order":1,"id":54"},{"order":3,"id":54"}]
-  
-    //save draws
-    if( count($loosersArr) > 0 ){
-      $loosersById = array();
-      foreach($loosersArr as $bot){
-	//error_log('apply lose '.$bot['id']);
-	$loosersById[] = $bot['id'];
-      }
-      
-    }
-    if( count($loosersArr) > 1 ){ //...que si  au moins deux joueurs ont perdu sur le meme tour
-      $this->save_draw_bots($loosersById);
-    }
-    //save victories
-    if( count($loosersArr) > 0 ){
-      //make victorous bots array
-      $vbots = array();
-      for ($botCount = 0; $botCount < count($this->bots); $botCount++){ 
-	if($this->bots[$botCount]->isAlive){
-	  $vbots[] = $this->bots[$botCount]->id;
-	}
-      }
-      $this->save_losers_winers($loosersById,$vbots);
-    }
-    
-  }
-  private function save_draw_bots($arr){
-    /*
-    * Recursive function who save all combionaisons of draw matches
-    */
-    
-    if(count($arr) < 2){
-      return;
-    }else{
-      $a = $arr[0];
-      array_shift($arr);
-      foreach($arr as $bot){
-	save_battle('tron',$a,$bot,0,'id');
-      }
-      $this->save_draw_bots($arr);
-    }
-  }
-  
-  private function save_losers_winers($arrLoosers,$arrWiners){
-    foreach($arrWiners as $winner){
-      foreach($arrLoosers as $looser){
-	save_battle('tron',$winner,$looser,1,'id');
-      }
-    }
-  }
   public function get_trails(){
      //return all trails for draw svg
     $trailsArr = array();
@@ -96,7 +44,6 @@ class TronGame
     $paramToSend = array();
     $board = $this->get_trails();
     //$board = $this->get_lasts_trails();
-    $loosers = array();
     $lastsCells = array();
     
     $scoring = new ScoreLap();
@@ -104,8 +51,8 @@ class TronGame
     
     for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
       if  ($this->bots[$botCount]->isAlive){
-      
-	$scoreLap->addBotOnLap($botCount,$this->bots[$botCount]->id);
+	
+	$scoring->addBotOnLap($botCount,$this->bots[$botCount]->id);
 	$urls[$botCount] = $this->bots[$botCount]->url;
 	
 	$paramsToSend[$botCount] = array(
@@ -127,15 +74,16 @@ class TronGame
       
 	if(!$dir = Direction::make($responses[$botCount]['responseArr']['play'])){
 	  //he loses , non conform response
-	    $loosers[] = $botCount;
+	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
 	    $this->bots[$botCount]->loose();
 	}else{
 	
 	  $lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
 	  
 	  if($lastsCells[$botCount] === false){
-	    $loosers[] = $botCount;
-	    $this->bots[$botCount]->loose();	    
+	    //$loosers[] = $botCount;
+	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
+	    $this->bots[$botCount]->loose();
 	  }
 	  
 	}
@@ -150,25 +98,19 @@ class TronGame
 	  if(($botCount <> $botCount2)
 	      && ($this->bots[$botCount2]->trail->contains($lastsCells[$botCount]))
 	  ){
-	    $loosers[] = $botCount;
+	  
+	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
 	    $this->bots[$botCount]->loose();
 	    break;
 	 } 
 	}
       }
     }
-    //loosers list (in order to pass their id)
-    $loosersList = array();
-    foreach($loosers as $looser){
-      $loosersList[] = array(
-	'order'	=>  $looser,
-	'id'	=> $this->bots[$looser]->id
-      );
-    }
-    $this->apply_looses($loosersList);
+    
+    //$this->apply_looses($loosersList);
     return array(
       'last_points'	=> $this->get_lasts_trails(),
-      'loosers'		=> $loosersList
+      'loosers'		=> $scoring->getLoosersList()
      );
   }
   private function get_multi_IAS_Responses($iasUrls, $postParams){
