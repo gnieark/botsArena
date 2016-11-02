@@ -18,15 +18,14 @@ class Trail {
   public function emptyTrail(){
      $this->trail = new SplStack();
   }
-  
+  public function mergeWith($trailToMerge){
+    foreach($trailToMerge as $value) {
+      $this->trail->add($value);
+    }
+  }
   public function add($value) {
     if(!$this->trail->isEmpty()) {
       if(Trail::kind($this->trail->bottom()) !== Trail::kind($value)) {
-      
-      //
-      //  throw new TypeError(
-      //    'items added to a trail must be of the same kind'
-      //  );
 	return false;
       }
 
@@ -43,7 +42,7 @@ class Trail {
   public function __toString(){
     return json_encode($this->getTrailAsArray()); 
   }
-
+  
   public function getTrailAsArray(){
     $arr = array();
     foreach($this->trail as $coord) {

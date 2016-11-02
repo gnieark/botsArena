@@ -1,14 +1,15 @@
 <?php
 class Coords{
-  private $min = 0;
-  private $max = 999;
+  private static $min = 0;
+  private static $max = 999;
 
   public $x;
   public $y;
 
   public function __construct(int $x = 0, int $y = 0) {
-    if (($x < $this->min) || ($x > $this->max) || ($y < $this->min) || ($y > $this->max)){
+    if (($x < Coords::$min) || ($x > Coords::$max) || ($y < Coords::$min) || ($y > Coords::$max)){
       //out of limits
+      error_log("a bot out of limits");
       return false;
     }
   

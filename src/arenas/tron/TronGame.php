@@ -4,16 +4,38 @@ class TronGame
   private $bots; //array of bots
   public $gameId;
   private $status; //false => Game ended or not initialised
-  
-  public function get_continue(){
-    //count bots alive. if less than 1, game is ended
-    $count = 0;
+
+  private function getAliveBots(){
+    $aliveBots = array();
     foreach($this->bots as $bot){
-      if( $bot->isAlive == true){
-	$count++;
+      if($bot->isAlive){
+	$aliveBots[] = $bot;
       }
     }
-    if($count > 1){
+    return $aliveBots;
+  }  
+  
+  private function getBotByPlayerIndex($index){
+    foreach($this->bots as $bot){
+      if($bot->playerIndex == $index){
+	return $bot;
+      }
+    }
+    return false;
+  }
+  private function initScoring(){
+    /*
+     *Add all alive bots on a ScoreLap object and return it
+     */
+     $scoring = new ScoreLap();
+      foreach($this->getAliveBots()as $bot){
+	$scoring->addBotOnLap($bot);
+      }
+      return $scoring;
+  }
+  public function get_continue(){
+    //count bots alive. if less than 1, game is ended
+    if(count($this->getAliveBots()) > 1){
       return true;
     }else{
       return false;
@@ -28,6 +50,14 @@ class TronGame
     }
     return $trailsArr;
   }
+  private function get_map_as_an_unique_trail(){
+    $trail = new Trail;
+    foreach($this->bots as $bot){
+      $trail->mergeWith($bot->trail);
+    }
+    return trail;
+  
+  }
   public function get_lasts_trails(){
     //return only the lasts coords for each tail
     $trailsArr = array();
@@ -37,83 +67,126 @@ class TronGame
     return $trailsArr;
   }
   public function new_lap(){
-    // for all alive bots
-    $logs = "";
-    $nbeBots = count($this->bots);
-    $urls = array();
-    $paramToSend = array();
-    $board = $this->get_trails();
-    //$board = $this->get_lasts_trails();
-    $lastsCells = array();
+  
+    if($this->get_continue() === false){
+      return false;
+    }
+  
+    $scoreObj = $this->initScoring();
+    $aliveBots = $this->getAliveBots();
     
-    $scoring = new ScoreLap();
+    //fixed Query parameters
+    $nbeBots = count($this->bots); 
+    $board = $this->get_trails(); //same for each bot
+    $initialMapAsATrail = $this->get_map_as_an_unique_trail();
     
+    //Open curl multi
+    $cmh = curl_multi_init();
+    $ch = array();
     
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){  
-      if  ($this->bots[$botCount]->isAlive){
-	
-	$scoring->addBotOnLap($botCount,$this->bots[$botCount]->id);
-	$urls[$botCount] = $this->bots[$botCount]->url;
-	
-	$paramsToSend[$botCount] = array(
+
+    
+    foreach($aliveBots as $bot){
+      $i = $bot->playerIndex; //because $i is shorter
+      
+      $bodyRequestArr[$i] = array(
 	  'game-id'		=>  "".$this->gameId,
 	  'action'		=> 'play-turn',
 	  'game'		=> 'tron',
 	  'board'		=> $board,
-	  'player-index'	=> $botCount, // To do: verifier que ça restera le même à chaque tour
+	  'player-index'	=> $i,
 	  'players'		=> $nbeBots
 	);
-      }
+	$data_string = json_encode($bodyRequestArr[$i]);
+	$ch[$i] = curl_init($bot->url);                                                                      
+	curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
+	curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
+	curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);                                                                      
+	curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
+	    'Content-Type: application/json',                                                                                
+	    'Content-Length: ' . strlen($data_string))                                                                       
+	);
+	curl_multi_add_handle($cmh,$ch[$i]);	
     }
-    
-    $responses = $this->get_multi_IAS_Responses($urls,$paramsToSend);
 
-    //grow bots'tails
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){
-      if  ($this->bots[$botCount]->isAlive){
+     //send the requests
+    do {
+      $returnVal = curl_multi_exec($cmh, $runningHandles);
+    }while($runningHandles > 0);
+  
+    //get results
+    foreach($ch as $playerIndex=>$cr){
+      $currentBot = $this->getBotByPlayerIndex($playerIndex);
+    
+       // Check for errors
+      $curlError = curl_error($cr);
+      $response = curl_multi_getcontent($cr);
       
-	if(!$dir = Direction::make($responses[$botCount]['responseArr']['play'])){
-	  //he loses , non conform response
-	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
-	    $this->bots[$botCount]->loose();
-	}else{
-	
-	  $lastsCells[$botCount] = $this->bots[$botCount]->grow($dir);
-	  
-	  if($lastsCells[$botCount] === false){
-	    //$loosers[] = $botCount;
-	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
-	    $this->bots[$botCount]->loose();
-	  }
-	  
-	}
-      }
-    }
-    //test if loose
-    for ($botCount = 0; $botCount < $nbeBots; $botCount++){ 
-      if  ($this->bots[$botCount]->isAlive){
+      if($curlError !== "") {
+	//erreur curl, he loses
+	$scoreObj-> addLoser($currentBot);
+	$currentBot->loose();
 
-	//tester si collusion avec les cases actuelles
-	for( $botCount2 = 0; $botCount2 < $nbeBots; $botCount2++){   
-	  if(($botCount <> $botCount2)
-	      && ($this->bots[$botCount2]->trail->contains($lastsCells[$botCount]))
-	  ){
-	  
-	    $scoring-> addLoser($botCount,$this->bots[$botCount]->id);
-	    $this->bots[$botCount]->loose();
-	    break;
-	 } 
+      }elseif(! $arr = json_decode($response,TRUE)){
+	//la reponse n'est pas un json, il a perdu
+	$scoreObj-> addLoser($currentBot);
+	$currentBot->loose();
+	
+      }elseif(Direction::make($arr['play']) === false){
+	//tester ici la réponse
+	 //he loose il utilise probablement une de ses propres cases
+	  $scoreObj-> addLoser($currentBot);
+	  $currentBot->loose();
+      }elseif($initialMapAsATrail->contains($currentBot->trail->last()->addDirection(Direction::make($arr['play'])))){ //ounch
+	  //le bot tente d'aller sur une case qui était prise au début du round
+	     $scoreObj-> addLoser($currentBot);
+	     $currentBot->loose();
+      }else{
+	    //mettre de coté la direction du bot
+	    $currentBot->nextDir = Direction::make($arr['play']);
+      }
+      //close curl
+      curl_multi_remove_handle($cmh, $cr);
+      curl_close($cr); 
+    
+    }
+    
+    $aliveBots = $this->getAliveBots(); 
+    //pour tous les bots encore vivants, on teste si deux d'entre eux ne cibleraient pas la même case
+    foreach ($aliveBots as $bot1){
+      foreach ($aliveBots as $bot2){
+	if($bot1-> $playerIndex == $bot2-> $playerIndex) continue;
+	if($bot1->trail->last()->addDirection($bot1->nextDir) == $bot2->trail->last()->addDirection($bot2->nextDir)){
+	  //he loose
+	  $scoreObj-> addLoser($bot1);
+	  $bot1->loose(); 
+	  break;
 	}
       }
     }
     
-    //$this->apply_looses($loosersList);
+    //ok, faire grossir les bots qui restent
+    foreach($this->getAliveBots() as $bot){
+      $bot-> applyNextDir();
+    }
+    
+    //apply scores:
+    $scoreObj-> ApplyScores();
+    
     return array(
       'last_points'	=> $this->get_lasts_trails(),
-      'loosers'		=> $scoring->getLoosersList()
+      'loosers'		=> $scoreObj->getLoosersList()
      );
   }
+
+  
+  
   private function get_multi_IAS_Responses($iasUrls, $postParams){
+    //bug here le resultat retourné ne prend pas les bots ayant déjà perdus
+  
+  
     //same as the get_IAS_Responses function
     // but more than one bot requested parallely
     
@@ -158,7 +231,7 @@ class TronGame
 	      }
 	    $res[$i] = array(
 	      'messageSend' 	=> json_encode($postParams[$i]),
-	      'response'		=> $response,
+	      'response'	=> $response,
 	      'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
 	      'responseArr'	=> $arr   
 	    ); 
@@ -222,7 +295,7 @@ class TronGame
       $startCoord = new Coords($x,$y);
   
       $this->bots[$botCount] =  new TronPlayer();
-      $this->bots[$botCount]->make($bot['id'],$startCoord,$bot['name'],$bot['url']);
+      $this->bots[$botCount]->make($bot['id'],$startCoord,$bot['name'],$bot['url'],$botCount);
       
       if  ($this->bots[$botCount]->isAlive === false){
 	$err .= "Something went wrong for ".$this->bots[$botCount]->getName()."<br/>";
