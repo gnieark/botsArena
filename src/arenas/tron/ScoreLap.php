@@ -20,16 +20,22 @@ class ScoreLap
   }
  
  public function getLoosersList(){
-  return $this->$loosers;
+  //return losers as a digest array
+  $arr = array();
+  
+  foreach($this->loosers as $looser){
+    $arr[] = array("id" => $looser->id,"order" => $looser->playerIndex);
+  }
+  return $arr;
  }
 
  private function ApplyDraws(){
   
     //apply draw match to all losers
-    if(count($this->looserList) < 2) return;
+    if(count($this->loosers) < 2) return;
     
-    foreach($loosers as $$looser1){
-      foreach($loosers as $looser2){
+    foreach($this->loosers as $looser1){
+      foreach($this->loosers as $looser2){
 	if($looser1->playerIndex == $looser2->playerIndex) continue;
 	save_battle('tron', $looser1->id, $looser2->id, 0, 'id' );
       }
@@ -41,7 +47,7 @@ class ScoreLap
   
     //need to make losers List. simply array of orders  
     $loosersIndexArr = array();
-    foreach($this->looserList as $looser){
+    foreach($this->loosers as $looser){
 	$loosersIndexArr[] = $looser->playerIndex;
     }
     foreach($this->loosers as $looser){

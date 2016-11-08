@@ -48,14 +48,16 @@ class TronGame
     foreach($this->bots as $bot){
       $trailsArr[] = $bot->trail->getTrailAsArray();
     }
+    //error_log("*********".json_encode($trailsArr,true)."********");
     return $trailsArr;
+    
   }
   private function get_map_as_an_unique_trail(){
     $trail = new Trail;
     foreach($this->bots as $bot){
       $trail->mergeWith($bot->trail);
     }
-    return trail;
+    return $trail;
   
   }
   public function get_lasts_trails(){
@@ -125,24 +127,33 @@ class TronGame
       $response = curl_multi_getcontent($cr);
       
       if($curlError !== "") {
+      
 	//erreur curl, he loses
 	$scoreObj-> addLoser($currentBot);
 	$currentBot->loose();
-
+	error_log("no curl response".$playerIndex); //debug
+	
       }elseif(! $arr = json_decode($response,TRUE)){
+      
 	//la reponse n'est pas un json, il a perdu
 	$scoreObj-> addLoser($currentBot);
 	$currentBot->loose();
+	error_log("la reponse est pas JSON".$playerIndex); //debug
 	
       }elseif(Direction::make($arr['play']) === false){
+      
 	//tester ici la réponse
 	 //he loose il utilise probablement une de ses propres cases
 	  $scoreObj-> addLoser($currentBot);
 	  $currentBot->loose();
+	  error_log("La reponse ne contient pas une direction".$playerIndex); //debug
+	  
       }elseif($initialMapAsATrail->contains($currentBot->trail->last()->addDirection(Direction::make($arr['play'])))){ //ounch
+      
 	  //le bot tente d'aller sur une case qui était prise au début du round
 	     $scoreObj-> addLoser($currentBot);
 	     $currentBot->loose();
+	     error_log("Il joue sur une case deja prise".$playerIndex); //debug
       }else{
 	    //mettre de coté la direction du bot
 	    $currentBot->nextDir = Direction::make($arr['play']);
@@ -157,7 +168,7 @@ class TronGame
     //pour tous les bots encore vivants, on teste si deux d'entre eux ne cibleraient pas la même case
     foreach ($aliveBots as $bot1){
       foreach ($aliveBots as $bot2){
-	if($bot1-> $playerIndex == $bot2-> $playerIndex) continue;
+	if($bot1->playerIndex == $bot2->playerIndex) continue;
 	if($bot1->trail->last()->addDirection($bot1->nextDir) == $bot2->trail->last()->addDirection($bot2->nextDir)){
 	  //he loose
 	  $scoreObj-> addLoser($bot1);
@@ -183,73 +194,7 @@ class TronGame
 
   
   
-  private function get_multi_IAS_Responses($iasUrls, $postParams){
-    //bug here le resultat retourné ne prend pas les bots ayant déjà perdus
-  
-  
-    //same as the get_IAS_Responses function
-    // but more than one bot requested parallely
-    
-    $cmh = curl_multi_init();
-    for ($i = 0; $i < count($iasUrls); $i++){
-	  if(isset($postParams[$i])){ //dont use already deads bots
-	      $data_string = json_encode($postParams[$i]);
-	      
-	      //error_log($data_string);
-	      
-	      $ch[$i] = curl_init($iasUrls[$i]);                                                                      
-	      curl_setopt($ch[$i], CURLOPT_CUSTOMREQUEST, "POST"); 
-	      curl_setopt($ch[$i], CURLOPT_SSL_VERIFYHOST, false);
-	      curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
-	      curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
-	      curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);                                                                      
-	      curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
-		  'Content-Type: application/json',                                                                                
-		  'Content-Length: ' . strlen($data_string))                                                                       
-	      );
-	      curl_multi_add_handle($cmh,$ch[$i]);
-	   }
-    }
-    
-    //send the requests
-    do {
-      $returnVal = curl_multi_exec($cmh, $runningHandles);
-    }while($runningHandles > 0);
-    
-     
-    //Get results
-     
-    for ($i = 0; $i < count($iasUrls); $i++){
-    
-      if(isset($postParams[$i])){
-	  // Check for errors
-	  $curlError = curl_error($ch[$i]);
-	  if($curlError == "") {
-	    $response = curl_multi_getcontent($ch[$i]);
-	    if(! $arr = json_decode($response,TRUE)){
-		$arr=array();
-	      }
-	    $res[$i] = array(
-	      'messageSend' 	=> json_encode($postParams[$i]),
-	      'response'	=> $response,
-	      'httpStatus'	=> curl_getinfo($ch[$i])['http_code'],
-	      'responseArr'	=> $arr   
-	    ); 
-	    
-	  }else{
-	    $res[$i] = false;
-	  }
-	  //close
-	  curl_multi_remove_handle($cmh, $ch[$i]);
-	  curl_close($ch[$i]);
-	
-	}
-	
-      }
-      // Clean up the curl_multi handle
-      curl_multi_close($cmh);
-      return $res;
-  }
+ 
    
   public function init_game(){
       //send init messages to bots
