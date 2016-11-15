@@ -142,10 +142,30 @@ Les champs qui différent sont:
 </p>
 <p>L'ordre des "queues" des serpents dans ce tableau correspond à l'ordre des joueurs. Donc votre serpent est representée par la queue correspondant à player-index (le décompte de player-index commence par 0).</p>
 <p>L'ordre des couples de coordonnées de chaque bot, est dans le sens tête vers queue. Les bots grandissent à chaque tour en déplaçant leur tête.</p>
+<h2>La réponse de votre bot</h2>
+<p>Il retourne la direction qu'il souhaite prendre sous la forme d'un array.</p><p>4 possibilités:</p>
+
+<pre>
+{"play":"x+"}
+</pre>
+<pre>
+{"play":"x-"}
+</pre>
+<pre>
+{"play":"y+"}
+</pre>
+<pre>
+{"play":"y-"}
+</pre>
+<p>La façon de noter les directions me semble assez explicite pour que je ne détaille pas.</p>
 <h2>Scoring</h2>
 <p>Le scorring (classement EHLO) reste sur une logique de duels, bien que ce jeu puisse contenir plus de deux bots par match. Le score est modifié au fur et à mesure de la partie à chaque fois qu'un bot "décède":</p>
 <ul>
   <li>Lors de la défaite d'un bot, l'arène enregistre un match nul contre tous les autres bots qui ont aussi perdu au même tour de jeu.</li>
   <li>Elle enregistre aussi une défaite des bots morts contre tous les bots encore en course à la fin du tour.</li>
  </ul>
+<h2>
 
+<h2>Outils pour développer et tester votre bot</h2>
+<p>Malheureusement aucun outil pour le moment. Ca viendra dans les semaines qui viennent, peut être sous la forme d'une interface swagger</p>
+<p>Et il faut aussi que je développe une AI moins stupide que stupid IA, car actuellement comme il se suicide trop vite, ça ne permet ni de tester l'arène ni un bot plus intelligent</p>
