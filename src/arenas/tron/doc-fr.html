@@ -1,6 +1,6 @@
 <h2>Fonctionnement des combats de Tron</h2>
 <h3>Règles du jeu (hors specs techniques)</h3>
-<p>Chaque bot démarre depuis une case choisie au hazard par l'arène.</p>
+<p>Chaque bot démarre depuis une case choisie au hasard par l'arène.</p>
 <p>A chaque tour, il est demandé aux bots de grandir d'une case. Il peut choisir la direction. Sa queue s'allonge.</p>
 <p>Si un bot percute une case déjà prise par sa queue ou celle d'un autre, il perd.</p>
 <p>Ce n'est pas du tour par tour, les bots jouent simultanément, ils peuvent donc perdre en choisissant la même case de destination qu'un autre serpent</p>
@@ -17,7 +17,7 @@
 <tr><th>1</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
 </table>
-<p>Si dans le même tour le serpent vert et le serpent rouge décident d'aller respectivement vers la gauche et vers la droite, ils vont se télescopper et perdre tous les deux.</p>
+<p>Si dans le même tour le serpent vert et le serpent rouge décident d'aller respectivement vers la gauche et vers la droite, ils vont se télescoper et perdre tous les deux.</p>
 <table class="tabledoc">
 <tr><th>9</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>8</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -30,7 +30,7 @@
 <tr><th>1</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
 </table>
-<p>Lorsqu'un serpent meurt, (lorsqu'un bot perd) Sa queue est effacée et les cases prises par cette dernière devienent libres pour les serpents encore en vie.</p>
+<p>Lorsqu'un serpent meurt, (lorsqu'un bot perd) Sa queue est effacée et les cases prises par cette dernière deviennent libres pour les serpents encore en vie.</p>
 <p>Le jeu prend fin lorsqu'il reste moins de deux serpents.</p>
 <h3>La grille</h3>
   <ul>
@@ -39,7 +39,7 @@
    </ul>
  
 <h3>Communications entre l'arène et les bots</h3>
-<p>L'arène fait emet des requetes http(s) à destination des bots.</p>
+<p>L'arène fait émet des requêtes http(s) à destination des bots.</p>
 <ul>
   <li>Type: POST</li>
   <li>informations: au format JSON dans le corps de la requetes</li>
@@ -51,7 +51,7 @@
 {"game-id":"1679","action":"init","game":"tron","board":"","players":4,"player-index":2}
 </pre>
 <ul>
-  <li><em>game-id</em> String Identifiant unique de la partie. Votre bot peut être emmené à jouer plusieurs parties en simultané. Si le fonctionnement de votre bot nécessite de suivre / conserver des valeurs entre deux tours dfe l'arène, cet identifiant vous sera utile.</li>
+  <li><em>game-id</em> String Identifiant unique de la partie. Votre bot peut être emmené à jouer plusieurs parties en simultané. Si le fonctionnement de votre bot nécessite de suivre / conserver des valeurs entre deux tours de l'arène, cet identifiant vous sera utile.</li>
   <li><em>action</em> String, peut prendre les valeurs init ou play-turn, mais à cette étape, c'est init</li>
   <li><em>game</em> String, sera toujours "tron" ici. Peut vous servir si vous utilisez la même URL pour plusieurs bots.</li>
   <li><em>board</em> Sera vide à cette étape</li>
@@ -87,7 +87,7 @@ Les champs qui différent sont:
   <li><em>board</em>Je vous explique ça au chapitre suivant.</li>
 </ul>
 <h4>La Carte (board)</h4>
-<p>Elle est repésentée dans le champs "board" du JSON envoyé par l'arène. Elle décrit les cases prises par chaque joueur.</p>
+<p>Elle est représentée dans le champs "board" du JSON envoyé par l'arène. Elle décrit les cases prises par chaque joueur.</p>
 <p> Elle est composée de plusieurs sous-arrays/sous-objets (en fonction de votre language de programmation). Elle se décompose en sous tableaux de la forme suivante:<p>
 <ul>
   <li>Board:
@@ -96,14 +96,14 @@ Les champs qui différent sont:
 	<ul>
 	  <li>Case1
 	    <ul>
-	      <li>coordonée X</li>
-	      <li>Coordonée Y</li>
+	      <li>Coordonnée X</li>
+	      <li>Coordonnée Y</li>
 	     </ul>
 	  </li>
 	  <li>Case2
 	    <ul>
-	      <li>coordonée X</li>
-	      <li>Coordonée Y</li>
+	      <li>coordonnée X</li>
+	      <li>Coordonnée Y</li>
 	     </ul>
 	  </li>
 	</ul>
@@ -112,14 +112,14 @@ Les champs qui différent sont:
       	<ul>
 	  <li>Case1
 	    <ul>
-	      <li>coordonée X</li>
-	      <li>Coordonée Y</li>
+	      <li>coordonnée X</li>
+	      <li>Coordonnée Y</li>
 	     </ul>
 	  </li>
 	  <li>Case2
 	    <ul>
-	      <li>coordonée X</li>
-	      <li>Coordonée Y</li>
+	      <li>coordonnée X</li>
+	      <li>Coordonnée Y</li>
 	     </ul>
 	  </li>
 	</ul>
