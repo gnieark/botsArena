@@ -18,6 +18,7 @@ foreach($bots as $bot){
 }
 ?>
 <article id="mainArticle">
+    <p>Cette arène n'est qu'à moitié ouverte. Elle fonctionne  et la documentation est écrite, mais les outils pour vous aider à débogguer et tester un bot n'ont pas été créés. Ca viendra. </p>
     <h2><?php echo $lang['MAKE_DUEL'];?></h2>
     <aside id="configurePlayers">
 
