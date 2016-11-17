@@ -1,0 +1,175 @@
+<h2> How Tron Fights Works </h2>
+<h3> Game's rules (excluding technical specs) </h3>
+<p> Each bot starts from a point randomly selected by the arena. </p>
+<p> At each turn, bots are asked to grow one square. they can choose the direction.</p>
+<p> If a bot strikes a cell already taken by its trail or that of another, it loses. </p>
+<p> It is not turn-based, bots are playinig simultaneously, so they can lose by choosing the same destination cell as another snake.</p>
+<p> Example: </p>
+<table class="tabledoc">
+<tr><th>9</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>7</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>6</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>5</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4</th><td class="green"></td><td class="green"></td><td class="green">oO</td><td></td><td class="red">oO</td><td class="red"></td><td></td><td></td><td></td></tr>
+<tr><th>3</th><td class="green"></td><td></td><td></td><td></td><td></td><td class="red"></td><td class="red"></td><td class="red"></td><td></td></tr>
+<tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+</table>
+<p>If in the same turn the green snake and the red snake decide to go respectively to the left and to the right, they will telescope and both will lose.</p>
+<table class="tabledoc">
+<tr><th>9</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>7</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>6</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>5</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4</th><td class="green"></td><td class="green"></td><td class="green"></td><td class="brown">): :(</td><td class="red"></td><td class="red"></td><td></td><td></td><td></td></tr>
+<tr><th>3</th><td class="green"></td><td></td><td></td><td></td><td></td><td class="red"></td><td class="red"></td><td class="red"></td><td></td></tr>
+<tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+</table>
+<p>When a snake dies, (when a bot loses) its tail is erased and cells taken by it become free for snakes still alive.</p>
+<p>The game ends when there are less than two snakes left</p>
+<h3>Grid</h3>
+  <ul>
+    <li>width: 1000 cells</li>
+    <li>Height: 1000 cells</li>
+   </ul>
+ 
+<h3>Communications between the arena and the bots</h3>
+<p>The arena does send http (s) requests to the bots.</p>
+<ul>
+  <li>Type: POST</li>
+  <li>in JSON format inside the query's body</li>
+</ul>
+
+<h3>Initialization of the game</h3>
+<p>The arena (this site) sends the following exemple message to your bot:</p>
+<pre>
+{"game-id":"1679","action":"init","game":"tron","board":"","players":4,"player-index":2}
+</pre>
+<ul>
+  <li><em>game-id</em> String The unique identifier of the game. Your bot can be led to play several parts simultaneously. If the functioning of your bot requires to keep data ​​between two turns of the arena, this identifier will be useful.</li>
+  <li><em>action</em> String, can be "init" or "play-turn". For the current step, it's "init"</li>
+  <li><em>game</em> String, Always "tron" here,can be usefull if you use the same URL to serve many bots</li>
+  <li><em>board</em> Is empty at this step./li>
+  <li><em>players</em> Intreger indicating how many bots are playing this game.Your bot can "play" several players on the same game. What if you had them collaborate in that case?</li>
+  <li><em>player-index</em> Entier Your bot number. The first bot is player-index: 0. You'll keep the same number throughout the game, even if some others players are already dead.</li>
+ </ul>
+ 
+<p>Your bot must respond with an array in json format, like this:</p>
+<pre>
+{"name":"botName"}
+</pre>
+<p>
+The arena does not currently verify this response, the init step has been inserted to ensure compatibility with Bolosseum. If your bot answers a blank page at this stage (action = init), it will work as part of botsarena.
+</p>
+
+<h3>Game's laps</h3>
+<p>Exemple of arena's message send on the first lap:</p>
+
+
+<p>Exemple of arena's message send after some laps:</p>
+<pre>
+{"game-id":"1680","action":"play-turn","game":"tron","board":[[[687,110],[687,111],[686,111],[686,110],[686,109],[686,108],[686,107],[685,107],[685,108],[685,109],[684,109],[684,110],[684,111],[684,112],[684,113],[683,113],[682,113],[681,113],[681,114],[681,115],[681,116],[680,116],[680,117],[679,117],[679,116],[679,115],[679,114],[679,113],[679,112],[679,111],[679,110],[679,109],[678,109],[678,108],[677,108],[676,108],[676,107],[676,106],[676,105],[676,104],[676,103],[675,103],[674,103],[674,102],[673,102],[672,102],[672,101],[671,101],[670,101],[669,101],[669,102],[669,103],[669,104],[669,105],[669,106],[669,107],[668,107],[668,108],[668,109],[668,110],[668,111],[668,112],[667,112],[667,111],[667,110],[666,110],[666,109],[666,108],[665,108],[664,108],[664,107],[664,106],[663,106],[663,107],[663,108],[662,108],[661,108],[660,108],[660,107],[659,107],[659,106],[658,106],[657,106],[657,105],[657,104],[656,104],[656,103],[655,103],[655,102],[655,101],[654,101],[654,102],[654,103],[654,104],[653,104],[653,103],[653,102],[653,101],[653,100],[652,100],[651,100],[651,101],[651,102],[651,103],[651,104],[650,104],[650,105],[650,106],[649,106],[649,105],[648,105]],[[100,225],[100,226],[100,227],[100,228],[100,229],[100,230],[100,231],[99,231],[98,231],[98,232],[97,232],[96,232],[96,231],[96,230],[96,229],[96,228],[96,227],[96,226],[96,225],[96,224],[96,223],[95,223],[95,222],[94,222],[94,221],[94,220],[93,220],[92,220],[92,219],[92,218],[92,217],[92,216],[92,215],[91,215],[91,214],[90,214],[89,214],[89,213],[89,212],[88,212],[88,213],[88,214],[87,214],[87,213],[86,213],[86,214],[86,215],[85,215],[85,214],[84,214],[84,215],[83,215],[83,216],[83,217],[82,217],[82,216],[81,216],[81,215],[80,215],[80,216],[79,216],[79,215],[79,214],[78,214],[77,214],[77,213],[77,212],[76,212],[75,212],[75,211],[75,210],[75,209],[74,209],[74,210],[74,211],[73,211],[73,210],[72,210],[72,209],[71,209],[71,210],[70,210],[70,209],[69,209],[68,209],[68,210],[68,211],[67,211],[67,210],[67,209],[67,208],[66,208],[66,207],[66,206],[66,205],[66,204],[66,203],[65,203],[65,204],[64,204],[64,203],[63,203],[63,204],[63,205],[63,206],[62,206],[61,206],[61,207],[60,207],[60,208],[59,208]]],"player-index":0,"players":2}
+</pre>
+<p>Following fields are as in the previous paragraph:</p>
+<ul>
+<li><em>game-id</em></li>
+<li><em>game</em></li>
+<li><em>players</em></li>
+<li><em>player-index</em></li>
+</ul>
+<p>Not same fields are:</p>
+<ul>
+  <li><em>action</em>String, always "play-turn" for this step.</li>
+  <li><em>board</em>A full chapter is needed ti explain that.</li>
+</ul>
+<h4>The map / the board</h4>
+<p>It is contained on "board" field. All the cells taken by each player are writted in.</p>
+
+It is composed of several subarrays / subobjects (depending on your programming language). 
+the sub-tables haved the following form:
+<ul>
+  <li>Board:
+    <ul>
+      <li>Player 1
+	<ul>
+	  <li>Cell 1
+	    <ul>
+	      <li>Coordinate X</li>
+	      <li>Coordinate Y</li>
+	     </ul>
+	  </li>
+	  <li>Cell2
+	    <ul>
+	      <li>Coordinate X</li>
+	      <li>Coordinate Y</li>
+	     </ul>
+	  </li>
+	</ul>
+      </li>
+      <li>Player 2>
+      	<ul>
+	  <li>Cell 1
+	    <ul>
+	    <li>Coordinate X</li>
+	      <li>Coordinate Y</li>
+	     </ul>
+	  </li>
+	  <li>Cell 2
+	    <ul>
+	      <li>Coordinate X</li>
+	      <li>Coordinate Y</li>
+	     </ul>
+	  </li>
+	</ul>
+      
+      </li>
+	<li>...</li>
+    <ul>
+  </li>
+</ul>
+<p> JSON form is as follows:</p>
+
+<p>
+[<br />
+&nbsp;&nbsp;[<br />
+&nbsp;&nbsp;&nbsp;&nbsp;[x1,y1],[x2,y2],[x3,y3]<br />
+&nbsp;&nbsp;],<br />
+&nbsp;&nbsp;[<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(...)<br />
+&nbsp;&nbsp;]<br />
+</p>
+<p>Trails'order on this table is the same as Player's order. So, your "snake" has the trail corresponding with player-index. (First player-index value is 0).</p>
+<p>coordinate's are from the head to the trail. Bots grow by moving their heads.</p>
+
+<h2>Bot's awnser</h2>
+<p> It returns direction it wants on a JSON array.</p><p>4 possibilies:</p>
+
+<pre>
+{"play":"x+"}
+</pre>
+<pre>
+{"play":"x-"}
+</pre>
+<pre>
+{"play":"y+"}
+</pre>
+<pre>
+{"play":"y-"}
+</pre>
+<p>The way to note the directions seems fairly explicit for me to not explain.</p>
+<h2>Scoring</h2>
+<p>The scoring (EHLO classification) remains on a logic of duels, although this game can contain more than two bots per game. The score is changed as the game happens each time a bot dies:</p>
+  <ul>
+    <li> During the defeat of a bot, the arena records a draw against all the other bots that also lost in the same round of play.</li>
+    <li>It also records a defeat of the dead bots against all the bots still in the race at the end of the round.</li>
+  </ul>
+
+<h2>Tools to develop and test your bot</h2>
+<p>Unfortunately no tools yet. It will come in the weeks to come, maybe in the form of a swagger interface</p>
+<p>And I must also develop an AI less stupid than stupid IA, because currently as it commits suicide too fast, it does not allow to test the arena nor a more intelligent bot.</p>
+ent</p>
