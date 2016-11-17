@@ -125,11 +125,11 @@ function play(gameId,xd_check){
 		
 		//find the bot name
 		for (var j = 0; j < botsAvailable.length; j ++){
-		 if(botsAvailable[j]['id'] ==  reponse['lap']['loosers'][i]['order']){
+		 if(botsAvailable[j]['id'] ==  reponse['lap']['loosers'][i]['id']){
 		  var botName = botsAvailable[j]['name'];  
 		 }
 		}
-		addLog("Bot " + reponse['lap']['loosers'][i]['order'] + "id " + reponse['lap']['loosers'][i]['id'] + " Name: " +  botName + " a perdu.");
+		addLog("Bot " + reponse['lap']['loosers'][i]['order'] + " Name: " +  botName + " loosed");
 	      }
 	      drawMap(reponse['lap']['last_points']);
 	      if(reponse['continue'] == '1'){
@@ -139,7 +139,8 @@ function play(gameId,xd_check){
 		//} ,500);
 			
 	      }else{
-		alert ('game ended');
+		addLog("Game ended");
+		document.getElementById('fightButton').disabled=false;
 	      }
 	      
 	    }else{
