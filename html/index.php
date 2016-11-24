@@ -13,9 +13,11 @@
 @session_start();
 
 require_once("../src/functions.php");
+//load classes
+require_once ("../src/ARENAS.php");
+require_once ("../src/BOTS.php");
+
 $lnMysql=conn_bdd();
-$arenas=get_arenas_list();
-$lang=get_language_array();
 
 //check type of page
 //$_GET['arena'] -> an arena
@@ -23,6 +25,66 @@ $lang=get_language_array();
 //$_GET['scores'] -> show fights'history for the arena
 //$_GET['page'] -> a simple page like about page, legals etc...
 //Nothing -> home page
+
+
+if(isset($_GET['arena'])){
+  $arenaId = $_GET['arena'];
+}elseif(isset($_GET['doc'])){
+  $arenaId = $_GET['doc'];
+}elseif(isset($_GET['scores'])){
+  $arenaId = $_GET['scores'];
+}else{
+  $arenaId = "";
+}
+
+//hydrate 
+require_once ("../src/arenas_lists.php");
+$exists = false;
+foreach($arenas as $arena){
+  
+  if($arenaId == "") break;
+  
+  if($arena['id'] == $arenaId){
+    $currentArena = new ARENA($arenaId);
+    $currentArena->hydrate($arena);
+    //add Bots on arena
+    $rs=mysqli_query($lnMysql,
+      "SELECT id,name,url,description,ELO
+	FROM bots 
+	WHERE game='".mysqli_real_escape_string($lnMysql,$currentArena->get_id())."'
+	AND active='1';"
+    );
+   while($r=mysqli_fetch_array($rs)){
+    $bot = new BOT("plop");
+    $bot->hydrate($r);
+    $currentArena->addBot($bot);
+   }
+   $exists = true;
+   break;
+  }
+}
+if((!$exists)&& ($arenaId <> ""))error(404,"Page not found ".$arenaId); //l'arene passée en url n'existe pass
+
+
+
+if($arenaId == ""){
+  echo "accueil";
+}else{
+  foreach($currentArena->bots as $bot){
+    echo $bot->name."\n";
+  }
+}
+
+die();
+//**********************rewriting this file! ***************
+
+//**********OLD code from here ************************************
+
+
+
+
+
+
 
 $permitIndex=true; //will be set to false for pages that google or other bot must not index
 

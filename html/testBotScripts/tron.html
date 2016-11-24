@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Gnieark" />
+    <title>Trons's Ludus</title>
+      <style type="text/css">
+      
+body{width:100%; font-size:100%; line-height:140%; word-wrap:break-word; text-rendering:optimizelegibility;
+  margin:0 auto; font-family : "lucida grande", "gill sans", arial, sans-serif; left:auto;}
+header{ background-color:#A60800; width: 100%; overflow: hidden; height: auto;}
+header h1{display: block; font-size:300%; color:#FFF;float: left; margin-left: 5%;}
+header nav{display: block; width: 45%; color:#FFF; float: right;}
+#menus{ margin-left: 50px; width:100%; display: table;}
+#menus a{color: #fff; display: table-cell; text-decoration: none;text-align: center;border-radius: 15px 15px 0px 0px;}
+#menus a.selected{color:#202020; background-color:#fff;}
+footer{height: 70px; display: block; color: #343638; font-size: 11pt; line-height: 15pt; margin: 0; padding-top: 15pt;
+    overflow-x: hidden;    box-sizing: border-box; background-image: -webkit-linear-gradient(top, #f5f5f5,#e9e9e9);
+    border-top: 1px solid #bebebe; color: #999; font-size: 12px; line-height: 1.5em; text-align: center;width: 100%;}
+footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weight: normal;}
+#languages{float: right; text-align: right;}
+section{margin: 0 auto; width: 90%;}
+article{float: right; width:70%;}
+aside{float:left;width:29%;}
+.playerBox{}
+.playerBox input, .playerBox select {width:100%;}
+
+
+
+
+
+.hidden{display: none;}
+#logs{font-size: 70%;}
+</style>
+
+<script><!--
+function createElem(type,attributes){
+    var elem=document.createElement(type);
+    for (var i in attributes)
+    {elem.setAttribute(i,attributes[i]);}
+    return elem;
+}
+function changeRandom(index,newValue){
+  if (newValue == "random" ){
+    document.getElementById("posX" + index).className = "hidden";
+    document.getElementById("posY" + index).className = "hidden";
+  }else{
+    document.getElementById("posX" + index).className = "";
+    document.getElementById("posY" + index).className = "";  
+  }
+
+}
+function changeTypePlayer(index,newValue){
+  if (newValue == "Human") document.getElementById("botUrl" + index).className = "hidden";
+  else document.getElementById("botUrl" + index).className = "";
+
+}
+function createPlayerForm(index){
+  var container = document.getElementById("playersSettings");
+  var divForm = createElem("div", {"id": "containerPlayer" + index,"class":"playerBox" } );
+  
+  //Type of player
+  var select = createElem("select",{"id":"playerType" + index,"onchange":"changeTypePlayer('" + index + "', this.value);"});
+  var optionHuman = createElem("option",{"value":"Human"});
+  optionHuman.innerHTML = "Human";
+  var optionBot = createElem("option",{"value":"Bot"});
+  optionBot.innerHTML = "Bot";
+  
+  select.appendChild(optionBot);
+  select.appendChild(optionHuman);
+  divForm.appendChild(select);
+  
+  //url 
+  var inputUrl = createElem("input", {"id","botUrl" + index, "type": "text", "value":"jljfhglfsghf", "placeholder":"http://Bot.url" });
+  divForm.appendChild(inputUrl);
+  
+  
+  
+  //Starting cell
+  var selectRandomStartCell = createElem("select",{
+		"id": "randomOrNot" + index,
+		"onchange":"changeRandom('" + index + "', this.value);"
+	      });
+  
+  var optionRandom = createElem("option",{"value":"random","selected":"selected"});
+  optionRandom.innerHTML = "random";
+  
+  var optionDefined = createElem("option",{"value":"defined"});
+  optionDefined.innerHTML = "Let me define it";
+  selectRandomStartCell.appendChild(optionRandom);
+  selectRandomStartCell.appendChild(optionDefined);
+  
+  divForm.appendChild(selectRandomStartCell);
+  
+  var inputX = createElem("input",{"type":"text","value": "0","id":"posX" + index,"class":"hidden"});
+  var inputY = createElem("input",{"type":"text","value": "0","id":"posY" + index,"class":"hidden"});
+  
+  divForm.appendChild(inputX);
+  divForm.appendChild(inputY);
+  
+  container.appendChild(divForm);
+  
+}
+
+--></script>
+</head>
+<body>
+<header>
+<h1>Tron's Ludus</h1>
+</header>
+  <section>
+    <p>Here you can test and fix your bot, against himself, against human or against any other bot if you know the URL.
+   <br/>No scoring here, it's a Ludus (gladiators training center).</p>
+ 
+    <aside id="playersSettings">
+    <h2>Configure the test</h2>
+      <script>
+      createPlayerForm(0);
+      </script>
+   
+    </aside>
+    <article id="fightResult">
+    </article>
+  </section>
+  <footer>
+    <a href="/p/About">About</a><a href="https://github.com/gnieark/botsArena">Bots'Arena source code</a><a href="/p/legals">Mentions légales</a>
+  </footer>
+</body>
+</html>

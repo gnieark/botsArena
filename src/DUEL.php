@@ -31,16 +31,6 @@ class DUEL{
   }
 }
 
-  
-
-
-
-
-
-
-
-
-
 class ELO
 {
   public $rank = 1500; //default rank

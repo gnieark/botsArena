@@ -1,6 +1,6 @@
 <?php
 class InvalidDirectionException extends UnexpectedValueException{
-
+// throw new InvalidDirectionException("expected 'x+', 'x-', 'y+' or 'y-'". (string)$str."received.");
 }
 class Direction
 {
