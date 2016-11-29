@@ -232,8 +232,8 @@ class TronGame
     foreach($botsInfos as $bot){
       //find a random start position
       do{
-	  $x = rand(1,999);
-	  $y = rand(1,999);
+	  $x = rand(1,99);
+	  $y = rand(1,99);
       }while(in_array($x.",".$y,$positions));
       
       $positions[] = $x.",".$y;
