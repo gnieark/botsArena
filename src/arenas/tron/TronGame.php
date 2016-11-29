@@ -164,6 +164,8 @@ class TronGame
     
     }
     
+    
+    $lastLoosers = array();
     $aliveBots = $this->getAliveBots(); 
     //pour tous les bots encore vivants, on teste si deux d'entre eux ne cibleraient pas la même case
     foreach ($aliveBots as $bot1){
@@ -172,10 +174,14 @@ class TronGame
 	if($bot1->trail->last()->addDirection($bot1->nextDir) == $bot2->trail->last()->addDirection($bot2->nextDir)){
 	  //he loose
 	  $scoreObj-> addLoser($bot1);
-	  $bot1->loose(); 
+	  $lastLoosers[] = $bot1;
+	  //$bot1->loose(); 
 	  break;
 	}
       }
+    }
+    foreach($lastLoosers as $bot){
+      $bot->loose();
     }
     
     //ok, faire grossir les bots qui restent
