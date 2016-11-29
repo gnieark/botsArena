@@ -90,7 +90,7 @@ function drawMap(map){
   for (var botId in map){	
 	if(typeof(map[botId]['x']) != 'undefined'){ //don't draw deads bots
 	  //draw the point
-	  var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'2','height':'2','style':'fill:' + botsColor[botId] + ';'});
+	  var rect=createElemNS('rect',{'x':map[botId]['x'],'y':map[botId]['y'],'width':'1','height':'1','style':'fill:' + botsColor[botId] + ';'});
 	  document.getElementById('map').appendChild(rect);
 	}
   }
@@ -159,7 +159,7 @@ function tron(xd_check){
             document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
         }
 	// draw border;
-	var svg = createElemNS('svg',{'id':'map','width':'500','height':'500','viewBox':'0 0 1000 1000'});
+	var svg = createElemNS('svg',{'id':'map','width':'500','height':'500','viewBox':'0 0 100 100'});
 	var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
 	svg.appendChild(rect);
 	document.getElementById("fightResult").appendChild(svg);

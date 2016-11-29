@@ -1,7 +1,7 @@
 <?php
 class Coords{
   private static $min = 0;
-  private static $max = 999;
+  private static $max = 99;
 
   public $x;
   public $y;
