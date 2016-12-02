@@ -100,7 +100,6 @@ switch($_POST['act']){
 	}     
     }
     
-
     break;
     
   case "editBot":
@@ -193,10 +192,7 @@ switch($_POST['act']){
             error(500,"Mailer Error: " . $mail->ErrorInfo);
         } else {
             //echo "Message sent!";
-        }     
-
-	  
-    
+        }       
     }
     break;
     
