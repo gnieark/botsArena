@@ -35,9 +35,12 @@ function changeSelect(number,botId){
     }
 }
 function show_bot_panel(number){
+  
+	var botsColor = ['cyan','darkmagenta','darkred','darkslategrey','deeppink','dodgerblue','goldenrod','grey','indigo','lightgreen','mediumslateblue','midnightblue'];
+
         //configurePlayers
         var fieldset = createElem('fieldset',{'class':'botFormulaire'});
-        var legend = createElem('legend',{});
+        var legend = createElem('legend',{"style": "color: " + botsColor[number] +'; font-weight: bold;'});
         legend.innerHTML = 'bot ' + number;
         fieldset.appendChild(legend);
         var p=createElem('p');

@@ -271,6 +271,7 @@ function save_battle($game,$bot1,$bot2,$result,$nameOrIds = 'name'){
         '1')
         ON DUPLICATE KEY UPDATE ".$field." = ".$field." + 1;   
       ");        
+      
 }
 function get_unique_id(){
     //increment the number 
@@ -344,7 +345,8 @@ function get_IA_Response($iaUrl,$postParams){
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
         'Content-Type: application/json',                                                                                
         'Content-Length: ' . strlen($data_string))                                                                       

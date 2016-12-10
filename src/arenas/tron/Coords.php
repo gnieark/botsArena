@@ -12,18 +12,13 @@ class Coords{
       error_log("a bot out of limits");
       return false;
     }
-  
     $this->x = $x;
     $this->y = $y;
-    
-
   }
 
   public function __toString(){
     return $this->x.",".$this->y;
-    
   }
-  
   public function addDirection(Direction $dir){
     return new Coords(
       $this->x + $dir->deltaX,
