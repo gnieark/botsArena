@@ -106,7 +106,8 @@ class TronGame
 	curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch[$i], CURLOPT_POSTFIELDS, $data_string);                                                                  
 	curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch[$i], CURLOPT_CONNECTTIMEOUT, 10);
+	//curl_setopt($ch[$i], CURLOPT_CONNECTTIMEOUT, 10);
+	curl_setopt($ch[$i], CURLOPT_TIMEOUT, 10);
 	curl_setopt($ch[$i], CURLOPT_HTTPHEADER, array(                                                                          
 	    'Content-Type: application/json',                                                                                
 	    'Content-Length: ' . strlen($data_string))                                                                       
