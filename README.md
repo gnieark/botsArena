@@ -22,15 +22,15 @@ Apache RewriteRules are given on the file html/.htaccess
 
 For nginx in server directive:
 
-        rewrite '^/([a-zA-Z]{1,})/doc-([a-z]{2})$' /index.php?doc=$1&lang=$2 last;
-	rewrite '^/p/([a-zA-Z]{1,})/(.*)-([a-z]{2})$' /index.php?page=$1&params=$2&lang=$3 last;        
-	rewrite '^/p/([a-zA-Z]{1,})/(.*)$' /index.php?page=$1&params=$2 last;
-	rewrite '^/p/(.*)-([a-z]{2})$' /index.php?page=$1&lang=$2 last;
-	rewrite '^/p/(.*)$' /index.php?page=$1 last;
-        rewrite '^/([a-zA-Z]{1,})/scores$' /index.php?scores=$1 last;
-        rewrite '^/([a-zA-Z]{1,})-([a-z]{2})$' /index.php?arena=$1&lang=$2 last;
-        rewrite '^/([a-zA-Z]{1,})/doc$' /index.php?doc=$1 last;
-        rewrite '^/([a-zA-Z]{1,})$' /index.php?arena=$1 last;
+    rewrite '^/([a-zA-Z]{1,})/doc-([a-z]{2})$' /index.php?doc=$1&lang=$2 last;
+    rewrite '^/p/([a-zA-Z]{1,})/(.*)-([a-z]{2})$' /index.php?page=$1&params=$2&lang=$3 last;        
+    rewrite '^/p/([a-zA-Z]{1,})/(.*)$' /index.php?page=$1&params=$2 last;
+    rewrite '^/p/(.*)-([a-z]{2})$' /index.php?page=$1&lang=$2 last;
+    rewrite '^/p/(.*)$' /index.php?page=$1 last;
+    rewrite '^/([a-zA-Z]{1,})/scores$' /index.php?scores=$1 last;
+    rewrite '^/([a-zA-Z]{1,})-([a-z]{2})$' /index.php?arena=$1&lang=$2 last;
+    rewrite '^/([a-zA-Z]{1,})/doc$' /index.php?doc=$1 last;
+    rewrite '^/([a-zA-Z]{1,})$' /index.php?arena=$1 last;
         
 # License
 Bot's Arena , Website for Artificials intelligences duels.
