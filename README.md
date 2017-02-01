@@ -14,13 +14,15 @@ You are welcome, Make pull requests on branch dev. Im available on twitter [@gni
 # install it
 I'd better like you to help me to improve [bot's Arena](https://botsarena.tinad.fr/), and you to make your own bots to play challenges. It would be more funny having lot of bots in one arena rather than lot of arenas.
 
-* Mysql structure is in the .sql
-* Apache/tomcat document root starts at ./html
-* copy src/config.php.empty to src/config.php
+See dockerFile and associated scripts to understand what is needed.
 
-Apache RewriteRules are given on the file html/.htaccess
+To test an image of bots arena with docker:
 
-For nginx in server directive:
+  make
+  docker build .
+  docker run --name hey -p 127.0.0.1:8080:80 DockerImageId
+
+For nginx Rewrite rules in server directive are:
 
     rewrite '^/([a-zA-Z]{1,})/doc-([a-z]{2})$' /index.php?doc=$1&lang=$2 last;
     rewrite '^/p/([a-zA-Z]{1,})/(.*)-([a-z]{2})$' /index.php?page=$1&params=$2&lang=$3 last;        
