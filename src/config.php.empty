@@ -10,12 +10,12 @@
 #
 # -- END LICENSE BLOCK -----------------------------------------
 
-$siteParam=array("BASEURL" => "http://botsarena.tinad.fr/");
+$siteParam=array("BASEURL" => "http://localhost/");
 $mysqlParams=array(
   'host' => 'localhost',
-  'user' => '',
-  'pass' => '',
-  'database'=>''
+  'user' => 'botsarena',
+  'pass' => 'botsPwd',
+  'database'=>'botsarena'
 );
 $smtpParams=array(
     //exemple for gmail
