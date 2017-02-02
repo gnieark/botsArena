@@ -24,7 +24,7 @@ RUN cp /var/www/src/config.php.empty /var/www/src/config.php && \
     chmod +x /populate_mysql.sh && \
     chown -R www-data:www-data /var/www
     
-EXPOSE 80 3306
+EXPOSE 80
 
 ADD install.sql /install.sql
 RUN rm /run.sh
