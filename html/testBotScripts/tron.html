@@ -42,6 +42,17 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+
+function makeid(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 function changeRandom(index,newValue){
   if (newValue == "random" ){
     document.getElementById("posX" + index).className = "hidden";
@@ -52,10 +63,67 @@ function changeRandom(index,newValue){
   }
 
 }
+
 function changeTypePlayer(index,newValue){
   if (newValue == "Human") document.getElementById("botUrl" + index).className = "hidden";
   else document.getElementById("botUrl" + index).className = "";
 
+}
+
+function createElemWithLabel(type,attributes,labelTxt, id =''){
+  /*
+  * return an em element containing label and data like this:
+  * <em id='kjhjk'>
+  *	<label for="plop"> the text of blah blah </label>
+  *	<input type='someType' value='kjhjlkh' id='plop'/>
+  * </em>
+  */
+
+ if( id == ''){
+  var em = createElem ('em',{});
+ }else{
+  var em = createElem ('em',{'id':id});
+ }
+ 
+ if (typeof attributes['id'] !== 'undefined') {
+    var forId = attributes['id'];
+ }else{
+    var forId = makeid();
+ }
+ var label = createElem('label',{'for' : forId});
+ em.appendChild(label);
+ var elem = createElem(type,attributes);
+ if (typeof attributes['id'] !== 'undefined') {
+  em.setAttribute('id',forId);
+ }
+ em.appendChild(elem);
+ return em;
+
+}
+function createLineSelect(labelTxt,arrayOptions,attributes){
+  //attributes are the select 's attributes, not his container
+  var em = createElem('em',{});
+  if (typeof attributes['id'] !== 'undefined') {
+    var forId = attributes['id'];
+  }else{
+    var forId = makeid();
+  }
+  var label = createElem('label',{'for':forId});
+  label.innerHTML = labelTxt;
+  em.appendChild(label);
+  
+  var select = createElem('select',attributes);
+  if (typeof attributes['id'] !== 'undefined') {
+    select.setAttribute('id',forId);
+  }
+  
+  for(var i=0; i < arrayOptions.length; i++){
+    var option = createElem('option',{'value':arrayOptions[i]['value']});
+    
+  
+  }
+
+  return em;
 }
 function createPlayerForm(index){
   var container = document.getElementById("playersSettings");

@@ -18,9 +18,9 @@ See dockerFile and associated scripts to understand what is needed.
 
 To test an image of bots arena with docker:
 
-  make
-  docker build .
-  docker run --name hey -p 127.0.0.1:8080:80 DockerImageId
+    make
+    docker build .
+    docker run --name hey -p 127.0.0.1:8080:80 DockerImageId
 
 For nginx Rewrite rules in server directive are:
 
