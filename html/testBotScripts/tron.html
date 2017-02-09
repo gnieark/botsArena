@@ -24,14 +24,10 @@ footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weig
 section{margin: 0 auto; width: 90%;}
 article{float: right; width:70%;}
 aside{float:left;width:29%;}
-.playerBox{}
-.playerBox em {width: 100%;}
-.playerBox em label { width: 40%; text-align: right;}
-.playerBox em input,.playerBox em input, .playerBox em select {width:59%; float:right;}
-
-
-
-
+.playerBox{ }
+.playerBox em {display: block; width: 100%;}
+.playerBox em label {text-overflow: hidden; display: inline-block; width: 30%; margin-right: 20px; vertical-align: top; text-align: right;}
+.playerBox em input, .playerBox em select {box-sizing: border-box; width: 59%; padding: 4px; vertical-align: top; }
 
 .hidden{display: none;}
 #logs{font-size: 70%;}
@@ -63,13 +59,12 @@ function changeRandom(index,newValue){
     document.getElementById("posX" + index).className = "";
     document.getElementById("posY" + index).className = "";  
   }
-
 }
 
 function changeTypePlayer(index,newValue){
-  if (newValue == "Human") document.getElementById("botUrl" + index).className = "hidden";
-  else document.getElementById("botUrl" + index).className = "";
-
+  alert("botUrl" + index);
+  if (newValue == "Human") document.getElementById("botUrl" + index).class = "hidden";
+  else document.getElementById("botUrl" + index).class = "";
 }
 
 function createElemWithLabel(type,attributes,labelTxt, id =''){
@@ -147,10 +142,11 @@ function createPlayerForm(index){
     createElemWithLabel(
 			  'input',
 			  {
-			    "id":"botUrl" + index, "type": "text", "value":"",
+			    "type": "text", "value":"",
 			    "placeholder":"http://Bot.url" 
 			  },
-			  'URL du Bot'
+			  'URL du Bot',
+			  'botUrl' + index
       )
     
   );
@@ -180,7 +176,14 @@ function createPlayerForm(index){
       'Y coord:'
     )
   );
-  
+  var but = createElem('input',
+			  {
+			    'type':'button',
+			    'value':'Add this player',
+			    'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');'
+			  }
+		      );
+  divForm.appendChild(but);
   container.appendChild(divForm);
   
 }

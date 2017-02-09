@@ -99,8 +99,7 @@ form label {
     margin-right: 20px;
     vertical-align: top;
     text-align: right;
-
-  }
+}
 pre{
   font-style: normal;
   font-size: 16px;
@@ -116,5 +115,4 @@ pre{
 .hidden{display:none;}
 @media screen and (max-width: 800px){
 	aside, article{display: block; width: 100%; border-right:none;}
-
 }
