@@ -25,7 +25,9 @@ section{margin: 0 auto; width: 90%;}
 article{float: right; width:70%;}
 aside{float:left;width:29%;}
 .playerBox{}
-.playerBox input, .playerBox select {width:100%;}
+.playerBox em {width: 100%;}
+.playerBox em label { width: 40%; text-align: right;}
+.playerBox em input,.playerBox em input, .playerBox em select {width:59%; float:right;}
 
 
 
@@ -42,6 +44,17 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+
+function makeid(){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 function changeRandom(index,newValue){
   if (newValue == "random" ){
     document.getElementById("posX" + index).className = "hidden";
@@ -52,53 +65,121 @@ function changeRandom(index,newValue){
   }
 
 }
+
 function changeTypePlayer(index,newValue){
   if (newValue == "Human") document.getElementById("botUrl" + index).className = "hidden";
   else document.getElementById("botUrl" + index).className = "";
 
 }
+
+function createElemWithLabel(type,attributes,labelTxt, id =''){
+  /*
+  * return an em element containing label and data like this:
+  * <em id='kjhjk'>
+  *	<label for="plop"> the text of blah blah </label>
+  *	<input type='someType' value='kjhjlkh' id='plop'/>
+  * </em>
+  */
+
+ if( id == ''){
+  var em = createElem ('em',{});
+ }else{
+  var em = createElem ('em',{'id':id});
+ }
+ 
+ if (typeof attributes['id'] !== 'undefined') {
+    var forId = attributes['id'];
+ }else{
+    var forId = makeid();
+ }
+ var label = createElem('label',{'for' : forId});
+ label.innerHTML = labelTxt;
+ em.appendChild(label);
+ var elem = createElem(type,attributes);
+ if (typeof attributes['id'] !== 'undefined') {
+  em.setAttribute('id',forId);
+ }
+ em.appendChild(elem);
+ return em;
+
+}
+function createLineSelect(labelTxt,arrayOptions,attributes){
+  //attributes are the select 's attributes, not his container
+  var em = createElem('em',{});
+  if (typeof attributes['id'] !== 'undefined') {
+    var forId = attributes['id'];
+  }else{
+    var forId = makeid();
+  }
+  var label = createElem('label',{'for':forId});
+  label.innerHTML = labelTxt;
+  em.appendChild(label);
+  
+  var select = createElem('select',attributes);
+  if (typeof attributes['id'] !== 'undefined') {
+    select.setAttribute('id',forId);
+  }
+  
+  for(var i=0; i < arrayOptions.length; i++){
+    var option = createElem('option',{'value':arrayOptions[i]['value']});
+    option.innerHTML =  arrayOptions[i]['text'];
+    select.appendChild(option);
+  }
+  em.appendChild(select);
+  return em;
+}
 function createPlayerForm(index){
   var container = document.getElementById("playersSettings");
   var divForm = createElem("div", {"id": "containerPlayer" + index,"class":"playerBox" } );
-  
-  //Type of player
-  var select = createElem("select",{"id":"playerType" + index,"onchange":"changeTypePlayer('" + index + "', this.value);"});
-  var optionHuman = createElem("option",{"value":"Human"});
-  optionHuman.innerHTML = "Human";
-  var optionBot = createElem("option",{"value":"Bot"});
-  optionBot.innerHTML = "Bot";
-  
-  select.appendChild(optionBot);
-  select.appendChild(optionHuman);
-  divForm.appendChild(select);
-  
-  //url 
-  var inputUrl = createElem("input", {"id":"botUrl" + index, "type": "text", "value":"", "placeholder":"http://Bot.url" });
-  divForm.appendChild(inputUrl);
-  
-  
-  
-  //Starting cell
-  var selectRandomStartCell = createElem("select",{
-		"id": "randomOrNot" + index,
-		"onchange":"changeRandom('" + index + "', this.value);"
-	      });
-  
-  var optionRandom = createElem("option",{"value":"random","selected":"selected"});
-  optionRandom.innerHTML = "random";
-  
-  var optionDefined = createElem("option",{"value":"defined"});
-  optionDefined.innerHTML = "Let me define it";
-  selectRandomStartCell.appendChild(optionRandom);
-  selectRandomStartCell.appendChild(optionDefined);
-  
-  divForm.appendChild(selectRandomStartCell);
-  
-  var inputX = createElem("input",{"type":"text","value": "0","id":"posX" + index,"class":"hidden"});
-  var inputY = createElem("input",{"type":"text","value": "0","id":"posY" + index,"class":"hidden"});
-  
-  divForm.appendChild(inputX);
-  divForm.appendChild(inputY);
+    
+   divForm.appendChild(
+	    createLineSelect('Type:',
+				      [ {'value':'bot','text' : 'bot'},
+					{'value':'human','text' : 'human'}
+				      ],
+				      
+				      {"id":"playerType" + index,
+					"onchange":"changeTypePlayer('" + index + "', this.value);"
+				      }
+			    )
+  );
+  divForm.appendChild(
+    createElemWithLabel(
+			  'input',
+			  {
+			    "id":"botUrl" + index, "type": "text", "value":"",
+			    "placeholder":"http://Bot.url" 
+			  },
+			  'URL du Bot'
+      )
+    
+  );
+   divForm.appendChild(
+	    createLineSelect('Starting cell:',
+				      [ {'value':'random','text' : 'random'},
+					{'value':'defined','text' : 'Let me define it'}
+				      ],
+				      
+				      {
+					"id": "randomOrNot" + index,
+					"onchange":"changeRandom('" + index + "', this.value);"
+				      }
+			    )
+  );
+  divForm.appendChild(
+    createElemWithLabel(
+      'input',
+      {"type":"text","value": "0","id":"posX" + index},
+      'X coord:'
+    )
+  );
+  divForm.appendChild(
+    createElemWithLabel(
+      'input',
+      {"type":"text","value": "0","id":"posY" + index},
+      'Y coord:'
+    )
+  );
   
   container.appendChild(divForm);
   
