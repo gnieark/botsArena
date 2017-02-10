@@ -22,9 +22,12 @@ footer{height: 70px; display: block; color: #343638; font-size: 11pt; line-heigh
 footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weight: normal;}
 #languages{float: right; text-align: right;}
 section{margin: 0 auto; width: 90%;}
-article{float: right; width:70%;}
-aside{float:left;width:29%;}
-.playerBox{ float:left;}
+
+aside, .large {width:100%;}
+article{}
+
+
+.playerBox{ float:left; max-width: 300px;}
 
 .playerBox em {width: 100%;}
 .playerBox em label {text-overflow: hidden; display: inline-block; width: 30%; margin-right: 20px; vertical-align: top; text-align: right;}
@@ -189,14 +192,23 @@ function createPlayerForm(index){
 	  'input',
 	  {
 	    'type':'button',
-	    'value':'Add this player',
+	    'value':'Add another player',
 	    'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');'
 	  },
-	  ''
+	  '',
+	  'fightButton' + index
       )
    );
 
    container.appendChild(divForm);
+   //delete the previous submit button
+   if(index > 0){
+      //alert('fightButton' +(parseFloat(index) - 1 ));
+      var theButton = document.getElementById('fightButton' +(parseFloat(index) - 1 ));
+      theButton.parentNode.removeChild(theButton);
+   }
+  
+  
   
   //to hide by default:
   //changeTypePlayer(index,'human');
@@ -206,12 +218,20 @@ function createPlayerForm(index){
   window.scrollTo(0,document.body.scrollHeight);
   
   //show (or not) button to launch the game
-  if( index > 1){
-    
-  
+  if( index > 0){
+    document.getElementById('buttonFight').className="large";
+  }else{
+    document.getElementById('buttonFight').className="hidden";
   }
   
 }
+function initGame(playersSum){
+  //find all vars
+  
+  //how many bots
+
+}
+
 
 --></script>
 </head>
@@ -224,20 +244,17 @@ function createPlayerForm(index){
    <br/>No scoring here, it's a Ludus (gladiators training center).</p>
  
     <aside id="playersSettings">
-    <h2>Configure the test</h2>
-      <script>
-      createPlayerForm(0);
-      </script>
-   
-    </aside>
-    <aside>
-      <!-- <input type='button' value='Fight -->
+      <h2>Configure the test</h2>
     </aside>
     <article id="fightResult">
+    <p><input id='buttonFight' type='button' value='Fight' class="hidden" onclick='initGame();'/></p>
     </article>
   </section>
   <footer>
     <a href="/p/About">About</a><a href="https://github.com/gnieark/botsArena">Bots'Arena source code</a><a href="/p/legals">Mentions légales</a>
-  </footer>
+       <script>
+      createPlayerForm(0);
+      </script>
+ </footer>
 </body>
 </html>
