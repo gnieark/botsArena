@@ -24,12 +24,14 @@ footer a {margin:0px 15px 0px 15px; color: #666;text-decoration: none; font-weig
 section{margin: 0 auto; width: 90%;}
 article{float: right; width:70%;}
 aside{float:left;width:29%;}
-.playerBox{ }
-.playerBox em {display: block; width: 100%;}
+.playerBox{ float:left;}
+
+.playerBox em {width: 100%;}
 .playerBox em label {text-overflow: hidden; display: inline-block; width: 30%; margin-right: 20px; vertical-align: top; text-align: right;}
 .playerBox em input, .playerBox em select {box-sizing: border-box; width: 59%; padding: 4px; vertical-align: top; }
-
+.playerBox input[type=button] {width:100;}
 .hidden{display: none;}
+
 #logs{font-size: 70%;}
 </style>
 
@@ -62,9 +64,9 @@ function changeRandom(index,newValue){
 }
 
 function changeTypePlayer(index,newValue){
-  alert("botUrl" + index);
-  if (newValue == "Human") document.getElementById("botUrl" + index).class = "hidden";
-  else document.getElementById("botUrl" + index).class = "";
+  //alert("botUrl" + index);
+  if (newValue == "human") document.getElementById("botUrl" + index).className = "hidden";
+  else document.getElementById("botUrl" + index).className= "";
 }
 
 function createElemWithLabel(type,attributes,labelTxt, id =''){
@@ -126,8 +128,11 @@ function createLineSelect(labelTxt,arrayOptions,attributes){
 function createPlayerForm(index){
   var container = document.getElementById("playersSettings");
   var divForm = createElem("div", {"id": "containerPlayer" + index,"class":"playerBox" } );
+    var subtitle = createElem('h3',{});
+    subtitle.innerHTML = 'Bot ' + index;
+    divForm.appendChild(subtitle);
     
-   divForm.appendChild(
+    divForm.appendChild(
 	    createLineSelect('Type:',
 				      [ {'value':'bot','text' : 'bot'},
 					{'value':'human','text' : 'human'}
@@ -160,31 +165,51 @@ function createPlayerForm(index){
 					"id": "randomOrNot" + index,
 					"onchange":"changeRandom('" + index + "', this.value);"
 				      }
+				      
 			    )
   );
   divForm.appendChild(
     createElemWithLabel(
       'input',
-      {"type":"text","value": "0","id":"posX" + index},
-      'X coord:'
+      {"type":"text","value": "0"},
+      'X coord:',
+      "posX" + index
     )
   );
   divForm.appendChild(
     createElemWithLabel(
       'input',
-      {"type":"text","value": "0","id":"posY" + index},
-      'Y coord:'
+      {"type":"text","value": "0"},
+      'Y coord:',
+      "posY" + index
     )
   );
-  var but = createElem('input',
-			  {
-			    'type':'button',
-			    'value':'Add this player',
-			    'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');'
-			  }
-		      );
-  divForm.appendChild(but);
-  container.appendChild(divForm);
+  
+  divForm.appendChild(createElemWithLabel(
+	  'input',
+	  {
+	    'type':'button',
+	    'value':'Add this player',
+	    'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');'
+	  },
+	  ''
+      )
+   );
+
+   container.appendChild(divForm);
+  
+  //to hide by default:
+  //changeTypePlayer(index,'human');
+  changeRandom(index,'random');
+  
+  //scroll down
+  window.scrollTo(0,document.body.scrollHeight);
+  
+  //show (or not) button to launch the game
+  if( index > 1){
+    
+  
+  }
   
 }
 
@@ -204,6 +229,9 @@ function createPlayerForm(index){
       createPlayerForm(0);
       </script>
    
+    </aside>
+    <aside>
+      <!-- <input type='button' value='Fight -->
     </aside>
     <article id="fightResult">
     </article>
