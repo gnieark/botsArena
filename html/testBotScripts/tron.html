@@ -45,6 +45,13 @@ function createElem(type,attributes){
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
+function createElemNS(type,attributes){
+    //same as createElem but with ns for svg file
+    var elem=document.createElementNS("http://www.w3.org/2000/svg",type);
+    for (var i in attributes)
+    {elem.setAttributeNS(null,i,attributes[i]);}
+    return elem;
+}
 
 function makeid(){
     var text = "";
@@ -97,7 +104,7 @@ function createElemWithLabel(type,attributes,labelTxt, id =''){
  em.appendChild(label);
  var elem = createElem(type,attributes);
  if (typeof attributes['id'] !== 'undefined') {
-  em.setAttribute('id',forId);
+  elem.setAttribute('id',forId);
  }
  em.appendChild(elem);
  return em;
@@ -131,105 +138,137 @@ function createLineSelect(labelTxt,arrayOptions,attributes){
 function createPlayerForm(index){
   var container = document.getElementById("playersSettings");
   var divForm = createElem("div", {"id": "containerPlayer" + index,"class":"playerBox" } );
-    var subtitle = createElem('h3',{});
-    subtitle.innerHTML = 'Bot ' + index;
-    divForm.appendChild(subtitle);
-    
-    divForm.appendChild(
-	    createLineSelect('Type:',
-				      [ {'value':'bot','text' : 'bot'},
-					{'value':'human','text' : 'human'}
-				      ],
-				      
-				      {"id":"playerType" + index,
-					"onchange":"changeTypePlayer('" + index + "', this.value);"
-				      }
-			    )
-  );
-  divForm.appendChild(
-    createElemWithLabel(
-			  'input',
-			  {
-			    "type": "text", "value":"",
-			    "placeholder":"http://Bot.url" 
-			  },
-			  'URL du Bot',
-			  'botUrl' + index
-      )
-    
-  );
-   divForm.appendChild(
-	    createLineSelect('Starting cell:',
-				      [ {'value':'random','text' : 'random'},
-					{'value':'defined','text' : 'Let me define it'}
-				      ],
-				      
-				      {
-					"id": "randomOrNot" + index,
-					"onchange":"changeRandom('" + index + "', this.value);"
-				      }
-				      
-			    )
-  );
-  divForm.appendChild(
-    createElemWithLabel(
-      'input',
-      {"type":"text","value": "0"},
-      'X coord:',
-      "posX" + index
-    )
-  );
-  divForm.appendChild(
-    createElemWithLabel(
-      'input',
-      {"type":"text","value": "0"},
-      'Y coord:',
-      "posY" + index
-    )
-  );
-  
-  divForm.appendChild(createElemWithLabel(
-	  'input',
-	  {
-	    'type':'button',
-	    'value':'Add another player',
-	    'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');'
-	  },
-	  '',
-	  'fightButton' + index
-      )
-   );
+  var subtitle = createElem('h3',{});
+  subtitle.innerHTML = 'Bot ' + index;
+  divForm.appendChild(subtitle);
+  divForm.appendChild( createLineSelect('Type:', [ {'value':'bot','text' : 'bot'}, {'value':'human','text' : 'human'} ], {"id":"playerType" + index, "onchange":"changeTypePlayer('" + index + "', this.value);" } ) );
+  divForm.appendChild( createElemWithLabel( 'input', { "type": "text", "value":"", "placeholder":"http://Bot.url", "id":"url" + index }, 'URL du Bot', 'botUrl' + index ) );
+  divForm.appendChild( createLineSelect('Starting cell:', [ {'value':'random','text' : 'random'}, {'value':'defined','text' : 'Let me define it'} ], { "id": "randomOrNot" + index, "onchange":"changeRandom('" + index + "', this.value);" } ) );
+  divForm.appendChild( createElemWithLabel( 'input', {"type":"text","value": "0"}, 'X coord:', "posX" + index ) ); 
+  divForm.appendChild( createElemWithLabel( 'input', {"type":"text","value": "0"}, 'Y coord:', "posY" + index ) ); 
+  divForm.appendChild(createElemWithLabel( 'input', { 'type':'button', 'value':'Add another player', 'onclick':'createPlayerForm(\'' + (parseFloat(index) + 1) + '\');' }, '', 'fightButton' + index ) );
 
-   container.appendChild(divForm);
-   //delete the previous submit button
-   if(index > 0){
-      //alert('fightButton' +(parseFloat(index) - 1 ));
-      var theButton = document.getElementById('fightButton' +(parseFloat(index) - 1 ));
-      theButton.parentNode.removeChild(theButton);
-   }
-  
-  
-  
+  container.appendChild(divForm);
+  //delete the previous submit button
+  if(index > 0){
+    //alert('fightButton' +(parseFloat(index) - 1 ));
+    var theButton = document.getElementById('fightButton' +(parseFloat(index) - 1 ));
+    theButton.parentNode.removeChild(theButton);
+  }   
   //to hide by default:
-  //changeTypePlayer(index,'human');
   changeRandom(index,'random');
-  
   //scroll down
   window.scrollTo(0,document.body.scrollHeight);
-  
   //show (or not) button to launch the game
   if( index > 0){
     document.getElementById('buttonFight').className="large";
+    document.getElementById('buttonFight').setAttribute('onclick',"initGame(" + index +" );");
   }else{
     document.getElementById('buttonFight').className="hidden";
   }
+}
+function buildPad(index){
+  //Generate directionals arrow
   
+  var up = createElem('a',{'onclick':"up('" + index + "');"});
+  up.innerHTML="&#8593;";
+  var down= createElem('a',{'type':'button','value':'&#8595;','onclick':"down('" + index + "');"});
+  var left = createElem('a',{'type':'button','value':'&#x2190;','onclick':"left('" + index + "');"});
+  var right = createElem('a',{'type':'button','value':'&#8594;','onclick':"right('" + index + "');"});
+  
+  var container = createElem('div',{});
+  
+  container.appendChild(up);
+  container.appendChild(down);
+  container.appendChild(left);
+  container.appendChild(right);
+  return container;
+}
+function lap(players){
+  for (var i = 0; i < players.length; i++){
+    if (players[i]['type'] == "human"){
+    //erf
+    
+    }else{
+    
+    
+    
+    }
+  }
 }
 function initGame(playersSum){
-  //find all vars
-  
-  //how many bots
 
+  //remove button
+  var theButton = document.getElementById('fightButton' + playersSum);
+  theButton.parentNode.removeChild(theButton);
+
+  //find all vars
+  var players = [];
+  for (var i = 0; i <= playersSum; i++){
+    //playerType0
+    //"url" + index
+    //"randomOrNot" + index
+    //"posX" + index
+    //"posY" + index
+    players.push(
+      {'type' : document.getElementById('playerType' + i).value,
+	'url' : document.getElementById('url' + i).value,
+	'random': document.getElementById('randomOrNot' + i).value,
+	'posX': document.getElementById('posX' + i).value,
+	'posY': document.getElementById('posY' + i).value
+      }
+    );
+  }
+  
+  
+  //empty players settings playerBox
+  while (document.getElementById('playersSettings').firstChild) {
+    document.getElementById('playersSettings').removeChild(document.getElementById('playersSettings').firstChild);
+  }
+  
+  //fill bot infos as table
+  var table = createElem ('table',{});
+  for (var i = 0; i <=playersSum; i++){
+    
+    var tr = createElem('tr',{});
+    tr.innerHTML = '<td>' + i + '</td><td>' + players[i]['type'] + '</td><td>' + players[i]['url'] + '</td>';
+    table.appendChild(tr);  
+  }
+  document.getElementById('playersSettings').appendChild(table);
+  
+  
+  //empty the map
+  while (document.getElementById('fightResult').firstChild) {
+    document.getElementById('fightResult').removeChild(document.getElementById('fightResult').firstChild);
+  }
+  // draw border;
+  var svg = createElemNS('svg',{'id':'map','width':'500','height':'500','viewBox':'0 0 100 100'});
+  var rect=createElemNS('rect',{'x':'0','y':'0','width':'1000','height':'1000','style':'stroke:#000000; fill:none;'});
+  svg.appendChild(rect);
+  document.getElementById("fightResult").appendChild(svg);
+
+  var plogs = createElem("p",{'id':'logs'});
+  document.getElementById("fightResult").appendChild(plogs);
+  
+  //init the map
+
+  for (var i = 0; i <=playersSum; i++){
+   if(players[i]['random'] == 'random'){
+    players[i]['tail'] = [[Math.random() * 999,Math.random() * 999]];
+   }else{
+    players[i]['tail'] = [[players[i]['posX'],players[i]['posY']]];
+   } 
+   //Make a pad for all humans player
+   if(players[i]['type'] == 'human'){
+     document.getElementById('playersSettings').appendChild(buildPad(i));
+   }
+  }
+  
+  
+  
+  
+  lap(players);
+  
 }
 
 
