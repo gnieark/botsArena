@@ -75,9 +75,12 @@ switch($_POST['act']){
          
          
         include __DIR__."/config.php";
-        require __DIR__.'/PHPMailer/PHPMailerAutoload.php';
-        
-        $mail = new PHPMailer;
+
+	require __DIR__.'/PHPMailer/src/Exception.php';
+	require __DIR__.'/PHPMailer/src/PHPMailer.php';
+	require __DIR__.'/PHPMailer/src/SMTP.php';
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer;
 	$mail->isSMTP();
 	//$mail->IsHTML(true);
 	//$mail->SMTPDebug = 2;
@@ -169,11 +172,13 @@ switch($_POST['act']){
         );
         
         //send e-mail
-        
+
         include __DIR__."/config.php";
-        require __DIR__.'/PHPMailer/PHPMailerAutoload.php';
-        
-        $mail = new PHPMailer;
+	require __DIR__.'/PHPMailer/src/Exception.php';
+	require __DIR__.'/PHPMailer/src/PHPMailer.php';
+	require __DIR__.'/PHPMailer/src/SMTP.php';
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer;
         $mail->isSMTP();
         //$mail->IsHTML(true);
         //$mail->SMTPDebug = 2;
